@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="VadenStock.View.Partials.TitleBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:VadenStock.View.Partials"
+             mc:Ignorable="d"
+             d:DesignWidth="130"
+             d:DesignHeight="32">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"
+          Background="{StaticResource PrimaryColor_200}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="1"
+                x:Name="ButtonMinimizeWindow"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Width="38"
+                Margin="0, 0, 0, 3"
+                Style="{StaticResource ControlButtonTheme}"
+                Click="MinimizeWindow">
+
+            <Image Source="/Resources/Icons/minimize.png"
+                   Width="16"
+                   Height="16"/>
+
+        </Button>
+
+        <Button Grid.Column="2"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Width="38"
+                Margin="0, 0, 0, 3"
+                Style="{StaticResource ControlButtonTheme}"
+                Click="ChangeWindowState">
+
+            <Image x:Name="ImageWindowStateControl"
+                   Source="/Resources/Icons/restore.png"
+                   Width="16"
+                   Height="16"/>
+
+        </Button>
+
+        <Button Grid.Column="3"
+                x:Name="ButtonShutdownApplication"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Width="38"
+                Margin="0, 0, 3, 3"
+                Style="{StaticResource ControlButtonTheme}"
+                Click="ShutdownApplication">
+
+            <Image Source="/Resources/Icons/close.png"
+                   Width="16"
+                   Height="16"/>
+
+        </Button>
+
+    </Grid>
+    
+</UserControl>

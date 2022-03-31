@@ -1,0 +1,30 @@
+﻿<Application
+    x:Class="VadenStock.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:VadenStock"
+    StartupUri="Window.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml" />
+                <ResourceDictionary Source="Resources/Themes/SearchBoxTheme.xaml" />
+                <ResourceDictionary Source="Resources/Themes/TabControlTheme.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="PrimaryColor_900" Color="#263238"/>
+            <SolidColorBrush x:Key="PrimaryColor_700" Color="#455A64"/>
+            <SolidColorBrush x:Key="PrimaryColor_500" Color="#607D8B"/>
+            <SolidColorBrush x:Key="PrimaryColor_300" Color="#90A4AE"/>
+            <SolidColorBrush x:Key="PrimaryColor_200" Color="#B0BEC5"/>
+            <SolidColorBrush x:Key="PrimaryColor_100" Color="#CFD8DC"/>
+            <SolidColorBrush x:Key="PrimaryColor_050" Color="#ECEFF1"/>
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

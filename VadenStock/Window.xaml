@@ -1,0 +1,99 @@
+﻿<Window x:Class="VadenStock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:partials="clr-namespace:VadenStock.View.Partials"
+        mc:Ignorable="d"
+        Title="Vaden - Controle de Estoque"
+        Width="900"
+        Height="600"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        TextElement.Foreground="{StaticResource PrimaryColor_900}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="32"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <partials:TitleBar Grid.Row="0"
+                           Grid.ColumnSpan="3"/>
+
+        <Grid Grid.Row="1"
+              Grid.ColumnSpan="3"
+              HorizontalAlignment="Stretch"
+              Background="{StaticResource PrimaryColor_100}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="800"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="0, 16, 0, 0"
+                     Height="56"
+                     Style="{StaticResource SearchBoxTheme}"/>
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Height="48">
+
+                <RadioButton Content="FTTX"
+                             Style="{StaticResource TabControlTheme}"/>
+
+                <RadioButton Content="WIRELESS"
+                             Style="{StaticResource TabControlTheme}"/>
+
+                <RadioButton Content="WI-FI"
+                             Style="{StaticResource TabControlTheme}"/>
+
+                <RadioButton Content="GABINETES"
+                             Style="{StaticResource TabControlTheme}"/>
+                
+                <RadioButton Content="ENERGIA"
+                             Style="{StaticResource TabControlTheme}"/>
+                
+                <RadioButton Content="UTP"
+                             Style="{StaticResource TabControlTheme}"/>
+                
+                <RadioButton Content="SEGURANÇA"
+                             Style="{StaticResource TabControlTheme}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+    
+</Window>

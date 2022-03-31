@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="TabControlTheme">
+
+        <Style.Setters>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Center">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="20, 0"
+                                       FontSize="19"
+                                       TextTrimming="WordEllipsis"
+                                       Typography.Capitals="AllSmallCaps"/>
+
+                            <Border Grid.Row="1"
+                                    MinWidth="100"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Stretch"
+                                    Height="3"
+                                    Background="Azure">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type RadioButton}">
+                                        <Style.Triggers>
+                                            
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+        </Style.Setters>
+
+        <Style.Triggers>
+            
+        </Style.Triggers>
+        
+    </Style>
+    
+</ResourceDictionary>

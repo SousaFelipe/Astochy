@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\close-32.png" />
+    <None Remove="Resources\Icons\close.png" />
+    <None Remove="Resources\Icons\maximize.png" />
+    <None Remove="Resources\Icons\minimize-32.png" />
+    <None Remove="Resources\Icons\minimize.png" />
+    <None Remove="Resources\Icons\restore.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\close-32.png" />
+    <Resource Include="Resources\Icons\close.png" />
+    <Resource Include="Resources\Icons\maximize.png" />
+    <Resource Include="Resources\Icons\minimize-32.png" />
+    <Resource Include="Resources\Icons\minimize.png" />
+    <Resource Include="Resources\Icons\restore.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CalcBinding" Version="2.5.2" />
+    <PackageReference Include="MaterialDesignColors" Version="2.0.5" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.28" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controller\" />
+  </ItemGroup>
+
+</Project>
