@@ -10,7 +10,7 @@
 
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
-          Background="{StaticResource PrimaryColor_200}">
+          Background="{StaticResource PrimaryColor_700}">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -28,7 +28,7 @@
                 Style="{StaticResource ControlButtonTheme}"
                 Click="MinimizeWindow">
 
-            <Image Source="/Resources/Icons/minimize.png"
+            <Image Source="/Resources/Icons/minimize_white.png"
                    Width="16"
                    Height="16"/>
 
@@ -43,7 +43,7 @@
                 Click="ChangeWindowState">
 
             <Image x:Name="ImageWindowStateControl"
-                   Source="/Resources/Icons/restore.png"
+                   Source="/Resources/Icons/restore_white.png"
                    Width="16"
                    Height="16"/>
 
@@ -58,7 +58,7 @@
                 Style="{StaticResource ControlButtonTheme}"
                 Click="ShutdownApplication">
 
-            <Image Source="/Resources/Icons/close.png"
+            <Image Source="/Resources/Icons/close_white.png"
                    Width="16"
                    Height="16"/>
 

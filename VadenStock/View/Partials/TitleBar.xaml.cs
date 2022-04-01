@@ -58,7 +58,7 @@ namespace VadenStock.View.Partials
                     : "restore";
 
                 ImageWindowStateControl.Source = new BitmapImage(
-                    new($"/VadenStock;component/Resources/Icons/{resourceKey}.png", UriKind.Relative)
+                    new($"/VadenStock;component/Resources/Icons/{resourceKey}_white.png", UriKind.Relative)
                 );
             }
         }

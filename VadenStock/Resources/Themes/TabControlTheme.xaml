@@ -6,40 +6,49 @@
            x:Key="TabControlTheme">
 
         <Style.Setters>
-            
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Center">
+                              HorizontalAlignment="Stretch">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
+                            <RadioButton x:Name="RadioSelfButton"
+                                         IsChecked="{TemplateBinding Property=IsChecked}"
+                                         Visibility="Hidden" />
+
                             <TextBlock Grid.Row="0"
                                        Text="{TemplateBinding Property=Content}"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Margin="20, 0"
-                                       FontSize="19"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="20, 14, 20, 0"
+                                       Foreground="White"
+                                       FontSize="21"
+                                       TextAlignment="Center"
                                        TextTrimming="WordEllipsis"
                                        Typography.Capitals="AllSmallCaps"/>
 
                             <Border Grid.Row="1"
-                                    MinWidth="100"
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Stretch"
                                     Height="3"
                                     Background="Azure">
+                                
                                 <Border.Style>
-                                    <Style TargetType="{x:Type RadioButton}">
+                                    <Style TargetType="Border">
                                         <Style.Triggers>
-                                            
+                                            <DataTrigger Binding="{Binding ElementName=RadioSelfButton, Path=IsChecked}" Value="False">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
+                                
                             </Border>
 
                         </Grid>
@@ -47,16 +56,18 @@
                 </Setter.Value>
             </Setter>
 
-            <Setter Property="MinWidth" Value="100"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
 
         </Style.Setters>
 
         <Style.Triggers>
-            
+            <!--<Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontWeight" Value="DemiBold"/>
+            </Trigger>-->
         </Style.Triggers>
-        
+
     </Style>
     
 </ResourceDictionary>

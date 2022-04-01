@@ -13,11 +13,16 @@ namespace VadenStock.Model
             public int Id { get; set; }
             public Tipo.Contract Tipo { get; set; }
             public Marca.Contract Marca { get; set; }
-            public string Name { get; set; }
             public string Code { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
             public decimal Price { get; set; }
             public DateTime CreatedDate { get; set; }
         }
+
+
+
+        public Produto() : base("produtos") { }
 
 
 
@@ -29,7 +34,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(RawLoad("produtos", id), Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -59,8 +64,9 @@ namespace VadenStock.Model
                     Id = reader.GetInt32("id"),
                     Tipo = (Tipo.Contract)new Tipo().Load(reader.GetInt32("tipo")),
                     Marca = (Marca.Contract)new Marca().Load(reader.GetInt32("marca")),
-                    Name = reader.GetString("name"),
                     Code = reader.GetString("code"),
+                    Name = reader.GetString("name"),
+                    Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Price = reader.GetDecimal("price"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };

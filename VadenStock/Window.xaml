@@ -16,14 +16,17 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        TextElement.Foreground="{StaticResource PrimaryColor_900}"
+        FontFamily="{StaticResource Roboto}"
+        TextElement.FontFamily="{StaticResource Roboto}"
+        TextElement.Foreground="{StaticResource TextPrimaryColor}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto">
 
     <Grid VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch">
+          HorizontalAlignment="Stretch"
+          Background="{StaticResource ResourceKey=BodyPaper}">
 
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="32"/>
@@ -43,7 +46,14 @@
         <Grid Grid.Row="1"
               Grid.ColumnSpan="3"
               HorizontalAlignment="Stretch"
-              Background="{StaticResource PrimaryColor_100}">
+              Background="{StaticResource PrimaryColor_500}">
+            
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="4"
+                                  Opacity="0.3"
+                                  ShadowDepth="1.25"
+                                  Direction="-90"/>
+            </Grid.Effect>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -58,41 +68,23 @@
 
             <TextBox Grid.Row="0"
                      Grid.Column="1"
-                     Margin="0, 16, 0, 0"
+                     Margin="0, 20, 0, 0"
                      Height="56"
                      Style="{StaticResource SearchBoxTheme}"/>
 
-            <StackPanel Grid.Row="1"
+            <StackPanel x:Name="_TabCategorias"
+                        Grid.Row="1"
                         Grid.Column="1"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Center"
                         Orientation="Horizontal"
-                        Height="48">
-
-                <RadioButton Content="FTTX"
-                             Style="{StaticResource TabControlTheme}"/>
-
-                <RadioButton Content="WIRELESS"
-                             Style="{StaticResource TabControlTheme}"/>
-
-                <RadioButton Content="WI-FI"
-                             Style="{StaticResource TabControlTheme}"/>
-
-                <RadioButton Content="GABINETES"
-                             Style="{StaticResource TabControlTheme}"/>
-                
-                <RadioButton Content="ENERGIA"
-                             Style="{StaticResource TabControlTheme}"/>
-                
-                <RadioButton Content="UTP"
-                             Style="{StaticResource TabControlTheme}"/>
-                
-                <RadioButton Content="SEGURANÇA"
-                             Style="{StaticResource TabControlTheme}"/>
-
-            </StackPanel>
+                        Height="56"/>
 
         </Grid>
+
+        <ContentControl Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0, 20, 0, 20"/>
 
     </Grid>
     

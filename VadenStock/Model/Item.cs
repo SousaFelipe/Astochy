@@ -49,6 +49,10 @@ namespace VadenStock.Model.Cadastros
 
 
 
+        public Item() : base ("items") { }
+
+
+
         public Contract? Load(int id)
         {
             try
@@ -57,7 +61,7 @@ namespace VadenStock.Model.Cadastros
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(RawLoad("itens", id), Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -88,9 +92,9 @@ namespace VadenStock.Model.Cadastros
                     Produto = (Produto.Contract)new Produto().Load(reader.GetInt32("produto")),
                     Almoxarifado = (Almoxarifado.Contract)new Almoxarifado().Load(reader.GetInt32("almoxarifado")),
                     Name = reader.GetString("name"),
-                    Description = reader.GetString("description"),
-                    CreatedDate = reader.GetDateTime("created_at"),
-                    Localizaado = Contract.GetStatus(reader.GetString("localizado"))
+                    Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
+                    Localizaado = Contract.GetStatus(reader.GetString("localizado")),
+                    CreatedDate = reader.GetDateTime("created_at")
                 };
 
                 return contract;

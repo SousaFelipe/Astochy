@@ -17,6 +17,10 @@ namespace VadenStock.Model
 
 
 
+        public Almoxarifado () : base("almoxarifados") { }
+
+
+
         public Contract ? Load(int id)
         {
             try
@@ -25,7 +29,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(RawLoad("almoxarifados", id), Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {

@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 
+using VadenStock.Core;
+
 
 
 namespace VadenStock.Model
@@ -8,8 +10,8 @@ namespace VadenStock.Model
     {
         private static readonly string SERVER   = "localhost";
         private static readonly string USER_ID  = "root";
-        private static readonly string PASSWORD = "xv78#@90af";
-        private static readonly string DATABASE = "vaden_stock";
+        private static readonly string PASSWORD = "tmnc@fldpt101";
+        private static readonly string DATABASE = "vaden_darth_schema";
 
 
 
@@ -26,6 +28,35 @@ namespace VadenStock.Model
 
 
 
+        protected QueryBuilder Builder { get; private set; }
+
+
+
+        protected Connection(string table)
+        {
+            Builder = new(table);
+        }
+
+
+
+        public Connection Select(string[]? selects = null)
+        {
+            Builder.Select(selects);
+
+            return this;
+        }
+
+
+
+        public Connection Where(string column, string oper, object value)
+        {
+            Builder.Where(column, oper, value);
+
+            return this;
+        }
+
+
+
         protected void Unplug()
         {
             if (Plug != null)
@@ -39,40 +70,6 @@ namespace VadenStock.Model
                 Reader.Dispose();
                 Reader.Close();
             }
-        }
-
-
-
-        protected static string RawLoad(string table, int id)
-        {
-            return RawQuery(table, new string[] { "id" }, new string[] { id.ToString() });
-        }
-
-
-
-        protected static string RawQuery(string table, string[] cols, string[] values)
-        {
-            string query = $"SELECT * FROM { table } ";
-
-            if (cols != null && values != null)
-            {
-                if (cols.Length == values.Length)
-                {
-                    query += "WHERE ";
-
-                    for (int i = 0; i < cols.Length; i++)
-                    {
-                        if (cols[i] != null && values[i] != null)
-                        {
-                            query += (i < (cols.Length - 1))
-                                    ? $"{ cols[i] }='{ values[i] }' AND "
-                                    : $"{ cols[i] }='{ values[i] }'";
-                        }
-                    }
-                }
-            }
-
-            return query;
         }
     }
 }

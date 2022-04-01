@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+
+using VadenStock.Model;
+using VadenStock.Controller;
+using VadenStock.View.Adapters;
+using VadenStock.View.Components;
 
 
 
@@ -32,6 +38,15 @@ namespace VadenStock
 			base.OnSourceInitialized(e);
 
 			((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
+
+			TabsAdapter adapter = new(_TabCategorias);
+			adapter.Update(Categorias.Listar(), false);
+			adapter.Build(c =>
+            {
+				TabCategoria firstTab = (TabCategoria)c;
+				firstTab.IsChecked = true;
+				return true;
+            });
 		}
 
 
