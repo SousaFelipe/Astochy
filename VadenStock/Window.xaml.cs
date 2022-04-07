@@ -38,7 +38,7 @@ namespace VadenStock
 			base.OnSourceInitialized(e);
 
 			((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
-
+			/*
 			TabsAdapter adapter = new(_TabCategorias);
 			adapter.Update(Categorias.Listar(), false);
 			adapter.Build(c =>
@@ -47,6 +47,7 @@ namespace VadenStock
 				firstTab.IsChecked = true;
 				return true;
             });
+			*/
 		}
 
 
@@ -141,5 +142,12 @@ namespace VadenStock
 			public POINT ptMinTrackSize;
 			public POINT ptMaxTrackSize;
 		}
+
+
+
+        private void ShutdownApplication(object sender, RoutedEventArgs e)
+        {
+			Application.Current.Shutdown();
+        }
     }
 }

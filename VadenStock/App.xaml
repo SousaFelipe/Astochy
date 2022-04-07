@@ -20,6 +20,11 @@
                 <view:MainView/>
             </DataTemplate>
 
+            <SolidColorBrush x:Key="Primary10" Color="#002021"/>
+            <SolidColorBrush x:Key="Primary40" Color="#19686A"/>
+            <SolidColorBrush x:Key="Primary90" Color="#A8EFF0"/>
+            <SolidColorBrush x:Key="Primary99" Color="#F6F8FC"/>
+
             <SolidColorBrush x:Key="PrimaryColor_700" Color="#0097A7"/>
             <SolidColorBrush x:Key="PrimaryColor_500" Color="#00BCD4"/>
             <SolidColorBrush x:Key="PrimaryColor_300" Color="#4DD0E1"/>

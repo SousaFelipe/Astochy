@@ -10,7 +10,7 @@ namespace VadenStock.Model
     {
         private static readonly string SERVER   = "localhost";
         private static readonly string USER_ID  = "root";
-        private static readonly string PASSWORD = "tmnc@fldpt101";
+        private static readonly string PASSWORD = "xv78#@90af";
         private static readonly string DATABASE = "vaden_darth_schema";
 
 

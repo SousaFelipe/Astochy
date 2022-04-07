@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:view="clr-namespace:VadenStock.View"
         xmlns:partials="clr-namespace:VadenStock.View.Partials"
         mc:Ignorable="d"
         Title="Vaden - Controle de Estoque"
-        Width="900"
-        Height="600"
+        Width="1000"
+        Height="700"
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         HorizontalContentAlignment="Stretch"
@@ -24,67 +25,42 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto">
 
+    <Window.DataContext>
+        <view:MainControl/>
+    </Window.DataContext>
+
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
-          Background="{StaticResource ResourceKey=BodyPaper}">
+          Background="{StaticResource Primary99}">
 
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="32"/>
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="800"/>
+            <ColumnDefinition Width="840"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <partials:TitleBar Grid.Row="0"
                            Grid.ColumnSpan="3"/>
 
-        <Grid Grid.Row="1"
-              Grid.ColumnSpan="3"
-              HorizontalAlignment="Stretch"
-              Background="{StaticResource PrimaryColor_500}">
-            
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="4"
-                                  Opacity="0.3"
-                                  ShadowDepth="1.25"
-                                  Direction="-90"/>
-            </Grid.Effect>
+        <Border Grid.Row="1"
+                Grid.ColumnSpan="3"
+                Padding="0, 24"
+                Background="{StaticResource PrimaryColor_500}">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
+            <Border CornerRadius="12"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    MaxWidth="800"
+                    Height="48"
+                    Background="White"/>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="800"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBox Grid.Row="0"
-                     Grid.Column="1"
-                     Margin="0, 20, 0, 0"
-                     Height="56"
-                     Style="{StaticResource SearchBoxTheme}"/>
-
-            <StackPanel x:Name="_TabCategorias"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        Height="56"/>
-
-        </Grid>
-
-        <ContentControl Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0, 20, 0, 20"/>
+        </Border>
 
     </Grid>
     

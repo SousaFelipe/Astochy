@@ -11,9 +11,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Property=Background}"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
+                    <Border CornerRadius="15"
+                            Background="{TemplateBinding Property=Background}"
+                            Width="30"
+                            Height="30"
                             VerticalAlignment="Stretch"
                             HorizontalAlignment="Stretch">
 
@@ -27,7 +28,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#008C99"/>
+                <Setter Property="Background" Value="#E1F5FE"/>
             </Trigger>
         </Style.Triggers>
         

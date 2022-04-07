@@ -28,7 +28,7 @@
                 Style="{StaticResource ControlButtonTheme}"
                 Click="MinimizeWindow">
 
-            <Image Source="/Resources/Icons/minimize_white.png"
+            <Image Source="/Resources/Icons/window-minimize.png"
                    Width="16"
                    Height="16"/>
 
@@ -43,7 +43,7 @@
                 Click="ChangeWindowState">
 
             <Image x:Name="ImageWindowStateControl"
-                   Source="/Resources/Icons/restore_white.png"
+                   Source="/Resources/Icons/window-restore.png"
                    Width="16"
                    Height="16"/>
 
@@ -58,7 +58,7 @@
                 Style="{StaticResource ControlButtonTheme}"
                 Click="ShutdownApplication">
 
-            <Image Source="/Resources/Icons/close_white.png"
+            <Image Source="/Resources/Icons/window-close.png"
                    Width="16"
                    Height="16"/>
 

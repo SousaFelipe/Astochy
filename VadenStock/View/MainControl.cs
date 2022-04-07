@@ -8,7 +8,7 @@ namespace VadenStock.View
 {
     public class MainControl : ObservableObject
     {
-        private object _currentView;
+        private object _currentView = new();
         public object CurrentView
         {
             get { return _currentView; }
@@ -21,9 +21,14 @@ namespace VadenStock.View
 
 
 
+        public MainView View { get; private set; }
+
+
+
         public MainControl()
         {
-
+            View = new MainView();
+            CurrentView = View;
         }
     }
 }

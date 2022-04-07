@@ -8,32 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Icons\close.png" />
-    <None Remove="Resources\Icons\close_white.png" />
-    <None Remove="Resources\Icons\maximize.png" />
-    <None Remove="Resources\Icons\maximize_white.png" />
-    <None Remove="Resources\Icons\minimize.png" />
-    <None Remove="Resources\Icons\minimize_white.png" />
-    <None Remove="Resources\Icons\restore.png" />
-    <None Remove="Resources\Icons\restore_white.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Icons\close.png" />
-    <Resource Include="Resources\Icons\close_white.png" />
-    <Resource Include="Resources\Icons\maximize.png" />
-    <Resource Include="Resources\Icons\maximize_white.png" />
-    <Resource Include="Resources\Icons\minimize.png" />
-    <Resource Include="Resources\Icons\minimize_white.png" />
-    <Resource Include="Resources\Icons\restore.png" />
-    <Resource Include="Resources\Icons\restore_white.png" />
+    <None Remove="Resources\Icons\power.png" />
+    <None Remove="Resources\Icons\window-close.png" />
+    <None Remove="Resources\Icons\window-maximize.png" />
+    <None Remove="Resources\Icons\window-minimize.png" />
+    <None Remove="Resources\Icons\window-restore.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.5" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
     <PackageReference Include="MySql.Data" Version="8.0.28" />
-    <PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\power.png" />
+    <Resource Include="Resources\Icons\window-close.png" />
+    <Resource Include="Resources\Icons\window-maximize.png" />
+    <Resource Include="Resources\Icons\window-minimize.png" />
+    <Resource Include="Resources\Icons\window-restore.png" />
   </ItemGroup>
 
 </Project>
