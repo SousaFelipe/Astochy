@@ -17,8 +17,9 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        FontFamily="{StaticResource Roboto}"
-        TextElement.FontFamily="{StaticResource Roboto}"
+        FontFamily="Roboto Flex Normal Thin"
+        FontSize="12"
+        TextElement.FontFamily="Roboto Flex Normal Thin"
         TextElement.Foreground="{StaticResource TextPrimaryColor}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -26,12 +27,18 @@
         TextOptions.TextRenderingMode="Auto">
 
     <Window.DataContext>
-        <view:MainControl/>
+        <view:ViewControl/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <Style x:Key="FontStyleFlex" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextElement.FontFamily" Value="Resources/Fonts/RobotoFlex/RobotoFlex.ttf #Roboto Flex"/>
+        </Style>
+    </Window.Resources>
 
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
-          Background="{StaticResource Primary99}">
+          Background="{StaticResource BodyPaper}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -50,17 +57,155 @@
 
         <Border Grid.Row="1"
                 Grid.ColumnSpan="3"
-                Padding="0, 24"
+                Padding="0, 24, 0, 0"
                 Background="{StaticResource PrimaryColor_500}">
+            
+            <Border.Effect>
+                <DropShadowEffect Color="#000" Opacity="0.15" Direction="-90" BlurRadius="3" ShadowDepth="3"/>
+            </Border.Effect>
 
-            <Border CornerRadius="12"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Stretch"
-                    MaxWidth="800"
-                    Height="48"
-                    Background="White"/>
+            <Grid VerticalAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  MaxWidth="800">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        CornerRadius="12"
+                        BorderThickness="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        MaxWidth="800"
+                        Height="48"
+                        Background="#FFFFFF">
+
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFocused, ElementName=_TextBoxMainSearch}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{StaticResource AccentColor_200}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Style>
+                    </Border.Style>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="14, 0, 12, 0"
+                               Width="24"
+                               Height="24"
+                               Source="/VadenStock;component/Resources/Icons/magnify.png"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="_TextBoxMainSearch"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 FontSize="18"/>
+
+                        <TextBlock Grid.Column="1"
+                                   IsHitTestVisible="False"
+                                   Text="Buscar..."
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="1, 2, 14, 0"
+                                   FontSize="18"
+                                   Foreground="#B0BEC5">
+
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                        <Image Grid.Column="2"
+                               Source="/VadenStock;component/Resources/Icons/clear-search-active.png"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="12, 0, 14, 0"
+                               Width="24"
+                               Height="24"
+                               Cursor="Hand"
+                               MouseLeftButtonUp="ClearMainTextBoxSearch">
+
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+
+                        </Image>
+
+                    </Grid>
+                    
+                </Border>
+
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                    <RadioButton VerticalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 IsChecked="True"
+                                 Content="DASHBOARD"
+                                 Cursor="Hand"
+                                 Style="{StaticResource TabControlTheme}"
+                                 Command="{Binding DashbordCommand}"/>
+
+                    <RadioButton VerticalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Content="ALMOXARIFADOS"
+                                 Style="{StaticResource TabControlTheme}"
+                                 Command="{Binding AlmoxarifadosCommand}"/>
+
+                    <RadioButton VerticalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Content="PRODUTOS"
+                                 Style="{StaticResource TabControlTheme}"
+                                 Command="{Binding ProdutosCommand}"/>
+
+                    <RadioButton VerticalAlignment="Center"
+                                 VerticalContentAlignment="Center"
+                                 Content="FORNECEDORES"
+                                 Style="{StaticResource TabControlTheme}"/>
+
+                </StackPanel>
+                
+            </Grid>
 
         </Border>
+
+        <ContentControl Grid.Row="2"
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Content="{Binding CurrentView}"/>
 
     </Grid>
     

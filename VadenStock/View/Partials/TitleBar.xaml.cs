@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -10,7 +11,7 @@ namespace VadenStock.View.Partials
 {
     public partial class TitleBar : UserControl
     {
-        private Window? ParentWindow { get; set; }
+        private static Window ParentWindow => Application.Current.MainWindow;
 
 
 
@@ -42,43 +43,44 @@ namespace VadenStock.View.Partials
 
             if ( ! IsInDesignMode)
             {
-                ParentWindow = Application.Current.MainWindow;
                 ParentWindow.StateChanged += new EventHandler(OnWindowStateChanged);
             }
         }
 
 
 
-        private void OnWindowStateChanged(object? sender, EventArgs e)
+        private void OnMoveWindow(object sender, MouseButtonEventArgs e)
         {
-            if (ParentWindow != null)
-            {
-                string resourceKey = ParentWindow.WindowState == WindowState.Normal
-                    ? "maximize"
-                    : "restore";
-
-                ImageWindowStateControl.Source = new BitmapImage(
-                    new($"/VadenStock;component/Resources/Icons/window-{resourceKey}.png", UriKind.Relative)
-                );
-            }
+            ParentWindow.DragMove();
         }
 
 
 
         private void MinimizeWindow(object? sender, RoutedEventArgs e)
         {
-            if (ParentWindow != null)
-                ParentWindow.WindowState = WindowState.Minimized;
+            ParentWindow.WindowState = WindowState.Minimized;
         }
 
 
 
         private void ChangeWindowState(object? sender, RoutedEventArgs e)
         {
-            if (ParentWindow != null)
-                ParentWindow.WindowState = (ParentWindow.WindowState == WindowState.Normal)
-                    ? WindowState.Maximized
-                    : WindowState.Normal;
+            ParentWindow.WindowState = (ParentWindow.WindowState == WindowState.Normal)
+                ? WindowState.Maximized
+                : WindowState.Normal;
+        }
+
+
+
+        private void OnWindowStateChanged(object? sender, EventArgs e)
+        {
+            string resourceKey = ParentWindow.WindowState == WindowState.Normal
+                    ? "maximize"
+                    : "restore";
+
+            _ImageWindowStateControl.Source = new BitmapImage(
+                    new($"/VadenStock;component/Resources/Icons/{resourceKey}.png", UriKind.Relative)
+                );
         }
 
 

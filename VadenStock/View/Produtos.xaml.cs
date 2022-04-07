@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VadenStock.View.Models
+namespace VadenStock.View
 {
     /// <summary>
-    /// Interação lógica para Dashboard.xam
+    /// Interação lógica para Produtos.xam
     /// </summary>
-    public partial class Dashboard : UserControl
+    public partial class Produtos : UserControl
     {
-        public Dashboard()
+        public Produtos()
         {
             InitializeComponent();
         }

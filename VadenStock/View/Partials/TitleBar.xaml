@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:VadenStock.View.Partials"
              mc:Ignorable="d"
-             d:DesignWidth="130"
-             d:DesignHeight="32">
+             d:DesignWidth="114"
+             d:DesignHeight="32"
+             MouseLeftButtonDown="OnMoveWindow">
 
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
@@ -20,17 +20,17 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Column="1"
-                x:Name="ButtonMinimizeWindow"
+                x:Name="_ButtonMinimizeWindow"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Width="38"
-                Margin="0, 0, 0, 3"
+                Margin="0, 0, 0, 2"
                 Style="{StaticResource ControlButtonTheme}"
                 Click="MinimizeWindow">
 
-            <Image Source="/Resources/Icons/window-minimize.png"
-                   Width="16"
-                   Height="16"/>
+            <Image Source="/Resources/Icons/minimize.png"
+                   Width="12"
+                   Height="12"/>
 
         </Button>
 
@@ -38,29 +38,29 @@
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Width="38"
-                Margin="0, 0, 0, 3"
+                Margin="0, 0, 0, 2"
                 Style="{StaticResource ControlButtonTheme}"
                 Click="ChangeWindowState">
 
-            <Image x:Name="ImageWindowStateControl"
-                   Source="/Resources/Icons/window-restore.png"
-                   Width="16"
-                   Height="16"/>
+            <Image x:Name="_ImageWindowStateControl"
+                   Source="/Resources/Icons/restore.png"
+                   Width="12"
+                   Height="12"/>
 
         </Button>
 
         <Button Grid.Column="3"
-                x:Name="ButtonShutdownApplication"
+                x:Name="_ButtonShutdownApplication"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Width="38"
-                Margin="0, 0, 3, 3"
+                Margin="0, 0, 0, 2"
                 Style="{StaticResource ControlButtonTheme}"
                 Click="ShutdownApplication">
 
-            <Image Source="/Resources/Icons/window-close.png"
-                   Width="16"
-                   Height="16"/>
+            <Image Source="/Resources/Icons/close.png"
+                   Width="12"
+                   Height="12"/>
 
         </Button>
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
@@ -145,7 +146,14 @@ namespace VadenStock
 
 
 
-        private void ShutdownApplication(object sender, RoutedEventArgs e)
+		private void ClearMainTextBoxSearch(object sender, MouseButtonEventArgs e)
+		{
+			_TextBoxMainSearch.Clear();
+		}
+
+
+
+		private void ShutdownApplication(object sender, RoutedEventArgs e)
         {
 			Application.Current.Shutdown();
         }

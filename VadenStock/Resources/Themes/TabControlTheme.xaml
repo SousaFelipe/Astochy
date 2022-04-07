@@ -11,24 +11,26 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch">
+                              HorizontalAlignment="Stretch"
+                              Background="#607D8B">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <RadioButton x:Name="RadioSelfButton"
+                            <RadioButton x:Name="SelfRadioButton"
                                          IsChecked="{TemplateBinding Property=IsChecked}"
-                                         Visibility="Hidden" />
+                                         VerticalAlignment="Stretch"
+                                         Visibility="Hidden"/>
 
                             <TextBlock Grid.Row="0"
                                        Text="{TemplateBinding Property=Content}"
                                        VerticalAlignment="Stretch"
                                        HorizontalAlignment="Stretch"
-                                       Margin="20, 14, 20, 0"
+                                       Margin="24, 14"
                                        Foreground="White"
-                                       FontSize="21"
+                                       FontSize="16"
                                        TextAlignment="Center"
                                        TextTrimming="WordEllipsis"
                                        Typography.Capitals="AllSmallCaps"/>
@@ -37,12 +39,12 @@
                                     VerticalAlignment="Bottom"
                                     HorizontalAlignment="Stretch"
                                     Height="3"
-                                    Background="Azure">
+                                    Background="White">
                                 
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=RadioSelfButton, Path=IsChecked}" Value="False">
+                                            <DataTrigger Binding="{Binding ElementName=SelfRadioButton, Path=IsChecked}" Value="False">
                                                 <Setter Property="Visibility" Value="Hidden"/>
                                             </DataTrigger>
                                         </Style.Triggers>

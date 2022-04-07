@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-
 namespace VadenStock.View
 {
-    public partial class MainView : UserControl
+    /// <summary>
+    /// Interação lógica para Almoxarifados.xam
+    /// </summary>
+    public partial class Almoxarifados : UserControl
     {
-        public MainView()
+        public Almoxarifados()
         {
             InitializeComponent();
         }

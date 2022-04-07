@@ -8,11 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Icons\power.png" />
-    <None Remove="Resources\Icons\window-close.png" />
-    <None Remove="Resources\Icons\window-maximize.png" />
-    <None Remove="Resources\Icons\window-minimize.png" />
-    <None Remove="Resources\Icons\window-restore.png" />
+    <None Remove="Resources\Icons\clear-search-active.png" />
+    <None Remove="Resources\Icons\clear-search.png" />
+    <None Remove="Resources\Icons\close-circle.png" />
+    <None Remove="Resources\Icons\close.png" />
+    <None Remove="Resources\Icons\magnify.png" />
+    <None Remove="Resources\Icons\maximize.png" />
+    <None Remove="Resources\Icons\minimize.png" />
+    <None Remove="Resources\Icons\restore.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +25,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Icons\power.png" />
-    <Resource Include="Resources\Icons\window-close.png" />
-    <Resource Include="Resources\Icons\window-maximize.png" />
-    <Resource Include="Resources\Icons\window-minimize.png" />
-    <Resource Include="Resources\Icons\window-restore.png" />
+    <Resource Include="Resources\Icons\clear-search-active.png" />
+    <Resource Include="Resources\Icons\clear-search.png" />
+    <Resource Include="Resources\Icons\close-circle.png" />
+    <Resource Include="Resources\Icons\close.png" />
+    <Resource Include="Resources\Icons\magnify.png" />
+    <Resource Include="Resources\Icons\maximize.png" />
+    <Resource Include="Resources\Icons\minimize.png" />
+    <Resource Include="Resources\Icons\restore.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\Dashboard.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>
