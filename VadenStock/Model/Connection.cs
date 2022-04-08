@@ -9,8 +9,8 @@ namespace VadenStock.Model
     public abstract class Connection
     {
         private static readonly string SERVER   = "localhost";
-        private static readonly string USER_ID  = "root";
-        private static readonly string PASSWORD = "xv78#@90af";
+        private static readonly string USER_ID  = "free";
+        private static readonly string PASSWORD = "12345678";
         private static readonly string DATABASE = "vaden_darth_schema";
 
 

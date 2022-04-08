@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
@@ -19,11 +20,15 @@ namespace VadenStock.Model
 
 
 
+        public static Tipo New { get { return new Tipo(); } }
+
+
+
         public Tipo() : base("tipos") { }
 
 
 
-        public Contract? Load(int id)
+        public List<Contract> Get(int id = 0)
         {
             try
             {
@@ -31,12 +36,22 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
+                    List<Contract> list = new();
+
+                    string? query = id > 0
+                        ? Builder.Load(id)
+                        : Builder.Query;
+
+                    using (Cmmd = new MySqlCommand(query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
-                            if (Reader.Read())
-                                return Content.Get(Reader);
+                            while (Reader.Read())
+                            {
+                                list.Add(Content.Get(Reader));
+                            }
+
+                            return list;
                         }
                     }
                 }
@@ -45,8 +60,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-
-            return null;
         }
 
 
@@ -59,7 +72,7 @@ namespace VadenStock.Model
                 Contract contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Categoria = (Categoria.Contract)new Categoria().Load(reader.GetInt32("categoria")),
+                    Categoria = (Categoria.Contract)new Categoria().Get(reader.GetInt32("categoria"))[0],
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(3) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")

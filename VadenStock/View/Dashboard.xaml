@@ -2,12 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VadenStock.View.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignWidth="840"
              d:DesignHeight="600">
-    
+
     <StackPanel Margin="12, 40, 12, 20">
 
         <Grid VerticalAlignment="Stretch"
@@ -46,16 +45,11 @@
 
                     <TextBlock Text="Patrimônio"
                                FontSize="18"
-                               FontWeight="Normal"
                                Foreground="{StaticResource TextPrimaryColor}"/>
 
                     <TextBlock Text="Equipamentos sobre posse da empresa"
-                               FontSize="13"
-                               FontWeight="Medium"
                                Foreground="{StaticResource TextSecondaryColor}"/>
                     
-                    
-
                 </StackPanel>
                 
             </Border>
@@ -74,28 +68,40 @@
                             HorizontalAlignment="Stretch"
                             Margin="20, 24, 20, 20">
 
-                    <TextBlock Text="Equipamentos sobre posse da empresa"
+                    <TextBlock Text="Estoque mínimo e máximo"
                                FontSize="13"
-                               FontWeight="Medium"
                                Foreground="{StaticResource TextPrimaryColor}"/>
 
                     <StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Margin="0, 4, 0, 8">
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
+                                Margin="0, 4, 0, 8">
 
-                        <ComboBox x:Name="_ComboCategoria"
-                                  Text="Categoria"
-                                  Width="100"
-                                  Height="26">
+                        <ComboBox x:Name="_ComboCategorias"
+                                  Width="120"
+                                  Height="28"
+                                  Background="{StaticResource BodyPaper}"
+                                  Style="{StaticResource ComboBoxTheme}"
+                                  SelectionChanged="ComboCategorias_Update">
 
-                            <ComboBoxItem Content="Categoria" IsSelected="True"/>
-                            <ComboBoxItem Content="Wireless"/>
-                            
+                            <ComboBoxItem Tag="0"
+                                          IsSelected="True"
+                                          Content="Categorias"/>
+
                         </ComboBox>
                         
-                        <ComboBox x:Name="_ComboTipos">
-                            
+                        <ComboBox x:Name="_ComboTipos"
+                                  Text="Categoria"
+                                  Width="100"
+                                  Height="28"
+                                  Margin="4, 0, 0, 0"
+                                  Background="{StaticResource BodyPaper}"
+                                  Style="{StaticResource ComboBoxTheme}">
+
+                            <ComboBoxItem Tag="0"
+                                          IsSelected="True"
+                                          Content="Tipos"/>
+
                         </ComboBox>
 
                     </StackPanel>

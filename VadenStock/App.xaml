@@ -8,13 +8,13 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            
+
             <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml" />
-                <ResourceDictionary Source="Resources/Themes/SearchBoxTheme.xaml" />
-                <ResourceDictionary Source="Resources/Themes/TabControlTheme.xaml" />
-
+                <ResourceDictionary Source="Resources/Themes/ComboBoxTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/ComboBoxItemTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/SearchBoxTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/TabControlTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">

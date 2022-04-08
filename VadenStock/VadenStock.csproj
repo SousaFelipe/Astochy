@@ -1,44 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\Icons\clear-search-active.png" />
-    <None Remove="Resources\Icons\clear-search.png" />
-    <None Remove="Resources\Icons\close-circle.png" />
-    <None Remove="Resources\Icons\close.png" />
-    <None Remove="Resources\Icons\magnify.png" />
-    <None Remove="Resources\Icons\maximize.png" />
-    <None Remove="Resources\Icons\minimize.png" />
-    <None Remove="Resources\Icons\restore.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
+        <None Remove="Resources\Icons\clear-search-active.png" />
+        <None Remove="Resources\Icons\clear-search.png" />
+        <None Remove="Resources\Icons\close-circle.png" />
+        <None Remove="Resources\Icons\close.png" />
+        <None Remove="Resources\Icons\magnify.png" />
+        <None Remove="Resources\Icons\maximize.png" />
+        <None Remove="Resources\Icons\minimize.png" />
+        <None Remove="Resources\Icons\restore.png" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MaterialDesignColors" Version="2.0.5" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.4.0" />
-    <PackageReference Include="MySql.Data" Version="8.0.28" />
-  </ItemGroup>
+    <ItemGroup>
+      <None Include="..\.editorconfig" Link=".editorconfig" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Resources\Icons\clear-search-active.png" />
-    <Resource Include="Resources\Icons\clear-search.png" />
-    <Resource Include="Resources\Icons\close-circle.png" />
-    <Resource Include="Resources\Icons\close.png" />
-    <Resource Include="Resources\Icons\magnify.png" />
-    <Resource Include="Resources\Icons\maximize.png" />
-    <Resource Include="Resources\Icons\minimize.png" />
-    <Resource Include="Resources\Icons\restore.png" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MySql.Data" Version="8.0.28" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Page Update="View\Dashboard.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
-  </ItemGroup>
+    <ItemGroup>
+
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Black.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-BlackItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Bold.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-BoldItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-ExtraBold.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-ExtraBoldItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-ExtraLight.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-ExtraLightItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Italic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Light.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-LightItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Medium.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-MediumItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Regular.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-SemiBold.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-Thin.ttf" />
+		<Resource Include="Resources\Fonts\Poppins\Poppins-ThinItalic.ttf" />
+		
+		<Resource Include="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
+		
+        <Resource Include="Resources\Icons\clear-search-active.png" />
+        <Resource Include="Resources\Icons\clear-search.png" />
+        <Resource Include="Resources\Icons\close-circle.png" />
+        <Resource Include="Resources\Icons\close.png" />
+        <Resource Include="Resources\Icons\magnify.png" />
+        <Resource Include="Resources\Icons\maximize.png" />
+        <Resource Include="Resources\Icons\minimize.png" />
+        <Resource Include="Resources\Icons\restore.png" />
+    </ItemGroup>
+
+	<ItemGroup>
+        <Page Update="View\Dashboard.xaml">
+          <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+        </Page>
+    </ItemGroup>
 
 </Project>

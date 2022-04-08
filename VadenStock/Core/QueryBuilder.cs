@@ -49,7 +49,7 @@ namespace VadenStock.Core
         {
             WhereCount += 1;
 
-            Query += (WhereCount > 0)
+            Query += (WhereCount > 1)
                 ? $" AND { column }{ oper }{ value }"
                 : $"WHERE { column }{ oper }{ value }";
 

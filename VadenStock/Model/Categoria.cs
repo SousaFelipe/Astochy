@@ -9,10 +9,6 @@ namespace VadenStock.Model
 {
     public class Categoria : Connection
     {
-        public Categoria() : base("categorias") { }
-
-
-
         public struct Contract
         {
             public int Id { get; set; }
@@ -26,36 +22,11 @@ namespace VadenStock.Model
         public static Categoria New { get { return new Categoria(); } }
 
 
-
-        public Contract? Load(int id)
-        {
-            try
-            {
-                using (Plug = new MySqlConnection(ConnectionString))
-                {
-                    Plug.Open();
-
-                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
-                    {
-                        using (Reader = Cmmd.ExecuteReader())
-                        {
-                            if (Reader.Read())
-                                return Content.Get(Reader);
-                        }
-                    }
-                }
-            }
-            finally
-            {
-                Unplug();
-            }
-
-            return null;
-        }
+        public Categoria() : base("categorias") { }
 
 
 
-        public List<Contract> Get()
+        public List<Contract> Get(int id = 0)
         {
             try
             {
@@ -65,7 +36,11 @@ namespace VadenStock.Model
 
                     List<Contract> list = new();
 
-                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
+                    string? query = id > 0
+                        ? Builder.Load(id)
+                        : Builder.Query;
+
+                    using (Cmmd = new MySqlCommand(query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
@@ -49,11 +50,15 @@ namespace VadenStock.Model.Cadastros
 
 
 
+        public static Item New {  get { return new Item(); } }
+
+
+
         public Item() : base ("items") { }
 
 
 
-        public Contract? Load(int id)
+        public List<Contract> Get(int id = 0)
         {
             try
             {
@@ -61,12 +66,22 @@ namespace VadenStock.Model.Cadastros
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
+                    List<Contract> list = new();
+
+                    string? query = id > 0
+                        ? Builder.Load(id)
+                        : Builder.Query;
+
+                    using (Cmmd = new MySqlCommand(query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
-                            if (Reader.Read())
-                                return Content.Get(Reader);
+                            while (Reader.Read())
+                            {
+                                list.Add(Content.Get(Reader));
+                            }
+
+                            return list;
                         }
                     }
                 }
@@ -75,8 +90,6 @@ namespace VadenStock.Model.Cadastros
             {
                 Unplug();
             }
-
-            return null;
         }
 
 
@@ -89,8 +102,8 @@ namespace VadenStock.Model.Cadastros
                 Contract contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Produto = (Produto.Contract)new Produto().Load(reader.GetInt32("produto")),
-                    Almoxarifado = (Almoxarifado.Contract)new Almoxarifado().Load(reader.GetInt32("almoxarifado")),
+                    Produto = new Produto().Get(reader.GetInt32("produto"))[0],
+                    Almoxarifado = new Almoxarifado().Get(reader.GetInt32("almoxarifado"))[0],
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
                     Localizaado = Contract.GetStatus(reader.GetString("localizado")),

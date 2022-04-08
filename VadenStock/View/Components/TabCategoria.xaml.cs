@@ -30,7 +30,7 @@ namespace VadenStock.View.Components
 
         public TabCategoria Inflate(int id)
         {
-            Item = Categoria.New.Load(id);
+            Item = Categoria.New.Get(id)[0];
 
             if (Item != null)
                 _radioControl.Content = Item.Value.Name;

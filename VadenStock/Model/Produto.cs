@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
@@ -26,7 +27,7 @@ namespace VadenStock.Model
 
 
 
-        public Contract? Load(int id)
+        public List<Contract> Get(int id = 0)
         {
             try
             {
@@ -34,12 +35,22 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    using (Cmmd = new MySqlCommand(Builder.Load(id), Plug))
+                    List<Contract> list = new();
+
+                    string? query = id > 0
+                        ? Builder.Load(id)
+                        : Builder.Query;
+
+                    using (Cmmd = new MySqlCommand(query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
-                            if (Reader.Read())
-                                return Content.Get(Reader);
+                            while (Reader.Read())
+                            {
+                                list.Add(Content.Get(Reader));
+                            }
+
+                            return list;
                         }
                     }
                 }
@@ -48,22 +59,19 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-
-            return null;
         }
 
-         
+
 
         private class Content
         {
             public static Contract Get(MySqlDataReader reader)
             {
-                #pragma warning disable CS8629
                 Contract contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Tipo = (Tipo.Contract)new Tipo().Load(reader.GetInt32("tipo")),
-                    Marca = (Marca.Contract)new Marca().Load(reader.GetInt32("marca")),
+                    Tipo = new Tipo().Get(reader.GetInt32("tipo"))[0],
+                    Marca = new Marca().Get(reader.GetInt32("marca"))[0],
                     Code = reader.GetString("code"),
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),

@@ -17,24 +17,18 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        FontFamily="Roboto Flex Normal Thin"
         FontSize="12"
-        TextElement.FontFamily="Roboto Flex Normal Thin"
+        FontFamily="./Resources/Fonts/Poppins/#Poppins"
+        TextElement.FontFamily="./Resources/Fonts/Poppins/#Poppins"
         TextElement.Foreground="{StaticResource TextPrimaryColor}"
         TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
+        TextElement.FontSize="12"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto">
 
     <Window.DataContext>
         <view:ViewControl/>
     </Window.DataContext>
-
-    <Window.Resources>
-        <Style x:Key="FontStyleFlex" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextElement.FontFamily" Value="Resources/Fonts/RobotoFlex/RobotoFlex.ttf #Roboto Flex"/>
-        </Style>
-    </Window.Resources>
 
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
