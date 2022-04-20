@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 using VadenStock.View.Models;
+using VadenStock.View.Structs;
+using VadenStock.View.Components.Charts;
 
 
 
@@ -13,7 +16,21 @@ namespace VadenStock.View
         {
             InitializeComponent();
 
-            LoadCardEstoqueMinMax();
+            Loaded += delegate {
+                LoadCardPatrimonio();
+                LoadCardEstoqueMinMax();
+            };
+        }
+
+
+
+        public void LoadCardPatrimonio()
+        {
+            PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
+
+            _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
+            _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
+            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
         }
 
 
@@ -30,6 +47,11 @@ namespace VadenStock.View
                     Content = string.Concat(categorias[i].Name[0], categorias[i].Name[1..].ToLower())
                 });
             }
+
+            _BarChartEstoqueMinMax.UpdateDataset(
+                    new double[] { 45, 23, 84, 19, 61, 42, 77 },
+                    true
+                );
         }
 
 
@@ -39,9 +61,11 @@ namespace VadenStock.View
             object tag = ((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag;
             int tagNum = int.Parse(tag.ToString());
 
-            if (tagNum > 0)
+            if (_ComboTipos != null)
             {
                 var tipos = DashboardViewModel.GetTipos(tagNum);
+
+                _ComboTipos.Clear(true);
 
                 for (int i = 0; i < tipos.Count; i++)
                 {

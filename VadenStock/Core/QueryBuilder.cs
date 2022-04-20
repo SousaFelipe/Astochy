@@ -20,6 +20,14 @@ namespace VadenStock.Core
 
 
 
+        public QueryBuilder Count(string column = "*")
+        {
+            Query = $"SELECT COUNT({ column }) FROM { Table } ";
+            return this;
+        }
+
+
+
         public QueryBuilder Select(string[]? selects = null)
         {
             Query = "SELECT ";
@@ -45,15 +53,28 @@ namespace VadenStock.Core
 
 
 
-        public QueryBuilder Where(string column, string oper, object value)
+        public QueryBuilder Where(string column, string oper, object? value = null)
         {
-            WhereCount += 1;
+            object realOpera = value == null ? "=" : oper;
+            object realValue = value ?? oper;
 
             Query += (WhereCount > 1)
-                ? $" AND { column }{ oper }{ value }"
-                : $"WHERE { column }{ oper }{ value }";
+                ? $" AND { Table }.{ column }{ realOpera }'{ realValue }'"
+                : $"WHERE { Table }.{ column }{ realOpera }'{ realValue }'";
+
+            WhereCount += 1;
 
             return this;
+        }
+
+
+
+        public string? SQL(bool clear = true)
+        {
+            if (clear)
+                WhereCount = 0;
+
+            return Query;
         }
 
 

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
+using VadenStock.Core;
 
 
-namespace VadenStock.Model.Cadastros
+
+namespace VadenStock.Model
 {
     public class Item : Connection
     {
@@ -29,7 +31,7 @@ namespace VadenStock.Model.Cadastros
             public string Name { get; set; }
             public string Description { get; set; }
             public DateTime CreatedDate { get; set; }
-            public Status Localizaado { get; set; }
+            public Status Localizado { get; set; }
 
 
 
@@ -98,7 +100,6 @@ namespace VadenStock.Model.Cadastros
         {
             public static Contract Get(MySqlDataReader reader)
             {
-                #pragma warning disable CS8629
                 Contract contract = new()
                 {
                     Id = reader.GetInt32("id"),
@@ -106,7 +107,7 @@ namespace VadenStock.Model.Cadastros
                     Almoxarifado = new Almoxarifado().Get(reader.GetInt32("almoxarifado"))[0],
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
-                    Localizaado = Contract.GetStatus(reader.GetString("localizado")),
+                    Localizado = Contract.GetStatus(reader.GetString("localizacao")),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

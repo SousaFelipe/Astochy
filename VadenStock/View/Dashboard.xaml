@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:components="clr-namespace:VadenStock.View.Components"
+             xmlns:charts="clr-namespace:VadenStock.View.Components.Charts"
              mc:Ignorable="d"
              d:DesignWidth="840"
              d:DesignHeight="600">
 
-    <StackPanel Margin="12, 40, 12, 20">
+    <StackPanel Margin="12 40 12 20">
 
         <Grid VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch">
@@ -31,26 +33,52 @@
                     Grid.ColumnSpan="5"
                     CornerRadius="14"
                     Margin="8, 0"
-                    Height="270"
+                    Height="260"
                     Background="#FFFFFF">
                 
                 <Border.Effect>
                     <DropShadowEffect Color="#000" Opacity="0.15" BlurRadius="4" ShadowDepth="1"/>
                 </Border.Effect>
 
-                <StackPanel Orientation="Vertical"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Margin="20, 24, 20, 20">
+                <Grid VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Margin="20 24 20 20">
 
-                    <TextBlock Text="Patrimônio"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Patrimônio"
                                FontSize="18"
                                Foreground="{StaticResource TextPrimaryColor}"/>
 
-                    <TextBlock Text="Equipamentos sobre posse da empresa"
+                    <TextBlock Grid.Row="1"
+                               Text="Equipamentos sobre posse da empresa"
                                Foreground="{StaticResource TextSecondaryColor}"/>
-                    
-                </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                VerticalAlignment="Bottom">
+
+                        <components:Patrimonio x:Name="_PatrimonioEmEstoque"
+                                           Quantidade="841"
+                                           Titulo="Estoque"/>
+
+                        <components:Patrimonio x:Name="_PatrimonioEmComodato"
+                                           Quantidade="2.525"
+                                           Titulo="Comodato"
+                                           Margin="0 14 0 0"/>
+
+                        <components:Patrimonio x:Name="_PatrimonioEmProducao"
+                                           Quantidade="452"
+                                           Titulo="Em produção"
+                                           Margin="0 14 0 0"/>
+
+                    </StackPanel>
+
+                </Grid>
                 
             </Border>
 
@@ -59,26 +87,31 @@
                     CornerRadius="14"
                     BorderThickness="1"
                     BorderBrush="{StaticResource PrimaryColor_100}"
-                    Margin="8, 0"
-                    Height="270"
+                    Margin="8 0"
+                    Height="260"
                     Background="{StaticResource BodyPaper}">
 
-                <StackPanel Orientation="Vertical"
-                            VerticalAlignment="Stretch"
-                            HorizontalAlignment="Stretch"
-                            Margin="20, 24, 20, 20">
+                <Grid Margin="20 24 20 20">
 
-                    <TextBlock Text="Estoque mínimo e máximo"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Estoque mínimo/máximo"
                                FontSize="13"
                                Foreground="{StaticResource TextPrimaryColor}"/>
 
-                    <StackPanel Orientation="Horizontal"
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
                                 VerticalAlignment="Stretch"
                                 HorizontalAlignment="Stretch"
-                                Margin="0, 4, 0, 8">
+                                Margin="0 4 0 8">
 
-                        <ComboBox x:Name="_ComboCategorias"
-                                  Width="120"
+                        <components:SelectBox x:Name="_ComboCategorias"
+                                  Width="160"
                                   Height="28"
                                   Background="{StaticResource BodyPaper}"
                                   Style="{StaticResource ComboBoxTheme}"
@@ -88,13 +121,13 @@
                                           IsSelected="True"
                                           Content="Categorias"/>
 
-                        </ComboBox>
-                        
-                        <ComboBox x:Name="_ComboTipos"
+                        </components:SelectBox>
+
+                        <components:SelectBox x:Name="_ComboTipos"
                                   Text="Categoria"
-                                  Width="100"
+                                  Width="140"
                                   Height="28"
-                                  Margin="4, 0, 0, 0"
+                                  Margin="4 0 0 0"
                                   Background="{StaticResource BodyPaper}"
                                   Style="{StaticResource ComboBoxTheme}">
 
@@ -102,11 +135,16 @@
                                           IsSelected="True"
                                           Content="Tipos"/>
 
-                        </ComboBox>
+                        </components:SelectBox>
 
                     </StackPanel>
 
-                </StackPanel>
+                    <charts:BarChart Grid.Row="2"
+                                     x:Name="_BarChartEstoqueMinMax"
+                                     VerticalAlignment="Stretch"
+                                     HorizontalAlignment="Stretch"/>
+
+                </Grid>
 
             </Border>
 

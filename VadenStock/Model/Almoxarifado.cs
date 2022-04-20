@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
+using VadenStock.Core;
+
 
 
 namespace VadenStock.Model

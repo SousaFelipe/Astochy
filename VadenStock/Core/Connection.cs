@@ -1,10 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 
-using VadenStock.Core;
 
 
-
-namespace VadenStock.Model
+namespace VadenStock.Core
 {
     public abstract class Connection
     {
@@ -39,20 +37,48 @@ namespace VadenStock.Model
 
 
 
-        public Connection Select(string[]? selects = null)
+        public Connection Count(string column = "*")
         {
-            Builder.Select(selects);
-
+            Builder.Count(column);
             return this;
         }
 
 
 
-        public Connection Where(string column, string oper, object value)
+        public Connection Select(string[]? selects = null)
+        {
+            Builder.Select(selects);
+            return this;
+        }
+
+
+
+        public Connection Where(string column, string oper, object? value = null)
         {
             Builder.Where(column, oper, value);
-
             return this;
+        }
+
+
+
+        public int Bind(bool clear = true)
+        {
+            try
+            {
+                using (Plug = new MySqlConnection(ConnectionString))
+                {
+                    Plug.Open();
+
+                    using (Cmmd = new MySqlCommand(Builder.SQL(clear), Plug))
+                    {
+                        return int.Parse(Cmmd.ExecuteScalar().ToString());
+                    }
+                }
+            }
+            finally
+            {
+                Unplug();
+            }
         }
 
 

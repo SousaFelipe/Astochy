@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
+using VadenStock.Core;
+
 
 
 namespace VadenStock.Model
@@ -23,6 +25,10 @@ namespace VadenStock.Model
 
 
 
+        public static Produto New { get { return new Produto(); } }
+
+
+
         public Produto() : base("produtos") { }
 
 
@@ -36,10 +42,7 @@ namespace VadenStock.Model
                     Plug.Open();
 
                     List<Contract> list = new();
-
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
+                    string? query = (id > 0) ? Builder.Load(id) : Builder.SQL();
 
                     using (Cmmd = new MySqlCommand(query, Plug))
                     {
