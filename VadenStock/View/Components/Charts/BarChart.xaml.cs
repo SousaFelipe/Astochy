@@ -5,10 +5,81 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Diagnostics;
 
+
+
 namespace VadenStock.View.Components.Charts
 {
     public partial class BarChart : UserControl
     {
+        private static readonly DependencyProperty BarsBackColorProp = DependencyProperty.Register(
+                "BarsBackColor",
+                typeof(string),
+                typeof(BarChart),
+                new UIPropertyMetadata("#ECEFF1")
+            );
+
+        private static readonly DependencyProperty BarsLineColorProp = DependencyProperty.Register(
+                "BarsLineColor",
+                typeof(string),
+                typeof(BarChart),
+                new UIPropertyMetadata("#00B0FF")
+            );
+
+        private static readonly DependencyProperty BarsThicknessProp = DependencyProperty.Register(
+                "BarsThickness",
+                typeof(double),
+                typeof(BarChart),
+                new UIPropertyMetadata(6.0)
+            );
+
+        private static readonly DependencyProperty BarsCornersProp = DependencyProperty.Register(
+                "BarsCorners",
+                typeof(double),
+                typeof(BarChart),
+                new UIPropertyMetadata(0.0)
+            );
+
+        private static readonly DependencyProperty ChartDirectionProp = DependencyProperty.Register(
+                "ChartDirection",
+                typeof(Orientation),
+                typeof(BarChart),
+                new UIPropertyMetadata(Orientation.Horizontal)
+            );
+
+
+
+        public string BarsBackColor
+        {
+            get { return (string)GetValue(BarsBackColorProp); }
+            set { SetValue(BarsBackColorProp, value); }
+        }
+
+        public string BarsLineColor
+        {
+            get { return (string)GetValue(BarsLineColorProp); }
+            set { SetValue(BarsLineColorProp, value); }
+        }
+
+        public double BarsThickness
+        {
+            get { return (double)GetValue(BarsThicknessProp); }
+            set { SetValue(BarsThicknessProp, value); }
+        }
+
+        public double BarsCorners
+        {
+            get { return (double)GetValue(BarsCornersProp); }
+            set { SetValue(BarsCornersProp, value); }
+        }
+
+        public Orientation ChartDirection
+        {
+            get { return (Orientation)GetValue(ChartDirectionProp); }
+            set { SetValue(ChartDirectionProp, value); }
+        }
+
+
+
         private double[]? Values;
         private string[]? Labels;
 
@@ -17,23 +88,8 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public string BarsBackColor { get; set; }
-        public string BarsLineColor { get; set; }
-        public double BarsThickness { get; set; }
-        public double BarsCorners { get; set; }
-        public Orientation ChartDirection { get; set; }
-
-
-
         public BarChart()
         {
-            BarsBackColor = "#CCCCCC";
-            BarsLineColor = "#1234EF";
-            ChartDirection = Orientation.Horizontal;
-
-            BarsThickness = 6;
-            BarsCorners = 3;
-
             InitializeComponent();
         }
 
@@ -41,13 +97,7 @@ namespace VadenStock.View.Components.Charts
 
         public BarChart(Orientation orientation = Orientation.Horizontal)
         {
-            BarsBackColor = "#CCCCCC";
-            BarsLineColor = "#1234EF";
-            ChartDirection = Orientation.Horizontal;
-
-            BarsThickness = 6;
-            BarsCorners = 3;
-
+            ChartDirection = orientation;
             InitializeComponent();
         }
 
@@ -82,29 +132,20 @@ namespace VadenStock.View.Components.Charts
         {
             if (Values != null && Values.Length > 0)
             {
-                _StackContainer.Children.Clear();
-
+                bool orientationIsH = (ChartDirection == Orientation.Horizontal);
                 double currentValue;
-                bool orientationIsH;
+
+                _StackContainer.Children.Clear();
 
                 for (int i = 0; i < Values.Length; i++)
                 {
                     currentValue = Values[i];
-                    orientationIsH = (ChartDirection == Orientation.Horizontal);
 
                     Bar bar = new(orientationIsH ? Orientation.Vertical : Orientation.Horizontal)
                     {
                         BackColor = BarsBackColor,
                         BarColor = BarsLineColor,
-                        BorderRadius = BarsCorners,
-
-                        VerticalAlignment = orientationIsH
-                            ? VerticalAlignment.Stretch
-                            : VerticalAlignment.Center,
-
-                        HorizontalAlignment = orientationIsH
-                            ? HorizontalAlignment.Left
-                            : HorizontalAlignment.Stretch
+                        BorderRadius = BarsCorners
                     };
 
                     _StackContainer.Children.Add(bar);

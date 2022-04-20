@@ -63,18 +63,15 @@
                                 VerticalAlignment="Bottom">
 
                         <components:Patrimonio x:Name="_PatrimonioEmEstoque"
-                                           Quantidade="841"
-                                           Titulo="Estoque"/>
+                                               Titulo="Estoque"/>
 
                         <components:Patrimonio x:Name="_PatrimonioEmComodato"
-                                           Quantidade="2.525"
-                                           Titulo="Comodato"
-                                           Margin="0 14 0 0"/>
+                                               Titulo="Comodato"
+                                               Margin="0 14 0 0"/>
 
                         <components:Patrimonio x:Name="_PatrimonioEmProducao"
-                                           Quantidade="452"
-                                           Titulo="Em produção"
-                                           Margin="0 14 0 0"/>
+                                               Titulo="Em produção"
+                                               Margin="0 14 0 0"/>
 
                     </StackPanel>
 
@@ -139,10 +136,14 @@
 
                     </StackPanel>
 
-                    <charts:BarChart Grid.Row="2"
-                                     x:Name="_BarChartEstoqueMinMax"
-                                     VerticalAlignment="Stretch"
-                                     HorizontalAlignment="Stretch"/>
+                    <charts:ColumnChart Grid.Row="2"
+                                        x:Name="_ColumnChartMinMax"
+                                        ColumnThickness="12"
+                                        ColumnTopCornerStyle="Round"
+                                        ColumnBottomCornerStyle="Round"
+                                        Margin="0 24 0 0"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"/>
 
                 </Grid>
 

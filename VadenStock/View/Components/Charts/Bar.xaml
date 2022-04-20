@@ -10,16 +10,16 @@
              d:DesignWidth="100">
 
     <Border x:Name="_BorderContent"
-            CornerRadius="{Binding BorderRadius, ElementName=root}"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            Background="{Binding BackColor, ElementName=root}">
+            CornerRadius="{Binding BorderRadius}"
+            Background="{Binding BackColor}">
 
         <Border x:Name="_Bar"
-                CornerRadius="{Binding BorderRadius, ElementName=root}"
-                Width="{Binding CurrentWidth, ElementName=root}"
-                Height="{Binding CurrentHeight, ElementName=root}"
-                Background="{Binding BarColor, ElementName=root}"/>
+                CornerRadius="{Binding BorderRadius}"
+                Width="{Binding CurrentWidth}"
+                Height="{Binding CurrentHeight}"
+                Background="{Binding BarColor}"/>
 
     </Border>
     

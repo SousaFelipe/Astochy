@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -142,11 +141,9 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public Bar(Orientation o = System.Windows.Controls.Orientation.Horizontal)
+        public Bar(Orientation orientation)
         {
-            Orientation = (o == System.Windows.Controls.Orientation.Horizontal)
-                    ? "Horizontal"
-                    : "Vertical";
+            Orientation = (orientation == System.Windows.Controls.Orientation.Horizontal) ? "Horizontal" : "Vertical";
 
             InitializeComponent();
             Initialize();
@@ -158,8 +155,21 @@ namespace VadenStock.View.Components.Charts
         {
             Loaded += delegate
             {
-                _Bar.VerticalAlignment = IsHorizontal ? VerticalAlignment.Stretch : VerticalAlignment.Bottom;
-                _Bar.HorizontalAlignment = IsHorizontal ? HorizontalAlignment.Left : HorizontalAlignment.Stretch;
+                VerticalAlignment = IsHorizontal
+                    ? VerticalAlignment.Stretch
+                    : VerticalAlignment.Center;
+
+                HorizontalAlignment = IsHorizontal
+                    ? HorizontalAlignment.Left
+                    : HorizontalAlignment.Stretch;
+
+                _Bar.VerticalAlignment = IsHorizontal
+                    ? VerticalAlignment.Stretch
+                    : VerticalAlignment.Bottom;
+
+                _Bar.HorizontalAlignment = IsHorizontal
+                    ? HorizontalAlignment.Left
+                    : HorizontalAlignment.Stretch;
             };
         }
 
@@ -167,15 +177,16 @@ namespace VadenStock.View.Components.Charts
 
         public void UpdateBar(double percent, double border = 0.0)
         {
-            if (_Bar != null)
+            Loaded += delegate
             {
-                if (IsHorizontal)
-                    _Bar.Width = ((_BorderContent.ActualWidth - border) * percent) / 100;
-                else
-                    _Bar.Height = ((_BorderContent.ActualHeight - border) * percent) / 100;
-
-                Trace.WriteLine($"Width: { _Bar.ActualWidth } - Height: { _Bar.ActualHeight }");
-            }
+                if (_Bar != null)
+                {
+                    if (IsHorizontal)
+                        _Bar.Width = ((_BorderContent.ActualWidth - border) * percent) / 100;
+                    else
+                        _Bar.Height = ((_BorderContent.ActualHeight - border) * percent) / 100;
+                }
+            };
         }
     }
 }

@@ -52,8 +52,9 @@ namespace VadenStock.View
                 });
             }
 
-            _BarChartEstoqueMinMax.SetDataset(new double[] { 45, 23, 84, 19, 61, 42, 77 });
-            _BarChartEstoqueMinMax.DrawBars();
+            _ColumnChartMinMax.Series(new double[] { 45, 23, 84, 19, 61, 42, 77 });
+            _ColumnChartMinMax.Labels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
+            _ColumnChartMinMax.Draw();
         }
 
 
