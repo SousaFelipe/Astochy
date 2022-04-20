@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -143,14 +142,13 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public Bar(System.Windows.Controls.Orientation o = System.Windows.Controls.Orientation.Horizontal)
+        public Bar(Orientation o = System.Windows.Controls.Orientation.Horizontal)
         {
-            InitializeComponent();
-
             Orientation = (o == System.Windows.Controls.Orientation.Horizontal)
                     ? "Horizontal"
                     : "Vertical";
 
+            InitializeComponent();
             Initialize();
         }
 
@@ -175,6 +173,8 @@ namespace VadenStock.View.Components.Charts
                     _Bar.Width = ((_BorderContent.ActualWidth - border) * percent) / 100;
                 else
                     _Bar.Height = ((_BorderContent.ActualHeight - border) * percent) / 100;
+
+                Trace.WriteLine($"Width: { _Bar.ActualWidth } - Height: { _Bar.ActualHeight }");
             }
         }
     }

@@ -28,9 +28,13 @@ namespace VadenStock.View
         {
             PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
 
-            _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
-            _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
-            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
+            //_PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
+            //_PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
+            //_PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
+
+            _PatrimonioEmEstoque.UpdateValue(245, 3412);
+            _PatrimonioEmComodato.UpdateValue(1247, 3412);
+            _PatrimonioEmProducao.UpdateValue(460, 3412);
         }
 
 
@@ -48,10 +52,8 @@ namespace VadenStock.View
                 });
             }
 
-            _BarChartEstoqueMinMax.UpdateDataset(
-                    new double[] { 45, 23, 84, 19, 61, 42, 77 },
-                    true
-                );
+            _BarChartEstoqueMinMax.SetDataset(new double[] { 45, 23, 84, 19, 61, 42, 77 });
+            _BarChartEstoqueMinMax.DrawBars();
         }
 
 

@@ -3,8 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
-
+using System.Diagnostics;
 
 namespace VadenStock.View.Components.Charts
 {
@@ -44,14 +43,17 @@ namespace VadenStock.View.Components.Charts
         {
             BarsBackColor = "#CCCCCC";
             BarsLineColor = "#1234EF";
-            ChartDirection = orientation;
+            ChartDirection = Orientation.Horizontal;
+
+            BarsThickness = 6;
+            BarsCorners = 3;
 
             InitializeComponent();
         }
 
 
 
-        public void UpdateDataset(double[] dataset, bool drawAfterUpdate = false)
+        public void SetDataset(double[] dataset)
         {
             Values = dataset;
 
@@ -65,14 +67,11 @@ namespace VadenStock.View.Components.Charts
                         maxFromValues = Values[i];
                 }
             }
-
-            if (drawAfterUpdate)
-                DrawBars();
         }
 
 
 
-        public void UpdateLabels(string[] labels)
+        public void SetLabels(string[] labels)
         {
             Labels = labels;
         }
@@ -86,30 +85,36 @@ namespace VadenStock.View.Components.Charts
                 _StackContainer.Children.Clear();
 
                 double currentValue;
-                bool currentOrientationIsHorizontal;
+                bool orientationIsH;
 
                 for (int i = 0; i < Values.Length; i++)
                 {
                     currentValue = Values[i];
-                    currentOrientationIsHorizontal = (ChartDirection == Orientation.Horizontal);
+                    orientationIsH = (ChartDirection == Orientation.Horizontal);
 
-                    Bar bar = new(currentOrientationIsHorizontal ? Orientation.Vertical : Orientation.Horizontal)
+                    Bar bar = new(orientationIsH ? Orientation.Vertical : Orientation.Horizontal)
                     {
                         BackColor = BarsBackColor,
                         BarColor = BarsLineColor,
                         BorderRadius = BarsCorners,
-                        VerticalAlignment = currentOrientationIsHorizontal ? VerticalAlignment.Stretch : VerticalAlignment.Top,
-                        HorizontalAlignment = currentOrientationIsHorizontal ? HorizontalAlignment.Left : HorizontalAlignment.Stretch
+
+                        VerticalAlignment = orientationIsH
+                            ? VerticalAlignment.Stretch
+                            : VerticalAlignment.Center,
+
+                        HorizontalAlignment = orientationIsH
+                            ? HorizontalAlignment.Left
+                            : HorizontalAlignment.Stretch
                     };
 
                     _StackContainer.Children.Add(bar);
 
-                    if (currentOrientationIsHorizontal)
-                        Width = BarsThickness;
+                    if (orientationIsH)
+                        bar.Width = BarsThickness;
                     else
-                        Height = BarsThickness;
+                        bar.Height = BarsThickness;
 
-                    bar.UpdateBar(currentValue, maxFromValues);
+                    bar.UpdateBar((currentValue * 100) / maxFromValues);
                 }
             }
         }
