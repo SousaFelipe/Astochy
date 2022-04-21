@@ -26,15 +26,15 @@ namespace VadenStock.View
 
         public void LoadCardPatrimonio()
         {
-            //PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
+            /*PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
 
-            //_PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
-            //_PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
-            //_PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
+            _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
+            _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
+            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);*/
 
-            _PatrimonioEmEstoque.UpdateValue(245, 3412);
-            _PatrimonioEmComodato.UpdateValue(1247, 3412);
-            _PatrimonioEmProducao.UpdateValue(460, 3412);
+            _PatrimonioEmEstoque.UpdateValue(488, 3452);
+            _PatrimonioEmComodato.UpdateValue(1823, 3452);
+            _PatrimonioEmProducao.UpdateValue(252, 3452);
         }
 
 

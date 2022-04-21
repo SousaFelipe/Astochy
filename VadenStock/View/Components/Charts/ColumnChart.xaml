@@ -14,19 +14,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-
         <StackPanel Grid.Column="0"
-                    Grid.Row="0"
                     x:Name="_StackRuler"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Left"/>
 
         <Grid Grid.Column="1"
-              Grid.Row="0"
               x:Name="_Canvas"
               VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch"/>

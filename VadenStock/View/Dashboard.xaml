@@ -138,6 +138,7 @@
 
                     <charts:ColumnChart Grid.Row="2"
                                         x:Name="_ColumnChartMinMax"
+                                        LineColor="#00B0FF"
                                         ColumnThickness="12"
                                         ColumnTopCornerStyle="Round"
                                         ColumnBottomCornerStyle="Round"

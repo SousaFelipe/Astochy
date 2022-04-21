@@ -54,14 +54,15 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <charts:Bar x:Name="_Chart"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Stretch"
-                        Height="6"
-                        Margin="0 0 8 0"
-                        BorderRadius="3"
-                        BackColor="#ECEFF1"
-                        BarColor="#00B0FF"/>
+            <charts:BarChart x:Name="_Chart"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Stretch"
+                             Height="8"
+                             RowLeftCornerStyle="Round"
+                             RowRightCornerStyle="Round"
+                             RowThickness="8"
+                             ShadowColor="#ECEFF1"
+                             LineColor="#00B0FF"/>
 
             <TextBlock Grid.Column="1"
                        x:Name="_TextBlockPercent"

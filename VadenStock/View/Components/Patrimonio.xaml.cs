@@ -65,7 +65,9 @@ namespace VadenStock.View.Components
             double percent = valor <= 0 ? 0 : valor * 100 / total;
 
             _TextBlockPercent.Text = string.Concat(percent.ToString("C"), "%");
-            _Chart.UpdateBar(percent);
+
+            _Chart.SetSeries(new double[] { valor });
+            _Chart.Draw(percent);
 
             Quantidade = valor.ToString();
         }

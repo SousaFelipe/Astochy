@@ -1,70 +1,77 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.Generic;
 
 
 
 namespace VadenStock.View.Components.Charts
 {
-    public partial class ColumnChart : UserControl
+    public partial class BarChart : UserControl
     {
-        private static readonly DependencyProperty ColumnTopCornerStyleProp = DependencyProperty.Register(
-                "ColumnTopCornerStyle",
+        private static readonly DependencyProperty RowLeftCornerStyleProp = DependencyProperty.Register(
+                "RowLeftCornerStyle",
                 typeof(PenLineCap),
-                typeof(ColumnChart),
-                new UIPropertyMetadata(PenLineCap.Flat, ColumnTopCornerStyleCallback)
+                typeof(BarChart),
+                new UIPropertyMetadata(PenLineCap.Flat, RowLeftCornerStyleCallback)
             );
 
-        private static readonly DependencyProperty ColumnBottomCornerStyleProp = DependencyProperty.Register(
-                "ColumnBottomCornerStyle",
+        private static readonly DependencyProperty RowRightCornerStyleProp = DependencyProperty.Register(
+                "RowRightCornerStyle",
                 typeof(PenLineCap),
-                typeof(ColumnChart),
-                new UIPropertyMetadata(PenLineCap.Flat, ColumnBottomCornerStyleCallback)
+                typeof(BarChart),
+                new UIPropertyMetadata(PenLineCap.Flat, RowRightCornerStyleCallback)
             );
 
-        private static readonly DependencyProperty ColumnThicknessProp = DependencyProperty.Register(
-                "ColumnThickness",
+        private static readonly DependencyProperty RowThicknessProp = DependencyProperty.Register(
+                "RowThickness",
                 typeof(double),
-                typeof(ColumnChart),
-                new UIPropertyMetadata(1.0, ColumnThicknessCallback)
+                typeof(BarChart),
+                new UIPropertyMetadata(1.0, RowThicknessCallback)
             );
 
         private static readonly DependencyProperty LineColorProp = DependencyProperty.Register(
                 "LineColor",
                 typeof(string),
-                typeof(ColumnChart),
+                typeof(BarChart),
                 new UIPropertyMetadata("#00B0FF", LineColorCallback)
             );
 
         private static readonly DependencyProperty ShadowColorProp = DependencyProperty.Register(
                 "ShadowColor",
                 typeof(string),
-                typeof(ColumnChart),
+                typeof(BarChart),
                 new UIPropertyMetadata(string.Empty, ShadowColorCallback)
             );
 
 
 
-        public PenLineCap ColumnTopCornerStyle
+        public PenLineCap RowLeftCornerStyle
         {
-            get { return (PenLineCap)GetValue(ColumnTopCornerStyleProp); }
-            set { SetValue(ColumnTopCornerStyleProp, value); }
+            get { return (PenLineCap)GetValue(RowLeftCornerStyleProp); }
+            set { SetValue(RowLeftCornerStyleProp, value); }
         }
 
-        public PenLineCap ColumnBottomCornerStyle
+        public PenLineCap RowRightCornerStyle
         {
-            get { return (PenLineCap)GetValue(ColumnBottomCornerStyleProp); }
-            set { SetValue(ColumnBottomCornerStyleProp, value); }
+            get { return (PenLineCap)GetValue(RowRightCornerStyleProp); }
+            set { SetValue(RowRightCornerStyleProp, value); }
         }
 
-        public double ColumnThickness
+        public double RowThickness
         {
-            get { return (double)GetValue(ColumnThicknessProp); }
-            set { SetValue(ColumnThicknessProp, value); }
+            get { return (double)GetValue(RowThicknessProp); }
+            set { SetValue(RowThicknessProp, value); }
         }
 
         public string LineColor
@@ -81,33 +88,33 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public static void ColumnTopCornerStyleCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+        public static void RowLeftCornerStyleCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            ColumnChart chart = (ColumnChart)root;
-            chart.ColumnTopCornerStyle = (PenLineCap)e.NewValue;
+            BarChart chart = (BarChart)root;
+            chart.RowLeftCornerStyle = (PenLineCap)e.NewValue;
         }
 
-        public static void ColumnBottomCornerStyleCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+        public static void RowRightCornerStyleCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            ColumnChart chart = (ColumnChart)root;
-            chart.ColumnBottomCornerStyle = (PenLineCap)e.NewValue;
+            BarChart chart = (BarChart)root;
+            chart.RowRightCornerStyle = (PenLineCap)e.NewValue;
         }
 
-        public static void ColumnThicknessCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+        public static void RowThicknessCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            ColumnChart chart = (ColumnChart)root;
-            chart.ColumnThickness = (double)e.NewValue;
+            BarChart chart = (BarChart)root;
+            chart.RowThickness = (double)e.NewValue;
         }
 
         public static void LineColorCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            ColumnChart chart = (ColumnChart)root;
+            BarChart chart = (BarChart)root;
             chart.LineColor = (string)e.NewValue;
         }
 
         public static void ShadowColorCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            ColumnChart chart = (ColumnChart)root;
+            BarChart chart = (BarChart)root;
             chart.ShadowColor = (string)e.NewValue;
         }
 
@@ -119,21 +126,22 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        private double canvasHeight;
-        private double canvasMaxHeight;
-        private double canvasHeightLabels;
+        private double canvasWidth;
+        private double canvasMaxWidth;
+        private double canvasWidthLabels;
 
 
 
-        public ColumnChart()
+        public BarChart()
         {
             InitializeComponent();
 
             Loaded += delegate
             {
-                canvasHeight = _Canvas.ActualHeight;
-                canvasHeightLabels = 0.0;
+                canvasWidth = _Canvas.ActualWidth;
+                canvasWidthLabels = 0.0;
             };
+            
         }
 
 
@@ -155,7 +163,7 @@ namespace VadenStock.View.Components.Charts
                         currentMax = series[i];
                 }
 
-                canvasMaxHeight = currentMax;
+                canvasMaxWidth = currentMax;
             }
         }
 
@@ -172,12 +180,12 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public void Draw()
+        public void Draw(double externalPercent = 0.0)
         {
             Loaded += delegate
             {
                 double currentValue;
-                double currentStartLine;
+                double currentEndLine;
 
                 if (Labels.Count >= Values.Count)
                 {
@@ -190,16 +198,20 @@ namespace VadenStock.View.Components.Charts
 
                     if (currentValue > 0)
                     {
-                        currentStartLine = ((currentValue * 100) / canvasMaxHeight) * (canvasMaxHeight / 100) + canvasHeightLabels;
+                        currentEndLine = externalPercent == 0.0
+                            ? ((currentValue * 100) / canvasMaxWidth) * (canvasMaxWidth / 100) + canvasWidthLabels
+                            : (canvasWidth * externalPercent) / 100;
 
-                        Line lineColumn = CreateLine(currentStartLine, canvasHeight, LineColor);
+                        Line lineColumn = CreateLine(0.0, currentEndLine, LineColor);
 
-                        _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                        _Canvas.RowDefinitions.Add(new RowDefinition());
                         _Canvas.Children.Add(lineColumn);
                          Canvas.SetZIndex(lineColumn, 1);
 
-                        Grid.SetRow(lineColumn, 0);
-                        Grid.SetColumn(lineColumn, v);
+                        Grid.SetRow(lineColumn, v);
+
+                        if (Labels.Count >= Values.Count)
+                            Grid.SetColumn(lineColumn, 1);
 
                         Lines.Add(lineColumn);
                     }
@@ -220,16 +232,18 @@ namespace VadenStock.View.Components.Charts
             {
                 Line lineColumn = Lines[s];
                 Line lineShadow = CreateLine(
-                        0.0 + (ColumnThickness * 2.5),
-                        lineColumn.Y2,
+                        lineColumn.X2,
+                        canvasWidth - (RowThickness * 4),
                         ShadowColor
                     );
 
                 _Canvas.Children.Add(lineShadow);
-                Canvas.SetZIndex(lineShadow, 0);
+                 Canvas.SetZIndex(lineShadow, 0);
 
-                Grid.SetColumn(lineShadow, s);
-                Grid.SetRow(lineShadow, 0);
+                Grid.SetRow(lineShadow, s);
+
+                if (Labels.Count >= Values.Count)
+                    Grid.SetColumn(lineShadow, 1);
             }
         }
 
@@ -237,13 +251,13 @@ namespace VadenStock.View.Components.Charts
 
         private void DrawLabels()
         {
-            RowDefinition row1 = new()
+            ColumnDefinition col1 = new()
             {
-                Height = GridLength.Auto
+                Width = GridLength.Auto
             };
 
-            _Canvas.RowDefinitions.Add(new RowDefinition());
-            _Canvas.RowDefinitions.Add(row1);
+            _Canvas.ColumnDefinitions.Add(col1);
+            _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
 
             for (int r = 0; r < Values.Count; r++)
             {
@@ -251,28 +265,28 @@ namespace VadenStock.View.Components.Charts
 
                 _Canvas.Children.Add(textLabel);
 
-                Grid.SetRow(textLabel, 1);
-                Grid.SetColumn(textLabel, r);
+                Grid.SetRow(textLabel, r);
+                Grid.SetColumn(textLabel, 0);
             }
 
-            canvasHeightLabels = 12;
+            canvasWidthLabels = 12;
         }
 
 
 
-        public Line CreateLine(double startLine, double endLine, string hexColor)
+        public Line CreateLine(double startAt, double endAt, string hexColor)
         {
             Line line = new();
 
             line.SnapsToDevicePixels = true;
-            line.Y1 = startLine;
-            line.Y2 = endLine;
-            line.Margin = new Thickness(4, 0, 0, 0);
-            line.VerticalAlignment = VerticalAlignment.Bottom;
-            line.HorizontalAlignment = HorizontalAlignment.Center;
-            line.StrokeStartLineCap = ColumnTopCornerStyle;
-            line.StrokeEndLineCap = ColumnBottomCornerStyle;
-            line.StrokeThickness = ColumnThickness;
+            line.X1 = startAt;
+            line.X2 = endAt;
+            line.Margin = new Thickness(0, 3, 0, 0);
+            line.VerticalAlignment = VerticalAlignment.Center;
+            line.HorizontalAlignment = HorizontalAlignment.Left;
+            line.StrokeStartLineCap = RowLeftCornerStyle;
+            line.StrokeEndLineCap = RowRightCornerStyle;
+            line.StrokeThickness = RowThickness;
             line.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexColor));
 
             return line;
@@ -286,8 +300,8 @@ namespace VadenStock.View.Components.Charts
             {
                 Text = Labels[pos],
                 TextAlignment = TextAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left
             };
         }
 
