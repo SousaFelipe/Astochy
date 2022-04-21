@@ -26,7 +26,7 @@ namespace VadenStock.View
 
         public void LoadCardPatrimonio()
         {
-            PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
+            //PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
 
             //_PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
             //_PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
@@ -52,8 +52,8 @@ namespace VadenStock.View
                 });
             }
 
-            _ColumnChartMinMax.Series(new double[] { 45, 23, 84, 19, 61, 42, 77 });
-            _ColumnChartMinMax.Labels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
+            _ColumnChartMinMax.SetSeries(new double[] { 45, 23, 84, 19, 61, 42, 77 });
+            _ColumnChartMinMax.SetLabels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
             _ColumnChartMinMax.Draw();
         }
 

@@ -76,13 +76,13 @@ namespace VadenStock.View.Components.Charts
 
 
         public List<double> Values = new();
-        public List<string> Columns = new();
+        public List<string> Labels = new();
 
 
 
-        private double canvasWidth;
         private double canvasHeight;
         private double canvasMaxHeight;
+        private double canvasHeightLabels;
 
 
 
@@ -92,14 +92,14 @@ namespace VadenStock.View.Components.Charts
 
             Loaded += delegate
             {
-                canvasWidth = _Canvas.ActualWidth;
                 canvasHeight = _Canvas.ActualHeight;
+                canvasHeightLabels = 0.0;
             };
         }
 
 
 
-        public void Series(double[] series)
+        public void SetSeries(double[] series)
         {
             if (series.Length > 0)
             {
@@ -122,12 +122,12 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public void Labels(string[] labels)
+        public void SetLabels(string[] labels)
         {
             if (labels.Length > 0)
             {
                 foreach (string label in labels)
-                    Columns.Add(label);
+                    Labels.Add(label);
             }
         }
 
@@ -137,34 +137,60 @@ namespace VadenStock.View.Components.Charts
         {
             Loaded += delegate
             {
-                Grid canvas = (Grid)_Canvas;
-
-                for (int i = 0; i < Values.Count; i++)
+                if (Labels.Count >= Values.Count)
                 {
-                    canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                    DrawLabels();
+                }
 
-                    Line column = Column(Values[i], i);
-                    canvas.Children.Add(column);
+                for (int v = 0; v < Values.Count; v++)
+                {
+                    Line lineColumn = LineColumn(v);
 
-                    Grid.SetColumn(column, i);
+                    _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                    _Canvas.Children.Add(lineColumn);
+
+                    Grid.SetRow(lineColumn, 0);
+                    Grid.SetColumn(lineColumn, v);
                 }
             };
         }
 
 
 
-        public Line Column(double value, int pos)
+        private void DrawLabels()
         {
-            //double x = (canvasWidth - (ColumnThickness * Values.Count)) / (Values.Count - 1);
+            RowDefinition row1 = new()
+            {
+                Height = GridLength.Auto
+            };
 
+            _Canvas.RowDefinitions.Add(new RowDefinition());
+            _Canvas.RowDefinitions.Add(row1);
+
+
+            for (int r = 0; r < Values.Count; r++)
+            {
+                TextBlock textLabel = TextLabel(r);
+
+                _Canvas.Children.Add(textLabel);
+
+                Grid.SetRow(textLabel, 1);
+                Grid.SetColumn(textLabel, r);
+            }
+
+            canvasHeightLabels = 12;
+        }
+
+
+
+        public Line LineColumn(int pos)
+        {
             Line line = new();
 
             line.SnapsToDevicePixels = true;
             line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 
-            //line.X1 = (x * pos) + (ColumnThickness * pos) + (ColumnThickness / 2);
-            //line.X2 = (x * pos) + (ColumnThickness * pos) + (ColumnThickness / 2);
-            line.Y1 = ((value * 100) / canvasMaxHeight) * (canvasMaxHeight / 100);
+            line.Y1 = ((Values[pos] * 100) / canvasMaxHeight) * (canvasMaxHeight / 100) + canvasHeightLabels;
             line.Y2 = canvasHeight;
 
             line.VerticalAlignment = VerticalAlignment.Bottom;
@@ -179,15 +205,15 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public TextBlock ColumnLabel(int pos)
+        public TextBlock TextLabel(int pos)
         {
-            TextBlock label = new();
-
-            label.Text = Columns[pos];
-            label.TextAlignment = TextAlignment.Center;
-            label.VerticalAlignment = VerticalAlignment.Bottom;
-
-            return label;
+            return new TextBlock()
+            {
+                Text = Labels[pos],
+                TextAlignment = TextAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
         }
     }
 }
