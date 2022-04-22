@@ -18,7 +18,13 @@ namespace VadenStock.View.Models
 
         public static List<Tipo.Contract> GetTipos(int categoria = 0)
         {
-            return ((Tipo)Tipo.New.Select().Where("categoria", categoria.ToString())).Get();
+            return (
+                
+                    (Tipo)Tipo.New
+                        .Select()
+                        .Where("categoria", categoria.ToString())
+                
+                ).Get();
         }
 
 
@@ -38,6 +44,26 @@ namespace VadenStock.View.Models
             };
 
             return patrimonio;
+        }
+
+
+
+        public static List<Almoxarifado.Contract> GetAlmoxarifados()
+        {
+            return ((Almoxarifado)Almoxarifado.New.Select()).Get();
+        }
+
+
+
+        public static List<Item.Contract> GetItems(int almoxarifado)
+        {
+            return (
+
+                    (Item)Item.New
+                        .Select()
+                        .Where("almoxarifado", almoxarifado.ToString())
+
+                ).Get();
         }
     }
 }

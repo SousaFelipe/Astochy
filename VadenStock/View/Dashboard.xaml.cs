@@ -1,8 +1,13 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Collections.Generic;
 
 using VadenStock.View.Models;
 using VadenStock.View.Structs;
 using VadenStock.View.Components;
+
+using VadenStock.Model;
+using System.Windows.Media;
 
 
 
@@ -56,10 +61,46 @@ namespace VadenStock.View
 
         private void LoadAlmoxCards()
         {
-            _GridContainer.Children.Add(
-                new AlmoxCardDash() {
-                    CardColor = "#FFFFFF"
-                });
+            List<Almoxarifado.Contract> almoxarifados = DashboardViewModel.GetAlmoxarifados();
+
+            if (almoxarifados != null)
+            {
+                Almoxarifado.Contract currentContract;
+                AlmoxCardDash currentCard;
+
+                int rounds = 0;
+                int crrRow = 0;
+
+                for (int a = 0; a < almoxarifados.Count; a++)
+                {
+                    currentContract = almoxarifados[a];
+
+                    currentCard = new AlmoxCardDash(currentContract)
+                    {
+                        Margin = new Thickness(6, 0, 6, 0),
+                        CardColor = "#FFFFFF",
+                        Tipo = currentContract.Tipo
+                    };
+
+                    currentCard.SetItens(DashboardViewModel.GetItems(currentContract.Id));
+
+                    _GridAlmoxarifados.Children.Add(currentCard);
+                     Grid.SetColumn(currentCard, rounds);
+                     Grid.SetRow(currentCard, crrRow);
+
+                    if (0 == (rounds - 3))
+                    {
+                        rounds = 0;
+                        crrRow++;
+
+                        _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
+                    }
+                    else
+                    {
+                        rounds++;
+                    }
+                }
+            }
         }
 
 

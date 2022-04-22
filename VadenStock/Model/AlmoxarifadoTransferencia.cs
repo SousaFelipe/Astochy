@@ -9,45 +9,26 @@ using VadenStock.Core;
 
 namespace VadenStock.Model
 {
-    public class Almoxarifado : Connection
+    public class AlmoxarifadoTransferencia : Connection
     {
         public struct Contract
         {
-            public enum ETipo
-            {
-                Estoque,
-                Carro,
-                Moto,
-                Indefinido
-            }
-
-
             public int Id { get; set; }
-            public ETipo Tipo { get; set; }
-            public string Name { get; set; }
+            public Item.Contract Item { get; set; }
+            public Almoxarifado.Contract From { get; set; }
+            public Almoxarifado.Contract? To { get; set; }
+            public Item.Contract.Status Action { get; set; }
             public string Description { get; set; }
             public DateTime CreatedDate { get; set; }
-
-
-            public static ETipo GetTipo(string tipo)
-            {
-                return tipo switch
-                {
-                    "E" => ETipo.Estoque,
-                    "C" => ETipo.Carro,
-                    "M" => ETipo.Moto,
-                    _ => ETipo.Indefinido
-                };
-            }
         }
 
 
 
-        public static Almoxarifado New { get { return new Almoxarifado(); } }
+        public AlmoxarifadoTransferencia New { get { return new AlmoxarifadoTransferencia(); } }
 
 
 
-        public Almoxarifado () : base("almoxarifados") { }
+        public AlmoxarifadoTransferencia() : base("almoxarifados_transferencias") { }
 
 
 
@@ -60,10 +41,7 @@ namespace VadenStock.Model
                     Plug.Open();
 
                     List<Contract> list = new();
-
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
+                    string? query = id > 0 ? Builder.Load(id) : Builder.Query;
 
                     using (Cmmd = new MySqlCommand(query, Plug))
                     {
@@ -94,9 +72,11 @@ namespace VadenStock.Model
                 Contract contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Tipo = Contract.GetTipo(reader.GetString("tipo")),
-                    Name = reader.GetString("name"),
-                    Description = reader.IsDBNull(3) ? string.Empty : reader.GetString("description"),
+                    Item = new Item().Get(reader.GetInt32("item"))[0],
+                    From = new Almoxarifado().Get(reader.GetInt32("from_almoxarifado"))[0],
+                    To = reader.IsDBNull(3) ? null : new Almoxarifado().Get(reader.GetInt32("to_almoxarifado"))[0],
+                    Action = Item.Contract.GetStatus(reader.GetString("action")),
+                    Description = reader.IsDBNull(5) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

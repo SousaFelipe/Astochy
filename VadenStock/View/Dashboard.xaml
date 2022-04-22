@@ -161,19 +161,12 @@
                        FontSize="24"
                        Foreground="{StaticResource TextPrimaryColor}"/>
 
-            <Grid x:Name="_GridContainer"
+            <Grid x:Name="_GridAlmoxarifados"
                   VerticalAlignment="Stretch"
-                  HorizontalAlignment="Stretch">
+                  HorizontalAlignment="Stretch"
+                  Margin="2 0 2 0">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -181,8 +174,6 @@
                 </Grid.ColumnDefinitions>
 
             </Grid>
-
-            <components:AlmoxCardDash/>
 
         </StackPanel>
 

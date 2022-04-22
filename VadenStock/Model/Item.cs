@@ -16,8 +16,10 @@ namespace VadenStock.Model
             public enum Status
             {
                 Estoque,
+                Rota,
                 Producao,
                 Comodato,
+                Recolhido,
                 Extraviado,
                 Danificado,
                 Vendido,
