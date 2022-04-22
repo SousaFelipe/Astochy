@@ -9,10 +9,9 @@
              d:DesignWidth="840"
              d:DesignHeight="600">
 
-    <StackPanel Margin="12 40 12 20">
+    <StackPanel Margin="12 48 12 24">
 
-        <Grid VerticalAlignment="Stretch"
-              HorizontalAlignment="Stretch">
+        <Grid HorizontalAlignment="Stretch">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -151,6 +150,37 @@
             </Border>
 
         </Grid>
+
+        <StackPanel VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
+
+            <TextBlock Margin="8 32 8 16"
+                       Text="Almoxarifados"
+                       FontSize="24"
+                       Foreground="{StaticResource TextPrimaryColor}"/>
+
+            <Grid x:Name="_GridContainer"
+                  VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+            </Grid>
+            
+        </StackPanel>
 
     </StackPanel>
 

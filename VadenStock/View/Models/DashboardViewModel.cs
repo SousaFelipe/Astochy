@@ -11,9 +11,7 @@ namespace VadenStock.View.Models
     {
         public static List<Categoria.Contract> Categorias
         {
-            get {
-                return ((Categoria)Categoria.New.Select()).Get();
-            }
+            get { return ((Categoria)Categoria.New.Select()).Get(); }
         }
 
 

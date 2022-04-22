@@ -1,10 +1,8 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 using VadenStock.View.Models;
 using VadenStock.View.Structs;
-using VadenStock.View.Components.Charts;
+using VadenStock.View.Components;
 
 
 
@@ -19,6 +17,7 @@ namespace VadenStock.View
             Loaded += delegate {
                 LoadCardPatrimonio();
                 LoadCardEstoqueMinMax();
+                LoadAlmoxCards();
             };
         }
 
@@ -26,15 +25,11 @@ namespace VadenStock.View
 
         public void LoadCardPatrimonio()
         {
-            /*PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
+            PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
 
             _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
             _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
-            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);*/
-
-            _PatrimonioEmEstoque.UpdateValue(488, 3452);
-            _PatrimonioEmComodato.UpdateValue(1823, 3452);
-            _PatrimonioEmProducao.UpdateValue(252, 3452);
+            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
         }
 
 
@@ -55,6 +50,16 @@ namespace VadenStock.View
             _ColumnChartMinMax.SetSeries(new double[] { 45, 23, 84, 19, 61, 42, 77 });
             _ColumnChartMinMax.SetLabels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
             _ColumnChartMinMax.Draw();
+        }
+
+
+
+        private void LoadAlmoxCards()
+        {
+            _GridContainer.Children.Add(
+                new AlmoxCardDash() {
+                    CardColor = "#FFFFFF"
+                });
         }
 
 
