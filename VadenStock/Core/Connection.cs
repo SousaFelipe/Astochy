@@ -37,7 +37,7 @@ namespace VadenStock.Core
 
 
 
-        public Connection Count(string column = "*")
+        public virtual Connection Count(string column = "*")
         {
             Builder.Count(column);
             return this;
@@ -45,7 +45,7 @@ namespace VadenStock.Core
 
 
 
-        public Connection Select(string[]? selects = null)
+        public virtual Connection Select(string[]? selects = null)
         {
             Builder.Select(selects);
             return this;
@@ -53,7 +53,7 @@ namespace VadenStock.Core
 
 
 
-        public Connection Where(string column, string oper, object? value = null)
+        public virtual Connection Where(string column, string oper, object? value = null)
         {
             Builder.Where(column, oper, value);
             return this;

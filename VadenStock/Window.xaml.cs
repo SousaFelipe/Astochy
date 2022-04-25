@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
-
-using VadenStock.Model;
-using VadenStock.Controller;
-using VadenStock.View.Adapters;
-using VadenStock.View.Components;
 
 
 

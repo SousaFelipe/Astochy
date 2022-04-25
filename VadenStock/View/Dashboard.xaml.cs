@@ -6,8 +6,7 @@ using VadenStock.View.Models;
 using VadenStock.View.Structs;
 using VadenStock.View.Components;
 
-using VadenStock.Model;
-using System.Windows.Media;
+using VadenStock.Model.Types;
 
 
 
@@ -30,7 +29,7 @@ namespace VadenStock.View
 
         public void LoadCardPatrimonio()
         {
-            PatrimonioS patrimonio = DashboardViewModel.GetPatrimonio();
+            PatrimonioStruct patrimonio = DashboardViewModel.GetPatrimonios();
 
             _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
             _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
@@ -41,7 +40,7 @@ namespace VadenStock.View
 
         private void LoadCardEstoqueMinMax()
         {
-            var categorias = DashboardViewModel.Categorias;
+            List<CategoriaType> categorias = DashboardViewModel.GetCategorias();
 
             for (int i = 0; i < categorias.Count; i++)
             {
@@ -61,11 +60,13 @@ namespace VadenStock.View
 
         private void LoadAlmoxCards()
         {
-            List<Almoxarifado.Contract> almoxarifados = DashboardViewModel.GetAlmoxarifados();
+            List<AlmoxType> almoxarifados = DashboardViewModel.GetAlmoxarifados();
+
+            _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
 
             if (almoxarifados != null)
             {
-                Almoxarifado.Contract currentContract;
+                AlmoxType currentAlmo;
                 AlmoxCardDash currentCard;
 
                 int rounds = 0;
@@ -73,16 +74,15 @@ namespace VadenStock.View
 
                 for (int a = 0; a < almoxarifados.Count; a++)
                 {
-                    currentContract = almoxarifados[a];
+                    currentAlmo = almoxarifados[a];
 
-                    currentCard = new AlmoxCardDash(currentContract)
+                    currentCard = new AlmoxCardDash(currentAlmo)
                     {
-                        Margin = new Thickness(6, 0, 6, 0),
-                        CardColor = "#FFFFFF",
-                        Tipo = currentContract.Tipo
+                        Margin = new Thickness(6, (a > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0),
+                        CardColor = "#FFFFFF"
                     };
 
-                    currentCard.SetItens(DashboardViewModel.GetItems(currentContract.Id));
+                    currentCard.SetItens(DashboardViewModel.GetItems(currentAlmo.Id));
 
                     _GridAlmoxarifados.Children.Add(currentCard);
                      Grid.SetColumn(currentCard, rounds);
@@ -90,15 +90,12 @@ namespace VadenStock.View
 
                     if (0 == (rounds - 3))
                     {
+                        _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
+
                         rounds = 0;
                         crrRow++;
-
-                        _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
                     }
-                    else
-                    {
-                        rounds++;
-                    }
+                    else rounds++;
                 }
             }
         }

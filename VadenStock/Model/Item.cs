@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 using VadenStock.Core;
+using VadenStock.Model.Types;
 
 
 
@@ -11,49 +12,6 @@ namespace VadenStock.Model
 {
     public class Item : Connection
     {
-        public struct Contract
-        {
-            public enum Status
-            {
-                Estoque,
-                Rota,
-                Producao,
-                Comodato,
-                Recolhido,
-                Extraviado,
-                Danificado,
-                Vendido,
-                Indefinido
-            };
-
-
-            public int Id { get; set; }
-            public Produto.Contract Produto { get; set; }
-            public Almoxarifado.Contract Almoxarifado { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public DateTime CreatedDate { get; set; }
-            public Status Localizado { get; set; }
-
-
-
-            public static Status GetStatus(string status)
-            {
-                return status switch
-                {
-                    "Estoque" => Status.Estoque,
-                    "Producao" => Status.Producao,
-                    "Comodato" => Status.Comodato,
-                    "Extraviado" => Status.Extraviado,
-                    "Danificado" => Status.Danificado,
-                    "Vendido" => Status.Vendido,
-                    _ => Status.Indefinido
-                };
-            }
-        }
-
-
-
         public static Item New {  get { return new Item(); } }
 
 
@@ -62,7 +20,7 @@ namespace VadenStock.Model
 
 
 
-        public List<Contract> Get(int id = 0)
+        public List<ItemType> Get(int id = 0)
         {
             try
             {
@@ -70,7 +28,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    List<Contract> list = new();
+                    List<ItemType> list = new();
 
                     string? query = id > 0
                         ? Builder.Load(id)
@@ -98,18 +56,39 @@ namespace VadenStock.Model
 
 
 
+        public override Item Count(string column = "*")
+        {
+            return (Item)base.Count(column);
+        }
+
+
+
+        public override Item Select(string[]? selects = null)
+        {
+            return (Item)base.Select(selects);
+        }
+
+
+
+        public override Item Where(string column, string operOrValue, object? value = null)
+        {
+            return (Item)base.Where(column, operOrValue, value);
+        }
+
+
+
         private class Content
         {
-            public static Contract Get(MySqlDataReader reader)
+            public static ItemType Get(MySqlDataReader reader)
             {
-                Contract contract = new()
+                ItemType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Produto = new Produto().Get(reader.GetInt32("produto"))[0],
-                    Almoxarifado = new Almoxarifado().Get(reader.GetInt32("almoxarifado"))[0],
+                    Produto = Produto.New.Get(reader.GetInt32("produto"))[0],
+                    Almoxarifado = Almoxarifado.New.Get(reader.GetInt32("almoxarifado"))[0],
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
-                    Localizado = Contract.GetStatus(reader.GetString("localizacao")),
+                    Localizado = ItemType.GetStatus(reader.GetString("localizacao")),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

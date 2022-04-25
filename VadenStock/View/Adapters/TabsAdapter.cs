@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 
 using VadenStock.Model;
+using VadenStock.Model.Types;
 using VadenStock.View.Components;
 
 
@@ -12,18 +13,18 @@ namespace VadenStock.View.Adapters
 {
     public class TabsAdapter : StackPanelAdapter
     {
-        private List<Categoria.Contract> Dataset { get; set; }
+        private List<CategoriaType> Dataset { get; set; }
 
 
 
         public TabsAdapter(StackPanel container) : base(container)
         {
-            Dataset = new List<Categoria.Contract>();
+            Dataset = new List<CategoriaType>();
         }
 
 
 
-        public void Update(List<Categoria.Contract> dataset, bool buildAfterUpdate = true)
+        public void Update(List<CategoriaType> dataset, bool buildAfterUpdate = true)
         {
             if (Dataset == null)
                 Dataset = dataset;
@@ -36,20 +37,13 @@ namespace VadenStock.View.Adapters
 
 
 
-        public void ChangeTab(TabCategoria tab)
-        {
-
-        }
-
-
-
         public override void Build(Func<UIElement, bool>? callback = null)
         {
             if (Container != null)
             {
                 Container.Children.Clear();
 
-                foreach (Categoria.Contract item in Dataset)
+                foreach (CategoriaType item in Dataset)
                 {
                     TabCategoria tab = new(this);
                     Container.Children.Add(tab.Inflate(item.Id));

@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="{x:Type RadioButton}"
+           x:Key="SimpleTabControlTheme">
+
+        <Style.Setters>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border CornerRadius="8"
+                                MaxWidth="{TemplateBinding Width}"
+                                MaxHeight="{TemplateBinding Height}"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch">
+
+                            <Grid VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Stretch">
+                                
+                                <RadioButton x:Name="SelfRadioButton"
+                                             IsChecked="{TemplateBinding Property=IsChecked}"
+                                             VerticalAlignment="Stretch"
+                                             Visibility="Hidden"/>
+
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+
+        </Style.Setters>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#90A4AE"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+</ResourceDictionary>

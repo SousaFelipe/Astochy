@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using VadenStock.Model;
+using VadenStock.Model.Types;
 using VadenStock.View.Adapters;
 
 
@@ -11,7 +12,7 @@ namespace VadenStock.View.Components
 {
     public partial class TabCategoria : RadioButton
     {
-        public Categoria.Contract? Item { get; private set; }
+        public CategoriaType? Item { get; private set; }
 
 
 
@@ -36,13 +37,6 @@ namespace VadenStock.View.Components
                 _radioControl.Content = Item.Value.Name;
 
             return this;
-        }
-
-
-
-        private void CallOnTabChange(object sender, RoutedEventArgs e)
-        {
-            Adapter.ChangeTab(this);
         }
     }
 }

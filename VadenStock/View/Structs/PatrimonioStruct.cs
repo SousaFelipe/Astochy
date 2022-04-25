@@ -1,6 +1,6 @@
 ﻿namespace VadenStock.View.Structs
 {
-    public struct PatrimonioS
+    public struct PatrimonioStruct
     {
         public int Comodato;
         public int Danificado;

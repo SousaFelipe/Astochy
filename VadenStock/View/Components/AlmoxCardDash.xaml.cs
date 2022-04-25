@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
-using VadenStock.Model;
+using VadenStock.Model.Types;
 
 
 
@@ -20,24 +20,12 @@ namespace VadenStock.View.Components
                 new UIPropertyMetadata(string.Empty, CardColorCallback)
             );
 
-        public static readonly DependencyProperty TipoProp = DependencyProperty.Register(
-                "Tipo",
-                typeof(object),
-                typeof(AlmoxCardDash),
-                new UIPropertyMetadata(string.Empty, TipoCallback)
-            );
 
 
         public string CardColor
         {
             get { return (string)GetValue(CardColorProp); }
             set { SetValue(CardColorProp, value); }
-        }
-
-        public object Tipo
-        {
-            get { return (Almoxarifado.Contract.ETipo)GetValue(TipoProp); }
-            set { SetValue(TipoProp, value); }
         }
 
 
@@ -48,44 +36,48 @@ namespace VadenStock.View.Components
             card._BorderBody.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((string)e.NewValue));
         }
 
-        public static void TipoCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+
+
+        public AlmoxType Contract { get; private set; }
+
+
+
+        public AlmoxCardDash(AlmoxType contract)
         {
-            AlmoxCardDash card = (AlmoxCardDash)root;
-            Almoxarifado.Contract.ETipo tipo = (Almoxarifado.Contract.ETipo)e.NewValue;
-
-            string iconName = (tipo == Almoxarifado.Contract.ETipo.Carro)
-                    ? "car"
-                    : (tipo == Almoxarifado.Contract.ETipo.Moto)
-                        ? "bike"
-                        : "warehouse";
-
-            card._ImageTipo.Source = new BitmapImage(
-                    new Uri($"/VadenStock;component/Resources/Icons/{ iconName }.png", UriKind.Relative)
-                );
-        }
-
-
-
-        private Almoxarifado.Contract contract;
-        private List<Item.Contract> Items = new();
-
-
-
-        public AlmoxCardDash(Almoxarifado.Contract almoxarifado)
-        {
-            contract = almoxarifado;
+            Contract = contract;
 
             InitializeComponent();
 
             Loaded += delegate
             {
-                _TextName.Text = contract.Name;
+                OnBeforeLoaded();
             };
         }
 
 
 
-        public void SetItens(List<Item.Contract> itens)
+        private void OnBeforeLoaded()
+        {
+            string iconName = "warehouse";
+
+            switch (Contract.Tipo)
+            {
+                case AlmoxType.Hosted.Carro:
+                    iconName = "car";
+                    break;
+
+                case AlmoxType.Hosted.Moto:
+                    iconName = "bike";
+                    break;
+            }
+
+            _TextName.Text = Contract.Name;
+            _ImageTipo.Source = new BitmapImage(new Uri($"/VadenStock;component/Resources/Icons/{ iconName }.png", UriKind.Relative));
+        }
+
+
+
+        public void SetItens(List<ItemType> itens)
         {
             if (itens != null)
             {
@@ -93,8 +85,6 @@ namespace VadenStock.View.Components
                 string qtdStr = (qtd > 0 && qtd < 10) ? $"0{ qtd }" : $"{ qtd }";
 
                 _TextQuantidate.Text = $"{ qtdStr } equipamentos";
-
-                Items = itens;
             }
         }
     }

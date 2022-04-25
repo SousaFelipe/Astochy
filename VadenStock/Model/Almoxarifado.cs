@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
 using VadenStock.Core;
+using VadenStock.Model.Types;
 
 
 
@@ -11,38 +11,6 @@ namespace VadenStock.Model
 {
     public class Almoxarifado : Connection
     {
-        public struct Contract
-        {
-            public enum ETipo
-            {
-                Estoque,
-                Carro,
-                Moto,
-                Indefinido
-            }
-
-
-            public int Id { get; set; }
-            public ETipo Tipo { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public DateTime CreatedDate { get; set; }
-
-
-            public static ETipo GetTipo(string tipo)
-            {
-                return tipo switch
-                {
-                    "E" => ETipo.Estoque,
-                    "C" => ETipo.Carro,
-                    "M" => ETipo.Moto,
-                    _ => ETipo.Indefinido
-                };
-            }
-        }
-
-
-
         public static Almoxarifado New { get { return new Almoxarifado(); } }
 
 
@@ -51,7 +19,7 @@ namespace VadenStock.Model
 
 
 
-        public List<Contract> Get(int id = 0)
+        public List<AlmoxType> Get(int id = 0)
         {
             try
             {
@@ -59,7 +27,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    List<Contract> list = new();
+                    List<AlmoxType> list = new();
 
                     string? query = id > 0
                         ? Builder.Load(id)
@@ -87,14 +55,35 @@ namespace VadenStock.Model
 
 
 
+        public override Almoxarifado Count(string column = "*")
+        {
+            return (Almoxarifado)base.Count(column);
+        }
+
+
+
+        public override Almoxarifado Select(string[]? selects = null)
+        {
+            return (Almoxarifado)base.Select(selects);
+        }
+
+
+
+        public override Almoxarifado Where(string column, string operOrValue, object? value = null)
+        {
+            return (Almoxarifado)base.Where(column, operOrValue, value);
+        }
+
+
+
         private class Content
         {
-            public static Contract Get(MySqlDataReader reader)
+            public static AlmoxType Get(MySqlDataReader reader)
             {
-                Contract contract = new()
+                AlmoxType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Tipo = Contract.GetTipo(reader.GetString("tipo")),
+                    Tipo = AlmoxType.GetTipo(reader.GetString("tipo")),
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(3) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")

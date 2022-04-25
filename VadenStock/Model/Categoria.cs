@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 using VadenStock.Core;
+using VadenStock.Model.Types;
 
 
 
@@ -11,16 +12,6 @@ namespace VadenStock.Model
 {
     public class Categoria : Connection
     {
-        public struct Contract
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public DateTime CreatedDate { get; set; }
-        }
-
-
-
         public static Categoria New { get { return new Categoria(); } }
 
 
@@ -28,7 +19,7 @@ namespace VadenStock.Model
 
 
 
-        public List<Contract> Get(int id = 0)
+        public List<CategoriaType> Get(int id = 0)
         {
             try
             {
@@ -36,7 +27,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    List<Contract> list = new();
+                    List<CategoriaType> list = new();
 
                     string? query = id > 0
                         ? Builder.Load(id)
@@ -64,11 +55,32 @@ namespace VadenStock.Model
 
 
 
+        public override Categoria Count(string column = "*")
+        {
+            return (Categoria)base.Count(column);
+        }
+
+
+
+        public override Categoria Select(string[]? selects = null)
+        {
+            return (Categoria)base.Select(selects);
+        }
+
+
+
+        public override Categoria Where(string column, string operOrValue, object? value = null)
+        {
+            return (Categoria)base.Where(column, operOrValue, value);
+        }
+
+
+
         private class Content
         {
-            public static Contract Get(MySqlDataReader reader)
+            public static CategoriaType Get(MySqlDataReader reader)
             {
-                Contract contract = new()
+                CategoriaType contract = new()
                 {
                     Id = reader.GetInt32("id"),
                     Name = reader.GetString("name"),

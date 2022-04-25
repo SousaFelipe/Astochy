@@ -13,7 +13,9 @@
                 <ResourceDictionary Source="Resources/Themes/ComboBoxTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ComboBoxItemTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/ScrollTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/SearchBoxTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/SimpleTabControlTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/TabControlTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -46,20 +48,10 @@
             <SolidColorBrush x:Key="WarningColor" Color="#FFD740"/>
             <SolidColorBrush x:Key="DangerColor" Color="#FF7043"/>
 
-            <SolidColorBrush x:Key="AccentColor_200" Color="#40C4FF"/>
-            <SolidColorBrush x:Key="AccentColor_400" Color="#00B0FF"/>
-
             <SolidColorBrush x:Key="TextPrimaryColor" Color="#263238"/>
             <SolidColorBrush x:Key="TextSecondaryColor" Color="#607D8B"/>
             <SolidColorBrush x:Key="TextTertiary" Color="#78909C"/>
             <SolidColorBrush x:Key="TextMuted" Color="#CFD8DC"/>
-
-            <SolidColorBrush x:Key="TextPrimaryColorInverded" Color="#FFFFFF"/>
-            <SolidColorBrush x:Key="TextSecondaryColorInverded" Color="#CCFFFFFF"/>
-            <SolidColorBrush x:Key="TextDisabledColorInverded" Color="#66FFFFFF"/>
-
-            <SolidColorBrush x:Key="BodyPaper" Color="#ECEFF1"/>
-            <SolidColorBrush x:Key="BodyPaperInverted" Color="#263238"/>
 
         </ResourceDictionary>
     </Application.Resources>

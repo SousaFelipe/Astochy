@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 using VadenStock.Core;
+using VadenStock.Model.Types;
 
 
 
@@ -11,17 +12,6 @@ namespace VadenStock.Model
 {
     public class Tipo : Connection
     {
-        public struct Contract
-        {
-            public int Id { get; set; }
-            public Categoria.Contract Categoria { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set;  }
-            public DateTime CreatedDate { get; set; }
-        }
-
-
-
         public static Tipo New { get { return new Tipo(); } }
 
 
@@ -30,7 +20,7 @@ namespace VadenStock.Model
 
 
 
-        public List<Contract> Get(int id = 0)
+        public List<TipoType> Get(int id = 0)
         {
             try
             {
@@ -38,7 +28,7 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    List<Contract> list = new();
+                    List<TipoType> list = new();
 
                     string? query = id > 0
                         ? Builder.Load(id)
@@ -66,15 +56,35 @@ namespace VadenStock.Model
 
 
 
+        public override Tipo Count(string column = "*")
+        {
+            return (Tipo)base.Count(column);
+        }
+
+
+
+        public override Tipo Select(string[]? selects = null)
+        {
+            return (Tipo)base.Select(selects);
+        }
+
+
+
+        public override Tipo Where(string column, string oper, object? value = null)
+        {
+            return (Tipo)base.Where(column, oper, value);
+        }
+
+
+
         private class Content
         {
-            #pragma warning disable CS8629
-            public static Contract Get(MySqlDataReader reader)
+            public static TipoType Get(MySqlDataReader reader)
             {
-                Contract contract = new()
+                TipoType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Categoria = (Categoria.Contract)new Categoria().Get(reader.GetInt32("categoria"))[0],
+                    Categoria = Categoria.New.Get(reader.GetInt32("categoria"))[0],
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(3) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")

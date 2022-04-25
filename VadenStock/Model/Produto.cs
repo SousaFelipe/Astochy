@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
 using VadenStock.Core;
+using VadenStock.Model.Types;
 
 
 
@@ -11,20 +11,6 @@ namespace VadenStock.Model
 {
     public class Produto : Connection
     {
-        public struct Contract
-        {
-            public int Id { get; set; }
-            public Tipo.Contract Tipo { get; set; }
-            public Marca.Contract Marca { get; set; }
-            public string Code { get; set; }
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public decimal Price { get; set; }
-            public DateTime CreatedDate { get; set; }
-        }
-
-
-
         public static Produto New { get { return new Produto(); } }
 
 
@@ -33,7 +19,7 @@ namespace VadenStock.Model
 
 
 
-        public List<Contract> Get(int id = 0)
+        public List<ProdutoType> Get(int id = 0)
         {
             try
             {
@@ -41,8 +27,11 @@ namespace VadenStock.Model
                 {
                     Plug.Open();
 
-                    List<Contract> list = new();
-                    string? query = (id > 0) ? Builder.Load(id) : Builder.SQL();
+                    List<ProdutoType> list = new();
+
+                    string? query = (id > 0)
+                        ? Builder.Load(id)
+                        : Builder.SQL();
 
                     using (Cmmd = new MySqlCommand(query, Plug))
                     {
@@ -68,16 +57,16 @@ namespace VadenStock.Model
 
         private class Content
         {
-            public static Contract Get(MySqlDataReader reader)
+            public static ProdutoType Get(MySqlDataReader reader)
             {
-                Contract contract = new()
+                ProdutoType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Tipo = new Tipo().Get(reader.GetInt32("tipo"))[0],
-                    Marca = new Marca().Get(reader.GetInt32("marca"))[0],
+                    Tipo = Tipo.New.Get(reader.GetInt32("tipo"))[0],
+                    Marca = Marca.New.Get(reader.GetInt32("marca"))[0],
                     Code = reader.GetString("code"),
                     Name = reader.GetString("name"),
-                    Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
+                    Description = reader.IsDBNull(5) ? string.Empty : reader.GetString("description"),
                     Price = reader.GetDecimal("price"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };

@@ -24,7 +24,7 @@
                 Height="8"
                 VerticalAlignment="Top"
                 Margin="0 4 4 0"
-                Background="{StaticResource AccentColor_200}"/>
+                Background="{StaticResource Secondary}"/>
 
         <StackPanel Grid.Column="1"
                     VerticalAlignment="Stretch"
@@ -70,7 +70,7 @@
                        HorizontalAlignment="Right"
                        Margin="0 0 0 2"
                        FontSize="10"
-                       Foreground="{StaticResource AccentColor_400}"
+                       Foreground="{StaticResource SecondaryDark}"
                        Text="0,0%"/>
         </Grid>
 

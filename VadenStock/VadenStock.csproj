@@ -12,9 +12,8 @@
         <None Remove="Resources\Icons\bike.png" />
         <None Remove="Resources\Icons\car.png" />
         <None Remove="Resources\Icons\clear-search-active.png" />
-        <None Remove="Resources\Icons\clear-search.png" />
-        <None Remove="Resources\Icons\close-circle.png" />
         <None Remove="Resources\Icons\close.png" />
+        <None Remove="Resources\Icons\filter.png" />
         <None Remove="Resources\Icons\magnify.png" />
         <None Remove="Resources\Icons\maximize.png" />
         <None Remove="Resources\Icons\minimize.png" />
@@ -58,9 +57,8 @@
 		<Resource Include="Resources\Icons\car.png" />
 		
         <Resource Include="Resources\Icons\clear-search-active.png" />
-        <Resource Include="Resources\Icons\clear-search.png" />
-        <Resource Include="Resources\Icons\close-circle.png" />
         <Resource Include="Resources\Icons\close.png" />
+        <Resource Include="Resources\Icons\filter.png" />
         <Resource Include="Resources\Icons\magnify.png" />
         <Resource Include="Resources\Icons\maximize.png" />
         <Resource Include="Resources\Icons\minimize.png" />
