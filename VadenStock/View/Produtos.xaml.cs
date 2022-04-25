@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
-using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+
+using VadenStock.View.Models;
+using VadenStock.View.Adapters;
 
 
 
@@ -12,6 +12,21 @@ namespace VadenStock.View
         public Produtos()
         {
             InitializeComponent();
+
+            Loaded += delegate
+            {
+                LoadProdutos();
+            };
+        }
+
+
+
+        public void LoadProdutos()
+        {
+            ProdutosAdapter adapter = new(_GridProdutos);
+
+            adapter.Update(ProdutosViewModel.GetProdutos(), false);
+            adapter.Build();
         }
     }
 }

@@ -55,6 +55,27 @@ namespace VadenStock.Model
 
 
 
+        public override Produto Count(string column = "*")
+        {
+            return (Produto)base.Count(column);
+        }
+
+
+
+        public override Produto Select(string[]? selects = null)
+        {
+            return (Produto)base.Select(selects);
+        }
+
+
+
+        public override Produto Where(string column, string operOrValue, object? value = null)
+        {
+            return (Produto)base.Where(column, operOrValue, value);
+        }
+
+
+
         private class Content
         {
             public static ProdutoType Get(MySqlDataReader reader)
@@ -66,7 +87,8 @@ namespace VadenStock.Model
                     Marca = Marca.New.Get(reader.GetInt32("marca"))[0],
                     Code = reader.GetString("code"),
                     Name = reader.GetString("name"),
-                    Description = reader.IsDBNull(5) ? string.Empty : reader.GetString("description"),
+                    Image = reader.IsDBNull(5) ? string.Empty : reader.GetString("image"),
+                    Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Price = reader.GetDecimal("price"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };

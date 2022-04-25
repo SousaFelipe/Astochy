@@ -72,4 +72,8 @@
         </Page>
     </ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Resources\Storage\" />
+	</ItemGroup>
+
 </Project>

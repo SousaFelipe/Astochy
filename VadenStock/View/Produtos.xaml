@@ -63,6 +63,19 @@
                 Margin="8 0 8 16"
                 Background="{StaticResource PrimaryColor_100}"/>
 
+        <Grid x:Name="_GridProdutos"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Stretch">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+
     </StackPanel>
 
 </UserControl>

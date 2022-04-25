@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="VadenStock.View.Components.ProdutoCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignWidth="230"
+             d:DesignHeight="130">
+    
+    <Border CornerRadius="14"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Background="#FFFFFF">
+
+        <StackPanel VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Margin="14 14 14 12">
+
+            <StackPanel Orientation="Horizontal">
+
+                <Border CornerRadius="8"
+                        Background="{StaticResource PrimaryColor_050}"
+                        ClipToBounds="True">
+                    
+                    <Image x:Name="_ImageAvatar"
+                       Width="42"
+                       Height="42"/>
+                    
+                </Border>
+
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="12 0 0 0">
+
+                    <TextBlock x:Name="_TextName"
+                               Foreground="{StaticResource TextPrimaryColor}"
+                               FontSize="12"/>
+
+                    <TextBlock x:Name="_TextQuantItens"
+                               Text="08 itens em estoque"
+                               Foreground="{StaticResource TextSecondaryColor}"
+                               FontSize="10"/>
+
+                </StackPanel>
+
+            </StackPanel>
+            
+        </StackPanel>
+        
+    </Border>
+    
+</UserControl>
