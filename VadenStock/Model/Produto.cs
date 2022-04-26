@@ -76,6 +76,13 @@ namespace VadenStock.Model
 
 
 
+        public override Produto InnerJoin(string table, string joinOne, string joinTwo = "id")
+        {
+            return (Produto)base.InnerJoin(table, joinOne, joinTwo);
+        }
+
+
+
         private class Content
         {
             public static ProdutoType Get(MySqlDataReader reader)

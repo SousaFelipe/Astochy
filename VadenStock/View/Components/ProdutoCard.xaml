@@ -19,7 +19,7 @@
             <StackPanel Orientation="Horizontal">
 
                 <Border CornerRadius="8"
-                        Background="{StaticResource PrimaryColor_050}"
+                        Background="{StaticResource SecondaryMuted}"
                         ClipToBounds="True">
                     
                     <Image x:Name="_ImageAvatar"
@@ -34,10 +34,9 @@
 
                     <TextBlock x:Name="_TextName"
                                Foreground="{StaticResource TextPrimaryColor}"
-                               FontSize="12"/>
+                               FontSize="13"/>
 
                     <TextBlock x:Name="_TextQuantItens"
-                               Text="08 itens em estoque"
                                Foreground="{StaticResource TextSecondaryColor}"
                                FontSize="10"/>
 

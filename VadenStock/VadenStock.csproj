@@ -17,6 +17,7 @@
         <None Remove="Resources\Icons\magnify.png" />
         <None Remove="Resources\Icons\maximize.png" />
         <None Remove="Resources\Icons\minimize.png" />
+        <None Remove="Resources\Icons\package-plus.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
     </ItemGroup>
@@ -62,6 +63,7 @@
         <Resource Include="Resources\Icons\magnify.png" />
         <Resource Include="Resources\Icons\maximize.png" />
         <Resource Include="Resources\Icons\minimize.png" />
+        <Resource Include="Resources\Icons\package-plus.png" />
         <Resource Include="Resources\Icons\restore.png" />
         <Resource Include="Resources\Icons\warehouse.png" />
     </ItemGroup>

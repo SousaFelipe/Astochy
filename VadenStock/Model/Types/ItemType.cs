@@ -24,6 +24,7 @@ namespace VadenStock.Model.Types
         public int Id { get; set; }
         public ProdutoType Produto { get; set; }
         public AlmoxType Almoxarifado { get; set; }
+        public InventarioType Inventario { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }

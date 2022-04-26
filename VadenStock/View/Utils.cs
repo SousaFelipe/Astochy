@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using System.IO;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 
 
@@ -25,6 +26,33 @@ namespace VadenStock.View
             }
 
             return null;
+        }
+
+
+
+        public static BitmapImage FindStorageImage(string filename)
+        {
+            Stream stream = File.OpenRead($"{ Directory.GetCurrentDirectory() }\\Resources\\Storage\\{ filename }");
+            BitmapImage img = new();
+
+            img.BeginInit();
+            img.StreamSource = stream;
+            img.CacheOption = BitmapCacheOption.OnLoad;
+            img.EndInit();
+            img.Freeze();
+
+            return img;
+        }
+
+
+
+        public static string ZeroFill(int number, string? concat = "")
+        {
+            string zero = (number > 0 && number < 10)
+                ? $"0{ number }"
+                : number.ToString();
+
+            return string.Concat(zero, concat);
         }
     }
 }

@@ -53,6 +53,14 @@ namespace VadenStock.Core
 
 
 
+        public virtual Connection InnerJoin(string table, string joinOne, string joinTwo = "id")
+        {
+            Builder.InnnerJoin(table, joinOne, joinTwo);
+            return this;
+        }
+
+
+
         public virtual Connection Where(string column, string oper, object? value = null)
         {
             Builder.Where(column, oper, value);

@@ -53,6 +53,14 @@ namespace VadenStock.Core
 
 
 
+        public QueryBuilder InnnerJoin(string table, string joinOne, string joinTwo = "id")
+        {
+            Query += $"INNER JOIN { table } ON { table }.{ joinOne }={ Table }.{ joinTwo }";
+            return this;
+        }
+
+
+
         public QueryBuilder Where(string column, string oper, object? value = null)
         {
             object realOpera = value == null ? "=" : oper;
