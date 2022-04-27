@@ -37,8 +37,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="264*" />
-            <RowDefinition Height="277*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -220,6 +219,16 @@
             </Grid>
 
         </ScrollViewer>
+
+        <Border x:Name="_BorderShadow"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Background="#4D000000"
+                Visibility="Hidden">
+
+        </Border>
 
     </Grid>
 

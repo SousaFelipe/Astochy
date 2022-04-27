@@ -9,15 +9,22 @@
 
     <ItemGroup>
         <None Remove="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
+        <None Remove="Resources\Icons\arrow-down.png" />
+        <None Remove="Resources\Icons\arrow-up-dark.png" />
+        <None Remove="Resources\Icons\arrow-up-down.png" />
+        <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
         <None Remove="Resources\Icons\car.png" />
-        <None Remove="Resources\Icons\clear-search-active.png" />
+        <None Remove="Resources\Icons\close-active.png" />
+        <None Remove="Resources\Icons\close-dark.png" />
         <None Remove="Resources\Icons\close.png" />
         <None Remove="Resources\Icons\filter.png" />
+        <None Remove="Resources\Icons\image-plus-active.png" />
         <None Remove="Resources\Icons\magnify.png" />
         <None Remove="Resources\Icons\maximize.png" />
         <None Remove="Resources\Icons\minimize.png" />
         <None Remove="Resources\Icons\package-plus.png" />
+        <None Remove="Resources\Icons\plus.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
     </ItemGroup>
@@ -50,22 +57,65 @@
 		<Resource Include="Resources\Fonts\Poppins\Poppins-SemiBoldItalic.ttf" />
 		<Resource Include="Resources\Fonts\Poppins\Poppins-Thin.ttf" />
 		<Resource Include="Resources\Fonts\Poppins\Poppins-ThinItalic.ttf" />
+
+		<Resource Include="Resources\Fonts\RobotoFlex\RobotoFlex.ttf">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 		
-		<Resource Include="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
-		
-		<Resource Include="Resources\Icons\bike.png" />
-		
-		<Resource Include="Resources\Icons\car.png" />
-		
-        <Resource Include="Resources\Icons\clear-search-active.png" />
-        <Resource Include="Resources\Icons\close.png" />
-        <Resource Include="Resources\Icons\filter.png" />
-        <Resource Include="Resources\Icons\magnify.png" />
-        <Resource Include="Resources\Icons\maximize.png" />
-        <Resource Include="Resources\Icons\minimize.png" />
-        <Resource Include="Resources\Icons\package-plus.png" />
-        <Resource Include="Resources\Icons\restore.png" />
-        <Resource Include="Resources\Icons\warehouse.png" />
+		<Resource Include="Resources\Icons\arrow-down.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\arrow-up-dark.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\arrow-up-down.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\arrow-up.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\bike.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Resources\Icons\car.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+        <Resource Include="Resources\Icons\close-active.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\close-dark.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\close.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\filter.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\image-plus-active.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\magnify.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\maximize.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\minimize.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\package-plus.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\plus.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\restore.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\warehouse.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
     </ItemGroup>
 
 	<ItemGroup>

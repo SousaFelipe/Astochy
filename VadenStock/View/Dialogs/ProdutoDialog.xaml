@@ -3,14 +3,110 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         mc:Ignorable="d"
         Title="ProdutoDialog"
         Width="600"
-        Height="400">
-    
-    <Grid>
+        Height="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        Closing="OnClosing">
+
+    <Border CornerRadius="16"
+            Background="White">
+
+        <Grid VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="64"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="3"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Right"
+                    Height="38"
+                    Margin="8"
+                    Padding="8"
+                    Background="{StaticResource Secondary}"
+                    Style="{StaticResource ButtonLightTheme}"
+                    Click="CloseDialog">
+                <Image Width="24"
+                       Height="24"
+                       Source="/VadenStock;component/Resources/Icons/close-dark.png"/>
+            </Button>
+
+            <StackPanel Grid.Row="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+
+                <Border HorizontalAlignment="Stretch"
+                        Background="{StaticResource PrimaryColor_050}"
+                        Padding="0 8">
+
+                    <Border CornerRadius="16"
+                            BorderThickness="1"
+                            HorizontalAlignment="Center"
+                            Width="86"
+                            Height="86"
+                            Background="White">
+                        
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Setters>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                                </Style.Setters>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="#40C4FF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch">
+
+                            <Image VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Width="24"
+                                   Height="24"
+                                   Source="/VadenStock;component/Resources/Icons/image-plus-active.png"/>
+
+                            <Image x:Name="_ImageAvatar"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"/>
+
+                        </Grid>
+
+                    </Border>
+                    
+                </Border>
+
+                <StackPanel HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Margin="16">
+
+                    <forms:InputText x:Name="_InputName"
+                                     HorizontalAlignment="Stretch"
+                                     Placeholder="Nome do produto..."
+                                     FontSize="16"
+                                     Foreground="{StaticResource TextPrimaryColor}"/>
+
+                </StackPanel>
+
+            </StackPanel>
+            
+        </Grid>
         
-    </Grid>
+    </Border>
     
 </Window>

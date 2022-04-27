@@ -25,7 +25,7 @@
 
             <components:SelectBox Grid.Column="0"
                                   x:Name="_ComboCategorias"
-                                  Width="160"
+                                  Width="110"
                                   Height="28"
                                   Background="{StaticResource PrimaryColor_050}"
                                   Style="{StaticResource ComboBoxTheme}">
@@ -38,7 +38,7 @@
 
             <components:SelectBox Grid.Column="1"
                                   x:Name="_ComboTipos"
-                                  Width="160"
+                                  Width="150"
                                   Height="28"
                                   Margin="12 0 0 0"
                                   Background="{StaticResource PrimaryColor_050}"
@@ -52,7 +52,7 @@
 
             <components:SelectBox Grid.Column="2"
                                   x:Name="_ComboMarcas"
-                                  Width="160"
+                                  Width="130"
                                   Height="28"
                                   Margin="12 0 0 0"
                                   Background="{StaticResource PrimaryColor_050}"
@@ -64,24 +64,27 @@
 
             </components:SelectBox>
 
-            <Button Grid.Column="3"
-                    x:Name="_ButtonNovoProduto"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Right"
-                    Padding="12 0"
-                    Background="{StaticResource Secondary}"
-                    Foreground="White"
-                    Style="{StaticResource ButtonTheme}">
-
-                <StackPanel Orientation="Horizontal">
-                    <Image Width="16"
-                           Height="16"
-                           Source="/VadenStock;component/Resources/Icons/package-plus.png"/>
-                    <TextBlock Text="Novo"
-                               Margin="8 0"/>
-                </StackPanel>
-
-            </Button>
+            <components:Dropdown Grid.Column="3"
+                                 x:Name="_ComboCadastro"
+                                 HorizontalAlignment="Right"
+                                 Width="100"
+                                 Height="28"
+                                 Label="Cadastrar"
+                                 Style="{StaticResource DropdownSecondary}"
+                                 SelectionChanged="ComboCadastroSelectedOption">
+                <ComboBoxItem Tag="P"
+                              Content="Produto" 
+                              Foreground="#37474F"/>
+                <ComboBoxItem Tag="M"
+                              Content="Marca" 
+                              Foreground="#37474F"/>
+                <ComboBoxItem Tag="C"
+                              Content="Categorias" 
+                              Foreground="#37474F"/>
+                <ComboBoxItem Tag="T"
+                              Content="Tipo" 
+                              Foreground="#37474F"/>
+            </components:Dropdown>
 
         </Grid>
 

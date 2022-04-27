@@ -16,14 +16,26 @@ using System.Windows.Shapes;
 
 namespace VadenStock.View.Dialogs
 {
-    /// <summary>
-    /// Lógica interna para ProdutoDialog.xaml
-    /// </summary>
     public partial class ProdutoDialog : Window
     {
         public ProdutoDialog()
         {
             InitializeComponent();
+        }
+
+
+
+        private void CloseDialog(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            VadenStock.MainWindow window = (VadenStock.MainWindow)Application.Current.MainWindow;
+            window.ExitDialogMode();
         }
     }
 }

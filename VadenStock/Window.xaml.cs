@@ -47,6 +47,20 @@ namespace VadenStock
 
 
 
+		public void EnterDialogMode()
+        {
+			_BorderShadow.Visibility = Visibility.Visible;
+        }
+
+
+
+		public void ExitDialogMode()
+		{
+			_BorderShadow.Visibility = Visibility.Hidden;
+		}
+
+
+
 		public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
 		{
 			if (msg == WM_GETMINMAXINFO)
