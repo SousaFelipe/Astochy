@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:cards="clr-namespace:VadenStock.View.Components.Cards"
+        xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ProdutoDialog"
-        Width="600"
-        Height="400"
+        Width="580"
+        Height="451"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         HorizontalContentAlignment="Stretch"
@@ -94,13 +95,107 @@
 
                 <StackPanel HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Margin="16">
+                            Margin="16 20 16 0">
 
                     <forms:InputText x:Name="_InputName"
                                      HorizontalAlignment="Stretch"
+                                     Margin="4 0 4 0"
                                      Placeholder="Nome do produto..."
-                                     FontSize="16"
+                                     FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"/>
+
+                    <TextBlock Margin="4 16 4 8"
+                               Text="DETALHES"
+                               Foreground="{StaticResource TextMuted}"
+                               FontSize="11"/>
+
+                    <Grid HorizontalAlignment="Stretch">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <components:SelectBox Grid.Column="0"
+                                              x:Name="_ComboCategorias"
+                                              HorizontalAlignment="Stretch"
+                                              Margin="4 0 4 0"
+                                              Background="#FFFFFF"
+                                              Text="Categoria"
+                                              FontSize="14"
+                                              Foreground="{StaticResource TextPrimaryColor}"
+                                              Style="{StaticResource InputSelectTheme}">
+                            <ComboBoxItem Tag="0" Content="Categoria"/>
+                        </components:SelectBox>
+
+                        <components:SelectBox Grid.Column="1"
+                                              x:Name="_ComboTipos"
+                                              HorizontalAlignment="Stretch"
+                                              Margin="4 0 4 0"
+                                              Background="#FFFFFF"
+                                              Text="Tipo"
+                                              FontSize="14"
+                                              Foreground="{StaticResource TextPrimaryColor}"
+                                              Style="{StaticResource InputSelectTheme}">
+                            <ComboBoxItem Tag="0" Content="Tipo"/>
+                        </components:SelectBox>
+
+                        <components:SelectBox Grid.Column="2"
+                                              x:Name="_ComboMarcas"
+                                              HorizontalAlignment="Stretch"
+                                              Margin="4 0 4 0"
+                                              Background="#FFFFFF"
+                                              Text="Marca"
+                                              FontSize="14"
+                                              Foreground="{StaticResource TextPrimaryColor}"
+                                              Style="{StaticResource InputSelectTheme}">
+                            <ComboBoxItem Tag="0" Content="Marca"/>
+                        </components:SelectBox>
+
+                    </Grid>
+
+                    <Border CornerRadius="4"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource PrimaryColor_100}"
+                            HorizontalAlignment="Stretch"
+                            Margin="4 16 4 0">
+                        
+                        <Grid HorizontalAlignment="Stretch">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="Preço"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="13 0 0 0"
+                                       FontSize="14"
+                                       Foreground="{StaticResource PrimaryColor_100}"/>
+
+                            <forms:InputCurrency Grid.Column="1"
+                                                 x:Name="_InputPrice"
+                                                 HorizontalAlignment="Stretch"
+                                                 FontSize="14"
+                                                 BorderThickness="0"
+                                                 Margin="0 7 12 8"
+                                                 Placeholder="R$ 0,00"
+                                                 Text="R$ 0,00"
+                                                 Foreground="{StaticResource TextPrimaryColor}"/>
+
+                        </Grid>
+                    </Border>
+
+                    <forms:InputText x:Name="_TextDescription"
+                                     Margin="4 16 4 0"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Visible"
+                                     Placeholder="Descrição (opcional)"
+                                     FontSize="14"/>
 
                 </StackPanel>
 

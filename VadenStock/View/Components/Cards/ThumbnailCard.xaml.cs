@@ -23,13 +23,6 @@ namespace VadenStock.View.Components.Cards
                 new UIPropertyMetadata(string.Empty, HeaderPropertyCallback)
             );
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-                "Icon",
-                typeof(string),
-                typeof(ThumbnailCard),
-                new UIPropertyMetadata(string.Empty, IconPropertyCallback)
-            );
-
         public static readonly DependencyProperty SubHeaderProperty = DependencyProperty.Register(
                 "SubHeader",
                 typeof(string),
@@ -57,12 +50,6 @@ namespace VadenStock.View.Components.Cards
             set { SetValue(SubHeaderProperty, value); }
         }
 
-        public string Icon
-        {
-            get { return (string)GetValue(IconProperty); }
-            set { SetValue(IconProperty, value); }
-        }
-
 
 
         public static void BodyPropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
@@ -84,17 +71,19 @@ namespace VadenStock.View.Components.Cards
             thumb._TextSubHeader.Text = (string)e.NewValue;
         }
 
-        public static void IconPropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
-        {
-            ThumbnailCard thumb = (ThumbnailCard)root;
-            thumb._ImageThumb.Source = Utils.Icon((string)e.NewValue);
-        }
-
 
 
         public ThumbnailCard()
         {
             InitializeComponent();
+        }
+
+
+
+        public void SetThumb(string name)
+        {
+            _ImageThumb.Source = Utils.FindResource(name, Utils.Resource.Icons, Utils.Resource.FileType.PNG);
+            _ImageThumb.UpdateLayout();
         }
     }
 }

@@ -27,8 +27,8 @@ namespace VadenStock.View.Components.Forms
 
         public static void PlaceholderPropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            InputText input = (InputText)root;
-            input.Placeholder = (string)e.NewValue;
+            InputText instance = (InputText)root;
+            instance.Placeholder = (string)e.NewValue;
         }
 
 

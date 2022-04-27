@@ -126,14 +126,19 @@ namespace VadenStock.View
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
                 string subHeader = Utils.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count) + " itens disponíveis";
 
-                return new ThumbnailCard()
+                ThumbnailCard thumb = new()
                 {
                     Margin = thickn,
                     Body = "#FFFFFF",
                     Header = almox.Name,
-                    SubHeader = subHeader,
-
+                    SubHeader = subHeader
                 };
+
+                thumb.SetThumb(
+                        almox.Tipo == AlmoxType.Hosted.Carro ? "car" : almox.Tipo == AlmoxType.Hosted.Moto ? "bike" : "warehouse"
+                    );
+
+                return thumb;
             }
         }
     }

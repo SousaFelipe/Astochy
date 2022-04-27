@@ -30,8 +30,9 @@ namespace VadenStock.View.Components
         private void OnBeforeLoad()
         {
             int quantidade = Produto.New.Count().InnerJoin("items", "produto").Bind();
+            string filename = $"{ Contract.Image }-64.png";
 
-            _ImageAvatar.Source = Utils.FindStorageImage($"{ Contract.Image }-64.png");
+            _ImageAvatar.Source = Utils.FindResource(filename, Utils.Resource.Storage);
             _TextName.Text = Contract.Name;
             _TextQuantItens.Text = Utils.ZeroFill(quantidade, " itens em estoque");
         }

@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using System.IO;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
@@ -11,6 +12,39 @@ namespace VadenStock.View
 {
     public static class Utils
     {
+        public struct Resource
+        {
+            public static string Storage { get { return "Storage";  } }
+            public static string Icons { get { return "Icons";  } }
+
+            public struct FileType
+            {
+                public static readonly string PNG = "png";
+                public static readonly string JPG = "jpg";
+                public static readonly string JPEG = "jpeg";
+            }
+
+            public static string GetFileType(string filename)
+            {
+                string[] pices = filename.Split('.');
+
+                if (pices.Length > 0)
+                {
+                    return pices[1] switch
+                    {
+                        "png" => FileType.PNG,
+                        "jpg" => FileType.JPG,
+                        "jpeg" => FileType.JPEG,
+                        _ => string.Empty
+                    };
+                }
+
+                return string.Empty;
+            }
+        }
+
+
+
         public static T? GetChildOfType<T>(this DependencyObject dep) where T : DependencyObject
         {
             if (dep == null)
@@ -30,9 +64,13 @@ namespace VadenStock.View
 
 
 
-        public static BitmapImage FindStorageImage(string filename)
+        public static BitmapImage FindResource(string fileName, string filePath, string filetype = "")
         {
-            Stream stream = File.OpenRead($"{ Directory.GetCurrentDirectory() }\\Resources\\Storage\\{ filename }");
+            string completeFileName = string.IsNullOrEmpty(Path.GetExtension(fileName))
+                    ? $"{ fileName }.{ filetype }"
+                    : fileName;
+
+            Stream stream = File.OpenRead($"{ Directory.GetCurrentDirectory() }\\Resources\\{ filePath }\\{ completeFileName }");
             BitmapImage img = new();
 
             img.BeginInit();
@@ -46,14 +84,6 @@ namespace VadenStock.View
 
 
 
-        public static BitmapImage Icon(string name)
-        {
-            Uri source = new($"/VadeStock;component/Resources/Icons/{name}.png", UriKind.Relative);
-            return new BitmapImage(source);
-        }
-
-
-
         public static string ZeroFill(int number, string? concat = "")
         {
             string zero = (number > 0 && number < 10)
@@ -61,6 +91,21 @@ namespace VadenStock.View
                 : number.ToString();
 
             return string.Concat(zero, concat);
+        }
+
+
+
+        public static string Number(this string dirty)
+        {
+            string clean = string.Empty;
+
+            for (int i = 0; i < dirty.Length; i++)
+            {
+                if (Char.IsDigit(dirty[i]))
+                    clean += dirty[i];
+            }
+
+            return clean;
         }
     }
 }

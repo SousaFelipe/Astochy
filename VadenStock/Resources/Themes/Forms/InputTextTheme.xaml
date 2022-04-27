@@ -4,7 +4,7 @@
     
 
     <Style TargetType="{x:Type forms:InputText}"
-           x:Name="InputText">
+           x:Name="InputTextTheme">
 
         <Style.Setters>
             <Setter Property="Control.Template">
@@ -12,14 +12,14 @@
                     <ControlTemplate TargetType="forms:InputText">
                         <Border x:Name="_BorderTextBox"
                                 CornerRadius="4"
-                                BorderThickness="1"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="#CFD8DC"
                                 MinHeight="28"
                                 Background="{TemplateBinding Background}">
 
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
-                                  Margin="0 6">
+                                  Margin="0 7 0 8">
 
                                 <TextBox x:Name="_InputSelf"
                                          BorderThickness="0"
@@ -35,7 +35,7 @@
                                            HorizontalAlignment="Left"
                                            Margin="13 0"
                                            FontSize="{TemplateBinding FontSize}"
-                                           Foreground="#90A4AE">
+                                           Foreground="#CFD8DC">
 
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
