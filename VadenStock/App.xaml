@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonWarningTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Dropdowns/DropdownSecondary.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Forms/InputText.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/CardTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ComboBoxTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ComboBoxItemTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml"/>

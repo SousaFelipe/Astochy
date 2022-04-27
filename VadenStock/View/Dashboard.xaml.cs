@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using VadenStock.View.Models;
 using VadenStock.View.Structs;
-using VadenStock.View.Components;
+using VadenStock.View.Components.Cards;
 
 using VadenStock.Model.Types;
 
@@ -67,35 +67,28 @@ namespace VadenStock.View
             if (almoxarifados != null)
             {
                 AlmoxType currentAlmo;
-                AlmoxCardDash currentCard;
+                ThumbnailCard currentCard;
 
-                int rounds = 0;
-                int crrRow = 0;
+                int r = 0;
+                int l = 0;
 
                 for (int a = 0; a < almoxarifados.Count; a++)
                 {
                     currentAlmo = almoxarifados[a];
-
-                    currentCard = new AlmoxCardDash(currentAlmo)
-                    {
-                        Margin = new Thickness(6, (a > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0),
-                        CardColor = "#FFFFFF"
-                    };
-
-                    currentCard.SetItens(DashboardViewModel.GetItems(currentAlmo.Id));
+                    currentCard = Molecules.AlmoxarifadoThumbCard(currentAlmo, a, r);
 
                     _GridAlmoxarifados.Children.Add(currentCard);
-                     Grid.SetColumn(currentCard, rounds);
-                     Grid.SetRow(currentCard, crrRow);
+                     Grid.SetColumn(currentCard, r);
+                     Grid.SetRow(currentCard, l);
 
-                    if (0 == (rounds - 3))
+                    if (0 == (r - 3))
                     {
                         _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
 
-                        rounds = 0;
-                        crrRow++;
+                        r = 0;
+                        l++;
                     }
-                    else rounds++;
+                    else r++;
                 }
             }
         }
@@ -121,6 +114,26 @@ namespace VadenStock.View
                         Content = string.Concat(tipos[i].Name[0], tipos[i].Name[1..].ToLower())
                     });
                 }
+            }
+        }
+
+
+
+        private static class Molecules
+        {
+            public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
+            {
+                Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
+                string subHeader = Utils.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count) + " itens disponíveis";
+
+                return new ThumbnailCard()
+                {
+                    Margin = thickn,
+                    Body = "#FFFFFF",
+                    Header = almox.Name,
+                    SubHeader = subHeader,
+
+                };
             }
         }
     }

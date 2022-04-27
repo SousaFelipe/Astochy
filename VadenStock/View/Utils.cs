@@ -46,6 +46,14 @@ namespace VadenStock.View
 
 
 
+        public static BitmapImage Icon(string name)
+        {
+            Uri source = new($"/VadeStock;component/Resources/Icons/{name}.png", UriKind.Relative);
+            return new BitmapImage(source);
+        }
+
+
+
         public static string ZeroFill(int number, string? concat = "")
         {
             string zero = (number > 0 && number < 10)
