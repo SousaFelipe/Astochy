@@ -7,12 +7,6 @@
 
         <Setter Property="Cursor" Value="Hand"/>
 
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <SolidColorBrush Opacity="1" Color="White"/>
-            </Setter.Value>
-        </Setter>
-
         <Setter Property="Background" >
             <Setter.Value>
                 <SolidColorBrush Opacity="1" Color="#FFFFFF" />
@@ -25,8 +19,7 @@
 
                     <Border x:Name="border"
                             CornerRadius="4"
-                            SnapsToDevicePixels="True"
-                            Background="White">
+                            SnapsToDevicePixels="True">
 
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center"
@@ -43,6 +36,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
+                
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>

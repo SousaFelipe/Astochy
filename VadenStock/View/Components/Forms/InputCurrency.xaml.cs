@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -63,7 +60,7 @@ namespace VadenStock.View.Components.Forms
 
                     if (double.TryParse(clean, out double value))
                     {
-                        input.Text = string.Format("{0:C}", value);
+                        input.Text = string.Format("{0,12:N2}", value);
                         input.Currency = (value > 0) ? (value / 100) : 0;
 
                         input.SelectionStart = ((input.Text.Length - 1) - 2);

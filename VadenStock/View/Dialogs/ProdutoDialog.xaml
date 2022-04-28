@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
-        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
         mc:Ignorable="d"
         Title="ProdutoDialog"
-        Width="580"
-        Height="451"
+        Width="480"
+        Height="472"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         HorizontalContentAlignment="Stretch"
@@ -17,7 +16,8 @@
         AllowsTransparency="True"
         WindowStyle="None"
         Background="Transparent"
-        Closing="OnClosing">
+        Closing="OnClosing"
+        VerticalAlignment="Center">
 
     <Border CornerRadius="16"
             Background="White">
@@ -28,7 +28,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="64"/>
             </Grid.RowDefinitions>
 
             <Button Grid.Column="3"
@@ -37,7 +36,6 @@
                     Height="38"
                     Margin="8"
                     Padding="8"
-                    Background="{StaticResource Secondary}"
                     Style="{StaticResource ButtonLightTheme}"
                     Click="CloseDialog">
                 <Image Width="24"
@@ -46,7 +44,7 @@
             </Button>
 
             <StackPanel Grid.Row="1"
-                        VerticalAlignment="Stretch"
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Stretch">
 
                 <Border HorizontalAlignment="Stretch"
@@ -196,8 +194,17 @@
                                      VerticalScrollBarVisibility="Visible"
                                      Placeholder="Descrição (opcional)"
                                      FontSize="14"/>
+                    
+                    
 
                 </StackPanel>
+
+                <Button x:Name="_ButtonSave"
+                        Margin="20 24 20 24"
+                        Height="36"
+                        Content="SALVAR"
+                        FontSize="16"
+                        Style="{StaticResource ButtonSecondaryTheme}"/>
 
             </StackPanel>
             
