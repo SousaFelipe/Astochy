@@ -107,5 +107,44 @@ namespace VadenStock.View
 
             return clean;
         }
+
+
+
+        public static string Currency(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return "0,00";
+
+            char[] input = Number(value).ToCharArray();
+            char[] output = new char[(input.Length >= 3) ? input.Length : 3];
+
+            if (input.Length < output.Length)
+            {
+                //for (int i = output.Length - 1; i >= 0; i--)
+                //    output[i] = (i > input.Length - 1) ? '0' : input[i];
+                for (int i = output.Length - 1; i >= 0; i--)
+                    output[i] = ((i - (i - output.Length - input.Length)) >= 0) ? input[i] : '0';
+            }
+
+            return new string(output).Insert(1, ",");
+
+            //for (int i = output.Length - 1; i >= 0; i--)
+            //{
+
+            //}
+
+            //---------------
+            //| i | in | ou |
+            //---------------
+
+            // 1            0,01
+            // 12           0,12
+            // 123          01,23
+            // 1234         12,34
+            // 12345        123,45
+            // 123456       1.234,56
+            // 1234567      12.345,67
+            // 12345678     123.456,78
+        }
     }
 }
