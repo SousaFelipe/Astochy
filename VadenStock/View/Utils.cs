@@ -110,41 +110,59 @@ namespace VadenStock.View
 
 
 
-        public static string Currency(this string value)
+        public static string Currency(this string input)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(input))
                 return "0,00";
 
-            char[] input = Number(value).ToCharArray();
-            char[] output = new char[(input.Length >= 3) ? input.Length : 3];
+            string output = Sanitize(input, 3);
+                   output = output.Insert(output.Length - 2, ",");
+
+            if (output.Length > 4)
+            {
+                for (int i = output.Length - 1; i >= 0; i--)
+                {
+
+                }
+            }
+
+            // 123          1,23
+            // 1234         12,34
+            // 12345        123,45
+            // 123466       1.234,56
+            // 1234567      12.345,67
+            // 12345678     123.456,78
+            // 123456789    1.234.567,89
+
+            return new string(output);
+        }
+
+
+
+        public static string Sanitize(string value, int fill = 3)
+        {
+            string input = Number(value);
+            char[] output = new char[(input.Length >= fill) ? input.Length : fill];
 
             if (input.Length < output.Length)
             {
-                //for (int i = output.Length - 1; i >= 0; i--)
-                //    output[i] = (i > input.Length - 1) ? '0' : input[i];
+                int pos;
+
                 for (int i = output.Length - 1; i >= 0; i--)
-                    output[i] = ((i - (i - output.Length - input.Length)) >= 0) ? input[i] : '0';
+                {
+                    pos = (i - (output.Length - input.Length));
+                    output[i] = (pos >= 0) ? input[pos] : '0';
+                }
+            }
+            else
+            {
+                for (int i = output.Length - 1; i >= 0; i--)
+                {
+                    output[i] = input[i];
+                }
             }
 
-            return new string(output).Insert(1, ",");
-
-            //for (int i = output.Length - 1; i >= 0; i--)
-            //{
-
-            //}
-
-            //---------------
-            //| i | in | ou |
-            //---------------
-
-            // 1            0,01
-            // 12           0,12
-            // 123          01,23
-            // 1234         12,34
-            // 12345        123,45
-            // 123456       1.234,56
-            // 1234567      12.345,67
-            // 12345678     123.456,78
+            return new string(output);
         }
     }
 }

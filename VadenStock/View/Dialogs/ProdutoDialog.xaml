@@ -181,7 +181,6 @@
                                                  BorderThickness="0"
                                                  Margin="0 7 12 8"
                                                  Placeholder="R$ 0,00"
-                                                 Text="000"
                                                  Foreground="{StaticResource TextPrimaryColor}"/>
 
                         </Grid>
