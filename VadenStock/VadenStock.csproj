@@ -14,17 +14,21 @@
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
+        <None Remove="Resources\Icons\blue-information.png" />
         <None Remove="Resources\Icons\car.png" />
         <None Remove="Resources\Icons\close-active.png" />
         <None Remove="Resources\Icons\close-dark.png" />
         <None Remove="Resources\Icons\close.png" />
         <None Remove="Resources\Icons\filter.png" />
+        <None Remove="Resources\Icons\green-checked-cicle.png" />
         <None Remove="Resources\Icons\image-plus-active.png" />
         <None Remove="Resources\Icons\magnify.png" />
         <None Remove="Resources\Icons\maximize.png" />
         <None Remove="Resources\Icons\minimize.png" />
+        <None Remove="Resources\Icons\orange-alert.png" />
         <None Remove="Resources\Icons\package-plus.png" />
         <None Remove="Resources\Icons\plus.png" />
+        <None Remove="Resources\Icons\red-bomb.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
     </ItemGroup>
@@ -77,6 +81,9 @@
 		<Resource Include="Resources\Icons\bike.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
+		<Resource Include="Resources\Icons\blue-information.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 		<Resource Include="Resources\Icons\car.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
@@ -92,6 +99,9 @@
         <Resource Include="Resources\Icons\filter.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Resources\Icons\green-checked-cicle.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Resources\Icons\image-plus-active.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
@@ -104,10 +114,16 @@
         <Resource Include="Resources\Icons\minimize.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
+        <Resource Include="Resources\Icons\orange-alert.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
         <Resource Include="Resources\Icons\package-plus.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Resources\Icons\plus.png">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Resource Include="Resources\Icons\red-bomb.png">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Resource>
         <Resource Include="Resources\Icons\restore.png">
