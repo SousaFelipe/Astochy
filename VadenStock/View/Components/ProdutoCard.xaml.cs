@@ -2,6 +2,7 @@
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
+using VadenStock.Tools;
 
 
 
@@ -34,7 +35,7 @@ namespace VadenStock.View.Components
 
             _ImageAvatar.Source = Utils.FindResource(filename, Utils.Resource.Storage);
             _TextName.Text = Contract.Name;
-            _TextQuantItens.Text = Utils.ZeroFill(quantidade, " itens em estoque");
+            _TextQuantItens.Text = Str.ZeroFill(quantidade, " itens em estoque");
         }
     }
 }

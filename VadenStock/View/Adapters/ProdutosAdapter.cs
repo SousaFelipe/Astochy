@@ -3,9 +3,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
+using VadenStock.Model;
 using VadenStock.Model.Types;
-using VadenStock.View.Components;
 using VadenStock.View.Components.Cards;
+
+using VadenStock.Tools;
 
 
 
@@ -41,18 +43,15 @@ namespace VadenStock.View.Adapters
             if (Container != null)
             {
                 ProdutoType currentProduto;
-                ProdutoCard currentCard;
+                MidiaThumbCard currentCard;
+
                 int rounds = 0;
                 int crrRow = 0;
 
                 for (int i = 0; i < Dataset.Count; i++)
                 {
                     currentProduto = Dataset[i];
-
-                    currentCard = new ProdutoCard(currentProduto)
-                    {
-                        Margin = new Thickness(6, (i > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0)
-                    };
+                    currentCard = Molecules.ProdutoThumbCard(currentProduto, i, rounds);
 
                     Container.Children.Add(currentCard);
 
@@ -89,22 +88,23 @@ namespace VadenStock.View.Adapters
 
         private static class Molecules
         {
-            public static ThumbnailCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
+            public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = "";
+                string subHeader = Str.ZeroFill(Produto.New.Count().Bind(), " em estoque");
 
-                ThumbnailCard thumb = new()
+                MidiaThumbCard midia = new()
                 {
                     Margin = thickn,
-                    Body = "#FFFFFF",
                     Header = produto.Name,
-                    SubHeader = subHeader
+                    HeaderSize = 13,
+                    SubHeader = subHeader,
+                    SubHeaderSize = 9
                 };
 
-                thumb.SetThumb();
+                midia.SetMidia(produto.Image);
 
-                return thumb;
+                return midia;
             }
         }
     }

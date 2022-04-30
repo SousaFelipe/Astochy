@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
-using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 
 
@@ -80,89 +78,6 @@ namespace VadenStock.View
             img.Freeze();
 
             return img;
-        }
-
-
-
-        public static string ZeroFill(int number, string? concat = "")
-        {
-            string zero = (number > 0 && number < 10)
-                ? $"0{ number }"
-                : number.ToString();
-
-            return string.Concat(zero, concat);
-        }
-
-
-
-        public static string Number(this string dirty)
-        {
-            string clean = string.Empty;
-
-            for (int i = 0; i < dirty.Length; i++)
-            {
-                if (Char.IsDigit(dirty[i]))
-                    clean += dirty[i];
-            }
-
-            return clean;
-        }
-
-
-
-        public static string Currency(string input)
-        {
-            if (string.IsNullOrEmpty(input))
-                return "0,00";
-
-            string output = Sanitize(input, 3);
-            char[] vecout = output.ToCharArray();
-            
-            Array.Reverse(vecout);
-
-            string reversedOutput = new(vecout);
-            int reversedOutLength = reversedOutput.Length;
-
-            for (int i = 0; i < reversedOutLength; i++)
-            {
-                if (i == 1)
-                    reversedOutput = reversedOutput.Insert(i, ",");
-
-                else if (i == 6 || i == 10 || i == 14 || i == 18 || i == 22)
-                    reversedOutput = reversedOutput.Insert(i, ".");
-            }
-
-            char[] subversedOutput = reversedOutput.ToCharArray();
-
-            Array.Reverse(subversedOutput);
-
-            return new string(subversedOutput);
-        }
-
-
-
-        public static string Sanitize(string value, int fill = 3)
-        {
-            string input = Number(value);
-            char[] output = new char[(input.Length >= fill) ? input.Length : fill];
-
-            if (input.Length < output.Length)
-            {
-                int pos;
-
-                for (int i = output.Length - 1; i >= 0; i--)
-                {
-                    pos = (i - (output.Length - input.Length));
-                    output[i] = (pos >= 0) ? input[pos] : '0';
-                }
-            }
-            else
-            {
-                for (int i = output.Length - 1; i >= 0; i--)
-                    output[i] = input[i];
-            }
-
-            return new string(output);
         }
     }
 }

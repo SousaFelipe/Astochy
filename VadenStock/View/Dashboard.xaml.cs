@@ -8,6 +8,8 @@ using VadenStock.View.Components.Cards;
 
 using VadenStock.Model.Types;
 
+using VadenStock.Tools;
+
 
 
 namespace VadenStock.View
@@ -124,14 +126,16 @@ namespace VadenStock.View
             public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Utils.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count) + " itens disponíveis";
+                string subHeader = Str.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count) + " itens disponíveis";
 
                 ThumbnailCard thumb = new()
                 {
                     Margin = thickn,
                     Body = "#FFFFFF",
                     Header = almox.Name,
-                    SubHeader = subHeader
+                    HeaderSize = 18,
+                    SubHeader = subHeader,
+                    SubHeaderSize = 12,
                 };
 
                 thumb.SetThumb(

@@ -23,11 +23,25 @@ namespace VadenStock.View.Components.Cards
                 new UIPropertyMetadata(string.Empty, HeaderPropertyCallback)
             );
 
+        public static readonly DependencyProperty HeaderSizeProperty = DependencyProperty.Register(
+                "HeaderSize",
+                typeof(int),
+                typeof(ThumbnailCard),
+                new UIPropertyMetadata(13, HeaderSizePropertyCallback)
+            );
+
         public static readonly DependencyProperty SubHeaderProperty = DependencyProperty.Register(
                 "SubHeader",
                 typeof(string),
                 typeof(ThumbnailCard),
                 new UIPropertyMetadata(string.Empty, SubHeaderPropertyCallback)
+            );
+
+        public static readonly DependencyProperty SubHeaderSizeProperty = DependencyProperty.Register(
+                "SubHeaderSize",
+                typeof(int),
+                typeof(ThumbnailCard),
+                new UIPropertyMetadata(10, SubHeaderSizePropertyCallback)
             );
 
 
@@ -43,11 +57,23 @@ namespace VadenStock.View.Components.Cards
             get { return (string)GetValue(HeaderProperty); }
             set { SetValue(HeaderProperty, value); }
         }
-        
+
+        public int HeaderSize
+        {
+            get { return (int)GetValue(HeaderSizeProperty); }
+            set { SetValue(HeaderSizeProperty, value); }
+        }
+
         public string SubHeader
         {
             get { return (string)GetValue(SubHeaderProperty); }
             set { SetValue(SubHeaderProperty, value); }
+        }
+
+        public int SubHeaderSize
+        {
+            get { return (int)GetValue(SubHeaderSizeProperty); }
+            set { SetValue(SubHeaderSizeProperty, value); }
         }
 
 
@@ -65,10 +91,22 @@ namespace VadenStock.View.Components.Cards
             thumb._TextHeader.Text = (string)e.NewValue;
         }
 
+        public static void HeaderSizePropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+        {
+            ThumbnailCard thumb = (ThumbnailCard)root;
+            thumb._TextHeader.FontSize = (int)e.NewValue;
+        }
+
         public static void SubHeaderPropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
             ThumbnailCard thumb = (ThumbnailCard)root;
             thumb._TextSubHeader.Text = (string)e.NewValue;
+        }
+
+        public static void SubHeaderSizePropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
+        {
+            ThumbnailCard thumb = (ThumbnailCard)root;
+            thumb._TextSubHeader.FontSize = (int)e.NewValue;
         }
 
 

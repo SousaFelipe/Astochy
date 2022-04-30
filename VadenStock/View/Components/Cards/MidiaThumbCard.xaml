@@ -22,24 +22,22 @@
                 HorizontalAlignment="Stretch">
 
         <StackPanel Orientation="Horizontal"
-                    Margin="16 16 16 0">
+                    Margin="12 12 12 0">
 
-            <Border CornerRadius="5"
-                    Width="38"
-                    Height="38"
+            <Border CornerRadius="4"
+                    Width="42"
+                    Height="42"
                     Margin="0 0 12 0"
                     Background="{StaticResource SecondaryMuted}">
                 <Image x:Name="_ImageThumb"
-                       Width="24"
-                       Height="24"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
+                       VerticalAlignment="Stretch"
+                       HorizontalAlignment="Stretch"/>
             </Border>
 
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Left">
                 <TextBlock x:Name="_TextHeader"
-                           FontSize="16"
+                           FontSize="13"
                            Foreground="{StaticResource TextPrimaryColor}"
                            Text="{Binding Header, ElementName=root}"/>
                 <TextBlock x:Name="_TextSubHeader"
@@ -53,7 +51,7 @@
         <ContentPresenter x:Name="_Content"
                           VerticalAlignment="Top"
                           HorizontalAlignment="Stretch"
-                          Margin="16 0 16 16"/>
+                          Margin="12 0 12 12"/>
 
     </StackPanel>
 
