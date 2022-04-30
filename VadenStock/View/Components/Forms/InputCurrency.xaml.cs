@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using VadenStock.Tools;
+
 
 
 namespace VadenStock.View.Components.Forms
@@ -48,38 +50,26 @@ namespace VadenStock.View.Components.Forms
         {
             InputCurrency input = (InputCurrency)sender;
 
-            if (e.Key == Key.Left || e.Key == Key.Right)
-                return;
-
             if (e.Key >= Key.D0 || e.Key <= Key.D9)
             {
-                if (input.Text.Length > 0)
-                {
-                    /*string[] str = input.Text.Split(',');
-                    string clean = Utils.Number(str.Length > 0 ? str[0] : input.Text);
-
-                    if (double.TryParse(clean, out double value))
-                    {
-                        input.Text = string.Format("{0,1:N2}", value).TrimStart();
-                        input.Currency = (value > 0) ? (value / 100) : 0;
-
-                        input.SelectionStart = ((input.Text.Length - 1) - 2);
-                        input.SelectionLength = 0;
-                    }*/
-
-                    string output = Utils.Currency(input.Text);
-                    System.Diagnostics.Trace.WriteLine($"Output: { output }");
-                }
+                string output = Str.Currency(input.Text.TrimStart('0'));
+                input.Text = output;
             }
+
+            if (input.Text.Length > 0)
+                input.SelectionStart = input.Text.Length;
+
+            System.Diagnostics.Trace.WriteLine(input.Text);
         }
 
 
 
         private void OnChageSelection(object sender, RoutedEventArgs e)
         {
-            //InputCurrency input = (InputCurrency)sender;
+            InputCurrency input = (InputCurrency)sender;
 
-            //System.Diagnostics.Trace.WriteLine(input.SelectionStart);
+            if (input.Text.Length > 0 && input.SelectionStart < input.Text.Length)
+                input.SelectionStart = input.Text.Length;
         }
     }
 }

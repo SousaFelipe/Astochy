@@ -19,7 +19,7 @@
         Closing="OnClosing"
         VerticalAlignment="Center">
 
-    <Border CornerRadius="16"
+    <Border CornerRadius="8"
             Background="White">
 
         <Grid VerticalAlignment="Stretch"
@@ -98,7 +98,7 @@
                     <forms:InputText x:Name="_InputName"
                                      HorizontalAlignment="Stretch"
                                      Margin="4 0 4 0"
-                                     Placeholder="Nome do produto..."
+                                     Tag="Nome do produto..."
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"/>
 
@@ -157,8 +157,26 @@
                             BorderThickness="1"
                             BorderBrush="{StaticResource PrimaryColor_100}"
                             HorizontalAlignment="Stretch"
-                            Margin="4 16 4 0">
-                        
+                            Margin="4 16 4 0"
+                            IsHitTestVisible="True">
+
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Border.Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="#FFFFFF"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=_InputPrice, Path=IsFocused}" Value="True">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="Border.Background" Value="#F5F8FA"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
                         <Grid HorizontalAlignment="Stretch">
 
                             <Grid.ColumnDefinitions>
@@ -170,32 +188,29 @@
                                        Text="Preço"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
-                                       Margin="13 0 0 0"
-                                       FontSize="14"
-                                       Foreground="{StaticResource PrimaryColor_100}"/>
+                                       Margin="13 0 0 1"
+                                     FontSize="14"
+                                       Foreground="{StaticResource TextMuted}"/>
 
                             <forms:InputCurrency Grid.Column="1"
                                                  x:Name="_InputPrice"
                                                  HorizontalAlignment="Stretch"
-                                                 FontSize="14"
                                                  BorderThickness="0"
-                                                 Margin="0 7 12 8"
-                                                 Placeholder="R$ 0,00"
-                                                 Foreground="{StaticResource TextPrimaryColor}"/>
+                                                 Margin="0 9 8 10"
+                                                 Background="Transparent"
+                                                 Foreground="{StaticResource TextPrimaryColor}"
+                                                 Text="0,00"
+                                                 FontSize="14"/>
 
                         </Grid>
                     </Border>
 
                     <forms:InputText x:Name="_TextDescription"
+                                     HorizontalAlignment="Stretch"
                                      Margin="4 16 4 0"
-                                     TextWrapping="Wrap"
-                                     AcceptsReturn="True"
-                                     VerticalScrollBarVisibility="Visible"
-                                     Placeholder="Descrição (opcional)"
-                                     FontSize="14"/>
-                    
-                    
-
+                                     Tag="Descrição (opcional)"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"/>
                 </StackPanel>
 
                 <Button x:Name="_ButtonSave"

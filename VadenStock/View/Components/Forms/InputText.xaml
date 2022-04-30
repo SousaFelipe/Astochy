@@ -7,4 +7,64 @@
          mc:Ignorable="d"
          d:DataContext="{d:DesignInstance Type=local:InputText}"
          d:DesignWidth="180"
-         d:DesignHeight="32"/>
+         d:DesignHeight="32">
+
+    <TextBox.Style>
+        <Style TargetType="{x:Type TextBox}">
+
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimaryColor}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="IBeam"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="_TextBorder"
+                                CornerRadius="4"
+                                BorderThickness="1"
+                                BorderBrush="#CFD8DC"
+                                MinHeight="28"
+                                Background="{TemplateBinding Background}">
+                            <Grid VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Stretch"
+                                  Margin="8 4 8 4">
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                              Focusable="False"
+                                              HorizontalAlignment="Stretch"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Hidden"
+                                              Margin="2 5"/>
+                                <Label x:Name="LABEL_Placeholder"
+                                       Content="{TemplateBinding Tag}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Foreground="{StaticResource TextMuted}"
+                                       Visibility="Collapsed"/>
+                            </Grid>
+                        </Border>
+                        
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""></Condition>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" TargetName="LABEL_Placeholder" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Trigger.Setters>
+                                    <Setter Property="Background" Value="#F7FAFC"/>
+                                </Trigger.Setters>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </TextBox.Style>
+    
+</TextBox>

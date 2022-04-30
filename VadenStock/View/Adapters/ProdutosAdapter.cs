@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using VadenStock.Model.Types;
 using VadenStock.View.Components;
+using VadenStock.View.Components.Cards;
 
 
 
@@ -81,6 +82,29 @@ namespace VadenStock.View.Adapters
                 Container.Children.Clear();
                 Container.RowDefinitions.Clear();
                 Container.RowDefinitions.Add(new RowDefinition());
+            }
+        }
+
+
+
+        private static class Molecules
+        {
+            public static ThumbnailCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
+            {
+                Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
+                string subHeader = "";
+
+                ThumbnailCard thumb = new()
+                {
+                    Margin = thickn,
+                    Body = "#FFFFFF",
+                    Header = produto.Name,
+                    SubHeader = subHeader
+                };
+
+                thumb.SetThumb();
+
+                return thumb;
             }
         }
     }

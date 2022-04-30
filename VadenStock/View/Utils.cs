@@ -110,31 +110,33 @@ namespace VadenStock.View
 
 
 
-        public static string Currency(this string input)
+        public static string Currency(string input)
         {
             if (string.IsNullOrEmpty(input))
                 return "0,00";
 
             string output = Sanitize(input, 3);
-                   output = output.Insert(output.Length - 2, ",");
+            char[] vecout = output.ToCharArray();
+            
+            Array.Reverse(vecout);
 
-            if (output.Length > 4)
+            string reversedOutput = new(vecout);
+            int reversedOutLength = reversedOutput.Length;
+
+            for (int i = 0; i < reversedOutLength; i++)
             {
-                for (int i = output.Length - 1; i >= 0; i--)
-                {
+                if (i == 1)
+                    reversedOutput = reversedOutput.Insert(i, ",");
 
-                }
+                else if (i == 6 || i == 10 || i == 14 || i == 18 || i == 22)
+                    reversedOutput = reversedOutput.Insert(i, ".");
             }
 
-            // 123          1,23
-            // 1234         12,34
-            // 12345        123,45
-            // 123466       1.234,56
-            // 1234567      12.345,67
-            // 12345678     123.456,78
-            // 123456789    1.234.567,89
+            char[] subversedOutput = reversedOutput.ToCharArray();
 
-            return new string(output);
+            Array.Reverse(subversedOutput);
+
+            return new string(subversedOutput);
         }
 
 
@@ -157,9 +159,7 @@ namespace VadenStock.View
             else
             {
                 for (int i = output.Length - 1; i >= 0; i--)
-                {
                     output[i] = input[i];
-                }
             }
 
             return new string(output);

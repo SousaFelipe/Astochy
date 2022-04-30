@@ -7,6 +7,7 @@
            x:Name="InputTextTheme">
 
         <Style.Setters>
+
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="forms:InputText">
@@ -16,6 +17,16 @@
                                 BorderBrush="#CFD8DC"
                                 MinHeight="28"
                                 Background="{TemplateBinding Background}">
+
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsFocused, ElementName=_InputSelf}" Value="True">
+                                            <Setter Property="Background" Value="#F5F8FA"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
 
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
@@ -27,7 +38,9 @@
                                          VerticalAlignment="Center"
                                          Margin="12 0"
                                          FontSize="{TemplateBinding FontSize}"
-                                         Foreground="{TemplateBinding Property=Foreground}"/>
+                                         Foreground="{TemplateBinding Property=Foreground}"
+                                         Background="Transparent"
+                                         IsHitTestVisible="True"/>
 
                                 <TextBlock IsHitTestVisible="False"
                                            Text="{TemplateBinding Property=Placeholder}"
@@ -35,7 +48,8 @@
                                            HorizontalAlignment="Left"
                                            Margin="13 0"
                                            FontSize="{TemplateBinding FontSize}"
-                                           Foreground="#CFD8DC">
+                                           Foreground="#CFD8DC"
+                                           Background="Transparent">
 
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
@@ -58,6 +72,19 @@
             </Setter>
 
         </Style.Setters>
+
+
+        <Style.Triggers>
+
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Border.Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#F5F8FA"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
 
     </Style>
     
