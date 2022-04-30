@@ -90,9 +90,9 @@ namespace VadenStock.Model
                 ProdutoType contract = new()
                 {
                     Id = reader.GetInt32("id"),
+                    Categoria = Categoria.New.Get(reader.GetInt32("categoria"))[0],
                     Tipo = Tipo.New.Get(reader.GetInt32("tipo"))[0],
                     Marca = Marca.New.Get(reader.GetInt32("marca"))[0],
-                    Code = reader.GetString("code"),
                     Name = reader.GetString("name"),
                     Image = reader.IsDBNull(5) ? string.Empty : reader.GetString("image"),
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),

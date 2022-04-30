@@ -21,24 +21,6 @@ namespace VadenStock.View
                 public static readonly string JPG = "jpg";
                 public static readonly string JPEG = "jpeg";
             }
-
-            public static string GetFileType(string filename)
-            {
-                string[] pices = filename.Split('.');
-
-                if (pices.Length > 0)
-                {
-                    return pices[1] switch
-                    {
-                        "png" => FileType.PNG,
-                        "jpg" => FileType.JPG,
-                        "jpeg" => FileType.JPEG,
-                        _ => string.Empty
-                    };
-                }
-
-                return string.Empty;
-            }
         }
 
 

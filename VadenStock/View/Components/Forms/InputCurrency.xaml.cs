@@ -58,8 +58,6 @@ namespace VadenStock.View.Components.Forms
 
             if (input.Text.Length > 0)
                 input.SelectionStart = input.Text.Length;
-
-            System.Diagnostics.Trace.WriteLine(input.Text);
         }
 
 

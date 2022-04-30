@@ -20,6 +20,31 @@ namespace VadenStock.Core
 
 
 
+        public QueryBuilder Create(List<string> inserts)
+        {
+            Query = $"INSERT INTO { Table } (";
+
+            for (int i = 0; i < inserts.Count; i++)
+            {
+                Query += (i < (inserts.Count - 1))
+                    ? $"{ inserts[i] }, "
+                    : $"{ inserts[i] }) ";
+            }
+
+            Query += " VALUES ";
+
+            for (int i = 0; i < inserts.Count; i++)
+            {
+                Query += (i < (inserts.Count - 1))
+                    ? $"@{ inserts[i] }, "
+                    : $"@{ inserts[i] })";
+            }
+
+            return this;
+        }
+
+
+
         public QueryBuilder Count(string column = "*")
         {
             Query = $"SELECT COUNT({ column }) FROM { Table } ";
@@ -53,9 +78,9 @@ namespace VadenStock.Core
 
 
 
-        public QueryBuilder InnnerJoin(string table, string joinOne, string joinTwo = "id")
+        public QueryBuilder InnnerJoin(string table, string column, string join = "id")
         {
-            Query += $"INNER JOIN { table } ON { table }.{ joinOne }={ Table }.{ joinTwo }";
+            Query += $"INNER JOIN { table } ON { table }.{ column }={ Table }.{ join }";
             return this;
         }
 

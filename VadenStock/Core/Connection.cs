@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using MySql.Data.MySqlClient;
+using System.Collections.Generic;
 
 
 
@@ -33,6 +35,45 @@ namespace VadenStock.Core
         protected Connection(string table)
         {
             Builder = new(table);
+        }
+
+
+
+        public virtual int Create(List<string[]> inserts, bool timestamps = true)
+        {
+            List<string> fields = new();
+            List<string> values = new();
+
+            foreach (string[] insert in inserts)
+            {
+                fields.Add(insert[0]);
+                values.Add(insert[1]);
+            }
+
+            if (timestamps)
+            {
+                fields.Add("created_at");
+                values.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+
+            Builder.Create(fields);
+
+            using (Plug = new MySqlConnection(ConnectionString))
+            {
+                Plug.Open();
+
+                using (Cmmd = new MySqlCommand(Builder.Query, Plug))
+                {
+                    for (int i = 0; i < values.Count; i++)
+                        Cmmd.Parameters.AddWithValue($"@{ fields[i] }", values[i]);
+
+                    int output = Cmmd.ExecuteNonQuery();
+
+                    Unplug();
+
+                    return output;
+                }
+            }
         }
 
 

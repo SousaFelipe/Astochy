@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ProdutoDialog"
         Width="480"
-        Height="472"
+        Height="508"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         HorizontalContentAlignment="Stretch"
@@ -51,43 +51,47 @@
                         Background="{StaticResource PrimaryColor_050}"
                         Padding="0 8">
 
-                    <Border CornerRadius="16"
-                            BorderThickness="1"
-                            HorizontalAlignment="Center"
-                            Width="86"
-                            Height="86"
-                            Background="White">
-                        
-                        <Border.Style>
-                            <Style TargetType="Border">
-                                <Style.Setters>
-                                    <Setter Property="Cursor" Value="Hand"/>
-                                    <Setter Property="BorderBrush" Value="#FFFFFF"/>
-                                </Style.Setters>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderBrush" Value="#40C4FF"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Border.Style>
+                    <StackPanel VerticalAlignment="Stretch"
+                                HorizontalAlignment="Center">
 
-                        <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch">
+                        <Border CornerRadius="16"
+                                BorderThickness="1"
+                                HorizontalAlignment="Center"
+                                Width="86"
+                                Height="86"
+                                Background="White"
+                                MouseLeftButtonUp="OpenImageDialog">
 
-                            <Image VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Width="24"
-                                   Height="24"
-                                   Source="/VadenStock;component/Resources/Icons/image-plus-active.png"/>
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Style.Setters>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                                    </Style.Setters>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderBrush" Value="#40C4FF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
 
-                            <Image x:Name="_ImageAvatar"
-                                   VerticalAlignment="Stretch"
-                                   HorizontalAlignment="Stretch"/>
+                            <Grid VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Stretch">
+                                <Image x:Name="_ImageAvatar"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Source="/VadenStock;component/Resources/Icons/image-plus-active.png"/>
+                            </Grid>
 
-                        </Grid>
+                        </Border>
 
-                    </Border>
+                        <forms:InputTransparent x:Name="_TextImageName"
+                                                TextAlignment="Center"
+                                                Foreground="{StaticResource TextPrimaryColor}"
+                                                Tag="Salvar imagem como..."/>
+
+                    </StackPanel>
                     
                 </Border>
 
@@ -100,7 +104,7 @@
                                      Margin="4 0 4 0"
                                      Tag="Nome do produto..."
                                      FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"/>
+                                     Foreground="{StaticResource TextPrimaryColor}" TextChanged="InputName_Changed"/>
 
                     <TextBlock Margin="4 16 4 8"
                                Text="DETALHES"
@@ -123,7 +127,8 @@
                                               Text="Categoria"
                                               FontSize="14"
                                               Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}">
+                                              Style="{StaticResource InputSelectTheme}"
+                                              SelectionChanged="SelectCategoria_Changed">
                             <ComboBoxItem Tag="0" Content="Categoria"/>
                         </components:SelectBox>
 
@@ -135,7 +140,8 @@
                                               Text="Tipo"
                                               FontSize="14"
                                               Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}">
+                                              Style="{StaticResource InputSelectTheme}"
+                                              SelectionChanged="SelectTipo_Changed">
                             <ComboBoxItem Tag="0" Content="Tipo"/>
                         </components:SelectBox>
 
@@ -147,7 +153,8 @@
                                               Text="Marca"
                                               FontSize="14"
                                               Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}">
+                                              Style="{StaticResource InputSelectTheme}"
+                                              SelectionChanged="SelectMarca_Changed">
                             <ComboBoxItem Tag="0" Content="Marca"/>
                         </components:SelectBox>
 
@@ -189,7 +196,7 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="13 0 0 1"
-                                     FontSize="14"
+                                       FontSize="14"
                                        Foreground="{StaticResource TextMuted}"/>
 
                             <forms:InputCurrency Grid.Column="1"
@@ -200,7 +207,8 @@
                                                  Background="Transparent"
                                                  Foreground="{StaticResource TextPrimaryColor}"
                                                  Text="0,00"
-                                                 FontSize="14"/>
+                                                 FontSize="14"
+                                                 TextChanged="InputPrice_Changed"/>
 
                         </Grid>
                     </Border>
@@ -210,7 +218,8 @@
                                      Margin="4 16 4 0"
                                      Tag="Descrição (opcional)"
                                      FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"/>
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputDescription_Changed"/>
                 </StackPanel>
 
                 <Button x:Name="_ButtonSave"
@@ -218,7 +227,8 @@
                         Height="36"
                         Content="SALVAR"
                         FontSize="16"
-                        Style="{StaticResource ButtonSecondaryTheme}"/>
+                        Style="{StaticResource ButtonSecondaryTheme}"
+                        Click="SalvarProduto"/>
 
             </StackPanel>
             
