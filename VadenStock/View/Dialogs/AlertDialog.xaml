@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        mc:Ignorable="d" 
-        d:DesignWidth="300"
-        d:DesignHeight="70">
+        mc:Ignorable="d"
+        CornerRadius="8"
+        Background="{StaticResource DangerColor}">
     
     <Grid VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch">
+          HorizontalAlignment="Stretch"
+          Margin="16 16">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -18,9 +19,82 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+
+        <Image Grid.Column="0"
+               Grid.Row="0"
+               x:Name="_ImageIcon"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Width="24"
+               Height="24"
+               Opacity="0.5"
+               Source="/VadenStock;component/Resources/Icons/white-bomb.png"/>
+
+        <StackPanel Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="16 0 16 0">
+
+            <TextBlock x:Name="_TextCaption"
+                       FontSize="16"
+                       Text="Danger"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+
+            <TextBlock x:Name="_TextMessage"
+                       FontSize="11"
+                       Text="Type a message here to explain the problem!"
+                       Foreground="White"/>
+
+        </StackPanel>
+
+        <Border Grid.Column="2"
+                x:Name="_BorderCloseButton"
+                CornerRadius="4"
+                VerticalAlignment="Center"
+                Width="32"
+                Height="32"
+                Margin="16 0 0 0">
+
+            <Grid VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+
+                <Border x:Name="_BorderBackground"
+                        CornerRadius="4"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Background="#000000">
+
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+
+                            <Style.Setters>
+                                <Setter Property="Opacity" Value="0"/>
+                            </Style.Setters>
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=_BorderCloseButton, Path=IsMouseOver}" Value="True">
+                                    <DataTrigger.Setters>
+                                        <Setter Property="Opacity" Value="0.5"/>
+                                    </DataTrigger.Setters>
+                                </DataTrigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </Border.Style>
+
+                </Border>
+
+                <Image VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Width="14" Height="14"
+                       Source="/VadenStock;component/Resources/Icons/white-close.png"/>
+
+            </Grid>
+           
+        </Border>
+
     </Grid>
     
 </Border>

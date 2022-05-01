@@ -3,11 +3,11 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.ComponentModel;
 
 using VadenStock.View.Models;
-using VadenStock.View.Components;
 using VadenStock.View.Components.Forms;
 
 using VadenStock.Model.Types;
@@ -26,6 +26,7 @@ namespace VadenStock.View.Dialogs
             public int Categoria;
             public int Tipo;
             public int Marca;
+            public string ImageOrigin;
             public string Image;
             public decimal Price;
             public string Description;
@@ -110,13 +111,13 @@ namespace VadenStock.View.Dialogs
 
                     if (image != null)
                     {
-                        string[] fileParts = dialog.FileName.Split('\\');
-                        string fileName = fileParts[^1];
+                        string fileName = dialog.FileName.Split('\\')[^1];
 
-                        _ImageAvatar.Source = image;
+                        _BorderImage.Background = new ImageBrush() { ImageSource = image };
                         _TextImageName.Text = fileName.Replace(Path.GetExtension(fileName),  "");
 
                         Produto.Image = fileName;
+                        Produto.ImageOrigin = dialog.FileName;
                     }
                 }
             }
@@ -183,7 +184,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void SalvarProduto(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             Window owner = Application.Current.MainWindow;
 
@@ -204,7 +205,27 @@ namespace VadenStock.View.Dialogs
 
             else
             {
-                MessageBox.Show(owner, "Salvo com sucesso!", "Successo", MessageBoxButton.OK, MessageBoxImage.Information);
+                SalvarProduto();
+            }
+        }
+
+
+
+        private void SalvarProduto()
+        {
+            int output = ProdutosViewModel.Create(
+                    Produto.Name,
+                    Produto.Categoria,
+                    Produto.Tipo,
+                    Produto.Marca,
+                    Produto.Image,
+                    Produto.Price,
+                    Produto.Description
+                );
+
+            if (output > 0)
+            {
+                
             }
         }
     }

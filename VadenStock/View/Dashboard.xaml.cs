@@ -126,7 +126,7 @@ namespace VadenStock.View
             public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Str.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count) + " itens disponíveis";
+                string subHeader = Str.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count, " itens disponíveis");
 
                 ThumbnailCard thumb = new()
                 {
@@ -139,7 +139,11 @@ namespace VadenStock.View
                 };
 
                 thumb.SetThumb(
-                        almox.Tipo == AlmoxType.Hosted.Carro ? "car" : almox.Tipo == AlmoxType.Hosted.Moto ? "bike" : "warehouse"
+                        almox.Tipo == AlmoxType.Hosted.Carro
+                            ? "blue-car"
+                            : almox.Tipo == AlmoxType.Hosted.Moto
+                                ? "blue-bike"
+                                : "blue-warehouse"
                     );
 
                 return thumb;

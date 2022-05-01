@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Input;
+using System.Collections.Generic;
 
 using VadenStock.View.Models;
 using VadenStock.View.Adapters;
@@ -10,7 +9,8 @@ using VadenStock.View.Dialogs;
 
 using VadenStock.Model.Types;
 using VadenStock.View.Structs;
-using VadenStock.View.Components;
+using VadenStock.View.Components.Forms;
+
 
 
 namespace VadenStock.View
@@ -51,10 +51,10 @@ namespace VadenStock.View
         public void LoadProdutos()
         {
             ProdutosAdapter adapter = new(_GridProdutos);
+            List<ProdutoType> produtos = ProdutosViewModel.GetProdutos(Filter);
 
             adapter.Clear();
-            adapter.Update(ProdutosViewModel.GetProdutos(Filter), false);
-            adapter.Build();
+            adapter.Update(produtos);
         }
 
 

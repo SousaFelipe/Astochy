@@ -1,9 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using System.ComponentModel;
+
+using VadenStock.Tools;
 
 
 
@@ -41,7 +42,7 @@ namespace VadenStock.View.Partials
         {
             base.OnInitialized(e);
 
-            if ( ! IsInDesignMode)
+            if (!IsInDesignMode)
             {
                 ParentWindow.StateChanged += new EventHandler(OnWindowStateChanged);
             }
@@ -75,12 +76,10 @@ namespace VadenStock.View.Partials
         private void OnWindowStateChanged(object? sender, EventArgs e)
         {
             string resourceKey = ParentWindow.WindowState == WindowState.Normal
-                    ? "maximize"
-                    : "restore";
+                    ? "white-maximize"
+                    : "white-restore";
 
-            _ImageWindowStateControl.Source = new BitmapImage(
-                    new($"/VadenStock;component/Resources/Icons/{resourceKey}.png", UriKind.Relative)
-                );
+            _ImageWindowStateControl.Source = Src.Icon(resourceKey);
         }
 
 

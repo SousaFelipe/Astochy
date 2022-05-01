@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-using VadenStock.Model;
 using VadenStock.Model.Types;
 using VadenStock.View.Components;
 

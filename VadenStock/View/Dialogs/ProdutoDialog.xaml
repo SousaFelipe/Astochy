@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         mc:Ignorable="d"
         Title="ProdutoDialog"
@@ -40,7 +39,8 @@
                     Click="CloseDialog">
                 <Image Width="24"
                        Height="24"
-                       Source="/VadenStock;component/Resources/Icons/close-dark.png"/>
+                       Opacity="0.4"
+                       Source="/VadenStock;component/Resources/Icons/black-close.png"/>
             </Button>
 
             <StackPanel Grid.Row="1"
@@ -54,12 +54,14 @@
                     <StackPanel VerticalAlignment="Stretch"
                                 HorizontalAlignment="Center">
 
-                        <Border CornerRadius="16"
+                        <Border x:Name="_BorderBackground"
+                                CornerRadius="16"
                                 BorderThickness="1"
                                 HorizontalAlignment="Center"
                                 Width="86"
                                 Height="86"
-                                Background="White"
+                                Background="#FFFFFF"
+                                IsHitTestVisible="True"
                                 MouseLeftButtonUp="OpenImageDialog">
 
                             <Border.Style>
@@ -76,13 +78,18 @@
                                 </Style>
                             </Border.Style>
 
-                            <Grid VerticalAlignment="Stretch"
-                                  HorizontalAlignment="Stretch">
-                                <Image x:Name="_ImageAvatar"
-                                       VerticalAlignment="Stretch"
-                                       HorizontalAlignment="Stretch"
-                                       Source="/VadenStock;component/Resources/Icons/image-plus-active.png"/>
-                            </Grid>
+                            <Border x:Name="_BorderImage"
+                                    CornerRadius="16"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    IsHitTestVisible="False">
+
+                                <Border.Background>
+                                    <ImageBrush Stretch="Fill"
+                                                ImageSource="/VadenStock;component/Resources/Icons/blue-image-plus.png"/>
+                                </Border.Background>
+
+                            </Border>
 
                         </Border>
 
@@ -104,7 +111,8 @@
                                      Margin="4 0 4 0"
                                      Tag="Nome do produto..."
                                      FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}" TextChanged="InputName_Changed"/>
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputName_Changed"/>
 
                     <TextBlock Margin="4 16 4 8"
                                Text="DETALHES"
@@ -119,44 +127,44 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <components:SelectBox Grid.Column="0"
-                                              x:Name="_ComboCategorias"
-                                              HorizontalAlignment="Stretch"
-                                              Margin="4 0 4 0"
-                                              Background="#FFFFFF"
-                                              Text="Categoria"
-                                              FontSize="14"
-                                              Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}"
-                                              SelectionChanged="SelectCategoria_Changed">
+                        <forms:SelectBox Grid.Column="0"
+                                         x:Name="_ComboCategorias"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Categoria"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectCategoria_Changed">
                             <ComboBoxItem Tag="0" Content="Categoria"/>
-                        </components:SelectBox>
+                        </forms:SelectBox>
 
-                        <components:SelectBox Grid.Column="1"
-                                              x:Name="_ComboTipos"
-                                              HorizontalAlignment="Stretch"
-                                              Margin="4 0 4 0"
-                                              Background="#FFFFFF"
-                                              Text="Tipo"
-                                              FontSize="14"
-                                              Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}"
-                                              SelectionChanged="SelectTipo_Changed">
+                        <forms:SelectBox Grid.Column="1"
+                                         x:Name="_ComboTipos"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Tipo"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectTipo_Changed">
                             <ComboBoxItem Tag="0" Content="Tipo"/>
-                        </components:SelectBox>
+                        </forms:SelectBox>
 
-                        <components:SelectBox Grid.Column="2"
-                                              x:Name="_ComboMarcas"
-                                              HorizontalAlignment="Stretch"
-                                              Margin="4 0 4 0"
-                                              Background="#FFFFFF"
-                                              Text="Marca"
-                                              FontSize="14"
-                                              Foreground="{StaticResource TextPrimaryColor}"
-                                              Style="{StaticResource InputSelectTheme}"
-                                              SelectionChanged="SelectMarca_Changed">
+                        <forms:SelectBox Grid.Column="2"
+                                         x:Name="_ComboMarcas"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Marca"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectMarca_Changed">
                             <ComboBoxItem Tag="0" Content="Marca"/>
-                        </components:SelectBox>
+                        </forms:SelectBox>
 
                     </Grid>
 
@@ -225,7 +233,7 @@
                 <Button x:Name="_ButtonSave"
                         Margin="20 24 20 24"
                         Height="36"
-                        Content="SALVAR"
+                        Content="Salvar"
                         FontSize="16"
                         Style="{StaticResource ButtonSecondaryTheme}"
                         Click="SalvarProduto"/>

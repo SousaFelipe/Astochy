@@ -1,10 +1,8 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 
 
-namespace VadenStock.View.Components
+namespace VadenStock.View.Components.Forms
 {
     public partial class SelectBox : ComboBox
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
 
 
@@ -27,7 +26,7 @@ namespace VadenStock.Tools
         public static bool CreateSorcePath()
         {
             if (Directory.Exists(Resource.Root))
-                return true;
+                goto exit_whitout_create;
 
             try
             {
@@ -42,6 +41,9 @@ namespace VadenStock.Tools
                 System.Diagnostics.Trace.WriteLine($"[VADEN]: { e.Message }");
                 return false;
             }
+
+            exit_whitout_create:
+                return true;
         }
 
 
@@ -74,12 +76,11 @@ namespace VadenStock.Tools
         public static string RenameFile(string from, string to)
         {
             string[] parts = from.Split('\\');
-            int namePosition = (parts.Length - 1);
 
-            if (parts != null && namePosition >= 0)
-                parts[namePosition] = to;
+            if (parts != null && (parts.Length - 1) >= 0)
+                parts[^1] = to;
 
-            return String.Join("\\", parts);
+            return string.Join("\\", parts);
         }
 
 
@@ -111,6 +112,22 @@ namespace VadenStock.Tools
                 System.Diagnostics.Trace.WriteLine($"[VADEN] { e.Message }");
                 return null;
             }
+        }
+
+
+
+        public static BitmapImage? Icon(string name)
+        {
+            string path = $"{ Resource.Root }\\{ Resource.Icons }\\";
+            return OpenBitmap($"{ path }\\{ name }.png");
+        }
+
+
+
+        public static BitmapImage? Storage(string name)
+        {
+            string path = $"{ Resource.Root }\\{ Resource.Storage }\\";
+            return OpenBitmap($"{ path }\\{ name }");
         }
     }
 }

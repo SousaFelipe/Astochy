@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
+using VadenStock.Tools;
+
 
 
 namespace VadenStock.View.Components.Cards
@@ -99,7 +101,7 @@ namespace VadenStock.View.Components.Cards
 
         public void SetMidia(string fileName)
         {
-            _ImageThumb.Source = Utils.FindResource(fileName, Utils.Resource.Storage);
+            _ImageThumb.Source = Src.Storage(fileName);
             _ImageThumb.UpdateLayout();
         }
     }

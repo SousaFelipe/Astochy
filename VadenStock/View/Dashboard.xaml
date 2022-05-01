@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:components="clr-namespace:VadenStock.View.Components"
+             xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
              xmlns:charts="clr-namespace:VadenStock.View.Components.Charts"
              mc:Ignorable="d"
              d:DesignWidth="840"
@@ -108,32 +109,32 @@
                                 HorizontalAlignment="Stretch"
                                 Margin="0 4 0 8">
 
-                        <components:SelectBox x:Name="_ComboCategorias"
-                                  Width="160"
-                                  Height="28"
-                                  Background="{StaticResource PrimaryColor_050}"
-                                  Style="{StaticResource ComboBoxTheme}"
-                                  SelectionChanged="ComboCategorias_Update">
+                        <forms:SelectBox x:Name="_ComboCategorias"
+                                         Width="160"
+                                         Height="28"
+                                         Background="{StaticResource PrimaryColor_050}"
+                                         Style="{StaticResource ComboBoxTheme}"
+                                         SelectionChanged="ComboCategorias_Update">
 
                             <ComboBoxItem Tag="0"
                                           IsSelected="True"
                                           Content="Categorias"/>
 
-                        </components:SelectBox>
+                        </forms:SelectBox>
 
-                        <components:SelectBox x:Name="_ComboTipos"
-                                  Text="Categoria"
-                                  Width="140"
-                                  Height="28"
-                                  Margin="4 0 0 0"
-                                  Background="{StaticResource PrimaryColor_050}"
-                                  Style="{StaticResource ComboBoxTheme}">
+                        <forms:SelectBox x:Name="_ComboTipos"
+                                         Text="Categoria"
+                                         Width="140"
+                                         Height="28"
+                                         Margin="4 0 0 0"
+                                         Background="{StaticResource PrimaryColor_050}"
+                                         Style="{StaticResource ComboBoxTheme}">
 
                             <ComboBoxItem Tag="0"
                                           IsSelected="True"
                                           Content="Tipos"/>
 
-                        </components:SelectBox>
+                        </forms:SelectBox>
 
                     </StackPanel>
 

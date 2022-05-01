@@ -9,12 +9,17 @@
 
     <ItemGroup>
         <None Remove="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
-        <None Remove="Resources\Icons\arrow-down.png" />
-        <None Remove="Resources\Icons\arrow-up-dark.png" />
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
+        <None Remove="Resources\Icons\black-close.png" />
+        <None Remove="Resources\Icons\black-magnify.png" />
+        <None Remove="Resources\Icons\blue-bike.png" />
+        <None Remove="Resources\Icons\blue-car.png" />
+        <None Remove="Resources\Icons\blue-close.png" />
+        <None Remove="Resources\Icons\blue-image-plus.png" />
         <None Remove="Resources\Icons\blue-information.png" />
+        <None Remove="Resources\Icons\blue-warehouse.png" />
         <None Remove="Resources\Icons\car.png" />
         <None Remove="Resources\Icons\close-active.png" />
         <None Remove="Resources\Icons\close-dark.png" />
@@ -31,6 +36,16 @@
         <None Remove="Resources\Icons\red-bomb.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
+        <None Remove="Resources\Icons\white-alert.png" />
+        <None Remove="Resources\Icons\white-arrow-down.png" />
+        <None Remove="Resources\Icons\white-arrow-up.png" />
+        <None Remove="Resources\Icons\white-bomb.png" />
+        <None Remove="Resources\Icons\white-close.png" />
+        <None Remove="Resources\Icons\white-information.png" />
+        <None Remove="Resources\Icons\white-maximize.png" />
+        <None Remove="Resources\Icons\white-minimize.png" />
+        <None Remove="Resources\Icons\white-plus.png" />
+        <None Remove="Resources\Icons\white-restore.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -65,73 +80,66 @@
 		<Resource Include="Resources\Fonts\RobotoFlex\RobotoFlex.ttf">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		
-		<Resource Include="Resources\Icons\arrow-down.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\black-close.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\arrow-up-dark.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\black-magnify.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\arrow-up-down.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\blue-bike.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\arrow-up.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\blue-car.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\bike.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\blue-close.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\blue-information.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\blue-image-plus.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Icons\car.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+
+		<Resource Include="Resources\Icons\blue-warehouse.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
-        <Resource Include="Resources\Icons\close-active.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\close-dark.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\close.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\filter.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\green-checked-cicle.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\image-plus-active.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\magnify.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\maximize.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\minimize.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\orange-alert.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\package-plus.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\plus.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\red-bomb.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\restore.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
-        <Resource Include="Resources\Icons\warehouse.png">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Resource>
+
+		<Resource Include="Resources\Icons\white-alert.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-bomb.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-close.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-information.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-maximize.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-minimize.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-plus.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-restore.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
     </ItemGroup>
 
 	<ItemGroup>
@@ -139,9 +147,5 @@
           <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
         </Page>
     </ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Resources\Storage\" />
-	</ItemGroup>
 
 </Project>
