@@ -17,7 +17,7 @@ namespace VadenStock.View
 {
     public partial class Produtos : UserControl
     {
-        private ProdutoFilter Filter = new();
+        private ProdutoStruct Filter = new();
 
 
 
@@ -36,7 +36,7 @@ namespace VadenStock.View
 
         private void LoadCategorias()
         {
-            foreach (CategoriaType c in CategoriasViewModel.GetCategorias())
+            foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
             {
                 _ComboCategorias.Items.Add(new ComboBoxItem()
                 {
@@ -51,7 +51,7 @@ namespace VadenStock.View
         public void LoadProdutos()
         {
             ProdutosAdapter adapter = new(_GridProdutos);
-            List<ProdutoType> produtos = ProdutosViewModel.GetProdutos(Filter);
+            List<ProdutoType> produtos = ProdutosViewModel.FiltrarProdutos(Filter);
 
             adapter.Clear();
             adapter.Update(produtos);
@@ -65,14 +65,12 @@ namespace VadenStock.View
 
             if (cb.SelectedItem is ComboBoxItem cbi)
             {
-                VadenStock.MainWindow window = (VadenStock.MainWindow)Application.Current.MainWindow;
-                window.EnterDialogMode();
+                MainWindow window = (MainWindow)Application.Current.MainWindow;
 
                 switch (cbi.Tag)
                 {
                     case "P":
-                        ProdutoDialog dialog = new();
-                        dialog.ShowDialog();
+                        window.DisplayDialog(new ProdutoDialog());
                         break;
 
                     case "M":

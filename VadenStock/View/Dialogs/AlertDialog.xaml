@@ -5,7 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d"
         CornerRadius="8"
-        Background="{StaticResource DangerColor}">
+        VerticalAlignment="Top"
+        HorizontalAlignment="Center"
+        MinHeight="68"
+        Margin="0 -100 0 0">
     
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
@@ -38,13 +41,11 @@
 
             <TextBlock x:Name="_TextCaption"
                        FontSize="16"
-                       Text="Danger"
                        FontWeight="Bold"
                        Foreground="White"/>
 
             <TextBlock x:Name="_TextMessage"
                        FontSize="11"
-                       Text="Type a message here to explain the problem!"
                        Foreground="White"/>
 
         </StackPanel>
@@ -55,7 +56,9 @@
                 VerticalAlignment="Center"
                 Width="32"
                 Height="32"
-                Margin="16 0 0 0">
+                Margin="16 0 0 0"
+                Cursor="Hand"
+                MouseLeftButtonUp="ButtonClose_Click">
 
             <Grid VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch">
@@ -76,7 +79,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=_BorderCloseButton, Path=IsMouseOver}" Value="True">
                                     <DataTrigger.Setters>
-                                        <Setter Property="Opacity" Value="0.5"/>
+                                        <Setter Property="Opacity" Value="0.08"/>
                                     </DataTrigger.Setters>
                                 </DataTrigger>
                             </Style.Triggers>

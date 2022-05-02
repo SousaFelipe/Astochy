@@ -48,18 +48,21 @@ namespace VadenStock.Tools
 
 
 
-        public static bool CopyToResource(string from, string to, string fileName = "")
+        public static bool CopyToResource(string from, string to, string fileName)
         {
             if (Directory.Exists(Resource.Root))
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(fileName))
-                        to = RenameFile(to, fileName);
+                    string filePath = $"{ to }\\{ fileName }";
 
-                    File.Copy(from, to, true);
+                    File.Copy(
+                            from,
+                            filePath,
+                            true
+                        );
 
-                    return File.Exists(to);
+                    return File.Exists(filePath);
                 }
                 catch (IOException e)
                 {
@@ -87,13 +90,6 @@ namespace VadenStock.Tools
 
         public static BitmapImage? OpenBitmap(string filePath)
         {
-            // $"{ Directory.GetCurrentDirectory() }\\Resources\\{ completeFileName }"
-            /*string completeFileName = string.IsNullOrEmpty(Path.GetExtension(filePath))
-                ? string.IsNullOrEmpty(Path.GetExtension(fileName))
-                    ? $"{ filePath }\\{ fileName }.{ fileType }"
-                    : $"{ filePath }\\{ fileName }"
-                : filePath;*/
-
             try
             {
                 Stream stream = File.OpenRead(filePath);

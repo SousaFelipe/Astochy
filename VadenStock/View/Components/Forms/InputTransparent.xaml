@@ -5,7 +5,7 @@
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
          xmlns:local="clr-namespace:VadenStock.View.Components.Forms"
          mc:Ignorable="d"
-         d:DataContext="{d:DesignInstance Type=local:InputText}"
+         d:DataContext="{d:DesignInstance Type=local:InputTransparent}"
          d:DesignWidth="180"
          d:DesignHeight="32">
 
@@ -27,18 +27,19 @@
                                 BorderThickness="0"
                                 Background="{TemplateBinding Background}">
                             <Grid VerticalAlignment="Stretch"
-                                  HorizontalAlignment="{TemplateBinding TextAlignment}"
+                                  HorizontalAlignment="Stretch"
                                   Margin="8 0 8 0">
                                 <ScrollViewer x:Name="PART_ContentHost"
                                               Focusable="False"
-                                              HorizontalAlignment="Stretch"
+                                              HorizontalAlignment="{TemplateBinding TextAlignment}"
                                               HorizontalScrollBarVisibility="Hidden"
                                               VerticalScrollBarVisibility="Hidden"
-                                              Margin="0 5"/>
+                                              Margin="0 5"
+                                              Padding="8 0"/>
                                 <Label x:Name="LABEL_Placeholder"
                                        Content="{TemplateBinding Tag}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
+                                       HorizontalAlignment="{TemplateBinding TextAlignment}"
                                        Foreground="{StaticResource TextMuted}"
                                        Visibility="Collapsed"/>
                             </Grid>

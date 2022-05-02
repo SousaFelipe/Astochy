@@ -42,14 +42,12 @@ namespace VadenStock.View
 
         private void LoadCardEstoqueMinMax()
         {
-            List<CategoriaType> categorias = DashboardViewModel.GetCategorias();
-
-            for (int i = 0; i < categorias.Count; i++)
+            foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
             {
                 _ComboCategorias.Items.Add(new ComboBoxItem()
                 {
-                    Tag = categorias[i].Id,
-                    Content = string.Concat(categorias[i].Name[0], categorias[i].Name[1..].ToLower())
+                    Tag = c.Id,
+                    Content = c.Name
                 });
             }
 
@@ -62,7 +60,7 @@ namespace VadenStock.View
 
         private void LoadAlmoxCards()
         {
-            List<AlmoxType> almoxarifados = DashboardViewModel.GetAlmoxarifados();
+            List<AlmoxType> almoxarifados = AlmoxarifadosViewModel.TodosOsAlmoxarifados;
 
             _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
 
@@ -104,16 +102,16 @@ namespace VadenStock.View
 
             if (_ComboTipos != null)
             {
-                var tipos = DashboardViewModel.GetTipos(tagNum);
+                var tipos = TiposViewModel.TiposPorCategoria(tagNum);
 
                 _ComboTipos.Clear(true);
 
-                for (int i = 0; i < tipos.Count; i++)
+                foreach (TipoType t in tipos)
                 {
                     _ComboTipos.Items.Add(new ComboBoxItem()
                     {
-                        Tag = tipos[i].Id,
-                        Content = string.Concat(tipos[i].Name[0], tipos[i].Name[1..].ToLower())
+                        Tag = t.Id,
+                        Content = t.Name
                     });
                 }
             }
@@ -126,7 +124,7 @@ namespace VadenStock.View
             public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Str.ZeroFill(DashboardViewModel.GetItems(almox.Id).Count, " itens disponíveis");
+                string subHeader = Str.ZeroFill(ItensViewModel.CountItensPorAlmoxarifado(almox.Id), " itens disponíveis");
 
                 ThumbnailCard thumb = new()
                 {

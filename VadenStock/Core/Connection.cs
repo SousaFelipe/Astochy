@@ -41,13 +41,15 @@ namespace VadenStock.Core
 
         public virtual int Create(List<string[]> inserts, bool timestamps = true)
         {
+            int output = -1;
+
             List<string> fields = new();
             List<string> values = new();
 
-            foreach (string[] insert in inserts)
+            foreach (string[] row in inserts)
             {
-                fields.Add(insert[0]);
-                values.Add(insert[1]);
+                fields.Add(row[0]);
+                values.Add(row[1]);
             }
 
             if (timestamps)
@@ -67,13 +69,13 @@ namespace VadenStock.Core
                     for (int i = 0; i < values.Count; i++)
                         Cmmd.Parameters.AddWithValue($"@{ fields[i] }", values[i]);
 
-                    int output = Cmmd.ExecuteNonQuery();
-
-                    Unplug();
-
-                    return output;
+                    output = Cmmd.ExecuteNonQuery();
                 }
+
+                Unplug();
             }
+
+            return output;
         }
 
 

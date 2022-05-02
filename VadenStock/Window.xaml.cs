@@ -3,6 +3,10 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
+using System.Threading;
+
+using VadenStock.View.Dialogs;
 
 
 
@@ -33,31 +37,65 @@ namespace VadenStock
 			base.OnSourceInitialized(e);
 
 			((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
-			/*
-			TabsAdapter adapter = new(_TabCategorias);
-			adapter.Update(Categorias.Listar(), false);
-			adapter.Build(c =>
-            {
-				TabCategoria firstTab = (TabCategoria)c;
-				firstTab.IsChecked = true;
-				return true;
-            });
-			*/
 		}
 
 
 
-		public void EnterDialogMode()
+		public void DisplayAlert(AlertDialog alert)
+        {
+			_AlertContainer.Children.Add(alert);
+
+			Application.Current.Dispatcher.BeginInvoke(
+					DispatcherPriority.Background,
+					new Action(async () =>
+                    {
+						await alert.Down();
+						CloseAlert(alert);
+					})
+				);
+		}
+
+
+
+		public void CloseAlert(AlertDialog alert, bool self = false)
+        {
+			if (_AlertContainer.Children.Contains(alert))
+            {
+				Thread thread = new(() =>
+				{
+					if (!self)
+						Thread.Sleep(5000);
+
+					Application.Current.Dispatcher.BeginInvoke(
+							DispatcherPriority.Background,
+							new Action(async () =>
+							{
+								await alert.Up();
+								_AlertContainer.Children.Remove(alert);
+							})
+						);
+				});
+
+				thread.Start();
+			}
+		}
+
+
+
+		public void DisplayDialog(UIElement element)
         {
 			_BorderShadow.Visibility = Visibility.Visible;
+			_DialogContainer.Children.Add(element);
         }
 
 
 
-		public void ExitDialogMode()
-		{
-			_BorderShadow.Visibility = Visibility.Hidden;
-		}
+		public void CloseDialog(UIElement element)
+        {
+			_DialogContainer.Children.Remove(element);
+			_DialogContainer.Children.Clear();
+			_BorderShadow.Visibility = Visibility.Collapsed;
+        }
 
 
 

@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.ComponentModel;
 
 using VadenStock.View.Models;
+using VadenStock.View.Structs;
 using VadenStock.View.Components.Forms;
 
 using VadenStock.Model.Types;
@@ -18,23 +18,9 @@ using VadenStock.Tools;
 
 namespace VadenStock.View.Dialogs
 {
-    public partial class ProdutoDialog : Window
+    public partial class ProdutoDialog : Border
     {
-        struct ProdutoType
-        {
-            public string Name;
-            public int Categoria;
-            public int Tipo;
-            public int Marca;
-            public string ImageOrigin;
-            public string Image;
-            public decimal Price;
-            public string Description;
-        }
-
-
-
-        private ProdutoType Produto;
+        private ProdutoStruct Produto;
 
 
 
@@ -44,17 +30,30 @@ namespace VadenStock.View.Dialogs
 
             Loaded += delegate
             {
+                LoadMarcas();
                 LoadCategorias();
             };
         }
 
 
 
+        void LoadMarcas()
+        {
+            foreach (MarcaType m in MarcasViewModel.TodasAsMarcas)
+            {
+                _ComboMarcas.Items.Add(new ComboBoxItem()
+                {
+                    Tag = m.Id,
+                    Content = m.Name,
+                });
+            }
+        }
+
+
+
         void LoadCategorias()
         {
-            _ComboCategorias.Clear(true);
-            
-            foreach(CategoriaType c in CategoriasViewModel.GetCategorias())
+            foreach(CategoriaType c in CategoriasViewModel.TodasAsCategorias)
             {
                 _ComboCategorias.Items.Add(new ComboBoxItem()
                 {
@@ -66,31 +65,24 @@ namespace VadenStock.View.Dialogs
 
 
 
-        void LoadTipos(int categoria)
+        void LoadTipos()
         {
-
-        }
-
-
-
-        void LoadMarcas()
-        {
-
+            foreach (TipoType t in TiposViewModel.TiposPorCategoria(Produto.Categoria))
+            {
+                _ComboTipos.Items.Add(new ComboBoxItem()
+                {
+                    Tag = t.Id,
+                    Content = t.Name
+                });
+            }
         }
 
 
 
         private void CloseDialog(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
-
-
-
-        private void OnClosing(object sender, CancelEventArgs e)
-        {
-            VadenStock.MainWindow window = (VadenStock.MainWindow)Application.Current.MainWindow;
-            window.ExitDialogMode();
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+            window.CloseDialog(this);
         }
 
 
@@ -103,24 +95,64 @@ namespace VadenStock.View.Dialogs
                 Filter = "Image documents (.png)|*.png"
             };
 
-            if (true == dialog.ShowDialog())
+            if (dialog.ShowDialog() == true)
             {
                 if (!string.IsNullOrEmpty(dialog.FileName))
                 {
-                    BitmapImage? image = Src.OpenBitmap(dialog.FileName);
-
-                    if (image != null)
-                    {
-                        string fileName = dialog.FileName.Split('\\')[^1];
-
-                        _BorderImage.Background = new ImageBrush() { ImageSource = image };
-                        _TextImageName.Text = fileName.Replace(Path.GetExtension(fileName),  "");
-
-                        Produto.Image = fileName;
-                        Produto.ImageOrigin = dialog.FileName;
-                    }
+                    SelectImageAvatar(dialog.FileName);
                 }
             }
+        }
+
+
+
+        private void SelectImageAvatar(string filePath)
+        {
+            BitmapImage? image = Src.OpenBitmap(filePath);
+
+            if (image != null)
+            {
+                string fileNameFull = filePath.Split('\\')[^1];
+
+                Produto.Image.FileExtension = Path.GetExtension(fileNameFull).ToLower();
+                Produto.Image.FileName = fileNameFull.Replace(Produto.Image.FileExtension, "").ToLower();
+                Produto.Image.Origin = filePath;
+
+                _BorderImage.Background = new ImageBrush() { ImageSource = image };
+                _BorderButtonClearAvatar.Visibility = Visibility.Visible;
+
+                _TextImageName.Text = Produto.Image.FileName;
+                _TextImageName.Focus();
+                _TextImageName.SelectionStart = Produto.Image.FileName.Length;
+            }
+        }
+
+
+
+        private void ClearImageAvatar()
+        {
+            _BorderImage.Background = new ImageBrush() { ImageSource = Src.Icon("blue-image-plus") };
+            _BorderButtonClearAvatar.Visibility = Visibility.Collapsed;
+            _TextImageName.Text = string.Empty;
+
+            Produto.Image.FileExtension = string.Empty;
+            Produto.Image.FileName = string.Empty;
+            Produto.Image.Origin = string.Empty;
+        }
+
+
+
+        private void InputImageName_Change(object sender, TextChangedEventArgs e)
+        {
+            InputTransparent input = (InputTransparent)sender;
+            Produto.Image.FileName = input.Text;
+        }
+
+
+
+        private void ButtonClearAvatar_Click(object sender, MouseButtonEventArgs e)
+        {
+            ClearImageAvatar();
         }
 
 
@@ -133,17 +165,34 @@ namespace VadenStock.View.Dialogs
 
 
 
+        private void SelectMarca_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            SelectBox select = (SelectBox)sender;
+            ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
+
+            if (item != null)
+                Produto.Marca = Convert.ToInt32(item.Tag);
+            else
+                Produto.Marca = 0;
+        }
+
+
+
         private void SelectCategoria_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
-            object tag = ((ComboBoxItem)select.SelectedItem).Tag;
+            ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
 
-            Produto.Categoria = Convert.ToInt32(tag);
-
-            if (Produto.Categoria > 0)
-                LoadTipos(Produto.Categoria);
+            if (item != null)
+            {
+                Produto.Categoria = Convert.ToInt32(item.Tag);
+                LoadTipos();
+            }
             else
+            {
+                Produto.Categoria = 0;
                 _ComboTipos.Clear(true);
+            }
         }
 
 
@@ -151,19 +200,12 @@ namespace VadenStock.View.Dialogs
         private void SelectTipo_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
-            object tag = ((ComboBoxItem)select.SelectedItem).Tag;
+            ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
 
-            Produto.Tipo = Convert.ToInt32(tag);
-        }
-
-
-
-        private void SelectMarca_Changed(object sender, SelectionChangedEventArgs e)
-        {
-            SelectBox select = (SelectBox)sender;
-            object tag = ((ComboBoxItem)select.SelectedItem).Tag;
-
-            Produto.Marca = Convert.ToInt32(tag);
+            if (item != null)
+                Produto.Tipo = Convert.ToInt32(item.Tag);
+            else
+                Produto.Tipo = 0;
         }
 
 
@@ -186,22 +228,35 @@ namespace VadenStock.View.Dialogs
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            Window owner = Application.Current.MainWindow;
+            MainWindow owner = (MainWindow)Application.Current.MainWindow;
 
-            if (string.IsNullOrEmpty(Produto.Name))
-                MessageBox.Show(owner, "Insira o nome do produto!", "Nome", MessageBoxButton.OK, MessageBoxImage.Stop);
+            if (string.IsNullOrEmpty(Produto.Image.FileName))
+            {
+                if (string.IsNullOrEmpty(Produto.Image.Origin))
+                    owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Adicione uma imagem ao produto!"));
+
+                else
+                {
+                    string fileNameFull = Produto.Image.Origin.Split('\\')[^1];
+
+                    Produto.Image.FileExtension = Path.GetExtension(fileNameFull);
+                    Produto.Image.FileName = fileNameFull.Replace(Produto.Image.FileExtension, "").ToLower();
+                }
+            }
+            else if (string.IsNullOrEmpty(Produto.Name))
+                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Insira o nome do produto"));
 
             else if (Produto.Categoria <= 0)
-                MessageBox.Show(owner, "Você precisa selecionar uma categoria!", "Categoria", MessageBoxButton.OK, MessageBoxImage.Stop);
+                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar uma categoria"));
 
             else if (Produto.Tipo <= 0)
-                MessageBox.Show(owner, "Você precisa selecionar o tipo de produto!", "Tipo", MessageBoxButton.OK, MessageBoxImage.Stop);
+                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar o tipo de produto"));
 
             else if (Produto.Marca <= 0)
-                MessageBox.Show(owner, "Você precisa selecionar a marca!", "Marca", MessageBoxButton.OK, MessageBoxImage.Stop);
+                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a marca"));
 
             else if (Produto.Price <= 0)
-                MessageBox.Show(owner, "O preço do produto precisa ser maior que 0 (zero)!", "Preço", MessageBoxButton.OK, MessageBoxImage.Stop);
+                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "O preço do produto não pode ser 0,00"));
 
             else
             {
@@ -213,20 +268,34 @@ namespace VadenStock.View.Dialogs
 
         private void SalvarProduto()
         {
-            int output = ProdutosViewModel.Create(
-                    Produto.Name,
-                    Produto.Categoria,
-                    Produto.Tipo,
-                    Produto.Marca,
-                    Produto.Image,
-                    Produto.Price,
-                    Produto.Description
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+            bool saved = Src.CopyToResource(
+                    Produto.Image.Origin,
+                    $"{ Src.Resource.Root }\\{ Src.Resource.Storage }",
+                    $"{ Produto.Image.FileName }{ Produto.Image.FileExtension }"
                 );
 
-            if (output > 0)
+            if (saved)
             {
-                
+                if (ProdutosViewModel.Create(Produto) > 0)
+                {
+                    ClearImageAvatar();
+
+                    _InputName.Clear();
+                    _ComboMarcas.SelectedIndex = 0;
+                    _ComboCategorias.SelectedIndex = 0;
+                    _ComboTipos.SelectedIndex = 0;
+                    _InputPrice.Text = "0,00";
+                    _InputDescription.Clear();
+
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso", "Wooow!"));
+                }
+                else
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Não foi possível salvar o Produto"));
             }
+            else
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema."));
         }
     }
 }

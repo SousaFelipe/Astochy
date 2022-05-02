@@ -9,9 +9,9 @@ namespace VadenStock.View.Models
 {
     public static class CategoriasViewModel
     {
-        public static List<CategoriaType> GetCategorias()
+        public static List<CategoriaType> TodasAsCategorias
         {
-            return Categoria.New.Select().Get();
+            get { return Categoria.New.Select().Get(); }
         }
     }
 }

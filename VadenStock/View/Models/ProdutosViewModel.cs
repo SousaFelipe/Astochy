@@ -11,17 +11,24 @@ namespace VadenStock.View.Models
 {
     public class ProdutosViewModel
     {
-        public static int Create(string name, int categoria, int tipo, int marca, string image, decimal price, string description)
+        public static int CountTodosOsProdutos
+        {
+            get { return Produto.New.Count().Bind(); }
+        }
+
+
+
+        public static int Create(ProdutoStruct produto)
         {
             List<string[]> inserts = new();
 
-            inserts.Add(new string[] { "name", name });
-            inserts.Add(new string[] { "categoria", categoria.ToString() });
-            inserts.Add(new string[] { "tipo", tipo.ToString() });
-            inserts.Add(new string[] { "marca", marca.ToString() });
-            inserts.Add(new string[] { "image", image });
-            inserts.Add(new string[] { "price", price.ToString() });
-            inserts.Add(new string[] { "description", description });
+            inserts.Add(new string[] { "name", produto.Name });
+            inserts.Add(new string[] { "categoria", produto.Categoria.ToString() });
+            inserts.Add(new string[] { "tipo", produto.Tipo.ToString() });
+            inserts.Add(new string[] { "marca", produto.Marca.ToString() });
+            inserts.Add(new string[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" });
+            inserts.Add(new string[] { "price", produto.Price.ToString().Replace(".", "").Replace(",", ".") });
+            inserts.Add(new string[] { "description", produto.Description });
 
             int output = Produto.New.Create(inserts);
 
@@ -30,18 +37,18 @@ namespace VadenStock.View.Models
 
 
 
-        public static List<ProdutoType> GetProdutos(ProdutoFilter filter)
+        public static List<ProdutoType> FiltrarProdutos(ProdutoStruct produto)
         {
             Produto model = Produto.New.Select();
 
-            if (filter.Categoria > 0)
-                model.Where("categoria", filter.Categoria.ToString());
+            if (produto.Categoria > 0)
+                model.Where("categoria", produto.Categoria.ToString());
 
-            if (filter.Tipo > 0)
-                model.Where("tipo", filter.Tipo.ToString());
+            if (produto.Tipo > 0)
+                model.Where("tipo", produto.Tipo.ToString());
 
-            if (filter.Marca > 0)
-                model.Where("marca", filter.Marca.ToString());
+            if (produto.Marca > 0)
+                model.Where("marca", produto.Marca.ToString());
 
             return model.Get();
         }

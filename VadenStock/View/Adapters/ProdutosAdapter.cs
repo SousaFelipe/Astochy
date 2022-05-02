@@ -3,8 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-using VadenStock.Model;
 using VadenStock.Model.Types;
+
+using VadenStock.View.Models;
 using VadenStock.View.Components.Cards;
 
 using VadenStock.Tools;
@@ -91,7 +92,7 @@ namespace VadenStock.View.Adapters
             public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Str.ZeroFill(Produto.New.Count().Bind(), " em estoque");
+                string subHeader = Str.ZeroFill(ItensViewModel.CountItensPorProduto(produto.Id), " disponíveis");
 
                 MidiaThumbCard midia = new()
                 {

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Threading.Tasks;
+
+using VadenStock.Tools;
 
 
 
@@ -48,23 +41,97 @@ namespace VadenStock.View.Dialogs
 
 
 
-        public string Message { get; private set; }
-        public string Caption { get; private set; }
-        public AlertType Type { get; private set; }
-        public AlertIcon Icon { get; private set; }
-        public AlertButton Button { get; private set; }
+        static readonly float InitialPosition = -100;
+        static readonly float DisplayPosition = 44;
 
 
 
         public AlertDialog()
         {
-            Message = "Message";
-            Caption = "Caption";
-            Type = AlertType.Info;
-            Icon = AlertIcon.Info;
-            Button = AlertButton.None;
-
             InitializeComponent();
+
+            Margin = new Thickness(0, InitialPosition, 0, 0);
+        }
+
+
+
+        public AlertDialog(AlertType type, string message, string caption = "Eitaa!")
+        {
+            InitializeComponent();
+
+            Margin = new Thickness(0, InitialPosition, 0, 0);
+
+            Loaded += delegate
+            {
+                _TextMessage.Text = message;
+                _TextCaption.Text = caption;
+                _ImageIcon.Source = Src.Icon(GetIconFromType(type));
+                Background = new SolidColorBrush(GetBackgroundFromType(type));
+            };
+        }
+
+
+
+        static string GetIconFromType(AlertType type)
+        {
+            return type switch
+            {
+                AlertType.Success => "white-checked",
+                AlertType.Warning => "white-alert",
+                AlertType.Danger => "white-bomb",
+                AlertType.Info => "white-information",
+                _ => "white-error"
+            };
+        }
+
+
+
+        static Color GetBackgroundFromType(AlertType type)
+        {
+            return type switch
+            {
+                AlertType.Success => (Color)ColorConverter.ConvertFromString("#66BB6A"),
+                AlertType.Warning => (Color)ColorConverter.ConvertFromString("#FFD740"),
+                AlertType.Danger => (Color)ColorConverter.ConvertFromString("#FF7043"),
+                AlertType.Info => (Color)ColorConverter.ConvertFromString("#40C4FF"),
+                _ => (Color)ColorConverter.ConvertFromString("#AB47BC")
+            };
+        }
+
+
+
+        public async Task Down()
+        {
+            double top = Margin.Top;
+
+            while (Margin.Top < DisplayPosition)
+            {
+                top += 8;
+                Margin = new Thickness(0, top, 0, 0);
+                await Task.Delay(1);
+            }
+        }
+
+
+
+        public async Task Up()
+        {
+            double top = Margin.Top;
+
+            while (Margin.Top > InitialPosition)
+            {
+                top -= 8;
+                Margin = new Thickness(0, top, 0, 0);
+                await Task.Delay(1);
+            }
+        }
+
+
+
+        private void ButtonClose_Click(object sender, MouseButtonEventArgs e)
+        {
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+            window.CloseAlert(this, true);
         }
     }
 }

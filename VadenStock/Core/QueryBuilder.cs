@@ -28,10 +28,10 @@ namespace VadenStock.Core
             {
                 Query += (i < (inserts.Count - 1))
                     ? $"{ inserts[i] }, "
-                    : $"{ inserts[i] }) ";
+                    : $"{ inserts[i] })";
             }
 
-            Query += " VALUES ";
+            Query += " VALUES (";
 
             for (int i = 0; i < inserts.Count; i++)
             {

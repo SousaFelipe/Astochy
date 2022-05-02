@@ -1,14 +1,17 @@
-﻿using System;
+﻿using System.Collections.Generic;
+
+using VadenStock.Model;
+using VadenStock.Model.Types;
 
 
 
 namespace VadenStock.View.Models
 {
-    public class AlmoxarifadosViewModel
+    public static class AlmoxarifadosViewModel
     {
-        public AlmoxarifadosViewModel()
+        public static List<AlmoxType> TodosOsAlmoxarifados
         {
-
+            get { return Almoxarifado.New.Select().Get(); }
         }
     }
 }
