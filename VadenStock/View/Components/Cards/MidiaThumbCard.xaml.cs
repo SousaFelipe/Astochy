@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 using VadenStock.Tools;
 
@@ -9,7 +12,6 @@ namespace VadenStock.View.Components.Cards
 {
     public partial class MidiaThumbCard : Border
     {
-
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
                 "Header",
                 typeof(string),
@@ -101,8 +103,64 @@ namespace VadenStock.View.Components.Cards
 
         public void SetMidia(string fileName)
         {
-            _ImageThumb.Source = Src.Storage(fileName);
-            _ImageThumb.UpdateLayout();
+            _BorderMidia.Background = new ImageBrush() { ImageSource = Src.Storage(fileName) };
+        }
+
+
+
+        public void SetMidiaAction(Func<object, bool> action)
+        {
+            _BorderMidia.MouseLeftButtonUp += delegate {
+                action?.Invoke(this);
+            };
+
+            _BorderMidia.MouseEnter += delegate {
+                _BorderMidia.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3E5FC"));
+            };
+
+            _BorderMidia.MouseLeave += delegate {
+                _BorderMidia.BorderBrush = null;
+            };
+
+            _BorderMidia.Cursor = Cursors.Hand;
+        }
+
+
+
+        public void SetHeaderAction(Func<object, bool> action)
+        {
+            _TextHeader.MouseLeftButtonUp += delegate {
+                action?.Invoke(this);
+            };
+
+            _TextHeader.MouseEnter += delegate {
+                _TextHeader.TextDecorations = TextDecorations.Underline;
+            };
+
+            _TextHeader.MouseLeave += delegate {
+                _TextHeader.TextDecorations = null;
+            };
+
+            _TextHeader.Cursor = Cursors.Hand;
+        }
+
+
+
+        public void SetSubHeaderAction(Func<object, bool> action)
+        {
+            _TextSubHeader.MouseLeftButtonUp += delegate {
+                action?.Invoke(this);
+            };
+
+            _TextSubHeader.MouseEnter += delegate {
+                _TextSubHeader.TextDecorations = TextDecorations.Underline;
+            };
+
+            _TextSubHeader.MouseLeave += delegate {
+                _TextSubHeader.TextDecorations = null;
+            };
+
+            _TextSubHeader.Cursor = Cursors.Hand;
         }
     }
 }

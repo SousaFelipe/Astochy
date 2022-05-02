@@ -6,7 +6,7 @@
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         mc:Ignorable="d"
         Width="480"
-        Height="508"
+        Height="520"
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
         CornerRadius="8"
@@ -243,6 +243,7 @@
                                  FontSize="14"
                                  Foreground="{StaticResource TextPrimaryColor}"
                                  TextChanged="InputDescription_Changed"/>
+                
             </StackPanel>
 
             <Button x:Name="_ButtonSave"

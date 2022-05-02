@@ -20,12 +20,16 @@ namespace VadenStock.View.Dialogs
 {
     public partial class ProdutoDialog : Border
     {
+        private bool EditMode;
         private ProdutoStruct Produto;
+        private ProdutoStruct EditarProduto;
 
 
 
         public ProdutoDialog()
         {
+            EditMode = false;
+
             InitializeComponent();
 
             Loaded += delegate
@@ -33,6 +37,48 @@ namespace VadenStock.View.Dialogs
                 LoadMarcas();
                 LoadCategorias();
             };
+        }
+
+
+
+        public ProdutoDialog(ProdutoType produto)
+        {
+            Produto.Id = produto.Id;
+            Produto.Name = produto.Name;
+            Produto.Categoria = produto.Categoria.Id;
+            Produto.Tipo = produto.Tipo.Id;
+            Produto.Marca = produto.Marca.Id;
+            Produto.Price = produto.Price;
+            Produto.Description = produto.Description;
+            Produto.Image.FileExtension = Path.GetExtension(produto.Image);
+            Produto.Image.FileName = produto.Image.Replace(Path.GetExtension(produto.Image), "");
+
+            EditarProduto = Produto;
+            EditMode = true;
+
+            InitializeComponent();
+            LoadTipos();
+            LoadCategorias();
+            LoadMarcas();
+
+            Loaded += delegate
+            {
+                LoadProduto();
+            };
+        }
+
+
+
+        public void LoadProduto()
+        {
+            _BorderImage.Background = new ImageBrush() { ImageSource = Src.Storage($"{ EditarProduto.Image.FileName }{ EditarProduto.Image.FileExtension }") };
+            _TextImageName.Text = EditarProduto.Image.FileName;
+            _InputName.Text = EditarProduto.Name;
+            _ComboMarcas.SelectedItem = _ComboMarcas.Find(Produto.Marca);
+            _ComboCategorias.SelectedItem = _ComboCategorias.Find(EditarProduto.Categoria);
+            _ComboTipos.SelectedItem = _ComboTipos.Find(EditarProduto.Tipo);
+            _InputPrice.Text = Str.Currency((EditarProduto.Price * 100).ToString());
+            _InputDescription.Text = EditarProduto.Description;
         }
 
 
@@ -79,28 +125,19 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void CloseDialog(object sender, RoutedEventArgs e)
+        private void ShouldBeSaveEnabled()
         {
-            MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.CloseDialog(this);
-        }
-
-
-
-        private void OpenImageDialog(object sender, MouseButtonEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dialog = new()
+            if (_ButtonSave != null)
             {
-                DefaultExt = ".png",
-                Filter = "Image documents (.png)|*.png"
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                if (!string.IsNullOrEmpty(dialog.FileName))
-                {
-                    SelectImageAvatar(dialog.FileName);
-                }
+                _ButtonSave.IsEnabled = (
+                    Produto.Name != EditarProduto.Name ||
+                    Produto.Categoria != EditarProduto.Categoria ||
+                    Produto.Tipo != EditarProduto.Tipo ||
+                    Produto.Marca != EditarProduto.Marca ||
+                    Produto.Marca != EditarProduto.Marca ||
+                    Produto.Image.FileName != EditarProduto.Image.FileName ||
+                    Produto.Description != EditarProduto.Description
+               );
             }
         }
 
@@ -142,10 +179,21 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void InputImageName_Change(object sender, TextChangedEventArgs e)
+        private void OpenImageDialog(object sender, MouseButtonEventArgs e)
         {
-            InputTransparent input = (InputTransparent)sender;
-            Produto.Image.FileName = input.Text;
+            Microsoft.Win32.OpenFileDialog dialog = new()
+            {
+                DefaultExt = ".png",
+                Filter = "Image documents (.png)|*.png"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrEmpty(dialog.FileName))
+                {
+                    SelectImageAvatar(dialog.FileName);
+                }
+            }
         }
 
 
@@ -157,10 +205,24 @@ namespace VadenStock.View.Dialogs
 
 
 
+        private void InputImageName_Change(object sender, TextChangedEventArgs e)
+        {
+            InputTransparent input = (InputTransparent)sender;
+            Produto.Image.FileName = input.Text;
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
+        }
+
+
+
         private void InputName_Changed(object sender, TextChangedEventArgs e)
         {
             InputText input = (InputText)sender;
             Produto.Name = input.Text;
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -174,6 +236,9 @@ namespace VadenStock.View.Dialogs
                 Produto.Marca = Convert.ToInt32(item.Tag);
             else
                 Produto.Marca = 0;
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -186,13 +251,20 @@ namespace VadenStock.View.Dialogs
             if (item != null)
             {
                 Produto.Categoria = Convert.ToInt32(item.Tag);
-                LoadTipos();
+
+                if (!EditMode)
+                    LoadTipos();
             }
             else
             {
                 Produto.Categoria = 0;
-                _ComboTipos.Clear(true);
+                
+                if (!EditMode)
+                    _ComboTipos.Clear(true);
             }
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -206,6 +278,9 @@ namespace VadenStock.View.Dialogs
                 Produto.Tipo = Convert.ToInt32(item.Tag);
             else
                 Produto.Tipo = 0;
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -214,6 +289,9 @@ namespace VadenStock.View.Dialogs
         {
             InputCurrency input = (InputCurrency)sender;
             Produto.Price = Convert.ToDecimal(input.Text);
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -222,6 +300,9 @@ namespace VadenStock.View.Dialogs
         {
             InputText input = (InputText)sender;
             Produto.Description = input.Text;
+
+            if (EditMode)
+                ShouldBeSaveEnabled();
         }
 
 
@@ -296,6 +377,14 @@ namespace VadenStock.View.Dialogs
             }
             else
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema."));
+        }
+
+
+
+        private void CloseDialog(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+            window.CloseDialog(this);
         }
     }
 }

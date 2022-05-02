@@ -48,13 +48,15 @@ namespace VadenStock.View
 
 
 
-        public void LoadProdutos()
+        public bool LoadProdutos()
         {
             ProdutosAdapter adapter = new(_GridProdutos);
             List<ProdutoType> produtos = ProdutosViewModel.FiltrarProdutos(Filter);
 
             adapter.Clear();
             adapter.Update(produtos);
+
+            return true;
         }
 
 
@@ -70,7 +72,7 @@ namespace VadenStock.View
                 switch (cbi.Tag)
                 {
                     case "P":
-                        window.DisplayDialog(new ProdutoDialog());
+                        window.DisplayDialog(new ProdutoDialog(), LoadProdutos);
                         break;
 
                     case "M":

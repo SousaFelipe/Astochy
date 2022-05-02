@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 
 
@@ -9,6 +10,17 @@ namespace VadenStock.View.Components.Forms
         public SelectBox()
         {
             InitializeComponent();
+        }
+
+
+
+        public ComboBoxItem? Find(int tag)
+        {
+            foreach(ComboBoxItem cbi in Items)
+                if(Convert.ToInt32(cbi.Tag) == tag)
+                    return cbi;
+
+            return null;
         }
 
 

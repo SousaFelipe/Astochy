@@ -24,6 +24,14 @@ namespace VadenStock.View.Models
                 .Bind();
         }
 
+        public static List<ItemType> ItensPorProduto(int produto)
+        {
+            return Item.New
+                .Select()
+                .Where("produto", produto.ToString())
+                .Get();
+        }
+
 
 
         public static int CountItensPorAlmoxarifado(int almoxarifado)

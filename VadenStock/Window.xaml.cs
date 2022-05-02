@@ -25,6 +25,10 @@ namespace VadenStock
 
 
 
+		private Func<bool>? OnCloseDialogCallback { get; set; }
+
+
+
 		public MainWindow()
         {
             InitializeComponent();
@@ -82,16 +86,20 @@ namespace VadenStock
 
 
 
-		public void DisplayDialog(UIElement element)
+		public void DisplayDialog(UIElement element, Func<bool>? onCloseDialogCallback = null)
         {
 			_BorderShadow.Visibility = Visibility.Visible;
 			_DialogContainer.Children.Add(element);
-        }
+
+			OnCloseDialogCallback = onCloseDialogCallback;
+		}
 
 
 
 		public void CloseDialog(UIElement element)
         {
+			OnCloseDialogCallback?.Invoke();
+
 			_DialogContainer.Children.Remove(element);
 			_DialogContainer.Children.Clear();
 			_BorderShadow.Visibility = Visibility.Collapsed;

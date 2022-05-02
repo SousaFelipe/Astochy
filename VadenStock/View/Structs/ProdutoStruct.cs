@@ -12,6 +12,7 @@ namespace VadenStock.View.Structs
         }
 
 
+        public int Id;
         public string Name;
         public int Categoria;
         public int Tipo;

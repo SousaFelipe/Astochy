@@ -24,15 +24,13 @@
         <StackPanel Orientation="Horizontal"
                     Margin="12 12 12 0">
 
-            <Border CornerRadius="4"
+            <Border x:Name="_BorderMidia"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    BorderBrush="#FFFFFF"
                     Width="42"
                     Height="42"
-                    Margin="0 0 12 0"
-                    Background="{StaticResource SecondaryMuted}">
-                <Image x:Name="_ImageThumb"
-                       VerticalAlignment="Stretch"
-                       HorizontalAlignment="Stretch"/>
-            </Border>
+                    Margin="0 0 12 0"/>
 
             <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Left">

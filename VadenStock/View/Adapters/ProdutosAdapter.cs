@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ using VadenStock.Model.Types;
 
 using VadenStock.View.Models;
 using VadenStock.View.Components.Cards;
+using VadenStock.View.Dialogs;
 
 using VadenStock.Tools;
 
@@ -91,8 +93,10 @@ namespace VadenStock.View.Adapters
         {
             public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
             {
+                MainWindow window = (MainWindow)Application.Current.MainWindow;
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Str.ZeroFill(ItensViewModel.CountItensPorProduto(produto.Id), " disponíveis");
+                List<ItemType> itens = ItensViewModel.ItensPorProduto(produto.Id);
+                string subHeader = Str.ZeroFill(itens.Count, " disponíveis");
 
                 MidiaThumbCard midia = new()
                 {
@@ -104,6 +108,27 @@ namespace VadenStock.View.Adapters
                 };
 
                 midia.SetMidia(produto.Image);
+
+                midia.SetMidiaAction((object sender) =>
+                {
+                    window.DisplayDialog(new ImageDialog(((MidiaThumbCard)sender)._BorderMidia.Background));
+                    return true;
+                });
+
+                midia.SetHeaderAction((object sender) =>
+                {
+                    window.DisplayDialog(new ProdutoDialog(produto));
+                    return true;
+                });
+
+                if (itens.Count > 0)
+                {
+                    midia.SetSubHeaderAction((object sender) =>
+                    {
+
+                        return true;
+                    });
+                }
 
                 return midia;
             }

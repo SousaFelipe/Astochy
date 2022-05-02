@@ -84,6 +84,8 @@ namespace VadenStock.Model
                 ItemType contract = new()
                 {
                     Id = reader.GetInt32("id"),
+                    Codigo = reader.GetString("codigo"),
+                    Mac = reader.IsDBNull(2) ? string.Empty : reader.GetString("mac"),
                     Produto = Produto.New.Get(reader.GetInt32("produto"))[0],
                     Almoxarifado = Almoxarifado.New.Get(reader.GetInt32("almoxarifado"))[0],
                     Inventario = Inventario.New.Get(reader.GetInt32("inventario"))[0],
