@@ -121,14 +121,14 @@ namespace VadenStock.View.Adapters
                     return true;
                 });
 
-                if (itens.Count > 0)
-                {
+                //if (itens.Count > 0)
+                //{
                     midia.SetSubHeaderAction((object sender) =>
                     {
-
+                        window.DisplayDialog(new ItensDialog());
                         return true;
                     });
-                }
+                //}
 
                 return midia;
             }

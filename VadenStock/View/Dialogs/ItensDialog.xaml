@@ -4,9 +4,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ItensDialog}"
         d:DesignWidth="620"
-        d:DesignHeight="450"
+        d:DesignHeight="460"
+        Width="620"
+        Height="460"
         CornerRadius="8"
         Background="#FFFFFF">
     
@@ -18,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="3"
+        <Button Grid.Row="0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Height="38"
@@ -31,6 +35,12 @@
                    Opacity="0.4"
                    Source="/VadenStock;component/Resources/Icons/black-close.png"/>
         </Button>
+
+        <containers:Table Grid.Row="1"
+                          x:Name="_TableItens"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch"
+                          Margin="20"/>
 
     </Grid>
     
