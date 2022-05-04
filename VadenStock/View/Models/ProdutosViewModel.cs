@@ -11,6 +11,13 @@ namespace VadenStock.View.Models
 {
     public class ProdutosViewModel
     {
+        public static List<ProdutoType> TodosOsProdutos
+        {
+            get { return Produto.New.Select().Get(); }
+        }
+
+
+
         public static int CountTodosOsProdutos
         {
             get { return Produto.New.Count().Bind(); }
