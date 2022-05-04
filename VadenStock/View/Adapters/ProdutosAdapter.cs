@@ -125,7 +125,7 @@ namespace VadenStock.View.Adapters
                 //{
                     midia.SetSubHeaderAction((object sender) =>
                     {
-                        window.DisplayDialog(new ItensDialog());
+                        window.DisplayDialog(new ItensDialog(ProdutosViewModel.TodosOsProdutos));
                         return true;
                     });
                 //}

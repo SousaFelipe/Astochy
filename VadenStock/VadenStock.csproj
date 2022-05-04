@@ -12,10 +12,14 @@
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
+        <None Remove="Resources\Icons\black-chevron-left.png" />
+        <None Remove="Resources\Icons\black-chevron-right.png" />
         <None Remove="Resources\Icons\black-close.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
         <None Remove="Resources\Icons\blue-car.png" />
+        <None Remove="Resources\Icons\blue-chevron-left.png" />
+        <None Remove="Resources\Icons\blue-chevron-right.png" />
         <None Remove="Resources\Icons\blue-close.png" />
         <None Remove="Resources\Icons\blue-image-plus.png" />
         <None Remove="Resources\Icons\blue-information.png" />
@@ -40,6 +44,8 @@
         <None Remove="Resources\Icons\white-arrow-down.png" />
         <None Remove="Resources\Icons\white-arrow-up.png" />
         <None Remove="Resources\Icons\white-bomb.png" />
+        <None Remove="Resources\Icons\white-chevron-left.png" />
+        <None Remove="Resources\Icons\white-chevron-right.png" />
         <None Remove="Resources\Icons\white-close.png" />
         <None Remove="Resources\Icons\white-information.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
@@ -81,6 +87,14 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Icons\black-chevron-left.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\black-chevron-right.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Icons\black-close.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
@@ -95,6 +109,14 @@
 
 		<Resource Include="Resources\Icons\blue-car.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\blue-chevron-left.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\blue-chevron-right.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
 		<Resource Include="Resources\Icons\blue-close.png">
@@ -114,6 +136,14 @@
 		</Resource>
 
 		<Resource Include="Resources\Icons\white-bomb.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-chevron-left.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-chevron-right.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
