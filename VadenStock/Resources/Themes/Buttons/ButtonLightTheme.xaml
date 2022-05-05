@@ -6,6 +6,7 @@
            TargetType="{x:Type Button}">
 
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="#455A64"/>
 
         <Setter Property="Foreground">
             <Setter.Value>

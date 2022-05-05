@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="VadenStock.View.Components.Pagination"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VadenStock.View.Components"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:Pagination}"
+             d:DesignWidth="300"
+             d:DesignHeight="32">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0"
+                x:Name="_ButtonPrevious"
+                Width="28"
+                Height="28"
+                Style="{StaticResource ButtonLightTheme}">
+            <Image VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-chevron-left.png"/>
+        </Button>
+
+        <StackPanel Grid.Column="1"
+                    x:Name="_StackControls"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Left"
+                    Margin="8 0"/>
+
+        <Button Grid.Column="2"
+                x:Name="_ButtonNext"
+                Width="28"
+                Height="28"
+                Style="{StaticResource ButtonLightTheme}">
+            <Image VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-chevron-right.png"/>
+        </Button>
+
+    </Grid>
+    
+</UserControl>

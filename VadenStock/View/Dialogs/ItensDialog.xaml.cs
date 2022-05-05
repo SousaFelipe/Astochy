@@ -20,18 +20,40 @@ namespace VadenStock.View.Dialogs
         public ItensDialog()
         {
             InitializeComponent();
+        }
+
+
+
+        public ItensDialog(List<ProdutoType> dataset)
+        {
+            InitializeComponent();
 
             Loaded += delegate
             {
-                Row row = new Row()
-                    .TD("0523")
-                    .TD("PowerBeam M5")
-                    .TD("04:18:D6:E6:CE:61")
-                    .TD("Em Rota");
+                _TableItens.DefaultOptions.Stripped = true;
 
-                _TableItens.Headers("Código", "Produto", "MAC", "Status");
-                _TableItens.Add(row);
-                _TableItens.Draw();
+                _TableItens.Headers(
+                        Header.Auto("Produto"),
+                        Header.Max("Marca"),
+                        Header.Max("Categoria"),
+                        Header.Max("Tipo"),
+                        Header.Max("Preço")
+                    );
+
+                foreach (ProdutoType pt in dataset)
+                {
+                    _TableItens.Add(
+                            new Row()
+                                .TD(pt.Name)
+                                .TD(pt.Marca.Name)
+                                .TD(pt.Categoria.Name)
+                                .TD(pt.Tipo.Name)
+                                .TD(Str.Currency((pt.Price * 100).ToString()))
+                        );
+                }
+
+                _Pagination.Table = _TableItens;
+                _Pagination.Update();
             };
         }
 

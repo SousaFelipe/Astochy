@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ItensDialog}"
@@ -20,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0"
@@ -30,17 +32,35 @@
                 Padding="8"
                 Style="{StaticResource ButtonLightTheme}"
                 Click="CloseDialog">
+            
             <Image Width="24"
                    Height="24"
                    Opacity="0.4"
                    Source="/VadenStock;component/Resources/Icons/black-close.png"/>
+            
         </Button>
 
-        <containers:Table Grid.Row="1"
-                          x:Name="_TableItens"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Stretch"
-                          Margin="20"/>
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch">
+
+            <containers:Table x:Name="_TableItens"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
+                              Margin="20 20 20 0"/>
+
+            <Grid Grid.Row="2"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Bottom">
+
+                <components:Pagination x:Name="_Pagination"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Margin="0 8 16 16"/>
+
+            </Grid>
+
+        </StackPanel>
 
     </Grid>
     

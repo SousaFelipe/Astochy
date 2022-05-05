@@ -10,11 +10,11 @@ namespace VadenStock.View.Components.Containers
 {
     public partial class Table : Border
     {
-        public List<Row> Rows { get; private set; }
+        public List<Row> Rows { get; set; }
 
 
 
-        public int DISPLAY_ROWS = 10;
+        public Options.TableOptions DefaultOptions = new();
 
 
 
@@ -27,20 +27,47 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public void Headers(params string[] headers)
+        public Table(Options.TableOptions? options = null)
         {
-            Row row = new(new Row.Options()
+            if (options != null)
             {
-                Size = Row.Size.Medium,
+                DefaultOptions.Stripped = options.Stripped;
+                DefaultOptions.DisplayRows = options.DisplayRows > 0 ? options.DisplayRows : DefaultOptions.DisplayRows;
+            }
+
+            Rows = new();
+
+            InitializeComponent();
+        }
+
+
+
+        public void Headers(params Header[] headers)
+        {
+            Row row = new(new()
+            {
+                RowSize = Options.RowOptions.Size.Large,
+                Background = "#ECEFF1",
                 FontStyle = FontStyles.Normal,
+                FontWeight = FontWeights.Bold,
+                Hover = false
             });
+
+            Header current;
+            ColumnDefinition column;
 
             uint h;
             for (h = 0; h < headers.Length; h++)
             {
-                row.TD(headers[h]);
+                current = headers[h];
 
-                _GridContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                column = (current.W == Header.Width.Max)
+                    ? new ColumnDefinition()
+                    : new ColumnDefinition() { Width = GridLength.Auto };
+
+                row.TD(current.Title);
+
+                _GridContainer.ColumnDefinitions.Add(column);
             }
 
             Add(row);
@@ -56,24 +83,47 @@ namespace VadenStock.View.Components.Containers
 
 
 
+        public void Divide(int row, int headers)
+        {
+            Border div = new()
+            {
+                Height = 1,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(Colors.LightGray)
+            };
+
+            _GridContainer.Children.Add(div);
+
+            Grid.SetRow(div, row);
+            Grid.SetColumnSpan(div, headers);
+        }
+
+
+
         public void Draw()
         {
             Row currentRow;
             Border currentData;
 
+            int columns = _GridContainer.ColumnDefinitions.Count;
+
             int d;
             int r;
 
-            for (r = 0; r < DISPLAY_ROWS + 1; r++)
+            for (r = 0; r < DefaultOptions.DisplayRows + 1; r++)
             {
                 if (r == Rows.Count)
                     break;
 
+                currentRow = Rows[r];
+                
+                if (DefaultOptions.Stripped)
+                    currentRow.Paint((r % 2 != 0) ? null : "#F6FBFD");
+
                 _GridContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-                currentRow = Rows[r];
-
-                for (d = 0; d < _GridContainer.ColumnDefinitions.Count; d++)
+                for (d = 0; d < columns; d++)
                 {
                     currentData = currentRow.Get(d);
 
@@ -83,6 +133,8 @@ namespace VadenStock.View.Components.Containers
                      Grid.SetRow(currentData, r);
                 }
             }
+
+            Divide(0, columns);
         } 
     }
 }
