@@ -12,8 +12,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonLightTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonDarkTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonGray.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonInfoTheme.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSecondaryTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSecondary.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSuccessTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonWarningTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Dropdowns/DropdownSecondary.xaml"/>

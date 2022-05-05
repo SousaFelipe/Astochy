@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 using VadenStock.View.Components.Containers;
+using VadenStock.View.Components.Buttons;
 
 using VadenStock.Tools;
 
@@ -37,8 +35,6 @@ namespace VadenStock.View.Components
 
 
 
-        private Row DatasetHeader = new();
-
         private List<Row> Dataset = new();
 
         private List<Button> Controls = new();
@@ -56,7 +52,6 @@ namespace VadenStock.View.Components
 
         public void Update()
         {
-            DatasetHeader = Table.Rows[0];
             Dataset = Table.Rows.GetRange(1, Table.Rows.Count - 1);
 
             int tableRows = Table.DefaultOptions.DisplayRows;
@@ -66,8 +61,7 @@ namespace VadenStock.View.Components
             int start;
             int final;
 
-            int i;
-            for (i = 0; i < pages; i++)
+            for (int i = 0; i < pages; i++)
             {
                 start = (i * tableRows);
                 final = (tableRows * i) + (tableRows - 1);
@@ -80,7 +74,8 @@ namespace VadenStock.View.Components
                 _StackControls.Children.Add( Control(i) );
             }
 
-            Select(0);
+            Table.Rows = Pages[0];
+            Table.Draw();
         }
 
 
@@ -88,8 +83,7 @@ namespace VadenStock.View.Components
         public void Select(int page)
         {
             Button button = Controls[page];
-
-            button.Style = (Style)FindResource("ButtonSecondaryTheme");
+            button.Style = (Style)FindResource("ButtonSecondary");
         }
 
 
@@ -110,18 +104,11 @@ namespace VadenStock.View.Components
 
         public Button Control(int page)
         {
-            TextBlock content = new()
-            {
-                VerticalAlignment = VerticalAlignment.Center,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Text = Str.ZeroFill(page + 1)
-            };
-
             Button button = new()
             {
-                Height = 32,
-                Content = content,
-                Style = (Style)FindResource("ButtonLightTheme")
+                Height = 28,
+                Content = Str.ZeroFill(page + 1),
+                Style = (Style)FindResource(page > 0 ? "ButtonGray" : "ButtonSecondary")
             };
 
             Controls.Add(button);

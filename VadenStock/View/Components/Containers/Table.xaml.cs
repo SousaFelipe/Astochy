@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 
@@ -53,24 +52,31 @@ namespace VadenStock.View.Components.Containers
                 Hover = false
             });
 
-            Header current;
-            ColumnDefinition column;
+            Header header;
+            Border content;
 
-            uint h;
-            for (h = 0; h < headers.Length; h++)
+            for (int h = 0; h < headers.Length; h++)
             {
-                current = headers[h];
+                header = headers[h];
 
-                column = (current.W == Header.Width.Max)
-                    ? new ColumnDefinition()
-                    : new ColumnDefinition() { Width = GridLength.Auto };
+                _GridHeaders.ColumnDefinitions.Add(
+                        (header.W == Header.Width.Max)
+                            ? new ColumnDefinition()
+                            : new ColumnDefinition() { Width = GridLength.Auto }
+                    );
 
-                row.TD(current.Title);
+                _GridContainer.ColumnDefinitions.Add(
+                        (header.W == Header.Width.Max)
+                            ? new ColumnDefinition()
+                            : new ColumnDefinition() { Width = GridLength.Auto }
+                    );
 
-                _GridContainer.ColumnDefinitions.Add(column);
+                content = row.TD(header.Title).Borders[h];
+
+                _GridHeaders.Children.Add(content);
+
+                Grid.SetColumn(content, h);
             }
-
-            Add(row);
         }
 
 
@@ -105,13 +111,10 @@ namespace VadenStock.View.Components.Containers
         {
             Row currentRow;
             Border currentData;
-
             int columns = _GridContainer.ColumnDefinitions.Count;
 
-            int d;
-            int r;
 
-            for (r = 0; r < DefaultOptions.DisplayRows + 1; r++)
+            for (int r = 0; r < DefaultOptions.DisplayRows; r++)
             {
                 if (r == Rows.Count)
                     break;
@@ -123,7 +126,7 @@ namespace VadenStock.View.Components.Containers
 
                 _GridContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-                for (d = 0; d < columns; d++)
+                for (int d = 0; d < columns; d++)
                 {
                     currentData = currentRow.Get(d);
 

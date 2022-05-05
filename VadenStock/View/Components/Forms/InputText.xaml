@@ -22,6 +22,7 @@
                 <Setter.Value>
                     
                     <ControlTemplate TargetType="{x:Type TextBox}">
+                        
                         <Border x:Name="_TextBorder"
                                 CornerRadius="4"
                                 BorderThickness="1"
@@ -59,6 +60,7 @@
                                 </Trigger.Setters>
                             </Trigger>
                         </ControlTemplate.Triggers>
+                        
                     </ControlTemplate>
                     
                 </Setter.Value>

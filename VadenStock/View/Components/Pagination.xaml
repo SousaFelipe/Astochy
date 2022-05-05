@@ -22,7 +22,8 @@
                 x:Name="_ButtonPrevious"
                 Width="28"
                 Height="28"
-                Style="{StaticResource ButtonLightTheme}">
+                IsEnabled="False"
+                Style="{StaticResource ButtonGray}">
             <Image VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Width="24"
@@ -42,7 +43,8 @@
                 x:Name="_ButtonNext"
                 Width="28"
                 Height="28"
-                Style="{StaticResource ButtonLightTheme}">
+                IsEnabled="False"
+                Style="{StaticResource ButtonGray}">
             <Image VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Width="24"
