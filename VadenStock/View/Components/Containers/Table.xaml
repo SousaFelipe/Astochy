@@ -13,24 +13,8 @@
         BorderBrush="Transparent"
         ClipToBounds="True">
 
-    <Grid VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0"
-              x:Name="_GridHeaders"
-              VerticalAlignment="Top"
-              HorizontalAlignment="Stretch"/>
-
-        <Grid Grid.Row="1"
-              x:Name="_GridContainer"
-              VerticalAlignment="Stretch"
-              HorizontalAlignment="Stretch"/>
-
-    </Grid>
+    <Grid x:Name="_GridContainer"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch"/>
 
 </Border>

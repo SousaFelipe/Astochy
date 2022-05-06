@@ -14,32 +14,15 @@ namespace VadenStock.View.Components
 {
     public partial class Pagination : UserControl
     {
-        public static readonly DependencyProperty TableProperty = DependencyProperty.Register(
-                "Table",
-                typeof(Table),
-                typeof(Pagination),
-                new UIPropertyMetadata(null, TablePropertyCallback)
-            );
-
-        public Table Table
-        {
-            get { return (Table)GetValue(TableProperty); }
-            set { SetValue(TableProperty, value); }
-        }
-
-        public static void TablePropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
-        {
-            Pagination pagination = (Pagination)root;
-            pagination.Table = (Table)e.NewValue;
-        }
+        public Table? Table { get; set; }
 
 
 
-        private List<Row> Dataset = new();
-
-        private List<Button> Controls = new();
-
-        private Dictionary<int, List<Row>> Pages = new();
+        private Row? Header = null;
+        private int CurrentPgi = 0;
+        private Row[]? Dataset = null;
+        private readonly List<Row[]> Pages = new();
+        private readonly List<Button> Controls = new();
 
 
 
@@ -50,54 +33,100 @@ namespace VadenStock.View.Components
 
 
 
-        public void Update()
+        public void Paginate()
         {
-            Dataset = Table.Rows.GetRange(1, Table.Rows.Count - 1);
-
-            int tableRows = Table.DefaultOptions.DisplayRows;
-            decimal ceiling = Math.Ceiling((decimal)((Dataset.Count - 1) / tableRows));
-            int pages = Convert.ToInt32(ceiling) + (ceiling * tableRows) < (Dataset.Count - 1) ? 1 : 0;
-
-            int start;
-            int final;
-
-            for (int i = 0; i < pages; i++)
+            if (Table != null)
             {
-                start = (i * tableRows);
-                final = (tableRows * i) + (tableRows - 1);
+                System.Diagnostics.Trace.WriteLine($"[Rows]: [{ Table.Rows.Count }] ");
 
-                if (final > (Dataset.Count - 1))
-                    final -= (final - (Dataset.Count - 1));
+                Header = Table.Rows[0];
+                Dataset = Table.Rows.GetRange(1, Table.Rows.Count - 1).ToArray();
 
-                Pages.Add(i, Dataset.GetRange(start, final));
+                int tableRows = Table.DefaultOptions.DisplayRows + 1;
+                decimal ceil = Math.Ceiling((decimal)(Dataset.Length / tableRows));
+                int pages = (int)ceil;
 
-                _StackControls.Children.Add( Control(i) );
+                if ((ceil * tableRows) < Dataset.Length)
+                    pages += 1;
+
+                int start;
+                int final;
+
+                for (int i = 0; i < pages; i++)
+                {
+                    start = ((i * tableRows) - 1) < 0 ? 0 : (i * (tableRows - 1));
+                    final = (tableRows * i) + (tableRows - (i + 2));
+
+                    if (final > Dataset.Length - 1)
+                        final -= (final - (Dataset.Length - 1));
+
+                    Pages.Add(Dataset.Slice(start, final));
+
+                    _StackControls.Children.Add(Control(i));
+                }
+
+                Update();
             }
-
-            Table.Rows = Pages[0];
-            Table.Draw();
         }
 
 
 
-        public void Select(int page)
+        public void Update(int page = 0)
         {
+            if (Table != null)
+            {
+                if (page < 0 || page >= Pages.Count)
+                    return;
+
+                Table.Clear();
+                Table.Add(Header);
+
+                if (Header == null)
+                    System.Diagnostics.Trace.WriteLine("Header é nulo!");
+
+                foreach (Row r in Pages[page])
+                    Table.Add(r);
+
+                Table.Draw();
+
+                Select(page);
+            }
+        }
+
+
+
+        private void Select(int page)
+        {
+            foreach (Button btn in Controls)
+                btn.Style = (Style)FindResource("ButtonGray");
+
             Button button = Controls[page];
             button.Style = (Style)FindResource("ButtonSecondary");
+
+            _ButtonPrevious.IsEnabled = (page > 0);
+            _ButtonNext.IsEnabled = (page < (Pages.Count - 1));
+
+            CurrentPgi = page;
         }
 
 
 
-        public void Previous()
+        private void Previous(object sender, RoutedEventArgs e)
         {
+            int previous = CurrentPgi - 1;
 
+            if (previous >= 0)
+                Update(previous);
         }
 
 
 
-        public void Next()
+        private void Next(object sender, RoutedEventArgs e)
         {
+            int next = CurrentPgi + 1;
 
+            if (next < Pages.Count)
+                Update(next);
         }
 
 

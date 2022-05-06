@@ -251,7 +251,7 @@
                     Height="36"
                     Content="Salvar"
                     FontSize="16"
-                    Style="{StaticResource ButtonSecondaryTheme}"
+                    Style="{StaticResource ButtonSecondary}"
                     Click="ButtonSave_Click"/>
 
         </StackPanel>

@@ -23,7 +23,8 @@
                 Width="28"
                 Height="28"
                 IsEnabled="False"
-                Style="{StaticResource ButtonGray}">
+                Style="{StaticResource ButtonGray}"
+                Click="Previous">
             <Image VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Width="24"
@@ -44,7 +45,8 @@
                 Width="28"
                 Height="28"
                 IsEnabled="False"
-                Style="{StaticResource ButtonGray}">
+                Style="{StaticResource ButtonGray}"
+                Click="Next">
             <Image VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Width="24"

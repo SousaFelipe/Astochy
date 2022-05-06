@@ -50,7 +50,7 @@ namespace VadenStock.View.Dialogs
                 }
 
                 _Pagination.Table = _TableItens;
-                _Pagination.Update();
+                _Pagination.Paginate();
             };
         }
 

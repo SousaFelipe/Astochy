@@ -53,17 +53,10 @@ namespace VadenStock.View.Components.Containers
             });
 
             Header header;
-            Border content;
 
             for (int h = 0; h < headers.Length; h++)
             {
                 header = headers[h];
-
-                _GridHeaders.ColumnDefinitions.Add(
-                        (header.W == Header.Width.Max)
-                            ? new ColumnDefinition()
-                            : new ColumnDefinition() { Width = GridLength.Auto }
-                    );
 
                 _GridContainer.ColumnDefinitions.Add(
                         (header.W == Header.Width.Max)
@@ -71,12 +64,10 @@ namespace VadenStock.View.Components.Containers
                             : new ColumnDefinition() { Width = GridLength.Auto }
                     );
 
-                content = row.TD(header.Title).Borders[h];
-
-                _GridHeaders.Children.Add(content);
-
-                Grid.SetColumn(content, h);
+                row.TD(header.Title);
             }
+
+            Add(row);
         }
 
 
@@ -107,33 +98,45 @@ namespace VadenStock.View.Components.Containers
 
 
 
+        public void Clear()
+        {
+            Rows.Clear();
+
+            _GridContainer.Children.Clear();
+            _GridContainer.RowDefinitions.Clear();
+        }
+
+
+
         public void Draw()
         {
             Row currentRow;
             Border currentData;
             int columns = _GridContainer.ColumnDefinitions.Count;
 
-
-            for (int r = 0; r < DefaultOptions.DisplayRows; r++)
+            for (int r = 0; r <= DefaultOptions.DisplayRows; r++)
             {
                 if (r == Rows.Count)
                     break;
 
                 currentRow = Rows[r];
                 
-                if (DefaultOptions.Stripped)
-                    currentRow.Paint((r % 2 != 0) ? null : "#F6FBFD");
-
-                _GridContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-
-                for (int d = 0; d < columns; d++)
+                if (currentRow != null)
                 {
-                    currentData = currentRow.Get(d);
+                    if (DefaultOptions.Stripped)
+                        currentRow.Paint((r % 2 != 0) ? null : "#F6FBFD");
 
-                    _GridContainer.Children.Add(currentData);
+                    _GridContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-                     Grid.SetColumn(currentData, d);
-                     Grid.SetRow(currentData, r);
+                    for (int d = 0; d < columns; d++)
+                    {
+                        currentData = currentRow.Get(d);
+
+                        _GridContainer.Children.Add(currentData);
+
+                        Grid.SetColumn(currentData, d);
+                        Grid.SetRow(currentData, r);
+                    }
                 }
             }
 
