@@ -16,7 +16,7 @@ namespace VadenStock.Tools
 
             int len = end - start;
 
-            T[] res = new T[len + 1];
+            T[] res = new T[len];
 
             for (int i = 0; i < len; i++)
             {

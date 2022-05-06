@@ -15,6 +15,12 @@
 
     <Grid x:Name="_GridContainer"
           VerticalAlignment="Stretch"
-          HorizontalAlignment="Stretch"/>
+          HorizontalAlignment="Stretch">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+    </Grid>
 
 </Border>

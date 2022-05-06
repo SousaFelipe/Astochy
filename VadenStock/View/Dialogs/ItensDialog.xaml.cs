@@ -27,8 +27,6 @@ namespace VadenStock.View.Dialogs
 
             Loaded += delegate
             {
-                _TableItens.DefaultOptions.Stripped = true;
-
                 _TableItens.Headers(
                         Header.Auto("Produto"),
                         Header.Max("Marca"),
@@ -39,6 +37,24 @@ namespace VadenStock.View.Dialogs
 
                 foreach (ProdutoType pt in dataset)
                 {
+                    _TableItens.Add(
+                            new Row()
+                                .TD(pt.Name)
+                                .TD(pt.Marca.Name)
+                                .TD(pt.Categoria.Name)
+                                .TD(pt.Tipo.Name)
+                                .TD(Str.Currency((pt.Price * 100).ToString()))
+                        );
+
+                    _TableItens.Add(
+                            new Row()
+                                .TD(pt.Name)
+                                .TD(pt.Marca.Name)
+                                .TD(pt.Categoria.Name)
+                                .TD(pt.Tipo.Name)
+                                .TD(Str.Currency((pt.Price * 100).ToString()))
+                        );
+
                     _TableItens.Add(
                             new Row()
                                 .TD(pt.Name)

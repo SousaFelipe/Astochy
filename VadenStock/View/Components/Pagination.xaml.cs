@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 
 using VadenStock.View.Components.Containers;
-using VadenStock.View.Components.Buttons;
 
 using VadenStock.Tools;
 
@@ -18,9 +17,11 @@ namespace VadenStock.View.Components
 
 
 
-        private Row? Header = null;
-        private int CurrentPgi = 0;
+        private int CurrentPageIndex = 0;
         private Row[]? Dataset = null;
+
+
+
         private readonly List<Row[]> Pages = new();
         private readonly List<Button> Controls = new();
 
@@ -37,10 +38,8 @@ namespace VadenStock.View.Components
         {
             if (Table != null)
             {
-                System.Diagnostics.Trace.WriteLine($"[Rows]: [{ Table.Rows.Count }] ");
-
-                Header = Table.Rows[0];
                 Dataset = Table.Rows.GetRange(1, Table.Rows.Count - 1).ToArray();
+                System.Diagnostics.Trace.WriteLine($"Dataset Length [{ Dataset.Length }]");
 
                 int tableRows = Table.DefaultOptions.DisplayRows + 1;
                 decimal ceil = Math.Ceiling((decimal)(Dataset.Length / tableRows));
@@ -58,11 +57,13 @@ namespace VadenStock.View.Components
                     final = (tableRows * i) + (tableRows - (i + 2));
 
                     if (final > Dataset.Length - 1)
-                        final -= (final - (Dataset.Length - 1));
+                        final -= (final - Dataset.Length);
 
                     Pages.Add(Dataset.Slice(start, final));
 
                     _StackControls.Children.Add(Control(i));
+
+                    System.Diagnostics.Trace.WriteLine($"Start: [{ start }] Final[{ final }]");
                 }
 
                 Update();
@@ -79,13 +80,15 @@ namespace VadenStock.View.Components
                     return;
 
                 Table.Clear();
-                Table.Add(Header);
 
-                if (Header == null)
-                    System.Diagnostics.Trace.WriteLine("Header é nulo!");
-
+                uint ui = 0;
                 foreach (Row r in Pages[page])
+                {
                     Table.Add(r);
+                    string text = (r != null) ? r.GetHashCode().ToString() : "NULL";
+                    System.Diagnostics.Trace.WriteLine($"{ ui } = { text }");
+                    ui++;
+                }
 
                 Table.Draw();
 
@@ -106,14 +109,14 @@ namespace VadenStock.View.Components
             _ButtonPrevious.IsEnabled = (page > 0);
             _ButtonNext.IsEnabled = (page < (Pages.Count - 1));
 
-            CurrentPgi = page;
+            CurrentPageIndex = page;
         }
 
 
 
         private void Previous(object sender, RoutedEventArgs e)
         {
-            int previous = CurrentPgi - 1;
+            int previous = CurrentPageIndex - 1;
 
             if (previous >= 0)
                 Update(previous);
@@ -123,7 +126,7 @@ namespace VadenStock.View.Components
 
         private void Next(object sender, RoutedEventArgs e)
         {
-            int next = CurrentPgi + 1;
+            int next = CurrentPageIndex + 1;
 
             if (next < Pages.Count)
                 Update(next);
