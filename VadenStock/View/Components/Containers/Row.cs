@@ -59,7 +59,7 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public TextBlock Content(object data, Options.RowOptions options)
+        private TextBlock Content(object data, Options.RowOptions options)
         {
             Options.RowOptions crrOptions = options ?? DefaultOptions;
 
@@ -83,7 +83,7 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public static Border Container(UIElement child, Options.RowOptions options)
+        private static Border Container(UIElement child, Options.RowOptions options)
         {
             return new Border()
             {

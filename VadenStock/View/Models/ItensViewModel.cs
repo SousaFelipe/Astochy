@@ -16,6 +16,14 @@ namespace VadenStock.View.Models
 
 
 
+        public static List<ItemType> ItensPorProduto(int produto)
+        {
+            return Item.New
+                .Select()
+                .Where("produto", produto.ToString())
+                .Get();
+        }
+
         public static int CountItensPorProduto(int produto)
         {
             return Item.New
@@ -24,11 +32,12 @@ namespace VadenStock.View.Models
                 .Bind();
         }
 
-        public static List<ItemType> ItensPorProduto(int produto)
+        public static List<ItemType> ItensPorProdutoByStatus(int produto, string status)
         {
             return Item.New
                 .Select()
                 .Where("produto", produto.ToString())
+                .Where("localizacao", status)
                 .Get();
         }
 

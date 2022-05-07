@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
         xmlns:components="clr-namespace:VadenStock.View.Components"
+        xmlns:badges="clr-namespace:VadenStock.View.Components.Badges"
         xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ItensDialog}"
@@ -44,19 +45,52 @@
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch">
 
+            <StackPanel x:Name="_StackBadges"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="20 10 0 0"/>
+
             <containers:Table x:Name="_TableItens"
                               VerticalAlignment="Top"
                               HorizontalAlignment="Stretch"
-                              Margin="20 20 20 0"/>
+                              MinHeight="250"
+                              Margin="20 10 20 0"/>
 
-            <Grid Grid.Row="2"
-                  HorizontalAlignment="Stretch"
+            <Border VerticalAlignment="Top"
+                    HorizontalAlignment="Stretch"
+                    Margin="20 0"
+                    Height="1"
+                    Background="{StaticResource PrimaryColor_050}"/>
+
+            <Grid HorizontalAlignment="Stretch"
                   VerticalAlignment="Bottom">
+
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="20 0 0 0">
+
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               FontWeight="Bold"
+                               Text="25"/>
+
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Text=" itens, totalizado "/>
+
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               FontWeight="Bold"
+                               Text="R$ 3.475.12"/>
+
+                </StackPanel>
 
                 <components:Pagination x:Name="_Pagination"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
-                                       Margin="0 8 16 16"/>
+                                       Margin="0 8 20 8"/>
 
             </Grid>
 

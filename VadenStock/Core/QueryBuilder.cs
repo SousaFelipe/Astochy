@@ -91,9 +91,9 @@ namespace VadenStock.Core
             object realOpera = value == null ? "=" : oper;
             object realValue = value ?? oper;
 
-            Query += (WhereCount > 1)
-                ? $" AND { Table }.{ column }{ realOpera }'{ realValue }'"
-                : $"WHERE { Table }.{ column }{ realOpera }'{ realValue }'";
+            Query += (WhereCount > 0)
+                ? $" AND { column }{ realOpera }'{ realValue }'"
+                : $"WHERE { column }{ realOpera }'{ realValue }'";
 
             WhereCount += 1;
 
@@ -121,22 +121,19 @@ namespace VadenStock.Core
 
         public string Raw(string[] cols, string[] values)
         {
-            Query = $"SELECT * FROM { Table } ";
+            Query = $"SELECT * FROM { Table }";
 
-            if (cols != null && values != null)
+            if (cols.Length == values.Length)
             {
-                if (cols.Length == values.Length)
-                {
-                    Query += "WHERE ";
+                Query += " WHERE ";
 
-                    for (int i = 0; i < cols.Length; i++)
+                for (int i = 0; i < cols.Length; i++)
+                {
+                    if (cols[i] != null && values[i] != null)
                     {
-                        if (cols[i] != null && values[i] != null)
-                        {
-                            Query += (i < (cols.Length - 1))
-                                    ? $"{ cols[i] }='{ values[i] }' AND "
-                                    : $"{ cols[i] }='{ values[i] }'";
-                        }
+                        Query += (i < (cols.Length - 1))
+                                ? $"{ cols[i] }='{ values[i] }' AND "
+                                : $"{ cols[i] }='{ values[i] }'";
                     }
                 }
             }

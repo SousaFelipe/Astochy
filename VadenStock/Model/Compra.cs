@@ -38,6 +38,8 @@ namespace VadenStock.Model
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
+                            System.Diagnostics.Debug.WriteLine(query);
+
                             while (Reader.Read())
                             {
                                 list.Add(Content.Get(Reader));
@@ -95,7 +97,7 @@ namespace VadenStock.Model
                     NumSerie = reader.GetString("ns"),
                     ValorTotal = reader.GetDouble("valor_total"),
                     DataEmissao = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime("data_emissao"),
-                    CreatedDate = reader.GetDateTime("created_at")
+                    CreatedDate = reader.IsDBNull(5) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };
 
                 return contract;

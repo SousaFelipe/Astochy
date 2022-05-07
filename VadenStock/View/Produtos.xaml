@@ -95,7 +95,7 @@
         <Border HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Height="1"
-                Margin="8 0 8 16"
+                Margin="8 0 8 0"
                 Background="{StaticResource PrimaryColor_100}"/>
 
         <Grid x:Name="_GridProdutos"

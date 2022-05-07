@@ -8,15 +8,33 @@ namespace VadenStock.Model.Types
     {
         public enum Status
         {
-            Estoque,
-            Rota,
-            Producao,
+            Indefinido = 0,
+
             Comodato,
-            Recolhido,
-            Extraviado,
+            Conserto,
             Danificado,
-            Vendido,
-            Indefinido
+            Estoque,
+            Extraviado,
+            Producao,
+            Recolhido,
+            EmRota,
+            Vendido
+        };
+
+
+
+        public static readonly string[] STATUS = {
+            "Desconhecido", 
+
+            "Comodato",
+            "Conserto",
+            "Danificado",
+            "Estoque",
+            "Extraviado",
+            "Producao",
+            "Recolhido",
+            "EmRota",
+            "Vendido"
         };
 
 
@@ -27,7 +45,6 @@ namespace VadenStock.Model.Types
         public ProdutoType Produto { get; set; }
         public AlmoxType Almoxarifado { get; set; }
         public InventarioType Inventario { get; set; }
-        public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public Status Localizado { get; set; }
@@ -38,13 +55,37 @@ namespace VadenStock.Model.Types
         {
             return status switch
             {
-                "Estoque" => Status.Estoque,
-                "Producao" => Status.Producao,
                 "Comodato" => Status.Comodato,
-                "Extraviado" => Status.Extraviado,
+                "Conserto" => Status.Conserto,
                 "Danificado" => Status.Danificado,
+                "Estoque" => Status.Estoque,
+                "Extraviado" => Status.Extraviado,
+                "Producao" => Status.Producao,
+                "Recolhido" => Status.Recolhido,
+                "Em Rota" => Status.EmRota,
                 "Vendido" => Status.Vendido,
+
                 _ => Status.Indefinido
+            };
+        }
+
+
+
+        public static string GetStatusName(Status status)
+        {
+            return status switch
+            {
+                Status.Comodato => "Comodato",
+                Status.Conserto => "Conserto",
+                Status.Danificado => "Danificado",
+                Status.Estoque => "Estoque",
+                Status.Extraviado => "Extraviado",
+                Status.Producao => "Producao",
+                Status.Recolhido => "Recolhido",
+                Status.EmRota => "EmRota",
+                Status.Vendido => "Vendido",
+
+                _ => "Desconhecido"
             };
         }
     }

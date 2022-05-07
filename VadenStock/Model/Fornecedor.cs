@@ -96,7 +96,7 @@ namespace VadenStock.Model
                     Contato = reader.IsDBNull(4) ? string.Empty : reader.GetString("contato"),
                     Telefone = reader.GetString("telefone"),
                     Whatsapp = reader.IsDBNull(6) ? string.Empty : reader.GetString("whatsapp"),
-                    CreatedDate = reader.GetDateTime("created_at")
+                    CreatedDate = reader.IsDBNull(7) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };
 
                 return contract;

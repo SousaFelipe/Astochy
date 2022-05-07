@@ -39,7 +39,6 @@ namespace VadenStock.View.Components
             if (Table != null)
             {
                 Dataset = Table.Rows.GetRange(1, Table.Rows.Count - 1).ToArray();
-                System.Diagnostics.Trace.WriteLine($"Dataset Length [{ Dataset.Length }]");
 
                 int tableRows = Table.DefaultOptions.DisplayRows + 1;
                 decimal ceil = Math.Ceiling((decimal)(Dataset.Length / tableRows));
@@ -54,7 +53,7 @@ namespace VadenStock.View.Components
                 for (int i = 0; i < pages; i++)
                 {
                     start = ((i * tableRows) - 1) < 0 ? 0 : (i * (tableRows - 1));
-                    final = (tableRows * i) + (tableRows - (i + 2));
+                    final = (tableRows * i) + (tableRows - (i + 1));
 
                     if (final > Dataset.Length - 1)
                         final -= (final - Dataset.Length);
@@ -62,17 +61,15 @@ namespace VadenStock.View.Components
                     Pages.Add(Dataset.Slice(start, final));
 
                     _StackControls.Children.Add(Control(i));
-
-                    System.Diagnostics.Trace.WriteLine($"Start: [{ start }] Final[{ final }]");
                 }
 
-                Update();
+                Update(0);
             }
         }
 
 
 
-        public void Update(int page = 0)
+        public void Update(int page)
         {
             if (Table != null)
             {
@@ -81,14 +78,8 @@ namespace VadenStock.View.Components
 
                 Table.Clear();
 
-                uint ui = 0;
                 foreach (Row r in Pages[page])
-                {
                     Table.Add(r);
-                    string text = (r != null) ? r.GetHashCode().ToString() : "NULL";
-                    System.Diagnostics.Trace.WriteLine($"{ ui } = { text }");
-                    ui++;
-                }
 
                 Table.Draw();
 
@@ -139,8 +130,14 @@ namespace VadenStock.View.Components
             Button button = new()
             {
                 Height = 28,
+                Margin = new Thickness(2, 0, 2, 0),
                 Content = Str.ZeroFill(page + 1),
                 Style = (Style)FindResource(page > 0 ? "ButtonGray" : "ButtonSecondary")
+            };
+
+            button.Click += delegate
+            {
+                Update(page); 
             };
 
             Controls.Add(button);

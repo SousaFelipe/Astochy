@@ -94,13 +94,13 @@ namespace VadenStock.View.Adapters
             public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
             {
                 MainWindow window = (MainWindow)Application.Current.MainWindow;
-                Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                List<ItemType> itens = ItensViewModel.ItensPorProduto(produto.Id);
-                string subHeader = Str.ZeroFill(itens.Count, " disponíveis");
+
+                int itensPorProduto = ItensViewModel.CountItensPorProduto(produto.Id);
+                string subHeader = Str.ZeroFill(itensPorProduto, " disponíveis");
 
                 MidiaThumbCard midia = new()
                 {
-                    Margin = thickn,
+                    Margin = new Thickness(6, 12, 6, 0),
                     Header = produto.Name,
                     HeaderSize = 13,
                     SubHeader = subHeader,
@@ -121,14 +121,14 @@ namespace VadenStock.View.Adapters
                     return true;
                 });
 
-                //if (itens.Count > 0)
-                //{
+                if (itensPorProduto > 0)
+                {
                     midia.SetSubHeaderAction((object sender) =>
                     {
-                        window.DisplayDialog(new ItensDialog(ProdutosViewModel.TodosOsProdutos));
+                        window.DisplayDialog(new ItensDialog(produto));
                         return true;
                     });
-                //}
+                }
 
                 return midia;
             }

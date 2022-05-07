@@ -39,9 +39,7 @@ namespace VadenStock.Model
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -89,8 +87,7 @@ namespace VadenStock.Model
                     Produto = Produto.New.Get(reader.GetInt32("produto"))[0],
                     Almoxarifado = Almoxarifado.New.Get(reader.GetInt32("almoxarifado"))[0],
                     Inventario = Inventario.New.Get(reader.GetInt32("inventario"))[0],
-                    Name = reader.GetString("name"),
-                    Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
+                    Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Localizado = ItemType.GetStatus(reader.GetString("localizacao")),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
