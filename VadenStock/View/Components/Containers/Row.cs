@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 
 
@@ -23,6 +20,16 @@ namespace VadenStock.View.Components.Containers
 
         public Row(Options.RowOptions? options = null)
         {
+            FilterOptions(options);
+
+            Count = 0;
+            Borders = new();
+        }
+
+
+
+        private void FilterOptions(Options.RowOptions? options)
+        {
             if (options != null)
             {
                 DefaultOptions.RowSize = (options.RowSize == Options.RowOptions.Size.Undefined) ? DefaultOptions.RowSize : options.RowSize;
@@ -32,11 +39,9 @@ namespace VadenStock.View.Components.Containers
                 DefaultOptions.FontWeight = options.FontWeight;
                 DefaultOptions.FontSize = options.FontSize > 8 ? options.FontSize : DefaultOptions.FontSize;
                 DefaultOptions.Cursor = options.Cursor ?? DefaultOptions.Cursor;
+                DefaultOptions.Divide = options.Divide;
                 DefaultOptions.Hover = options.Hover;
             }
-
-            Count = 0;
-            Borders = new();
         }
 
 
@@ -90,8 +95,12 @@ namespace VadenStock.View.Components.Containers
                 Height = Options.RowOptions.GetSize(options.RowSize),
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = string.IsNullOrEmpty(options.Background) ? null : new SolidColorBrush((Color)ColorConverter.ConvertFromString(options.Background)),
+                Background = string.IsNullOrEmpty(options.Background)
+                    ? null
+                    : new SolidColorBrush((Color)ColorConverter.ConvertFromString(options.Background)),
                 Cursor = options.Cursor,
+                BorderBrush = options.Divide ? new SolidColorBrush(Colors.LightGray) : null,
+                BorderThickness = new Thickness(0, 0, 0, options.Divide ? 1 : 0),
                 Child = child
             };
         }

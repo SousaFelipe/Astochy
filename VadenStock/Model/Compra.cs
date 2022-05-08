@@ -38,12 +38,8 @@ namespace VadenStock.Model
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
-                            System.Diagnostics.Debug.WriteLine(query);
-
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }

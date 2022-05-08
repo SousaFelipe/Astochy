@@ -8,7 +8,7 @@ namespace VadenStock.Model.Types
     {
         public enum Status
         {
-            Indefinido = 0,
+            Desconhecido = 0,
 
             Comodato,
             Conserto,
@@ -24,16 +24,15 @@ namespace VadenStock.Model.Types
 
 
         public static readonly string[] STATUS = {
-            "Desconhecido", 
-
             "Comodato",
             "Conserto",
             "Danificado",
+            "Desconhecido",
             "Estoque",
+            "Em Rota",
             "Extraviado",
             "Producao",
             "Recolhido",
-            "EmRota",
             "Vendido"
         };
 
@@ -65,7 +64,7 @@ namespace VadenStock.Model.Types
                 "Em Rota" => Status.EmRota,
                 "Vendido" => Status.Vendido,
 
-                _ => Status.Indefinido
+                _ => Status.Desconhecido
             };
         }
 
@@ -78,6 +77,7 @@ namespace VadenStock.Model.Types
                 Status.Comodato => "Comodato",
                 Status.Conserto => "Conserto",
                 Status.Danificado => "Danificado",
+                Status.Desconhecido => "Desconhecido",
                 Status.Estoque => "Estoque",
                 Status.Extraviado => "Extraviado",
                 Status.Producao => "Producao",
@@ -85,7 +85,7 @@ namespace VadenStock.Model.Types
                 Status.EmRota => "EmRota",
                 Status.Vendido => "Vendido",
 
-                _ => "Desconhecido"
+                _ => "Indefinido"
             };
         }
     }

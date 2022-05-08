@@ -10,23 +10,33 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonLightTheme.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonDarkTheme.xaml"/>
+
+                <ResourceDictionary Source="Resources/Themes/Badges/BadgeGray.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Badges/BadgeSecondary.xaml"/>
+
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonLight.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonGray.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonInfoTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonDark.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonInfo.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSecondary.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSuccessTheme.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonWarningTheme.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSuccess.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonWarning.xaml"/>
+                
                 <ResourceDictionary Source="Resources/Themes/Dropdowns/DropdownSecondary.xaml"/>
+                
                 <ResourceDictionary Source="Resources/Themes/Forms/InputSelectTheme.xaml"/>
+                
                 <ResourceDictionary Source="Resources/Themes/CardTheme.xaml"/>
+                
                 <ResourceDictionary Source="Resources/Themes/ComboBoxTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ComboBoxItemTheme.xaml"/>
+                
                 <ResourceDictionary Source="Resources/Themes/ControlButtonTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/ScrollTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/SearchBoxTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/SimpleTabControlTheme.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/TabControlTheme.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewModel:DashboardViewModel}">

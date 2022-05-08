@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using VadenStock.Model.Types;
 
 using VadenStock.View.Models;
-using VadenStock.View.Components.Badges;
 using VadenStock.View.Components.Containers;
 
 using VadenStock.Tools;
@@ -17,7 +16,12 @@ namespace VadenStock.View.Dialogs
     public partial class ItensDialog : Border
     {
         ProdutoType Produto { get; set; }
-        Dictionary<string, ItemType[]> Itens { get; set; } 
+        Dictionary<string, ItemType[]> Itens { get; set; }
+
+
+
+        readonly List<Button> Badges;
+        int CurrentBadgeIndex;
 
 
 
@@ -25,6 +29,8 @@ namespace VadenStock.View.Dialogs
         {
             Produto = new();
             Itens = new();
+            Badges = new();
+            CurrentBadgeIndex = -1;
 
             InitializeComponent();
         }
@@ -35,15 +41,32 @@ namespace VadenStock.View.Dialogs
         {
             Produto = produto;
             Itens = new();
+            Badges = new();
+            CurrentBadgeIndex = -1;
 
             InitializeComponent();
 
             Loaded += delegate
             {
+                InitTable();
                 LoadItens();
                 LoadBadges();
-                LoadTable();
             };
+        }
+
+
+
+        private void InitTable()
+        {
+            _TableItens.Headers(
+                        Header.Auto("Cod."),
+                        Header.Auto("MAC"),
+                        Header.Max("Almoxarifado"),
+                        Header.Max("Descrição"),
+                        Header.Auto("Status")
+                    );
+
+            _Pagination.Table = _TableItens;
         }
 
 
@@ -59,48 +82,65 @@ namespace VadenStock.View.Dialogs
                 if (itens != null && itens.Length > 0)
                     Itens.Add(status, itens);
             }
-
-            System.Diagnostics.Trace.WriteLine(Itens.Count);
         }
 
 
 
         private void LoadBadges()
         {
+            Button button;
             string status;
 
-            int  s;
-            for (s = 0; s < ItemType.STATUS.Length; s++)
+            for (int s = 0; s < ItemType.STATUS.Length; s++)
             {
                 status = ItemType.STATUS[s];
 
                 if (Itens.TryGetValue(status, out ItemType[]? tipos))
                 {
-                    _StackBadges.Children.Add(
-                        new BadgeSecondary()
-                        {
-                            Content = $"{ status } ({ Str.ZeroFill(tipos.Length) })",
-                            IsEnabled = (s == 0)
-                        }
-                    );
+                    button = new()
+                    {
+                        Content = $"{ status } ({ Str.ZeroFill(tipos.Length) })",
+                        Tag = status
+                    };
+
+                    button.Click += delegate { SelectBadge(s); };
+
+                    _StackBadges.Children.Add(button);
+                    Badges.Add(button);
                 }
+            }
+
+            SelectBadge(0);
+        }
+
+
+
+        private void SelectBadge(int badgeIndex)
+        {
+            if (badgeIndex != CurrentBadgeIndex)
+            {
+                foreach (Button btn in Badges)
+                    btn.Style = (Style)FindResource("BadgeGray");
+
+                Button button = Badges[badgeIndex];
+                button.Style = (Style)FindResource("BadgeSecondary");
+
+                LoadTable(button.Tag.ToString());
+
+                CurrentBadgeIndex = badgeIndex;
             }
         }
 
 
 
-        private void LoadTable()
+        private void LoadTable(string status)
         {
-            /*
-            _TableItens.Headers(
-                        Header.Auto("Cod."),
-                        Header.Auto("MAC"),
-                        Header.Max("Almoxarifado"),
-                        Header.Max("Descrição"),
-                        Header.Auto("Status")
-                    );
+            _TableItens.Clear();
 
-            foreach (ItemType item in Itens)
+            ItemType[] itens = Itens[status];
+
+            foreach (ItemType item in itens)
+            {
                 _TableItens.Add(
                         new Row()
                             .TD(item.Codigo)
@@ -110,9 +150,10 @@ namespace VadenStock.View.Dialogs
                             .TD(item.Localizado)
                     );
 
-            _Pagination.Table = _TableItens;
+                System.Diagnostics.Trace.WriteLine(item.Mac);
+            }
+
             _Pagination.Paginate();
-            */
         }
 
 

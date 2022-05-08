@@ -20,7 +20,7 @@ namespace VadenStock.View.Dialogs
 {
     public partial class ProdutoDialog : Border
     {
-        private bool EditMode;
+        private readonly bool EditMode;
         private ProdutoStruct Produto;
         private ProdutoStruct EditarProduto;
 

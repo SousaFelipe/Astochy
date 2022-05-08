@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 
 
@@ -9,11 +9,12 @@ namespace VadenStock.View.Components.Containers
 {
     public partial class Table : Border
     {
-        public List<Row> Rows { get; set; }
-        public int Columns { get; set; }
+        public List<Row> Rows { get; private set; }
+        public int Columns { get; private set; }
 
 
 
+        public bool HasHeader;
         public Row? TableHeader;
         public RowDefinition? TableHeaderContent;
 
@@ -50,6 +51,7 @@ namespace VadenStock.View.Components.Containers
 
         public void Headers(params Header[] headers)
         {
+            HasHeader = true;
             Columns = headers.Length;
 
             TableHeader = new(new()
@@ -89,34 +91,29 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public void Divide(int row)
-        {
-            Border div = new()
-            {
-                Height = 1,
-                VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = new SolidColorBrush(Colors.LightGray)
-            };
-
-            _GridContainer.Children.Add(div);
-
-            Grid.SetRow(div, row);
-            Grid.SetColumnSpan(div, Columns);
-        }
-
-
-
         public void Clear()
         {
-            TableHeader = Rows[0];
-            TableHeaderContent = _GridContainer.RowDefinitions[0];
+            if (HasHeader)
+            {
+                TableHeader = Rows[0];
+                
+                try
+                {
+                    TableHeaderContent = _GridContainer.RowDefinitions[0];
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    TableHeaderContent = new RowDefinition() { Height = GridLength.Auto };
+                }
+            }
 
             _GridContainer.Children.Clear();
             _GridContainer.RowDefinitions.Clear();
 
-            Rows.Clear();
-            Rows.Add(TableHeader);
+             Rows.Clear();
+
+            if (HasHeader)
+                Rows.Add(TableHeader);
         }
 
 
@@ -139,6 +136,8 @@ namespace VadenStock.View.Components.Containers
                     Grid.SetColumn(currentHeader, i);
                     Grid.SetRow(currentHeader, 0);
                 }
+
+                HasHeader = true;
             }
         }
 
@@ -175,8 +174,6 @@ namespace VadenStock.View.Components.Containers
                     }
                 }
             }
-
-            Divide(0);
         } 
     }
 }

@@ -5,7 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
         xmlns:components="clr-namespace:VadenStock.View.Components"
-        xmlns:badges="clr-namespace:VadenStock.View.Components.Badges"
         xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ItensDialog}"
@@ -31,7 +30,7 @@
                 Height="38"
                 Margin="8"
                 Padding="8"
-                Style="{StaticResource ButtonLightTheme}"
+                Style="{StaticResource ButtonLight}"
                 Click="CloseDialog">
             
             <Image Width="24"

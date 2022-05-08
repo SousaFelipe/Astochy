@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Controls;
 
 
 
@@ -44,6 +43,7 @@ namespace VadenStock.View.Components.Containers
             public FontWeight FontWeight;
             public double FontSize;
             public Cursor? Cursor;
+            public bool Divide;
             public bool Hover;
 
 
@@ -52,11 +52,12 @@ namespace VadenStock.View.Components.Containers
             {
                 RowSize = Size.Small;
                 Alignment = TextAlignment.Left;
-                Background = String.Empty;
+                Background = string.Empty;
                 FontStyle = FontStyles.Normal;
                 FontWeight = FontWeights.Normal;
                 FontSize = 13;
                 Cursor = Cursors.Arrow;
+                Divide = false;
                 Hover = true;
             }
 
