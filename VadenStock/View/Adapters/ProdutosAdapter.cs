@@ -19,6 +19,7 @@ namespace VadenStock.View.Adapters
     public class ProdutosAdapter : GridAdapter
     {
         public List<ProdutoType> Dataset = new();
+        public Dictionary<string, List<ProdutoType>> OrderedDataset = new();
 
 
 
@@ -33,6 +34,8 @@ namespace VadenStock.View.Adapters
             else
                 Dataset.AddRange(dataset);
 
+            OrderedDataset = ProdutosViewModel.OrderByMarca(Dataset);
+
             if (buildAfterUpdate)
                 Build();
         }
@@ -45,30 +48,58 @@ namespace VadenStock.View.Adapters
 
             if (Container != null)
             {
+
+                Container.RowDefinitions.Add(new RowDefinition());
+
+                List<ProdutoType> currentDataset;
                 ProdutoType currentProduto;
+                TextBlock currentLabel;
                 MidiaThumbCard currentCard;
 
                 int rounds = 0;
                 int crrRow = 0;
 
-                for (int i = 0; i < Dataset.Count; i++)
+                foreach (string key in OrderedDataset.Keys)
                 {
-                    currentProduto = Dataset[i];
-                    currentCard = Molecules.ProdutoThumbCard(currentProduto);
-
-                    Container.Children.Add(currentCard);
-
-                    Grid.SetColumn(currentCard, rounds);
-                    Grid.SetRow(currentCard, crrRow);
-
-                    if (0 == (rounds - 3))
+                    if (OrderedDataset[key] != null && OrderedDataset[key].Count > 0)
                     {
-                        Container.RowDefinitions.Add(new RowDefinition());
+                        currentDataset = OrderedDataset[key];
+                        currentLabel = Molecules.Label(key);
 
-                        rounds = 0;
+                        Container.Children.Add(currentLabel);
+
+                        System.Diagnostics.Trace.WriteLine(Container.RowDefinitions.Count);
+
+                        Grid.SetColumn(currentLabel, 0);
+                        Grid.SetColumnSpan(currentLabel, 4);
+                        Grid.SetRow(currentLabel, crrRow);
+
                         crrRow++;
+
+                        for (int i = 0; i < currentDataset.Count; i++)
+                        {
+                            currentProduto = currentDataset[i];
+                            currentCard = Molecules.ProdutoThumbCard(currentProduto);
+
+                            Container.Children.Add(currentCard);
+
+                            Grid.SetColumn(currentCard, rounds);
+                            Grid.SetRow(currentCard, crrRow);
+
+                            if (0 == (rounds - 3))
+                            {
+                                Container.RowDefinitions.Add(new RowDefinition());
+
+                                rounds = 0;
+                                crrRow++;
+                            }
+                            else rounds++;
+                        }
+
+                        crrRow++;
+                        rounds = 0;
+                        Container.RowDefinitions.Add(new RowDefinition());
                     }
-                    else rounds++;
                 }
 
                 callback?.Invoke(Container.Children[0]);
@@ -91,6 +122,18 @@ namespace VadenStock.View.Adapters
 
         private static class Molecules
         {
+            public static TextBlock Label(string label)
+            {
+                return new TextBlock()
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Margin = new Thickness(6, 12, 6, -6),
+                    Foreground = Clr.Color("#78909C"),
+                    Text = label.ToUpper()
+                };
+            }
+
+
             public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto)
             {
                 MainWindow window = (MainWindow)Application.Current.MainWindow;

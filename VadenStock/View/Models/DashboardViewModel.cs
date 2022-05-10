@@ -12,16 +12,16 @@ namespace VadenStock.View.Models
     {
         public static PatrimonioStruct GetPatrimonios()
         {
-            int e = Item.New.Count().Where("localizacao", "Estoque").Bind();
-            int c = Item.New.Count().Where("localizacao", "Comodato").Bind();
-            int p = Item.New.Count().Where("localizacao", "Producao").Bind();
+            int estoque = Item.New.Count().Where("localizacao", "Estoque").Bind();
+            int comodato = Item.New.Count().Where("localizacao", "Comodato").Bind();
+            int rota = Item.New.Count().Where("localizacao", "Em Rota").Bind();
 
             PatrimonioStruct patrimonio = new()
             {
-                Estoque = e,
-                Comodato = c,
-                Producao = p,
-                Total = e + c + p
+                Estoque = estoque,
+                Comodato = comodato,
+                EmRota = rota,
+                Total = estoque + comodato + rota
             };
 
             return patrimonio;

@@ -59,5 +59,49 @@ namespace VadenStock.View.Models
 
             return model.Get();
         }
+
+
+
+        public static Dictionary<string, List<ProdutoType>> OrderByMarca(List<ProdutoType> produtos)
+        {
+            List<ProdutoType> typeToOrder;
+            Dictionary<string, List<ProdutoType>> ordered = new();
+            List<MarcaType> marcas = MarcasViewModel.TodasAsMarcas;
+
+            foreach (MarcaType mar in marcas)
+            {
+                typeToOrder = new();
+
+                foreach (ProdutoType pro in produtos)
+                    if (pro.Marca.Id == mar.Id)
+                        typeToOrder.Add(pro);
+
+                ordered.Add(mar.Name, typeToOrder);
+            }
+
+            return ordered;
+        }
+
+
+
+        public static Dictionary<string, List<ProdutoType>> OrderByCategoria(List<ProdutoType> produtos)
+        {
+            List<ProdutoType> typeToOrder;
+            Dictionary<string, List<ProdutoType>> ordered = new();
+            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
+            
+            foreach (CategoriaType cat in categorias)
+            {
+                typeToOrder = new();
+
+                foreach (ProdutoType pro in produtos)
+                    if (pro.Categoria.Id == cat.Id)
+                        typeToOrder.Add(pro);
+
+                ordered.Add(cat.Name, typeToOrder);
+            }
+
+            return ordered;
+        }
     }
 }

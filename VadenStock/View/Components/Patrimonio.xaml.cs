@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+
+using VadenStock.Tools;
 
 
 
@@ -64,10 +64,10 @@ namespace VadenStock.View.Components
         {
             double percent = valor <= 0 ? 0 : valor * 100 / total;
 
-            _TextBlockPercent.Text = string.Concat(percent.ToString("C"), "%");
+            _TextBlockPercent.Text = string.Concat(percent.ToString("C2").Replace("R$ ", ""), "%");
 
             _Chart.SetSeries(new double[] { valor });
-            _Chart.Draw(percent);
+            _Chart.Draw(percent, 10);
 
             Quantidade = valor.ToString();
         }

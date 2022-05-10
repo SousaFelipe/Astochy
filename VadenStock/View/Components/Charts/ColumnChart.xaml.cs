@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Controls;
 using System.Collections.Generic;
+
+using VadenStock.Tools;
 
 
 
@@ -273,7 +274,7 @@ namespace VadenStock.View.Components.Charts
             line.StrokeStartLineCap = ColumnTopCornerStyle;
             line.StrokeEndLineCap = ColumnBottomCornerStyle;
             line.StrokeThickness = ColumnThickness;
-            line.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexColor));
+            line.Stroke = Clr.Color(hexColor);
 
             return line;
         }
