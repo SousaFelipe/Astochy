@@ -172,7 +172,7 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public void Draw()
+        public void Draw(double bias = 0.0)
         {
             Loaded += delegate
             {

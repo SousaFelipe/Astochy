@@ -180,7 +180,7 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public void Draw(double externalPercent = 0.0)
+        public void Draw(double externalPercent = 0.0, double bias = 0.0)
         {
             Loaded += delegate
             {
@@ -200,7 +200,7 @@ namespace VadenStock.View.Components.Charts
                     {
                         currentEndLine = externalPercent == 0.0
                             ? ((currentValue * 100) / canvasMaxWidth) * (canvasMaxWidth / 100) + canvasWidthLabels
-                            : (canvasWidth * externalPercent) / 100;
+                            : (canvasWidth * externalPercent) / (100 + bias);
 
                         Line lineColumn = CreateLine(0.0, currentEndLine, LineColor);
 

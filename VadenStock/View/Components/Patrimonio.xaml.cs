@@ -67,7 +67,7 @@ namespace VadenStock.View.Components
             _TextBlockPercent.Text = string.Concat(percent.ToString("C"), "%");
 
             _Chart.SetSeries(new double[] { valor });
-            _Chart.Draw(percent);
+            _Chart.Draw(percent, 10);
 
             Quantidade = valor.ToString();
         }

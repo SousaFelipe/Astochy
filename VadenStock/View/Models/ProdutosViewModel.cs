@@ -44,7 +44,17 @@ namespace VadenStock.View.Models
 
 
 
-        public static List<ProdutoType> FiltrarProdutos(ProdutoStruct produto)
+        public static List<ProdutoType> ProdutosPorCategoria(int categoria)
+        {
+            return Produto.New
+                .Select()
+                .Where("categoria", categoria.ToString())
+                .Get();
+        }
+
+
+
+        public static List<ProdutoType> FilterData(ProdutoStruct produto)
         {
             Produto model = Produto.New.Select();
 

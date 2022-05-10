@@ -53,7 +53,7 @@ namespace VadenStock.View
 
             _ColumnChartMinMax.SetSeries(new double[] { 45, 23, 84, 19, 61, 42, 77 });
             _ColumnChartMinMax.SetLabels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
-            _ColumnChartMinMax.Draw();
+            _ColumnChartMinMax.Draw(100);
         }
 
 

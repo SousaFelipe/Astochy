@@ -13,5 +13,10 @@ namespace VadenStock.View.Models
         {
             get { return Categoria.New.Select().Get(); }
         }
+
+        public static int CountTodasAsCategorias
+        {
+            get { return Categoria.New.Count().Bind(); }
+        }
     }
 }

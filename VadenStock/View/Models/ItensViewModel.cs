@@ -3,6 +3,8 @@
 using VadenStock.Model;
 using VadenStock.Model.Types;
 
+using VadenStock.View.Structs;
+
 
 
 namespace VadenStock.View.Models
