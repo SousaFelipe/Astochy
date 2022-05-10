@@ -54,7 +54,7 @@ namespace VadenStock.View.Adapters
                 for (int i = 0; i < Dataset.Count; i++)
                 {
                     currentProduto = Dataset[i];
-                    currentCard = Molecules.ProdutoThumbCard(currentProduto, i, rounds);
+                    currentCard = Molecules.ProdutoThumbCard(currentProduto);
 
                     Container.Children.Add(currentCard);
 
@@ -91,12 +91,12 @@ namespace VadenStock.View.Adapters
 
         private static class Molecules
         {
-            public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto, int position, int rounds)
+            public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto)
             {
                 MainWindow window = (MainWindow)Application.Current.MainWindow;
 
                 int itensPorProduto = ItensViewModel.CountItensPorProduto(produto.Id);
-                string subHeader = Str.ZeroFill(itensPorProduto, " disponíveis");
+                string subHeader = (Str.ZeroFill(itensPorProduto) + " item".Pluralize(itensPorProduto, "n"));
 
                 MidiaThumbCard midia = new()
                 {
@@ -104,7 +104,7 @@ namespace VadenStock.View.Adapters
                     Header = produto.Name,
                     HeaderSize = 13,
                     SubHeader = subHeader,
-                    SubHeaderSize = 9
+                    SubHeaderSize = 12
                 };
 
                 midia.SetMidia(produto.Image);

@@ -21,7 +21,6 @@ namespace VadenStock.View.Dialogs
 
 
         readonly List<Button> Badges;
-        int CurrentBadgeIndex;
 
 
 
@@ -30,7 +29,6 @@ namespace VadenStock.View.Dialogs
             Produto = new();
             Itens = new();
             Badges = new();
-            CurrentBadgeIndex = -1;
 
             InitializeComponent();
         }
@@ -42,7 +40,6 @@ namespace VadenStock.View.Dialogs
             Produto = produto;
             Itens = new();
             Badges = new();
-            CurrentBadgeIndex = -1;
 
             InitializeComponent();
 
@@ -88,47 +85,50 @@ namespace VadenStock.View.Dialogs
 
         private void LoadBadges()
         {
-            Button button;
             string status;
+            ItemType[] itens;
+            Button buttonBadge;
 
             for (int s = 0; s < ItemType.STATUS.Length; s++)
             {
                 status = ItemType.STATUS[s];
-
-                if (Itens.TryGetValue(status, out ItemType[]? tipos))
+                
+                if (Itens.ContainsKey(status))
                 {
-                    button = new()
+                    itens = Itens[status];
+
+                    if (itens != null && itens.Length > 0)
                     {
-                        Content = $"{ status } ({ Str.ZeroFill(tipos.Length) })",
-                        Tag = status
-                    };
+                        buttonBadge = new()
+                        {
+                            Margin = new Thickness(2, 0, 2, 0),
+                            Content = $"{ status } ({ Str.ZeroFill(itens.Length) })",
+                            Tag = status
+                        };
 
-                    button.Click += delegate { SelectBadge(s); };
+                        buttonBadge.Click += SelectBadge;
 
-                    _StackBadges.Children.Add(button);
-                    Badges.Add(button);
+                        _StackBadges.Children.Add(buttonBadge);
+                        Badges.Add(buttonBadge);
+                    }
                 }
             }
 
-            SelectBadge(0);
+            SelectBadge(null, null);
         }
 
 
 
-        private void SelectBadge(int badgeIndex)
+        private void SelectBadge(object? sender, RoutedEventArgs? e)
         {
-            if (badgeIndex != CurrentBadgeIndex)
-            {
-                foreach (Button btn in Badges)
-                    btn.Style = (Style)FindResource("BadgeGray");
+            foreach (Button btn in Badges)
+                btn.Style = (Style)FindResource("BadgeGray");
 
-                Button button = Badges[badgeIndex];
-                button.Style = (Style)FindResource("BadgeSecondary");
+            Button button = (Button)(sender ?? Badges[0]);
+            button.Style = (Style)FindResource("BadgeSecondary");
 
-                LoadTable(button.Tag.ToString());
-
-                CurrentBadgeIndex = badgeIndex;
-            }
+            LoadTable(button.Tag.ToString());
+            UpdateResume(button.Tag.ToString());
         }
 
 
@@ -136,6 +136,7 @@ namespace VadenStock.View.Dialogs
         private void LoadTable(string status)
         {
             _TableItens.Clear();
+            _Pagination.Clear();
 
             ItemType[] itens = Itens[status];
 
@@ -149,11 +150,28 @@ namespace VadenStock.View.Dialogs
                             .TD(item.Description)
                             .TD(item.Localizado)
                     );
-
-                System.Diagnostics.Trace.WriteLine(item.Mac);
             }
 
             _Pagination.Paginate();
+        }
+
+
+
+        private void UpdateResume(string status)
+        {
+            ItemType[] itens = Itens[status];
+            int quantidade = 0;
+            decimal valor = 00;
+
+            foreach (ItemType item in itens)
+            {
+                quantidade++;
+                valor += item.Produto.Price;
+            }
+
+            _TextQuantItens.Text = Str.ZeroFill(quantidade);
+            _TextLabelQuantItens.Text = (" item".Pluralize(quantidade, "n") + ", totalizando ");
+            _TextTotalItens.Text = ("R$ " + Str.Currency((valor * 100).ToString()));
         }
 
 

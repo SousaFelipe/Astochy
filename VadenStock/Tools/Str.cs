@@ -91,5 +91,22 @@ namespace VadenStock.Tools
 
             return string.Concat(zero, concat);
         }
+
+
+
+        public static string Pluralize(this string subject, int number, string replacement = "")
+        {
+            if (number != 1)
+            {
+                int subjectLen = subject.Length - 1;
+                string last = subject[subjectLen].ToString();
+
+                return (string.IsNullOrEmpty(replacement))
+                    ? string.Concat(subject, "s")
+                    : string.Concat(subject.Replace(last, replacement), "s");
+            }
+
+            return subject;
+        }
     }
 }

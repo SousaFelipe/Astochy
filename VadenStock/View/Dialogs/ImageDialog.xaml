@@ -26,7 +26,7 @@
                 Height="38"
                 Margin="8"
                 Padding="8"
-                Style="{StaticResource ButtonLightTheme}"
+                Style="{StaticResource ButtonLight}"
                 Click="CloseDialog">
             <Image Width="24"
                    Height="24"

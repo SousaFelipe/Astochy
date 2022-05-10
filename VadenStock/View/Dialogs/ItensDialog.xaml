@@ -11,10 +11,10 @@
         d:DesignWidth="620"
         d:DesignHeight="460"
         Width="620"
-        Height="460"
+        MaxHeight="475"
         CornerRadius="8"
         Background="#FFFFFF">
-    
+
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch">
 
@@ -32,37 +32,46 @@
                 Padding="8"
                 Style="{StaticResource ButtonLight}"
                 Click="CloseDialog">
-            
+
             <Image Width="24"
                    Height="24"
                    Opacity="0.4"
                    Source="/VadenStock;component/Resources/Icons/black-close.png"/>
-            
+
         </Button>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch">
+        <Grid Grid.Row="1"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
 
-            <StackPanel x:Name="_StackBadges"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        x:Name="_StackBadges"
                         Orientation="Horizontal"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
-                        Margin="20 10 0 0"/>
+                        Margin="18 10 0 0"/>
 
-            <containers:Table x:Name="_TableItens"
-                              VerticalAlignment="Top"
+            <containers:Table Grid.Row="1"
+                              CornerRadius="4"
+                              x:Name="_TableItens"
                               HorizontalAlignment="Stretch"
-                              MinHeight="250"
-                              Margin="20 10 20 0"/>
+                              Margin="20 10 20 10"/>
 
-            <Border VerticalAlignment="Top"
+            <Border Grid.Row="2"
+                    VerticalAlignment="Top"
                     HorizontalAlignment="Stretch"
                     Margin="20 0"
                     Height="1"
                     Background="{StaticResource PrimaryColor_050}"/>
 
-            <Grid HorizontalAlignment="Stretch"
+            <Grid Grid.Row="2"
+                  HorizontalAlignment="Stretch"
                   VerticalAlignment="Bottom">
 
                 <StackPanel Orientation="Horizontal"
@@ -70,19 +79,22 @@
                             HorizontalAlignment="Left"
                             Margin="20 0 0 0">
 
-                    <TextBlock VerticalAlignment="Center"
+                    <TextBlock x:Name="_TextQuantItens"
+                               VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontWeight="Bold"
-                               Text="25"/>
+                               Foreground="{StaticResource TextSecondaryColor}"
+                               FontWeight="Bold"/>
 
-                    <TextBlock VerticalAlignment="Center"
+                    <TextBlock x:Name="_TextLabelQuantItens"
+                               VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               Text=" itens, totalizado "/>
+                               Foreground="{StaticResource TextSecondaryColor}"/>
 
-                    <TextBlock VerticalAlignment="Center"
+                    <TextBlock x:Name="_TextTotalItens"
+                               VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontWeight="Bold"
-                               Text="R$ 3.475.12"/>
+                               Foreground="{StaticResource TextSecondaryColor}"
+                               FontWeight="Bold"/>
 
                 </StackPanel>
 
@@ -93,8 +105,8 @@
 
             </Grid>
 
-        </StackPanel>
+        </Grid>
 
     </Grid>
-    
+
 </Border>

@@ -124,14 +124,15 @@ namespace VadenStock.View
             public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
             {
                 Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
-                string subHeader = Str.ZeroFill(ItensViewModel.CountItensPorAlmoxarifado(almox.Id), " itens disponíveis");
+                int itens = ItensViewModel.CountItensPorAlmoxarifado(almox.Id);
+                string subHeader = (Str.ZeroFill(itens) + " item".Pluralize(itens, "n"));
 
                 ThumbnailCard thumb = new()
                 {
                     Margin = thickn,
                     Body = "#FFFFFF",
                     Header = almox.Name,
-                    HeaderSize = 18,
+                    HeaderSize = 16,
                     SubHeader = subHeader,
                     SubHeaderSize = 12,
                 };

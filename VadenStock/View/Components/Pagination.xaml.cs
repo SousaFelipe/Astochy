@@ -125,6 +125,19 @@ namespace VadenStock.View.Components
 
 
 
+        public void Clear()
+        {
+            CurrentPageIndex = 0;
+            Dataset = null;
+
+            Pages.Clear();
+            Controls.Clear();
+                
+            _StackControls.Children.Clear();
+        }
+
+
+
         public Button Control(int page)
         {
             Button button = new()
