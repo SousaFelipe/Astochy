@@ -112,6 +112,14 @@ namespace VadenStock.Core
 
 
 
+        public virtual Connection Or(string column, string operOrValue, object? value = null)
+        {
+            Builder.Or(column, operOrValue, value);
+            return this;
+        }
+
+
+
         public int Bind(bool clear = true)
         {
             try

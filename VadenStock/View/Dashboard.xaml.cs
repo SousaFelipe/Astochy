@@ -42,7 +42,9 @@ namespace VadenStock.View
 
         private void LoadCardEstoqueMinMax()
         {
-            foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
+            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
+
+            foreach (CategoriaType c in categorias)
             {
                 _ComboCategorias.Items.Add(new ComboBoxItem()
                 {
@@ -51,9 +53,30 @@ namespace VadenStock.View
                 });
             }
 
-            _ColumnChartMinMax.SetSeries(new double[] { 45, 23, 84, 19, 61, 42, 77 });
-            _ColumnChartMinMax.SetLabels(new string[] { "MKT", "UBQ", "ITB", "HWY", "SAE", "OPB", "LNA" });
-            _ColumnChartMinMax.Draw(100);
+            RefreshChartData(categorias);
+        }
+
+
+
+        private void RefreshChartData(List<CategoriaType> categorias)
+        {
+            List<ProdutoType> produtos;
+
+            string[] labels = new string[categorias.Count];
+            double[] values = new double[categorias.Count];
+
+            for (int c = 0; c < categorias.Count; c++)
+            {
+                labels[c] = categorias[c].Name[0].ToString();
+                produtos = ProdutosViewModel.ProdutosPorCategoria(categorias[c].Id);
+
+                for (int p = 0; p < produtos.Count; p++)
+                    values[c] += (double)produtos[p].Price;
+            }
+
+            _ColumnChartMinMax.SetSeries(values);
+            _ColumnChartMinMax.SetLabels(labels);
+            _ColumnChartMinMax.Draw(8);
         }
 
 

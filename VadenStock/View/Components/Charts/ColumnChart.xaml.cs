@@ -190,20 +190,20 @@ namespace VadenStock.View.Components.Charts
                     currentValue = Values[v];
 
                     if (currentValue > 0)
-                    {
                         currentStartLine = ((currentValue * 100) / canvasMaxHeight) * (canvasMaxHeight / 100) + canvasHeightLabels;
+                    else
+                        currentStartLine = canvasHeight;
 
-                        Line lineColumn = CreateLine(currentStartLine, canvasHeight, LineColor);
+                    Line lineColumn = CreateLine(currentStartLine, canvasHeight, LineColor);
 
-                        _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
-                        _Canvas.Children.Add(lineColumn);
-                         Canvas.SetZIndex(lineColumn, 1);
+                    _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                    _Canvas.Children.Add(lineColumn);
+                    Canvas.SetZIndex(lineColumn, 1);
 
-                        Grid.SetRow(lineColumn, 0);
-                        Grid.SetColumn(lineColumn, v);
+                    Grid.SetRow(lineColumn, 0);
+                    Grid.SetColumn(lineColumn, v);
 
-                        Lines.Add(lineColumn);
-                    }
+                    Lines.Add(lineColumn);
                 }
 
                 if (ShadowColor != string.Empty)

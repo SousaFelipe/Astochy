@@ -102,6 +102,18 @@ namespace VadenStock.Core
 
 
 
+        public QueryBuilder Or(string column, string operOrValue, object? value = null)
+        {
+            object realOpera = value == null ? "=" : operOrValue;
+            object realValue = value ?? operOrValue;
+
+            Query += $" OR { column }{ realOpera }'{ realValue }'";
+
+            return this;
+        }
+
+
+
         public string? SQL(bool clear = true)
         {
             if (clear)
