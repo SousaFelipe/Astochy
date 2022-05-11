@@ -35,7 +35,7 @@ namespace VadenStock.View
 
             _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
             _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
-            _PatrimonioEmProducao.UpdateValue(patrimonio.Producao, patrimonio.Total);
+            _PatrimonioEmRota.UpdateValue(patrimonio.EmRota, patrimonio.Total);
         }
 
 

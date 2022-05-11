@@ -64,8 +64,8 @@
                                                Titulo="Comodato"
                                                Margin="0 14 0 0"/>
 
-                        <components:Patrimonio x:Name="_PatrimonioEmProducao"
-                                               Titulo="Em produção"
+                        <components:Patrimonio x:Name="_PatrimonioEmRota"
+                                               Titulo="Em rota"
                                                Margin="0 14 0 0"/>
 
                     </StackPanel>

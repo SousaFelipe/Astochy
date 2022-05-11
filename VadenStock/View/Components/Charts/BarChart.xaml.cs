@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Controls;
+using System.Collections.Generic;
+
+using VadenStock.Tools;
 
 
 
@@ -197,24 +191,24 @@ namespace VadenStock.View.Components.Charts
                     currentValue = Values[v];
 
                     if (currentValue > 0)
-                    {
                         currentEndLine = externalPercent == 0.0
-                            ? ((currentValue * 100) / canvasMaxWidth) * (canvasMaxWidth / 100) + canvasWidthLabels
+                            ? ((currentValue * (100 + bias)) / canvasMaxWidth) * (canvasMaxWidth / (100 + bias)) + canvasWidthLabels
                             : (canvasWidth * externalPercent) / (100 + bias);
+                    else
+                        currentEndLine = 1;
 
-                        Line lineColumn = CreateLine(0.0, currentEndLine, LineColor);
+                    Line lineColumn = CreateLine(0.0, currentEndLine, LineColor);
 
-                        _Canvas.RowDefinitions.Add(new RowDefinition());
-                        _Canvas.Children.Add(lineColumn);
-                         Canvas.SetZIndex(lineColumn, 1);
+                    _Canvas.RowDefinitions.Add(new RowDefinition());
+                    _Canvas.Children.Add(lineColumn);
+                     Canvas.SetZIndex(lineColumn, 2);
 
-                        Grid.SetRow(lineColumn, v);
+                    Grid.SetRow(lineColumn, v);
 
-                        if (Labels.Count >= Values.Count)
-                            Grid.SetColumn(lineColumn, 1);
+                    if (Labels.Count >= Values.Count)
+                        Grid.SetColumn(lineColumn, 1);
 
-                        Lines.Add(lineColumn);
-                    }
+                    Lines.Add(lineColumn);
                 }
 
                 if (ShadowColor != string.Empty)
@@ -230,15 +224,11 @@ namespace VadenStock.View.Components.Charts
         {
             for (int s = 0; s < Lines.Count; s++)
             {
-                Line lineColumn = Lines[s];
-                Line lineShadow = CreateLine(
-                        lineColumn.X2,
-                        canvasWidth - (RowThickness * 4),
-                        ShadowColor
-                    );
+                Line lineRow = Lines[s];
+                Line lineShadow = CreateLine(lineRow.X2, canvasWidth - RowThickness, ShadowColor);
 
                 _Canvas.Children.Add(lineShadow);
-                 Canvas.SetZIndex(lineShadow, 0);
+                 Canvas.SetZIndex(lineShadow, 1);
 
                 Grid.SetRow(lineShadow, s);
 
@@ -287,7 +277,7 @@ namespace VadenStock.View.Components.Charts
             line.StrokeStartLineCap = RowLeftCornerStyle;
             line.StrokeEndLineCap = RowRightCornerStyle;
             line.StrokeThickness = RowThickness;
-            line.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexColor));
+            line.Stroke = Clr.Color(hexColor);
 
             return line;
         }
