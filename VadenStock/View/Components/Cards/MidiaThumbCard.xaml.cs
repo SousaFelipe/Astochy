@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Reflection;
+using System.Collections.Generic;
 
 using VadenStock.Tools;
+
+using VadenStock.View.Adapters;
 
 
 
 namespace VadenStock.View.Components.Cards
 {
-    public partial class MidiaThumbCard : Border
+    public partial class MidiaThumbCard : UserControl
     {
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
                 "Header",
@@ -94,9 +98,40 @@ namespace VadenStock.View.Components.Cards
 
 
 
+        public bool IsSelected { get; set; }
+        public object? Adapter { get; private set; }
+        public Dictionary<string, Func<bool>> Actions { get; private set; }
+
+
+
         public MidiaThumbCard()
         {
+            IsSelected = false;
+            Adapter = null;
+            Actions = new();
+
             InitializeComponent();
+        }
+
+
+
+        public MidiaThumbCard(object adapter)
+        {
+            IsSelected = false;
+            Adapter = adapter;
+            Actions = new();
+
+            InitializeComponent();
+        }
+
+
+
+        public void FireControlAction(string key)
+        {
+            if (Actions.ContainsKey(key))
+            {
+                Actions[key]?.Invoke();
+            }
         }
 
 
@@ -104,6 +139,13 @@ namespace VadenStock.View.Components.Cards
         public void SetMidia(string fileName)
         {
             _BorderMidia.Background = new ImageBrush() { ImageSource = Src.Storage(fileName) };
+        }
+
+
+
+        public void AddAction(string target, Func<bool> action)
+        {
+            Actions.Add(target, action);
         }
 
 
@@ -125,8 +167,6 @@ namespace VadenStock.View.Components.Cards
             _BorderMidia.Cursor = Cursors.Hand;
         }
 
-
-
         public void SetHeaderAction(Func<object, bool> action)
         {
             _TextHeader.MouseLeftButtonUp += delegate {
@@ -144,8 +184,6 @@ namespace VadenStock.View.Components.Cards
             _TextHeader.Cursor = Cursors.Hand;
         }
 
-
-
         public void SetSubHeaderAction(Func<object, bool> action)
         {
             _TextSubHeader.MouseLeftButtonUp += delegate {
@@ -161,6 +199,19 @@ namespace VadenStock.View.Components.Cards
             };
 
             _TextSubHeader.Cursor = Cursors.Hand;
+        }
+
+
+
+        private void Select(object sender, MouseButtonEventArgs e)
+        {
+            Focus();
+            IsSelected = true;
+        }
+
+        private void Deselect(object sender, RoutedEventArgs e)
+        {
+            IsSelected = false;
         }
     }
 }

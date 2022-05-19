@@ -23,7 +23,18 @@ namespace VadenStock.View.Adapters
 
 
 
+        private Produtos? View;
+
+
+
         public ProdutosAdapter(Grid container) : base(container) { }
+
+
+
+        public void SetView(Produtos view)
+        {
+            View = view;
+        }
 
 
 
@@ -64,7 +75,7 @@ namespace VadenStock.View.Adapters
                     if (OrderedDataset[key] != null && OrderedDataset[key].Count > 0)
                     {
                         currentDataset = OrderedDataset[key];
-                        currentLabel = Molecules.Label(key);
+                        currentLabel = CerateLabel(key);
 
                         Container.Children.Add(currentLabel);
 
@@ -79,7 +90,7 @@ namespace VadenStock.View.Adapters
                         for (int i = 0; i < currentDataset.Count; i++)
                         {
                             currentProduto = currentDataset[i];
-                            currentCard = Molecules.ProdutoThumbCard(currentProduto);
+                            currentCard = CreateThumbCard(currentProduto);
 
                             Container.Children.Add(currentCard);
 
@@ -108,6 +119,83 @@ namespace VadenStock.View.Adapters
 
 
 
+        private static TextBlock CerateLabel(string label)
+        {
+            return new TextBlock()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Margin = new Thickness(6, 12, 6, -6),
+                Foreground = Clr.Color("#78909C"),
+                Text = label.ToUpper()
+            };
+        }
+
+
+
+        private MidiaThumbCard CreateThumbCard(ProdutoType produto)
+        {
+            int itensPorProduto = ItensViewModel.CountItensPorProduto(produto.Id);
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+            MidiaThumbCard midia = InstantiateThumbCard(produto, window, itensPorProduto);
+
+            midia.SetMidia(produto.Image);
+
+            midia.AddAction("Delete", () =>
+            {
+                window.DisplayDialog(new ConfirmDialog()
+                        { Confirm = delegate
+                            {
+                                return ProdutosViewModel.Remove(produto.Id);
+                            }
+                        },
+                        (View != null) ? View.LoadProdutos : null
+                    );
+
+                return true;
+            });
+
+            midia.SetMidiaAction((object sender) =>
+            {
+                window.DisplayDialog(new ImageDialog(((MidiaThumbCard)sender)._BorderMidia.Background));
+                return true;
+            });
+
+            midia.SetHeaderAction((object sender) =>
+            {
+                window.DisplayDialog(new ProdutoDialog(produto));
+                return true;
+            });
+
+            if (itensPorProduto > 0)
+            {
+                midia.SetSubHeaderAction((object sender) =>
+                {
+                    window.DisplayDialog(new ItensDialog(produto));
+                    return true;
+                });
+            }
+
+            return midia;
+        }
+
+
+
+        private MidiaThumbCard InstantiateThumbCard(ProdutoType produto, MainWindow window, int quantItens)
+        {
+            string subHeader = (Str.ZeroFill(quantItens) + " item".Pluralize(quantItens, "n"));
+
+            return new MidiaThumbCard(this)
+            {
+                Margin = new Thickness(6, 12, 6, 0),
+                Header = produto.Name,
+                HeaderSize = 13,
+                SubHeader = subHeader,
+                SubHeaderSize = 12
+            };
+        }
+
+
+
         public void Clear()
         {
             if (Container != null)
@@ -115,65 +203,6 @@ namespace VadenStock.View.Adapters
                 Container.Children.Clear();
                 Container.RowDefinitions.Clear();
                 Container.RowDefinitions.Add(new RowDefinition());
-            }
-        }
-
-
-
-        private static class Molecules
-        {
-            public static TextBlock Label(string label)
-            {
-                return new TextBlock()
-                {
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    Margin = new Thickness(6, 12, 6, -6),
-                    Foreground = Clr.Color("#78909C"),
-                    Text = label.ToUpper()
-                };
-            }
-
-
-            public static MidiaThumbCard ProdutoThumbCard(ProdutoType produto)
-            {
-                MainWindow window = (MainWindow)Application.Current.MainWindow;
-
-                int itensPorProduto = ItensViewModel.CountItensPorProduto(produto.Id);
-                string subHeader = (Str.ZeroFill(itensPorProduto) + " item".Pluralize(itensPorProduto, "n"));
-
-                MidiaThumbCard midia = new()
-                {
-                    Margin = new Thickness(6, 12, 6, 0),
-                    Header = produto.Name,
-                    HeaderSize = 13,
-                    SubHeader = subHeader,
-                    SubHeaderSize = 12
-                };
-
-                midia.SetMidia(produto.Image);
-
-                midia.SetMidiaAction((object sender) =>
-                {
-                    window.DisplayDialog(new ImageDialog(((MidiaThumbCard)sender)._BorderMidia.Background));
-                    return true;
-                });
-
-                midia.SetHeaderAction((object sender) =>
-                {
-                    window.DisplayDialog(new ProdutoDialog(produto));
-                    return true;
-                });
-
-                if (itensPorProduto > 0)
-                {
-                    midia.SetSubHeaderAction((object sender) =>
-                    {
-                        window.DisplayDialog(new ItensDialog(produto));
-                        return true;
-                    });
-                }
-
-                return midia;
             }
         }
     }

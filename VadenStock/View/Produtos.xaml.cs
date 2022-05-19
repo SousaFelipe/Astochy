@@ -50,9 +50,10 @@ namespace VadenStock.View
 
         public bool LoadProdutos()
         {
-            ProdutosAdapter adapter = new(_GridProdutos);
             List<ProdutoType> produtos = ProdutosViewModel.FilterData(Filter);
 
+            ProdutosAdapter adapter = new(_GridProdutos);
+            adapter.SetView(this);
             adapter.Clear();
             adapter.Update(produtos);
 

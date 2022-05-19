@@ -120,7 +120,6 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        private double canvasHeight;
         private double canvasMaxHeight;
         private double canvasHeightLabels;
 
@@ -129,12 +128,6 @@ namespace VadenStock.View.Components.Charts
         public ColumnChart()
         {
             InitializeComponent();
-
-            Loaded += delegate
-            {
-                canvasHeight = _Canvas.ActualHeight;
-                canvasHeightLabels = 0.0;
-            };
         }
 
 
@@ -173,95 +166,80 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public void Draw(double bias = 0.0)
+        public void Draw()
         {
-            Loaded += delegate
+            #region Draw labels
+            if (Labels.Count >= Values.Count)
             {
-                double currentValue;
-                double currentStartLine;
-
-                if (Labels.Count >= Values.Count)
+                RowDefinition row1 = new()
                 {
-                    DrawLabels();
+                    Height = GridLength.Auto
+                };
+
+                _Canvas.RowDefinitions.Add(new RowDefinition());
+                _Canvas.RowDefinitions.Add(row1);
+
+                for (int r = 0; r < Values.Count; r++)
+                {
+                    TextBlock textLabel = TextLabel(r);
+
+                    _Canvas.Children.Add(textLabel);
+
+                    Grid.SetRow(textLabel, 1);
+                    Grid.SetColumn(textLabel, r);
                 }
 
-                for (int v = 0; v < Values.Count; v++)
-                {
-                    currentValue = Values[v];
-
-                    if (currentValue > 0)
-                        currentStartLine = ((currentValue * 100) / canvasMaxHeight) * (canvasMaxHeight / 100) + canvasHeightLabels;
-                    else
-                        currentStartLine = canvasHeight;
-
-                    Line lineColumn = CreateLine(currentStartLine, canvasHeight, LineColor);
-
-                    _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
-                    _Canvas.Children.Add(lineColumn);
-                    Canvas.SetZIndex(lineColumn, 1);
-
-                    Grid.SetRow(lineColumn, 0);
-                    Grid.SetColumn(lineColumn, v);
-
-                    Lines.Add(lineColumn);
-                }
-
-                if (ShadowColor != string.Empty)
-                {
-                    DrawShadows();
-                }
-            };
-        }
+                canvasHeightLabels = 12;
+            }
+            #endregion
 
 
-
-        private void DrawShadows()
-        {
-            for (int s = 0; s < Lines.Count; s++)
+            #region Draw lines
+            for (int v = 0; v < Values.Count; v++)
             {
-                Line lineColumn = Lines[s];
-                Line lineShadow = CreateLine(
-                        0.0 + (ColumnThickness * 2.5),
-                        lineColumn.Y2,
-                        ShadowColor
+                Line lineColumn = CreateLine(
+                        StartLineFromCanvasHeight(Values[v]),
+                        _Canvas.ActualHeight,
+                        LineColor
                     );
 
-                _Canvas.Children.Add(lineShadow);
-                Canvas.SetZIndex(lineShadow, 0);
+                _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
+                _Canvas.Children.Add(lineColumn);
+                Canvas.SetZIndex(lineColumn, 1);
 
-                Grid.SetColumn(lineShadow, s);
-                Grid.SetRow(lineShadow, 0);
+                Grid.SetRow(lineColumn, 0);
+                Grid.SetColumn(lineColumn, v);
+
+                Lines.Add(lineColumn);
             }
+            #endregion
+
+
+            #region Draw shadows
+            if (ShadowColor != string.Empty)
+            {
+                for (int s = 0; s < Lines.Count; s++)
+                {
+                    Line lineColumn = Lines[s];
+                    Line lineShadow = CreateLine(
+                            ColumnThickness * 2.5,
+                            lineColumn.Y2,
+                            ShadowColor
+                        );
+
+                    _Canvas.Children.Add(lineShadow);
+                    Canvas.SetZIndex(lineShadow, 0);
+
+                    Grid.SetColumn(lineShadow, s);
+                    Grid.SetRow(lineShadow, 0);
+                }
+            }
+            #endregion
         }
 
 
 
-        private void DrawLabels()
-        {
-            RowDefinition row1 = new()
-            {
-                Height = GridLength.Auto
-            };
-
-            _Canvas.RowDefinitions.Add(new RowDefinition());
-            _Canvas.RowDefinitions.Add(row1);
-
-            for (int r = 0; r < Values.Count; r++)
-            {
-                TextBlock textLabel = TextLabel(r);
-
-                _Canvas.Children.Add(textLabel);
-
-                Grid.SetRow(textLabel, 1);
-                Grid.SetColumn(textLabel, r);
-            }
-
-            canvasHeightLabels = 12;
-        }
-
-
-
-        public Line CreateLine(double startLine, double endLine, string hexColor)
+        private Line CreateLine(double startLine, double endLine, string hexColor)
         {
             Line line = new();
 
@@ -281,7 +259,7 @@ namespace VadenStock.View.Components.Charts
 
 
 
-        public TextBlock TextLabel(int pos)
+        private TextBlock TextLabel(int pos)
         {
             return new TextBlock()
             {
@@ -294,11 +272,31 @@ namespace VadenStock.View.Components.Charts
 
 
 
+        private double StartLineFromCanvasHeight(double value)
+        {
+            double canvasHeight = _Canvas.ActualHeight;
+            double startLine = canvasHeight;
+
+            if (value > 0)
+            {
+                double percent = Clc.PercentFromVal(value, canvasMaxHeight);
+                startLine = (canvasHeight - Clc.ValFromPercent(percent, canvasHeight)) + canvasHeightLabels + (ColumnThickness * 1.5);
+            }
+
+            return startLine;
+        }
+
+
+
         public void Clear()
         {
+            Values.Clear();
             Labels.Clear();
             Lines.Clear();
+
             _Canvas.Children.Clear();
+            _Canvas.RowDefinitions.Clear();
+            _Canvas.ColumnDefinitions.Clear();
         }
     }
 }

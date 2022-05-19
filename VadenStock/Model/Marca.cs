@@ -76,6 +76,13 @@ namespace VadenStock.Model
 
 
 
+        public override Marca InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
+        {
+            return (Marca)base.InnerJoin(table1, column1, table2, column2);
+        }
+
+
+
         private class Content
         {
             public static MarcaType Get(MySqlDataReader reader)

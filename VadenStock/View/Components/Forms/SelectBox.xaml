@@ -3,6 +3,180 @@
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-          mc:Ignorable="d" 
-          d:DesignHeight="28"
-          d:DesignWidth="120"/>
+          xmlns:local="clr-namespace:VadenStock.View.Components.Forms"
+          mc:Ignorable="d"
+          d:DataContext="{d:DesignInstance Type=local:SelectBox}"
+          d:DesignWidth="120"
+          MinHeight="28">
+
+    <ComboBox.Style>
+        <Style TargetType="{x:Type ComboBox}">
+
+            <Style.Setters>
+
+                <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+                <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+                <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ToggleButton Name="_ToggleButtonSelf"
+                                              Grid.ColumnSpan="2"
+                                              ClickMode="Press"
+                                              Focusable="False"
+                                              Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                              IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+
+                                    <ToggleButton.Style>
+                                        <Style>
+                                            <Style.Setters>
+                                                <Setter Property="Control.Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ToggleButton">
+                                                            <Grid>
+
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition/>
+                                                                    <ColumnDefinition Width="28" />
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Border Grid.ColumnSpan="2"
+                                                                        Name="_BorderBorder"
+                                                                        BorderBrush="{StaticResource PrimaryColor_100}"
+                                                                        CornerRadius="4"
+                                                                        BorderThickness="1"
+                                                                        Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+
+                                                                <Border Grid.Column="1"
+                                                                        Name="_BorderButton"
+                                                                        CornerRadius="6"
+                                                                        BorderThickness="0"
+                                                                        Margin="1 1 1 1"
+                                                                        Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
+
+                                                                <Path Grid.Column="1" 
+                                                                      Name="_PathArrow"
+                                                                      VerticalAlignment="Center" 
+                                                                      HorizontalAlignment="Center"
+                                                                      Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                                                                      Fill="{StaticResource PrimaryColor_300}"/>
+                                                            </Grid>
+
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                                                    <Setter Property="Border.BorderBrush" TargetName="_BorderBorder" Value="{StaticResource PrimaryColor_500}"/>
+                                                                    <Setter Property="Shape.Fill" TargetName="_PathArrow" Value="{StaticResource PrimaryColor_500}"/>
+                                                                </Trigger>
+                                                                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                                                    <Setter Property="Border.BorderBrush" TargetName="_BorderBorder" Value="{StaticResource SecondaryDark}"/>
+                                                                    <Setter Property="Shape.Fill" TargetName="_PathArrow" Value="{StaticResource SecondaryDark}"/>
+                                                                </Trigger>
+                                                                <Trigger Property="UIElement.IsEnabled" Value="False">
+                                                                    <Setter Property="Border.BorderBrush" TargetName="_BorderBorder" Value="{StaticResource PrimaryColor_100}"/>
+                                                                    <Setter Property="Shape.Fill" TargetName="_PathArrow" Value="{StaticResource PrimaryColor_100}"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </ToggleButton.Style>
+
+                                </ToggleButton>
+
+                                <ContentPresenter Grid.Column="0"
+                                                  Name="_ContentSiteItems"
+                                                  Margin="8 3 8 4"
+                                                  IsHitTestVisible="False"
+                                                  HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding ComboBox.SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+
+                                <TextBox Name="_TextBoxSelf"
+                                         Margin="3 3 23 3"                     
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"
+                                         Visibility="Hidden"
+                                         Background="Transparent"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"
+                                         Focusable="True"
+                                         FontSize="{TemplateBinding FontSize}"
+                                         Foreground="{TemplateBinding Property=Foreground}">
+
+                                    <TextBox.Template>
+                                        <ControlTemplate TargetType="TextBox" >
+                                            <Border CornerRadius="6" Focusable="False" />
+                                        </ControlTemplate>
+                                    </TextBox.Template>
+
+                                </TextBox>
+
+                                <Popup Placement="Bottom"
+                                       Focusable="False"
+                                       AllowsTransparency="True"
+                                       IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
+                                       PopupAnimation="Slide">
+
+                                    <Grid SnapsToDevicePixels="True"
+                                          MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
+                                          MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
+
+                                        <Border x:Name="_DropDownBorder"
+                                                CornerRadius="0"
+                                                BorderThickness="1 1 1 1"
+                                                Margin="0 1 0 0"
+                                                Background="White"
+                                                BorderBrush="{StaticResource PrimaryColor_050}"/>
+
+                                        <ScrollViewer Margin="4" SnapsToDevicePixels="True">
+                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+
+                                    </Grid>
+                                </Popup>
+
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ItemsControl.HasItems" Value="False">
+                                    <Setter Property="FrameworkElement.MinHeight" TargetName="_DropDownBorder" Value="0"/>
+                                </Trigger>
+                                <Trigger Property="UIElement.IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" Value="#CFD8DC"/>
+                                </Trigger>
+                                <Trigger Property="ItemsControl.IsGrouping" Value="True">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                                </Trigger>
+                                <Trigger Property="ComboBox.IsEditable" Value="True">
+                                    <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
+                                    <Setter Property="UIElement.Visibility" TargetName="_TextBoxSelf" Value="Visible"/>
+                                    <Setter Property="UIElement.Visibility" TargetName="_ContentSiteItems" Value="Hidden"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+            </Style.Setters>
+
+        </Style>
+    </ComboBox.Style>
+    
+</ComboBox>

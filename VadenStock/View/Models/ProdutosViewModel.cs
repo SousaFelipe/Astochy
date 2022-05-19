@@ -44,11 +44,38 @@ namespace VadenStock.View.Models
 
 
 
+        public static bool Remove(int produto)
+        {
+            return Produto.New.Delete(produto);
+        }
+
+
+
+        public static List<ProdutoType> ProdutosPorMarca(int marca)
+        {
+            return Produto.New
+                .Select()
+                .Where("marca", marca.ToString())
+                .Get();
+        }
+
+
+
         public static List<ProdutoType> ProdutosPorCategoria(int categoria)
         {
             return Produto.New
                 .Select()
                 .Where("categoria", categoria.ToString())
+                .Get();
+        }
+
+
+
+        public static List<ProdutoType> ProdutosPorTipo(int tipo)
+        {
+            return Produto.New
+                .Select()
+                .Where("tipo", tipo.ToString())
                 .Get();
         }
 

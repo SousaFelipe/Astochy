@@ -4,6 +4,8 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using System.Windows.Controls;
+using System.Reflection;
 using System.Threading;
 
 using VadenStock.View.Dialogs;
@@ -29,10 +31,14 @@ namespace VadenStock
 
 
 
+		public object? CurrentFocusedAdapter { get; set; }
+
+
+
 		public MainWindow()
         {
             InitializeComponent();
-        }
+		}
 
 
 
@@ -211,5 +217,43 @@ namespace VadenStock
         {
 			Application.Current.Shutdown();
         }
-    }
+
+
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+			switch (e.Key)
+			{
+				case Key.Delete:
+					CallCurrentFocusedElement("FireControlAction", "Delete", "IsSelected");
+					break;
+			}
+        }
+
+
+
+		private void CallCurrentFocusedElement(string method, string action, string property)
+		{
+			IInputElement element = FocusManager.GetFocusedElement(this);
+
+			if (element != null && element.GetType() != null)
+			{
+				object? val;
+
+				foreach (PropertyInfo pi in element.GetType().GetProperties())
+				{
+					if (pi.Name == property)
+					{
+						val = pi.GetValue(element);
+
+						if (val != null && ((bool)val) == true)
+                        {
+							MethodInfo? mi = element.GetType().GetMethod(method);
+							mi?.Invoke(element, new object[] { action });
+                        }
+					}
+				}
+			}
+		}
+	}
 }

@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ProdutoDialog}"
         Width="480"
-        Height="520"
+        Height="auto"
         VerticalAlignment="Center"
         HorizontalAlignment="Center"
         CornerRadius="8"
@@ -20,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="3"
+        <Button Grid.Row="0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Height="38"
@@ -42,84 +44,90 @@
                     Background="{StaticResource PrimaryColor_050}"
                     Padding="0 8">
 
-                <StackPanel VerticalAlignment="Stretch"
-                            HorizontalAlignment="Center">
+                <Grid VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
 
-                    <Grid HorizontalAlignment="Center"      
-                          Width="86"
-                          Height="86">
-                        
-                        <Border x:Name="_BorderBackground"
-                                CornerRadius="16"
-                                BorderThickness="1"
-                                Background="#FFFFFF"
-                                IsHitTestVisible="True"
-                                MouseLeftButtonUp="OpenImageDialog">
+                    <StackPanel VerticalAlignment="Stretch"
+                                HorizontalAlignment="Center"
+                                Margin="0 16 0 0">
 
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Style.Setters>
-                                        <Setter Property="Cursor" Value="Hand"/>
-                                        <Setter Property="BorderBrush" Value="#FFFFFF"/>
-                                    </Style.Setters>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="BorderBrush" Value="#40C4FF"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
+                        <Grid HorizontalAlignment="Center"      
+                              Width="86"
+                              Height="86">
 
-                            <Border x:Name="_BorderImage"
+                            <Border x:Name="_BorderBackground"
                                     CornerRadius="16"
-                                    VerticalAlignment="Stretch"
-                                    HorizontalAlignment="Stretch"
-                                    IsHitTestVisible="False">
+                                    BorderThickness="1"
+                                    Background="#FFFFFF"
+                                    IsHitTestVisible="True"
+                                    MouseLeftButtonUp="OpenImageDialog">
 
-                                <Border.Background>
-                                    <ImageBrush Stretch="Fill"
-                                                ImageSource="/VadenStock;component/Resources/Icons/blue-image-plus.png"/>
-                                </Border.Background>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Setters>
+                                            <Setter Property="Cursor" Value="Hand"/>
+                                            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                                        </Style.Setters>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="#40C4FF"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+
+                                <Border x:Name="_BorderImage"
+                                        CornerRadius="16"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        IsHitTestVisible="False">
+
+                                    <Border.Background>
+                                        <ImageBrush Stretch="Fill"
+                                                    ImageSource="/VadenStock;component/Resources/Icons/blue-image-plus.png"/>
+                                    </Border.Background>
+
+                                </Border>
 
                             </Border>
 
-                        </Border>
+                            <Border x:Name="_BorderButtonClearAvatar"
+                                    CornerRadius="9"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Right"
+                                    Width="18"
+                                    Height="18"
+                                    Margin="0 -3 -3 0"
+                                    Cursor="Hand"
+                                    Background="{StaticResource DangerColor}"
+                                    Visibility="Hidden"
+                                    MouseLeftButtonUp="ButtonClearAvatar_Click">
 
-                        <Border x:Name="_BorderButtonClearAvatar"
-                                CornerRadius="9"
-                                VerticalAlignment="Top"
-                                HorizontalAlignment="Right"
-                                Width="18"
-                                Height="18"
-                                Margin="0 -3 -3 0"
-                                Cursor="Hand"
-                                Background="{StaticResource DangerColor}"
-                                Visibility="Hidden"
-                                MouseLeftButtonUp="ButtonClearAvatar_Click">
-                            
-                            <Image VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Width="8"
-                                   Height="8"
-                                   Source="/VadenStock;component/Resources/Icons/white-close.png"/>
-                        
-                        </Border>
+                                <Image VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Width="8"
+                                       Height="8"
+                                       Source="/VadenStock;component/Resources/Icons/white-close.png"/>
 
-                    </Grid>
+                            </Border>
 
-                    <forms:InputTransparent x:Name="_TextImageName"
-                                            TextAlignment="Center"
-                                            Foreground="{StaticResource TextPrimaryColor}"
-                                            Tag="Salvar imagem como..."
-                                            TextChanged="InputImageName_Change"/>
+                        </Grid>
 
-                </StackPanel>
+                        <forms:InputTransparent x:Name="_TextImageName"
+                                                TextAlignment="Center"
+                                                Foreground="{StaticResource TextPrimaryColor}"
+                                                Tag="Salvar imagem como..."
+                                                TextChanged="InputImageName_Change"/>
+
+                    </StackPanel>
+
+                </Grid>
 
             </Border>
 
             <StackPanel HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        Margin="16 20 16 0">
+                        Margin="16 24 16 0">
 
                 <forms:InputText x:Name="_InputName"
                                  HorizontalAlignment="Stretch"
@@ -220,7 +228,7 @@
                                    HorizontalAlignment="Left"
                                    Margin="13 0 0 1"
                                    FontSize="14"
-                                   Foreground="{StaticResource TextMuted}"/>
+                                   Foreground="{StaticResource TextTertiary}"/>
 
                         <forms:InputCurrency Grid.Column="1"
                                              x:Name="_InputPrice"
@@ -243,15 +251,16 @@
                                  FontSize="14"
                                  Foreground="{StaticResource TextPrimaryColor}"
                                  TextChanged="InputDescription_Changed"/>
-                
+
             </StackPanel>
 
             <Button x:Name="_ButtonSave"
+                    HorizontalAlignment="Stretch"
+                    Padding="0 7 0 8"
                     Margin="20 24 20 24"
-                    Height="36"
-                    Content="Salvar"
-                    FontSize="16"
                     Style="{StaticResource ButtonSecondary}"
+                    FontSize="16"
+                    Content="Salvar"
                     Click="ButtonSave_Click"/>
 
         </StackPanel>

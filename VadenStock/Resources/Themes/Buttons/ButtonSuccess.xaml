@@ -35,7 +35,7 @@
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
-                                              Margin="14 0"
+                                              Margin="{TemplateBinding Padding}"
                                               RecognizesAccessKey="True" />
 
                         </Grid>

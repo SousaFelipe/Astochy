@@ -6,7 +6,9 @@
              xmlns:components="clr-namespace:VadenStock.View.Components"
              xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
              xmlns:charts="clr-namespace:VadenStock.View.Components.Charts"
+             xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:Dashboard}"
              d:DesignWidth="840"
              d:DesignHeight="600">
 
@@ -27,12 +29,15 @@
             <Border Grid.Column="0"
                     Grid.ColumnSpan="2"
                     CornerRadius="14"
-                    Margin="8, 0"
+                    Margin="8 0"
                     Height="260"
                     Background="#FFFFFF">
                 
                 <Border.Effect>
-                    <DropShadowEffect Color="#000" Opacity="0.15" BlurRadius="4" ShadowDepth="1"/>
+                    <DropShadowEffect Color="#000"
+                                      Opacity="0.15"
+                                      BlurRadius="4"
+                                      ShadowDepth="1"/>
                 </Border.Effect>
 
                 <Grid VerticalAlignment="Stretch"
@@ -92,54 +97,39 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                               Text="Estoque mínimo/máximo"
-                               FontSize="13"
+                               Text="Niveis de estoque"
+                               FontSize="18"
                                Foreground="{StaticResource TextPrimaryColor}"/>
 
                     <StackPanel Grid.Row="1"
                                 Orientation="Horizontal"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Stretch"
-                                Margin="0 4 0 8">
+                                VerticalAlignment="Stretch">
 
-                        <forms:SelectBox x:Name="_ComboCategorias"
-                                         Width="160"
-                                         Height="28"
-                                         Background="{StaticResource PrimaryColor_050}"
-                                         Style="{StaticResource ComboBoxTheme}"
-                                         SelectionChanged="ComboCategorias_Update">
+                        <forms:Radio Grid.Column="0"
+                                     Content="Marcas"
+                                     Tag="M"
+                                     Foreground="{StaticResource TextSecondaryColor}"
+                                     IsChecked="True"
+                                     Checked="CardNivelCheckChange"/>
 
-                            <ComboBoxItem Tag="0"
-                                          IsSelected="True"
-                                          Content="Categorias"/>
-
-                        </forms:SelectBox>
-
-                        <forms:SelectBox x:Name="_ComboTipos"
-                                         Text="Categoria"
-                                         Width="140"
-                                         Height="28"
-                                         Margin="4 0 0 0"
-                                         Background="{StaticResource PrimaryColor_050}"
-                                         Style="{StaticResource ComboBoxTheme}">
-
-                            <ComboBoxItem Tag="0"
-                                          IsSelected="True"
-                                          Content="Tipos"/>
-
-                        </forms:SelectBox>
+                        <forms:Radio Grid.Column="1"
+                                     Margin="16 0 0 0"
+                                     Content="Categorias"
+                                     Tag="C"
+                                     Foreground="{StaticResource TextSecondaryColor}"
+                                     Checked="CardNivelCheckChange"/>
 
                     </StackPanel>
 
                     <charts:ColumnChart Grid.Row="2"
-                                        x:Name="_ColumnChartMinMax"
+                                        x:Name="_ChartEstoqueNivel"
                                         LineColor="#00B0FF"
                                         ColumnThickness="12"
                                         ColumnTopCornerStyle="Round"
                                         ColumnBottomCornerStyle="Round"
-                                        Margin="0 24 0 0"
                                         VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"/>
+                                        HorizontalAlignment="Stretch"
+                                        Margin="0 24 0 0"/>
 
                 </Grid>
 

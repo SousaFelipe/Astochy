@@ -74,9 +74,9 @@ namespace VadenStock.Model
 
 
 
-        public override Inventario InnerJoin(string table, string joinOne, string joinTwo = "id")
+        public override Inventario InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
         {
-            return (Inventario)base.InnerJoin(table, joinOne, joinTwo);
+            return (Inventario)base.InnerJoin(table1, column1, table2, column2);
         }
 
 

@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:AlertDialog}"
         CornerRadius="8"
         VerticalAlignment="Top"
         HorizontalAlignment="Center"
@@ -12,7 +14,7 @@
     
     <Grid VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch"
-          Margin="16 16">
+          Margin="16">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

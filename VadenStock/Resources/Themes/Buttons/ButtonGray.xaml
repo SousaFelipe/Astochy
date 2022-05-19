@@ -4,21 +4,24 @@
     <Style x:Key="ButtonGray"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
-
+        
+        <Setter Property="MinWidth" Value="28"/>
+        <Setter Property="MinHeight" Value="28"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="#ECEFF1"/>
-        <Setter Property="Foreground" Value="#37474F"/>
+        <Setter Property="Foreground" Value="#455A64"/>
 
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Border x:Name="_BorderButton"
-                                CornerRadius="4"
-                                Background="{TemplateBinding Background}">
+                            CornerRadius="4"
+                            Background="{TemplateBinding Background}">
 
                         <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
 
                     </Border>
 

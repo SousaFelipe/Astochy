@@ -4,7 +4,7 @@
 
 namespace VadenStock.Model.Types
 {
-    public struct CompraType
+    public struct CompraType : IModelType
     {
         public int Id { get; set; }
         public FornecedorType Fornecedor { get; set; }

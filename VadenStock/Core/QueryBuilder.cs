@@ -7,7 +7,7 @@ namespace VadenStock.Core
 {
     public sealed class QueryBuilder
     {
-        private string Table { get; set; }
+        public string Table { get; set; }
         private int WhereCount { get; set; }
         public string? Query { get; private set; }
 
@@ -78,9 +78,9 @@ namespace VadenStock.Core
 
 
 
-        public QueryBuilder InnnerJoin(string table, string column, string join = "id")
+        public QueryBuilder InnnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
         {
-            Query += $"INNER JOIN { table } ON { table }.{ column }={ Table }.{ join }";
+            Query += $" INNER JOIN { table1 } ON { table1 }.{ column2 }={ table2 ?? Table }.{ column1 }";
             return this;
         }
 

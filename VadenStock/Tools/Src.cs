@@ -13,6 +13,16 @@ namespace VadenStock.Tools
             public static string Storage { get { return "Storage"; } }
             public static string Icons { get { return "Icons"; } }
 
+            public static string Bind(params string[] paths)
+            {
+                string output = "";
+
+                foreach (string path in paths)
+                    output += $"{ path }\\";
+
+                return output;
+            }
+
             public struct FileType
             {
                 public static readonly string PNG = "png";

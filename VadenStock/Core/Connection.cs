@@ -80,6 +80,28 @@ namespace VadenStock.Core
 
 
 
+        public virtual bool Delete(int id)
+        {
+            bool output = false;
+
+            using (Plug = new MySqlConnection(ConnectionString))
+            {
+                Plug.Open();
+
+                using (Cmmd = new MySqlCommand($"DELETE FROM { Builder.Table } WHERE id=@id", Plug))
+                {
+                    Cmmd.Parameters.AddWithValue($"@id", id.ToString());
+                    output = Cmmd.ExecuteNonQuery() > 0;
+                }
+
+                Unplug();
+            }
+
+            return output;
+        }
+
+
+
         public virtual Connection Count(string column = "*")
         {
             Builder.Count(column);
@@ -96,9 +118,9 @@ namespace VadenStock.Core
 
 
 
-        public virtual Connection InnerJoin(string table, string joinOne, string joinTwo = "id")
+        public virtual Connection InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
         {
-            Builder.InnnerJoin(table, joinOne, joinTwo);
+            Builder.InnnerJoin(table1, column1, table2, column2);
             return this;
         }
 

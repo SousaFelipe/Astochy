@@ -52,6 +52,7 @@ namespace VadenStock.View.Dialogs
             Produto.Description = produto.Description;
             Produto.Image.FileExtension = Path.GetExtension(produto.Image);
             Produto.Image.FileName = produto.Image.Replace(Path.GetExtension(produto.Image), "");
+            Produto.Image.Origin = Src.Resource.Bind(Src.Resource.Root, Src.Resource.Storage) + produto.Image;
 
             EditarProduto = Produto;
             EditMode = true;
@@ -135,6 +136,7 @@ namespace VadenStock.View.Dialogs
                     Produto.Tipo != EditarProduto.Tipo ||
                     Produto.Marca != EditarProduto.Marca ||
                     Produto.Marca != EditarProduto.Marca ||
+                    Produto.Image.Origin != EditarProduto.Image.Origin ||
                     Produto.Image.FileName != EditarProduto.Image.FileName ||
                     Produto.Description != EditarProduto.Description
                );
@@ -309,12 +311,12 @@ namespace VadenStock.View.Dialogs
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow owner = (MainWindow)Application.Current.MainWindow;
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
 
             if (string.IsNullOrEmpty(Produto.Image.FileName))
             {
                 if (string.IsNullOrEmpty(Produto.Image.Origin))
-                    owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Adicione uma imagem ao produto!"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Adicione uma imagem ao produto!"));
 
                 else
                 {
@@ -325,23 +327,27 @@ namespace VadenStock.View.Dialogs
                 }
             }
             else if (string.IsNullOrEmpty(Produto.Name))
-                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Insira o nome do produto"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Insira o nome do produto"));
 
             else if (Produto.Categoria <= 0)
-                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar uma categoria"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar uma categoria"));
 
             else if (Produto.Tipo <= 0)
-                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar o tipo de produto"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar o tipo de produto"));
 
             else if (Produto.Marca <= 0)
-                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a marca"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a marca"));
 
             else if (Produto.Price <= 0)
-                owner.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "O preço do produto não pode ser 0,00"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "O preço do produto não pode ser 0,00"));
 
             else
             {
-                SalvarProduto();
+                if (Produto.Id > 0)
+                    AtualizarProduto();
+
+                else
+                    SalvarProduto();
             }
         }
 
@@ -377,6 +383,51 @@ namespace VadenStock.View.Dialogs
             }
             else
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema."));
+        }
+
+
+
+        private void AtualizarProduto()
+        {
+            bool saved = true;
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+            if (ShouldBeChangeImage())
+                saved = Src.CopyToResource(
+                        Produto.Image.Origin,
+                        $"{ Src.Resource.Root }\\{ Src.Resource.Storage }",
+                        $"{ Produto.Image.FileName }{ Produto.Image.FileExtension }"
+                    );
+
+            if (saved)
+            {
+                if (ProdutosViewModel.Create(Produto) > 0)
+                {
+                    ClearImageAvatar();
+
+                    _InputName.Clear();
+                    _ComboMarcas.SelectedIndex = 0;
+                    _ComboCategorias.SelectedIndex = 0;
+                    _ComboTipos.SelectedIndex = 0;
+                    _InputPrice.Text = "0,00";
+                    _InputDescription.Clear();
+
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso", "Wooow!"));
+                }
+                else
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Não foi possível salvar o Produto"));
+            }
+            else
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema."));
+        }
+
+
+
+        private bool ShouldBeChangeImage()
+        {
+            return !Produto.Image.FileName.Equals(
+                    EditarProduto.Image.FileName + EditarProduto.Image.FileExtension
+                );
         }
 
 

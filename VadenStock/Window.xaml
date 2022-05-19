@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:VadenStock.View"
-        xmlns:dialogs="clr-namespace:VadenStock.View.Dialogs"
         xmlns:partials="clr-namespace:VadenStock.View.Partials"
         mc:Ignorable="d"
         Title="Vaden - Controle de Estoque"
@@ -25,7 +24,11 @@
         TextElement.FontWeight="Regular"
         TextElement.FontSize="12"
         TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto">
+        TextOptions.TextRenderingMode="Auto"
+        TabIndex="1"
+        AllowDrop="True"
+        SnapsToDevicePixels="True"
+        KeyUp="Window_KeyUp">
 
     <Window.DataContext>
         <view:ViewControl/>

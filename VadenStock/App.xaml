@@ -14,10 +14,11 @@
                 <ResourceDictionary Source="Resources/Themes/Badges/BadgeGray.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Badges/BadgeSecondary.xaml"/>
 
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonLight.xaml"/>
-                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonGray.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonDark.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonDanger.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonGray.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonInfo.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Buttons/ButtonLight.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSecondary.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonSuccess.xaml"/>
                 <ResourceDictionary Source="Resources/Themes/Buttons/ButtonWarning.xaml"/>

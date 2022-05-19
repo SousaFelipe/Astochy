@@ -6,7 +6,9 @@ using VadenStock.View.Models;
 using VadenStock.View.Structs;
 using VadenStock.View.Components.Cards;
 
+using VadenStock.Model;
 using VadenStock.Model.Types;
+using VadenStock.View.Components.Forms;
 
 using VadenStock.Tools;
 
@@ -22,8 +24,8 @@ namespace VadenStock.View
 
             Loaded += delegate {
                 LoadCardPatrimonio();
-                LoadCardEstoqueMinMax();
                 LoadAlmoxCards();
+                RefreshChartByMarcas();
             };
         }
 
@@ -36,47 +38,6 @@ namespace VadenStock.View
             _PatrimonioEmEstoque.UpdateValue(patrimonio.Estoque, patrimonio.Total);
             _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
             _PatrimonioEmRota.UpdateValue(patrimonio.EmRota, patrimonio.Total);
-        }
-
-
-
-        private void LoadCardEstoqueMinMax()
-        {
-            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
-
-            foreach (CategoriaType c in categorias)
-            {
-                _ComboCategorias.Items.Add(new ComboBoxItem()
-                {
-                    Tag = c.Id,
-                    Content = c.Name
-                });
-            }
-
-            RefreshChartData(categorias);
-        }
-
-
-
-        private void RefreshChartData(List<CategoriaType> categorias)
-        {
-            List<ProdutoType> produtos;
-
-            string[] labels = new string[categorias.Count];
-            double[] values = new double[categorias.Count];
-
-            for (int c = 0; c < categorias.Count; c++)
-            {
-                labels[c] = categorias[c].Name[0].ToString();
-                produtos = ProdutosViewModel.ProdutosPorCategoria(categorias[c].Id);
-
-                for (int p = 0; p < produtos.Count; p++)
-                    values[c] += (double)produtos[p].Price;
-            }
-
-            _ColumnChartMinMax.SetSeries(values);
-            _ColumnChartMinMax.SetLabels(labels);
-            _ColumnChartMinMax.Draw(8);
         }
 
 
@@ -118,25 +79,71 @@ namespace VadenStock.View
 
 
 
-        private void ComboCategorias_Update(object sender, SelectionChangedEventArgs e)
+        private void RefreshChartByMarcas()
         {
-            object tag = ((ComboBoxItem)((ComboBox)sender).SelectedItem).Tag;
-            int tagNum = int.Parse(tag.ToString());
+            MarcaType current;
+            List<ProdutoType> produtos;
+            List<MarcaType> marcas = MarcasViewModel.TodasAsMarcas;
 
-            if (_ComboTipos != null)
+            string[] labels = new string[marcas.Count];
+            double[] values = new double[marcas.Count];
+
+            for (int i = 0; i < marcas.Count; i++)
             {
-                var tipos = TiposViewModel.TiposPorCategoria(tagNum);
+                current = marcas[i];
+                labels[i] = current.Name[..3];
+                produtos = ProdutosViewModel.ProdutosPorMarca(current.Id);
 
-                _ComboTipos.Clear(true);
+                for (int p = 0; p < produtos.Count; p++)
+                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
+            }
 
-                foreach (TipoType t in tipos)
-                {
-                    _ComboTipos.Items.Add(new ComboBoxItem()
-                    {
-                        Tag = t.Id,
-                        Content = t.Name
-                    });
-                }
+            _ChartEstoqueNivel.Clear();
+            _ChartEstoqueNivel.SetSeries(values);
+            _ChartEstoqueNivel.SetLabels(labels);
+            _ChartEstoqueNivel.Draw();
+        }
+
+
+
+        private void RefreshChartByCategorias()
+        {
+            CategoriaType current;
+            List<ProdutoType> produtos;
+            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
+
+            string[] labels = new string[categorias.Count];
+            double[] values = new double[categorias.Count];
+
+            for (int i = 0; i < categorias.Count; i++)
+            {
+                current = categorias[i];
+                labels[i] = current.Name[..3];
+                produtos = ProdutosViewModel.ProdutosPorCategoria(current.Id);
+
+                for (int p = 0; p < produtos.Count; p++)
+                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
+            }
+
+            _ChartEstoqueNivel.Clear();
+            _ChartEstoqueNivel.SetSeries(values);
+            _ChartEstoqueNivel.SetLabels(labels);
+            _ChartEstoqueNivel.Draw();
+        }
+
+
+
+        private void CardNivelCheckChange(object sender, RoutedEventArgs e)
+        {
+            Radio radio = (Radio)sender;
+            string tag = radio.Tag.ToString() ?? string.Empty;
+
+            if (_ChartEstoqueNivel != null)
+            {
+                if (tag != null && tag.Equals("C"))
+                    RefreshChartByCategorias();
+                else
+                    RefreshChartByMarcas();
             }
         }
 

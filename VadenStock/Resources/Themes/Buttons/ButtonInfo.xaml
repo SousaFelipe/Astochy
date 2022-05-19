@@ -5,73 +5,49 @@
            BasedOn="{StaticResource {x:Type Button}}"
            TargetType="{x:Type Button}">
 
+        <Setter Property="MinWidth" Value="28"/>
+        <Setter Property="MinHeight" Value="28"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#AB47BC"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
         <Setter Property="Cursor" Value="Hand"/>
 
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <SolidColorBrush Opacity="1" Color="White"/>
-            </Setter.Value>
-        </Setter>
-
-        <Setter Property="Background" >
-            <Setter.Value>
-                <SolidColorBrush Opacity="1" Color="#AB47BC" />
-            </Setter.Value>
-        </Setter>
-
-        <Setter Property="Template">
+        <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
 
-                    <Border x:Name="border"
+                    <Border x:Name="_BorderButton"
                             CornerRadius="4"
-                            SnapsToDevicePixels="True"
-                            Background="#AB47BC">
+                            Background="{TemplateBinding Background}">
 
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000" Opacity="0.2" BlurRadius="2" ShadowDepth="1"/>
-                        </Border.Effect>
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
 
-                        <Grid>
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              Margin="14 0"
-                                              RecognizesAccessKey="True" />
-
-                        </Grid>
                     </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsEnabled" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="#9C27B0"/>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Trigger.Setters>
+                                <Setter Property="Background" Value="#E1BEE7"/>
+                                <Setter Property="Foreground" Value="#F3E5F5"/>
+                            </Trigger.Setters>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
 
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation To="#A746B8"
-                                            Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                            FillBehavior="HoldEnd"
-                                            Duration="0:0:0.10"
-                                            AutoReverse="False"
-                                            RepeatBehavior="1x"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" 
-                                            FillBehavior="HoldEnd"
-                                            Duration="0:0:0.10"
-                                            AutoReverse="False"
-                                            RepeatBehavior="1x"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.ExitActions>
-            </Trigger>
-        </Style.Triggers>
 
     </Style>
 

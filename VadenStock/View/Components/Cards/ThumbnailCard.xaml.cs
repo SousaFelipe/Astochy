@@ -122,7 +122,6 @@ namespace VadenStock.View.Components.Cards
         public void SetThumb(string fileName)
         {
             _ImageThumb.Source = Src.Icon(fileName);
-            _ImageThumb.UpdateLayout();
         }
     }
 }

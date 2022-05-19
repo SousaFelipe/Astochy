@@ -20,7 +20,8 @@
                             Background="{TemplateBinding Background}">
 
                         <ContentPresenter VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"/>
+                                          HorizontalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
 
                     </Border>
 
@@ -31,7 +32,7 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                                 <Condition Property="IsEnabled" Value="True"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" Value="#0094CC"/>
+                            <Setter Property="Background" Value="#38BEFC"/>
                             <Setter Property="Cursor" Value="Hand"/>
                         </MultiTrigger>
 
