@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
              xmlns:components="clr-namespace:VadenStock.View.Components"
+             xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:Produtos}"
              d:DesignWidth="840"
              d:DesignHeight="600">
 

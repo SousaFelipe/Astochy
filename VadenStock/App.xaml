@@ -44,12 +44,16 @@
                 <view:Dashboard/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModel:AlmoxarifadosViewModel}">
-                <view:Almoxarifados/>
-            </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewModel:ProdutosViewModel}">
                 <view:Produtos/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:ComprasViewModel}">
+                <view:Compras/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:FornecedoresViewModel}">
+                <view:Fornecedores/>
             </DataTemplate>
 
             <SolidColorBrush x:Key="PrimaryColor_750" Color="#37474F"/>

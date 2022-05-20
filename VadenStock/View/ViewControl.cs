@@ -22,8 +22,9 @@ namespace VadenStock.View
 
 
         public RelayCommand DashbordCommand { get; set; }
-        public RelayCommand AlmoxarifadosCommand { get; set; }
         public RelayCommand ProdutosCommand { get; set; }
+        public RelayCommand ComprasCommand { get; set; }
+        public RelayCommand FornecedoresCommand { get; set; }
 
 
 
@@ -31,16 +32,24 @@ namespace VadenStock.View
         {
             CurrentView = new Dashboard();
 
-            DashbordCommand = new RelayCommand(o => {
+            DashbordCommand = new RelayCommand(o =>
+            {
                 CurrentView = new Dashboard();
             });
 
-            AlmoxarifadosCommand = new RelayCommand(o => {
-                CurrentView = new Almoxarifados();
+            ProdutosCommand = new RelayCommand(o =>
+            {
+                CurrentView = new Produtos();
             });
 
-            ProdutosCommand = new RelayCommand(o => {
-                CurrentView = new Produtos();
+            ComprasCommand = new RelayCommand(o =>
+            {
+                CurrentView = new Compras();
+            });
+
+            FornecedoresCommand = new RelayCommand(o =>
+            {
+                CurrentView = new Fornecedores();
             });
         }
     }

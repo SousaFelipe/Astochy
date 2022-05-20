@@ -185,20 +185,21 @@
 
                         <RadioButton VerticalAlignment="Center"
                                      VerticalContentAlignment="Center"
-                                     Content="ALMOXARIFADOS"
-                                     Style="{StaticResource TabControlTheme}"
-                                     Command="{Binding AlmoxarifadosCommand}"/>
-
-                        <RadioButton VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
                                      Content="PRODUTOS"
                                      Style="{StaticResource TabControlTheme}"
                                      Command="{Binding ProdutosCommand}"/>
 
                         <RadioButton VerticalAlignment="Center"
                                      VerticalContentAlignment="Center"
+                                     Content="COMPRAS"
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding ComprasCommand}"/>
+
+                        <RadioButton VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
                                      Content="FORNECEDORES"
-                                     Style="{StaticResource TabControlTheme}"/>
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding FornecedoresCommand}"/>
 
                     </StackPanel>
 
@@ -207,8 +208,9 @@
             </Border>
 
             <ScrollViewer Grid.Row="2"
+                          Grid.RowSpan="2"
                           Grid.ColumnSpan="3"
-                          VerticalScrollBarVisibility="Visible" Grid.RowSpan="2">
+                          VerticalScrollBarVisibility="Visible">
 
                 <Grid Margin="0 0 0 40">
 
