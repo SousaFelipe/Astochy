@@ -10,7 +10,58 @@
              d:DataContext="{d:DesignInstance Type=local:Compras}"
              d:DesignWidth="840"
              d:DesignHeight="600">
-    <Grid>
+
+    <StackPanel Margin="12 48 12 0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+
+        <StackPanel x:Name="_StackOrcamentos"
+                    Visibility="Collapsed">
             
-    </Grid>
+            <TextBlock Text="Orçamentos"
+                       FontSize="24"
+                       Foreground="{StaticResource TextPrimaryColor}"/>
+
+            <Grid x:Name="_GridOrcamentos"
+                  HorizontalAlignment="Stretch"
+                  Margin="0 16">
+
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+            </Grid>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Stretch">
+
+            <forms:Radio Grid.Column="1"
+                         Content="Aprovadas"
+                         Tag="Aprovada"
+                         IsChecked="True"
+                         Foreground="{StaticResource TextSecondaryColor}"/>
+
+            <forms:Radio Grid.Column="1"
+                         Margin="16 0 0 0"
+                         Content="Recusadas"
+                         Tag="Recusada"
+                         Foreground="{StaticResource TextSecondaryColor}"/>
+
+            <forms:Radio Grid.Column="1"
+                         Margin="16 0 0 0"
+                         Content="Canceladas"
+                         Tag="Cancelada"
+                         Foreground="{StaticResource TextSecondaryColor}"/>
+
+        </StackPanel>
+
+    </StackPanel>
+    
 </UserControl>

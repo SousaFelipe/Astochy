@@ -23,5 +23,17 @@ namespace VadenStock.View.Adapters
 
 
         public abstract void Build(Func<UIElement, bool>? callback = null);
+
+
+
+        public void Clear()
+        {
+            if (Container != null)
+            {
+                Container.Children.Clear();
+                Container.RowDefinitions.Clear();
+                Container.RowDefinitions.Add(new RowDefinition());
+            }
+        }
     }
 }

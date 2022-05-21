@@ -136,7 +136,7 @@ namespace VadenStock.View.Adapters
         {
             int itensPorProduto = ItensViewModel.CountItensPorProduto(produto.Id);
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            MidiaThumbCard midia = InstantiateThumbCard(produto, window, itensPorProduto);
+            MidiaThumbCard midia = InstantiateThumbCard(produto, itensPorProduto);
 
             midia.SetMidia(produto.Image);
 
@@ -180,7 +180,7 @@ namespace VadenStock.View.Adapters
 
 
 
-        private MidiaThumbCard InstantiateThumbCard(ProdutoType produto, MainWindow window, int quantItens)
+        private MidiaThumbCard InstantiateThumbCard(ProdutoType produto, int quantItens)
         {
             string subHeader = (Str.ZeroFill(quantItens) + " item".Pluralize(quantItens, "n"));
 
@@ -192,18 +192,6 @@ namespace VadenStock.View.Adapters
                 SubHeader = subHeader,
                 SubHeaderSize = 12
             };
-        }
-
-
-
-        public void Clear()
-        {
-            if (Container != null)
-            {
-                Container.Children.Clear();
-                Container.RowDefinitions.Clear();
-                Container.RowDefinitions.Add(new RowDefinition());
-            }
         }
     }
 }

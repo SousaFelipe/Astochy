@@ -1,0 +1,39 @@
+﻿<Border x:Class="VadenStock.View.Components.Cards.Card"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:VadenStock.View.Components.Cards"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:Card}"
+        d:DesignWidth="200"
+        d:DesignHeight="100"
+        CornerRadius="3"
+        Background="#FFFFFF">
+
+    <Border.Effect>
+        <DropShadowEffect Color="#000"
+                          Opacity="0.2"
+                          BlurRadius="2"
+                          ShadowDepth="0.8"
+                          Direction="-90"/>
+    </Border.Effect>
+
+    <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="12 16 12 12">
+
+        <Grid x:Name="_GridHeader"
+              HorizontalAlignment="Stretch"/>
+
+        <Grid x:Name="_GridSubHeader"
+              HorizontalAlignment="Stretch"/>
+
+        <Grid x:Name="_GridBody"
+              HorizontalAlignment="Stretch"
+              Margin="0 8 0 0"/>
+
+    </StackPanel>
+    
+</Border>

@@ -88,7 +88,7 @@ namespace VadenStock.Model
                 InventarioType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Compra = Compra.New.Get(reader.GetInt32("compra"))[0],
+                    Compra = Compra.Model.Get(reader.GetInt32("compra"))[0],
                     ValorTotal = reader.GetDouble("valor_total"),
                     CreatedDate = reader.IsDBNull(3) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };

@@ -12,7 +12,7 @@ namespace VadenStock.Model
 {
     public class Compra : Connection
     {
-        public static Compra New { get { return new Compra(); } }
+        public static Compra Model { get { return new Compra(); } }
 
 
 
@@ -93,7 +93,8 @@ namespace VadenStock.Model
                     NumSerie = reader.GetString("ns"),
                     ValorTotal = reader.GetDouble("valor_total"),
                     DataEmissao = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime("data_emissao"),
-                    CreatedDate = reader.IsDBNull(5) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
+                    Status = CompraType.GetStatus(reader.GetString("status")),
+                    CreatedDate = reader.IsDBNull(6) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };
 
                 return contract;
