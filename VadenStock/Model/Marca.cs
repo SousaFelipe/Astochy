@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
@@ -12,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Marca : Connection
     {
-        public static Marca New { get { return new Marca(); } }
+        public static Marca Model { get { return new Marca(); } }
 
 
 
@@ -20,28 +19,30 @@ namespace VadenStock.Model
 
 
 
-        public List<MarcaType> Get(int id = 0)
+        public override Marca Where(string column, object operOrValue, object? value = null)
+        {
+            return (Marca)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<MarcaType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<MarcaType> list = new();
 
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -52,33 +53,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-        }
-
-
-
-        public override Marca Count(string column = "*")
-        {
-            return (Marca)base.Count(column);
-        }
-
-
-        public override Marca Select(string[]? selects = null)
-        {
-            return (Marca)base.Select(selects);
-        }
-
-
-
-        public override Marca Where(string column, string oper, object? value = null)
-        {
-            return (Marca)base.Where(column, oper, value);
-        }
-
-
-
-        public override Marca InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            return (Marca)base.InnerJoin(table1, column1, table2, column2);
         }
 
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
@@ -12,7 +11,7 @@ namespace VadenStock.View.Models
     {
         public static List<MarcaType> TodasAsMarcas
         {
-            get { return Marca.New.Select().Get(); }
+            get { return Marca.Model.Select(); }
         }
     }
 }

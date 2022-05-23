@@ -20,21 +20,25 @@ namespace VadenStock.Model
 
 
 
-        public List<CompraType> Get(int id = 0)
+        public override Compra Where(string column, object operOrValue, object? value = null)
+        {
+            return (Compra)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<CompraType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<CompraType> list = new();
 
-                    string? query = (id > 0)
-                        ? Builder.Load(id)
-                        : Builder.SQL();
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -54,34 +58,6 @@ namespace VadenStock.Model
 
 
 
-        public override Compra Count(string column = "*")
-        {
-            return (Compra)base.Count(column);
-        }
-
-
-
-        public override Compra Select(string[]? selects = null)
-        {
-            return (Compra)base.Select(selects);
-        }
-
-
-
-        public override Compra Where(string column, string operOrValue, object? value = null)
-        {
-            return (Compra)base.Where(column, operOrValue, value);
-        }
-
-
-
-        public override Compra InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            return (Compra)base.InnerJoin(table1, column1, table2, column2);
-        }
-
-
-
         private class Content
         {
             public static CompraType Get(MySqlDataReader reader)
@@ -89,7 +65,7 @@ namespace VadenStock.Model
                 CompraType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Fornecedor = Fornecedor.New.Get(reader.GetInt32("fornecedor"))[0],
+                    Fornecedor = Fornecedor.Model.Where("id", reader.GetInt32("fornecedor")).Select()[0],
                     NumSerie = reader.GetString("ns"),
                     ValorTotal = reader.GetDouble("valor_total"),
                     DataEmissao = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime("data_emissao"),

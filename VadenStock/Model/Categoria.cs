@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
 
@@ -12,35 +11,36 @@ namespace VadenStock.Model
 {
     public class Categoria : Connection
     {
-        public static Categoria New { get { return new Categoria(); } }
+        public static Categoria Model { get { return new Categoria(); } }
 
 
         public Categoria() : base("categorias") { }
 
 
 
-        public List<CategoriaType> Get(int id = 0)
+        public override Categoria Where(string column, object operOrValue, object? value = null)
+        {
+            return (Categoria)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<CategoriaType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<CategoriaType> list = new();
-
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -51,27 +51,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-        }
-
-
-
-        public override Categoria Count(string column = "*")
-        {
-            return (Categoria)base.Count(column);
-        }
-
-
-
-        public override Categoria Select(string[]? selects = null)
-        {
-            return (Categoria)base.Select(selects);
-        }
-
-
-
-        public override Categoria Where(string column, string operOrValue, object? value = null)
-        {
-            return (Categoria)base.Where(column, operOrValue, value);
         }
 
 

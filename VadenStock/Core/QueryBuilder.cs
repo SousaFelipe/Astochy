@@ -7,20 +7,25 @@ namespace VadenStock.Core
 {
     public sealed class QueryBuilder
     {
-        public string Table { get; set; }
-        private int WhereCount { get; set; }
-        public string? Query { get; private set; }
+        public string Table { get; private set; }
+        public string Query { get; private set; }
+
+
+
+        private int WC = 0;
 
 
 
         public QueryBuilder(string table)
         {
             Table = table;
+            Query = "[ACTION] ";
+            WC = 0;
         }
 
 
 
-        public QueryBuilder Create(List<string> inserts)
+        public string Create(List<string> inserts)
         {
             Query = $"INSERT INTO { Table } (";
 
@@ -40,40 +45,40 @@ namespace VadenStock.Core
                     : $"@{ inserts[i] })";
             }
 
-            return this;
+            return Query;
         }
 
 
 
-        public QueryBuilder Count(string column = "*")
+        public void Select(string[]? selects = null)
         {
-            Query = $"SELECT COUNT({ column }) FROM { Table } ";
-            return this;
-        }
-
-
-
-        public QueryBuilder Select(string[]? selects = null)
-        {
-            Query = "SELECT ";
+            string action = "SELECT ";
 
             if (selects?.Length > 0)
             {
                 for (int s = 0; s < selects.Length; s++)
                 {
-                    Query += (s < (selects.Length - 1))
+                    action += (s < (selects.Length - 1))
                         ? $"{ selects[s] }, "
                         : $"{ selects[s] } ";
                 }
             }
             else
             {
-                Query += "* ";
+                action += "* ";
             }
 
-            Query += $"FROM { Table } ";
+            action += $"FROM { Table }";
 
-            return this;
+            Query = Query.Replace("[ACTION]", action);
+        }
+
+
+
+        public void Count(string column = "*")
+        {
+            string action = $"SELECT COUNT({ column }) FROM { Table }";
+            Query = Query.Replace("[ACTION]", action);
         }
 
 
@@ -86,18 +91,16 @@ namespace VadenStock.Core
 
 
 
-        public QueryBuilder Where(string column, string oper, object? value = null)
+        public void Where(string column, object operOrValue, object? value = null)
         {
-            object realOpera = value == null ? "=" : oper;
-            object realValue = value ?? oper;
+            object realO = value == null ? "=" : operOrValue;
+            object realV = value ?? operOrValue;
 
-            Query += (WhereCount > 0)
-                ? $" AND { column }{ realOpera }'{ realValue }'"
-                : $"WHERE { column }{ realOpera }'{ realValue }'";
+            Query += (WC > 0)
+                ? $" AND { column }{ realO }'{ realV }'"
+                : $"WHERE { column }{ realO }'{ realV }'";
 
-            WhereCount += 1;
-
-            return this;
+            WC += 1;
         }
 
 
@@ -117,7 +120,7 @@ namespace VadenStock.Core
         public string? SQL(bool clear = true)
         {
             if (clear)
-                WhereCount = 0;
+                WC = 0;
 
             return Query;
         }

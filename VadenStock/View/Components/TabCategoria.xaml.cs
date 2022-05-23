@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
@@ -31,7 +29,7 @@ namespace VadenStock.View.Components
 
         public TabCategoria Inflate(int id)
         {
-            Item = Categoria.New.Get(id)[0];
+            Item = Categoria.Model.Where("id", id).Select()[0];
 
             if (Item != null)
                 _radioControl.Content = Item.Value.Name;

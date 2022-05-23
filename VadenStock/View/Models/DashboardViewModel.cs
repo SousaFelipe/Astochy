@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-using VadenStock.Model;
-using VadenStock.Model.Types;
+﻿using VadenStock.Model;
 using VadenStock.View.Structs;
 
 
@@ -12,9 +9,9 @@ namespace VadenStock.View.Models
     {
         public static PatrimonioStruct GetPatrimonios()
         {
-            int estoque = Item.New.Count().Where("localizacao", "Estoque").Bind();
-            int comodato = Item.New.Count().Where("localizacao", "Comodato").Bind();
-            int rota = Item.New.Count().Where("localizacao", "Em Rota").Bind();
+            int estoque = Item.Model.Where("localizacao", "Estoque").Count();
+            int comodato = Item.Model.Where("localizacao", "Comodato").Count();
+            int rota = Item.Model.Where("localizacao", "Em Rota").Count();
 
             PatrimonioStruct patrimonio = new()
             {

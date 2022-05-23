@@ -11,16 +11,16 @@ namespace VadenStock.View.Models
     {
         public static int CountTiposPorCategoria(int categoria)
         {
-            return Tipo.New.Count()
+            return Tipo.Model
                 .Where("categoria", categoria.ToString())
-                .Bind();
+                .Count();
         }
 
         public static List<TipoType> TiposPorCategoria(int categoria)
         {
-            return Tipo.New.Select()
+            return Tipo.Model
                     .Where("categoria", categoria.ToString())
-                    .Get();
+                    .Select();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Produto : Connection
     {
-        public static Produto New { get { return new Produto(); } }
+        public static Produto Model { get { return new Produto(); } }
 
 
 
@@ -19,28 +19,30 @@ namespace VadenStock.Model
 
 
 
-        public List<ProdutoType> Get(int id = 0)
+        public override Produto Where(string column, object operOrValue, object? value = null)
+        {
+            return (Produto)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<ProdutoType> Select(params string[]? selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<ProdutoType> list = new();
 
-                    string? query = (id > 0)
-                        ? Builder.Load(id)
-                        : Builder.SQL();
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -55,34 +57,6 @@ namespace VadenStock.Model
 
 
 
-        public override Produto Count(string column = "*")
-        {
-            return (Produto)base.Count(column);
-        }
-
-
-
-        public override Produto Select(string[]? selects = null)
-        {
-            return (Produto)base.Select(selects);
-        }
-
-
-
-        public override Produto Where(string column, string operOrValue, object? value = null)
-        {
-            return (Produto)base.Where(column, operOrValue, value);
-        }
-
-
-
-        public override Produto InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            return (Produto)base.InnerJoin(table1, column1, table2, column2);
-        }
-
-
-
         private class Content
         {
             public static ProdutoType Get(MySqlDataReader reader)
@@ -90,9 +64,9 @@ namespace VadenStock.Model
                 ProdutoType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Categoria = Categoria.New.Get(reader.GetInt32("categoria"))[0],
-                    Tipo = Tipo.New.Get(reader.GetInt32("tipo"))[0],
-                    Marca = Marca.New.Get(reader.GetInt32("marca"))[0],
+                    Categoria = Categoria.Model.Where("id", reader.GetInt32("categoria")).Select()[0],
+                    Tipo = Tipo.Model.Where("id", reader.GetInt32("tipo")).Select()[0],
+                    Marca = Marca.Model.Where("id", reader.GetInt32("marca")).Select()[0],
                     Name = reader.GetString("name"),
                     Image = reader.IsDBNull(5) ? string.Empty : reader.GetString("image"),
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),

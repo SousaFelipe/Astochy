@@ -3,8 +3,6 @@
 using VadenStock.Model;
 using VadenStock.Model.Types;
 
-using VadenStock.View.Structs;
-
 
 
 namespace VadenStock.View.Models
@@ -13,52 +11,47 @@ namespace VadenStock.View.Models
     {
         public static List<ItemType> TodosOsItens
         {
-            get { return Item.New.Select().Get(); }
+            get { return Item.Model.Select(); }
         }
 
 
 
         public static List<ItemType> ItensPorProduto(int produto)
         {
-            return Item.New
-                .Select()
+            return Item.Model
                 .Where("produto", produto.ToString())
-                .Get();
+                .Select();
         }
 
         public static int CountItensPorProduto(int produto)
         {
-            return Item.New
-                .Count()
+            return Item.Model
                 .Where("produto", produto.ToString())
-                .Bind();
+                .Count();
         }
 
         public static List<ItemType> ItensPorProdutoByStatus(int produto, string status)
         {
-            return Item.New
-                .Select()
+            return Item.Model
                 .Where("produto", produto.ToString())
                 .Where("localizacao", status)
-                .Get();
+                .Select();
         }
 
 
 
         public static int CountItensPorAlmoxarifado(int almoxarifado)
         {
-            return Item.New
-                .Count()
+            return Item.Model
                 .Where("almoxarifado", almoxarifado.ToString())
-                .Bind();
+                .Count();
         }
 
         public static List<ItemType> ItensPorAlmoxarifado(int almoxarifado)
         {
-            return Item.New
-                .Select()
+            return Item.Model
                 .Where("almoxarifado", almoxarifado.ToString())
-                .Get();
+                .Select();
         }
     }
 }

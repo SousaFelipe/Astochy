@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Fornecedor : Connection
     {
-        public static Fornecedor New { get { return new Fornecedor(); } }
+        public static Fornecedor Model { get { return new Fornecedor(); } }
 
 
 
@@ -19,28 +19,30 @@ namespace VadenStock.Model
 
 
 
-        public List<FornecedorType> Get(int id = 0)
+        public override Fornecedor Where(string column, object operOrValue, object? value = null)
+        {
+            return (Fornecedor)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<FornecedorType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<FornecedorType> list = new();
 
-                    string? query = (id > 0)
-                        ? Builder.Load(id)
-                        : Builder.SQL();
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -51,34 +53,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-        }
-
-
-
-        public override Compra Count(string column = "*")
-        {
-            return (Compra)base.Count(column);
-        }
-
-
-
-        public override Compra Select(string[]? selects = null)
-        {
-            return (Compra)base.Select(selects);
-        }
-
-
-
-        public override Compra Where(string column, string operOrValue, object? value = null)
-        {
-            return (Compra)base.Where(column, operOrValue, value);
-        }
-
-
-
-        public override Compra InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            return (Compra)base.InnerJoin(table1, column1, table2, column2);
         }
 
 

@@ -58,13 +58,11 @@ namespace VadenStock.Core
                 values.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             }
 
-            Builder.Create(fields);
-
             using (Plug = new MySqlConnection(ConnectionString))
             {
                 Plug.Open();
 
-                using (Cmmd = new MySqlCommand(Builder.Query, Plug))
+                using (Cmmd = new MySqlCommand(Builder.Create(fields), Plug))
                 {
                     for (int i = 0; i < values.Count; i++)
                         Cmmd.Parameters.AddWithValue($"@{ fields[i] }", values[i]);
@@ -76,6 +74,45 @@ namespace VadenStock.Core
             }
 
             return output;
+        }
+
+
+
+        public virtual Connection Where(string column, object operOrValue, object? value = null)
+        {
+            Builder.Where(column, operOrValue, value);
+            return this;
+        }
+
+
+
+        public virtual Connection Or(string column, object operOrValue, object? value = null)
+        {
+            Builder.Or(column, operOrValue.ToString(), value);
+            return this;
+        }
+
+
+
+        public int Count(string column = "*")
+        {
+            try
+            {
+                using (Plug = new MySqlConnection(ConnectionString))
+                {
+                    Plug.Open();
+                    Builder.Count(column);
+
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
+                    {
+                        return int.Parse(Cmmd.ExecuteScalar().ToString());
+                    }
+                }
+            }
+            finally
+            {
+                Unplug();
+            }
         }
 
 
@@ -102,70 +139,11 @@ namespace VadenStock.Core
 
 
 
-        public virtual Connection Count(string column = "*")
-        {
-            Builder.Count(column);
-            return this;
-        }
-
-
-
-        public virtual Connection Select(string[]? selects = null)
-        {
-            Builder.Select(selects);
-            return this;
-        }
-
-
-
-        public virtual Connection InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            Builder.InnnerJoin(table1, column1, table2, column2);
-            return this;
-        }
-
-
-
-        public virtual Connection Where(string column, string oper, object? value = null)
-        {
-            Builder.Where(column, oper, value);
-            return this;
-        }
-
-
-
-        public virtual Connection Or(string column, string operOrValue, object? value = null)
-        {
-            Builder.Or(column, operOrValue, value);
-            return this;
-        }
-
-
-
-        public int Bind(bool clear = true)
-        {
-            try
-            {
-                using (Plug = new MySqlConnection(ConnectionString))
-                {
-                    Plug.Open();
-
-                    using (Cmmd = new MySqlCommand(Builder.SQL(clear), Plug))
-                    {
-                        return int.Parse(Cmmd.ExecuteScalar().ToString());
-                    }
-                }
-            }
-            finally
-            {
-                Unplug();
-            }
-        }
-
-
-
         protected void Unplug()
         {
+            if (Builder != null)
+                Builder = new(Builder.Table);
+
             if (Plug != null)
                 Plug.Close();
 

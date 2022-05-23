@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Almoxarifado : Connection
     {
-        public static Almoxarifado New { get { return new Almoxarifado(); } }
+        public static Almoxarifado Model { get { return new Almoxarifado(); } }
 
 
 
@@ -19,28 +19,30 @@ namespace VadenStock.Model
 
 
 
-        public List<AlmoxType> Get(int id = 0)
+        public override Almoxarifado Where(string column, object operOrValue, object? value = null)
+        {
+            return (Almoxarifado)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<AlmoxType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<AlmoxType> list = new();
 
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -51,27 +53,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-        }
-
-
-
-        public override Almoxarifado Count(string column = "*")
-        {
-            return (Almoxarifado)base.Count(column);
-        }
-
-
-
-        public override Almoxarifado Select(string[]? selects = null)
-        {
-            return (Almoxarifado)base.Select(selects);
-        }
-
-
-
-        public override Almoxarifado Where(string column, string operOrValue, object? value = null)
-        {
-            return (Almoxarifado)base.Where(column, operOrValue, value);
         }
 
 

@@ -11,7 +11,7 @@ namespace VadenStock.View.Models
     {
         public static List<AlmoxType> TodosOsAlmoxarifados
         {
-            get { return Almoxarifado.New.Select().Get(); }
+            get { return Almoxarifado.Model.Select(); }
         }
     }
 }

@@ -13,31 +13,32 @@ namespace VadenStock.View.Models
     {
         public static List<ProdutoType> TodosOsProdutos
         {
-            get { return Produto.New.Select().Get(); }
+            get { return Produto.Model.Select(); }
         }
 
 
 
         public static int CountTodosOsProdutos
         {
-            get { return Produto.New.Count().Bind(); }
+            get { return Produto.Model.Count(); }
         }
 
 
 
         public static int Create(ProdutoStruct produto)
         {
-            List<string[]> inserts = new();
+            List<string[]> inserts = new()
+            {
+                new string[] { "name", produto.Name },
+                new string[] { "categoria", produto.Categoria.ToString() },
+                new string[] { "tipo", produto.Tipo.ToString() },
+                new string[] { "marca", produto.Marca.ToString() },
+                new string[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" },
+                new string[] { "price", produto.Price.ToString().Replace(".", "").Replace(",", ".") },
+                new string[] { "description", produto.Description }
+            };
 
-            inserts.Add(new string[] { "name", produto.Name });
-            inserts.Add(new string[] { "categoria", produto.Categoria.ToString() });
-            inserts.Add(new string[] { "tipo", produto.Tipo.ToString() });
-            inserts.Add(new string[] { "marca", produto.Marca.ToString() });
-            inserts.Add(new string[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" });
-            inserts.Add(new string[] { "price", produto.Price.ToString().Replace(".", "").Replace(",", ".") });
-            inserts.Add(new string[] { "description", produto.Description });
-
-            int output = Produto.New.Create(inserts);
+            int output = Produto.Model.Create(inserts);
 
             return output;
         }
@@ -46,44 +47,41 @@ namespace VadenStock.View.Models
 
         public static bool Remove(int produto)
         {
-            return Produto.New.Delete(produto);
+            return Produto.Model.Delete(produto);
         }
 
 
 
         public static List<ProdutoType> ProdutosPorMarca(int marca)
         {
-            return Produto.New
-                .Select()
+            return Produto.Model
                 .Where("marca", marca.ToString())
-                .Get();
+                .Select();
         }
 
 
 
         public static List<ProdutoType> ProdutosPorCategoria(int categoria)
         {
-            return Produto.New
-                .Select()
+            return Produto.Model
                 .Where("categoria", categoria.ToString())
-                .Get();
+                .Select();
         }
 
 
 
         public static List<ProdutoType> ProdutosPorTipo(int tipo)
         {
-            return Produto.New
-                .Select()
+            return Produto.Model
                 .Where("tipo", tipo.ToString())
-                .Get();
+                .Select();
         }
 
 
 
         public static List<ProdutoType> FilterData(ProdutoStruct produto)
         {
-            Produto model = Produto.New.Select();
+            Produto model = Produto.Model;
 
             if (produto.Categoria > 0)
                 model.Where("categoria", produto.Categoria.ToString());
@@ -94,7 +92,7 @@ namespace VadenStock.View.Models
             if (produto.Marca > 0)
                 model.Where("marca", produto.Marca.ToString());
 
-            return model.Get();
+            return model.Select();
         }
 
 

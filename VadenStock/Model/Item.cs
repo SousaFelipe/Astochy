@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Item : Connection
     {
-        public static Item New {  get { return new Item(); } }
+        public static Item Model {  get { return new Item(); } }
 
 
 
@@ -19,21 +19,25 @@ namespace VadenStock.Model
 
 
 
-        public List<ItemType> Get(int id = 0)
+        public override Item Where(string column, object operOrValue, object? value = null)
+        {
+            return (Item)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<ItemType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<ItemType> list = new();
 
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -53,27 +57,6 @@ namespace VadenStock.Model
 
 
 
-        public override Item Count(string column = "*")
-        {
-            return (Item)base.Count(column);
-        }
-
-
-
-        public override Item Select(string[]? selects = null)
-        {
-            return (Item)base.Select(selects);
-        }
-
-
-
-        public override Item Where(string column, string operOrValue, object? value = null)
-        {
-            return (Item)base.Where(column, operOrValue, value);
-        }
-
-
-
         private class Content
         {
             public static ItemType Get(MySqlDataReader reader)
@@ -83,9 +66,9 @@ namespace VadenStock.Model
                     Id = reader.GetInt32("id"),
                     Codigo = reader.GetString("codigo"),
                     Mac = reader.IsDBNull(2) ? string.Empty : reader.GetString("mac"),
-                    Produto = Produto.New.Get(reader.GetInt32("produto"))[0],
-                    Almoxarifado = Almoxarifado.New.Get(reader.GetInt32("almoxarifado"))[0],
-                    Inventario = Inventario.New.Get(reader.GetInt32("inventario"))[0],
+                    Produto = Produto.Model.Where("id", reader.GetInt32("produto")).Select()[0],
+                    Almoxarifado = Almoxarifado.Model.Where("id", reader.GetInt32("almoxarifado")).Select()[0],
+                    Inventario = Inventario.Model.Where("id", reader.GetInt32("inventario")).Select()[0],
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Localizado = ItemType.GetStatus(reader.GetString("localizacao")),
                     CreatedDate = reader.GetDateTime("created_at")

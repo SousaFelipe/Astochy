@@ -12,9 +12,9 @@ namespace VadenStock.View.Models
     {
         public static List<CompraType> ComprasPorStatus(CompraType.CompraStatus status)
         {
-            return Compra.Model.Select()
+            return Compra.Model
                 .Where("status", CompraType.GetStatusName(status))
-                .Get();
+                .Select();
         }
     }
 }

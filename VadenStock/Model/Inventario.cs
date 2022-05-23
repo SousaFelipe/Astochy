@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Inventario : Connection
     {
-        public static Inventario New { get { return new Inventario(); } }
+        public static Inventario Model { get { return new Inventario(); } }
 
 
 
@@ -19,21 +19,25 @@ namespace VadenStock.Model
 
 
 
-        public List<InventarioType> Get(int id = 0)
+        public override Inventario Where(string column, object operOrValue, object? value = null)
+        {
+            return (Inventario)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<InventarioType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<InventarioType> list = new();
 
-                    string? query = (id > 0)
-                        ? Builder.Load(id)
-                        : Builder.SQL();
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -53,34 +57,6 @@ namespace VadenStock.Model
 
 
 
-        public override Inventario Count(string column = "*")
-        {
-            return (Inventario)base.Count(column);
-        }
-
-
-
-        public override Inventario Select(string[]? selects = null)
-        {
-            return (Inventario)base.Select(selects);
-        }
-
-
-
-        public override Inventario Where(string column, string operOrValue, object? value = null)
-        {
-            return (Inventario)base.Where(column, operOrValue, value);
-        }
-
-
-
-        public override Inventario InnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            return (Inventario)base.InnerJoin(table1, column1, table2, column2);
-        }
-
-
-
         private class Content
         {
             public static InventarioType Get(MySqlDataReader reader)
@@ -88,7 +64,7 @@ namespace VadenStock.Model
                 InventarioType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Compra = Compra.Model.Get(reader.GetInt32("compra"))[0],
+                    Compra = Compra.Model.Where("id", reader.GetInt32("compra")).Select()[0],
                     ValorTotal = reader.GetDouble("valor_total"),
                     CreatedDate = reader.IsDBNull(3) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };

@@ -11,7 +11,7 @@ namespace VadenStock.Model
 {
     public class Config : Connection
     {
-        public static Config New { get { return new Config(); } }
+        public static Config Model { get { return new Config(); } }
 
 
 
@@ -19,21 +19,25 @@ namespace VadenStock.Model
 
 
 
-        public List<ConfigType> Get(int id = 0)
+        public override Config Where(string column, object operOrValue, object? value = null)
+        {
+            return (Config)base.Where(column, operOrValue, value);
+        }
+
+
+
+        public List<ConfigType> Select(params string[] selects)
         {
             try
             {
                 using (Plug = new MySqlConnection(ConnectionString))
                 {
                     Plug.Open();
+                    Builder.Select(selects);
 
                     List<ConfigType> list = new();
 
-                    string? query = id > 0
-                        ? Builder.Load(id)
-                        : Builder.Query;
-
-                    using (Cmmd = new MySqlCommand(query, Plug))
+                    using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
@@ -51,27 +55,6 @@ namespace VadenStock.Model
             {
                 Unplug();
             }
-        }
-
-
-
-        public override Config Count(string column = "*")
-        {
-            return (Config)base.Count(column);
-        }
-
-
-
-        public override Config Select(string[]? selects = null)
-        {
-            return (Config)base.Select(selects);
-        }
-
-
-
-        public override Config Where(string column, string operOrValue, object? value = null)
-        {
-            return (Config)base.Where(column, operOrValue, value);
         }
 
 
