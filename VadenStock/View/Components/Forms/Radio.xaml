@@ -43,7 +43,7 @@
                             <TextBlock Grid.Column="1"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
-                                       Margin="4 0 0 1"
+                                       Margin="4 0 0 0"
                                        Foreground="{TemplateBinding Foreground}"
                                        Text="{TemplateBinding Content}"/>
 
