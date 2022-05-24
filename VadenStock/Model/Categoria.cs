@@ -14,6 +14,7 @@ namespace VadenStock.Model
         public static Categoria Model { get { return new Categoria(); } }
 
 
+
         public Categoria() : base("categorias") { }
 
 

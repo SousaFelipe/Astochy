@@ -28,22 +28,72 @@ namespace VadenStock.View
             Loaded += delegate
             {
                 LoadCategorias();
+                LoadMarcas();
                 LoadProdutos();
             };
         }
 
 
 
-        private void LoadCategorias()
+        private bool LoadCategorias()
         {
-            foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
+            if (_ComboCategorias != null)
             {
-                _ComboCategorias.Items.Add(new ComboBoxItem()
+                if (_ComboCategorias.Items.Count > 1)
+                    _ComboCategorias.Clear(true);
+
+                foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
                 {
-                    Tag = c.Id.ToString(),
-                    Content = c.Name
+                    _ComboCategorias.Items.Add(new ComboBoxItem()
+                    {
+                        Tag = c.Id.ToString(),
+                        Content = c.Name
+                    });
+                }
+            }
+
+            return true;
+        }
+
+
+
+        private bool LoadTipos()
+        {
+            if (_ComboTipos != null)
+            {
+                if (_ComboTipos.Items.Count > 1)
+                    _ComboTipos.Clear(true);
+
+                foreach (TipoType t in TiposViewModel.TiposPorCategoria(Filter.Categoria))
+                {
+                    _ComboTipos.Items.Add(new ComboBoxItem()
+                    {
+                        Tag = t.Id.ToString(),
+                        Content = t.Name
+                    });
+                }
+            }
+
+            return true;
+        }
+
+
+
+        private bool LoadMarcas()
+        {
+            if (_ComboMarcas.Items.Count > 1)
+                _ComboMarcas.Clear(true);
+
+            foreach (MarcaType m in MarcasViewModel.TodasAsMarcas)
+            {
+                _ComboMarcas.Items.Add(new ComboBoxItem()
+                {
+                    Tag = m.Id.ToString(),
+                    Content = m.Name
                 });
             }
+
+            return true;
         }
 
 
@@ -77,12 +127,15 @@ namespace VadenStock.View
                         break;
 
                     case "M":
+                        window.DisplayDialog(new MarcaDialog(), LoadMarcas);
                         break;
 
                     case "C":
+                        window.DisplayDialog(new CategoriaDialog(), LoadCategorias);
                         break;
 
                     case "T":
+                        window.DisplayDialog(new TipoDialog(), LoadTipos);
                         break;
                 }
 
@@ -97,9 +150,12 @@ namespace VadenStock.View
             SelectBox box = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)box.SelectedItem;
 
-            Filter.Categoria = Convert.ToInt32(item.Tag);
-
-            LoadProdutos();
+            if (item != null)
+            {
+                Filter.Categoria = Convert.ToInt32(item.Tag);
+                LoadTipos();
+                LoadProdutos();
+            }
         }
 
 
@@ -109,9 +165,11 @@ namespace VadenStock.View
             SelectBox box = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)box.SelectedItem;
 
-            Filter.Tipo = Convert.ToInt32(item.Tag);
-
-            LoadProdutos();
+            if (item != null)
+            {
+                Filter.Tipo = Convert.ToInt32(item.Tag);
+                LoadProdutos();
+            }
         }
 
 
@@ -121,9 +179,11 @@ namespace VadenStock.View
             SelectBox box = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)box.SelectedItem;
 
-            Filter.Marca = Convert.ToInt32(item.Tag);
-
-            LoadProdutos();
+            if (item != null)
+            {
+                Filter.Marca = Convert.ToInt32(item.Tag);
+                LoadProdutos();
+            }
         }
     }
 }

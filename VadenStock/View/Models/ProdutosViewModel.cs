@@ -38,9 +38,7 @@ namespace VadenStock.View.Models
                 new string[] { "description", produto.Description }
             };
 
-            int output = Produto.Model.Create(inserts);
-
-            return output;
+            return Produto.Model.Create(inserts);
         }
 
 

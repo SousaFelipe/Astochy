@@ -1,0 +1,89 @@
+﻿<Border x:Class="VadenStock.View.Dialogs.TipoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:MarcaDialog}"
+        Width="280"
+        Height="auto"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        CornerRadius="8"
+        Background="#FFFFFF">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Height="38"
+                Margin="8"
+                Padding="8"
+                Style="{StaticResource ButtonLight}"
+                Click="CloseDialog">
+
+            <Image Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-close.png"/>
+
+        </Button>
+
+        <forms:SelectBox Grid.Row="1"
+                         x:Name="_ComboCategorias"
+                         Height="38"
+                         Margin="20 0 20 0"
+                         FontSize="14"
+                         Background="Transparent"
+                         Foreground="{StaticResource TextTertiary}"
+                         SelectionChanged="ComboCategorias_Changed">
+
+            <ComboBoxItem Tag="0"
+                          IsSelected="True"
+                          Content="Categoria"/>
+
+        </forms:SelectBox>
+
+        <forms:InputText Grid.Row="2"
+                         x:Name="_InputName"
+                         HorizontalAlignment="Stretch"
+                         Margin="20 10 20 0"
+                         Tag="Tipo"
+                         FontSize="14"
+                         Foreground="{StaticResource TextPrimaryColor}"
+                         TextChanged="InputName_Changed"/>
+
+        <forms:InputText Grid.Row="3"
+                         x:Name="_InputDescription"
+                         HorizontalAlignment="Stretch"
+                         Margin="20 10 20 0"
+                         Tag="Descrição (opcional)"
+                         FontSize="14"
+                         Foreground="{StaticResource TextPrimaryColor}"
+                         TextChanged="InputDescription_Changed"/>
+
+        <Button Grid.Row="4"
+                x:Name="_ButtonSave"
+                HorizontalAlignment="Stretch"
+                Padding="0 7 0 8"
+                Margin="20"
+                Style="{StaticResource ButtonSecondary}"
+                FontSize="16"
+                Content="Salvar"
+                Click="ButtonSave_Click"/>
+
+    </Grid>
+
+</Border>

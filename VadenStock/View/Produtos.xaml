@@ -27,9 +27,24 @@
             </Grid.ColumnDefinitions>
 
             <forms:SelectBox Grid.Column="0"
-                             x:Name="_ComboCategorias"
-                             Width="110"
+                             x:Name="_ComboMarcas"
+                             Width="130"
                              Height="28"
+                             Background="{StaticResource PrimaryColor_050}"
+                             Style="{StaticResource ComboBoxTheme}"
+                             SelectionChanged="SelectMarcas_Changed">
+
+                <ComboBoxItem Tag="0"
+                              IsSelected="True"
+                              Content="Marca"/>
+
+            </forms:SelectBox>
+
+            <forms:SelectBox Grid.Column="1"
+                             x:Name="_ComboCategorias"
+                             Width="130"
+                             Height="28"
+                             Margin="8 0 0 0"
                              Background="{StaticResource PrimaryColor_050}"
                              Style="{StaticResource ComboBoxTheme}"
                              SelectionChanged="SelectCategorias_Changed">
@@ -40,11 +55,11 @@
 
             </forms:SelectBox>
 
-            <forms:SelectBox Grid.Column="1"
+            <forms:SelectBox Grid.Column="2"
                              x:Name="_ComboTipos"
-                             Width="150"
+                             Width="130"
                              Height="28"
-                             Margin="12 0 0 0"
+                             Margin="8 0 0 0"
                              Background="{StaticResource PrimaryColor_050}"
                              Style="{StaticResource ComboBoxTheme}"
                              SelectionChanged="SelectTipos_Changed">
@@ -52,21 +67,6 @@
                 <ComboBoxItem Tag="0"
                               IsSelected="True"
                               Content="Tipo"/>
-
-            </forms:SelectBox>
-
-            <forms:SelectBox Grid.Column="2"
-                             x:Name="_ComboMarcas"
-                             Width="130"
-                             Height="28"
-                             Margin="12 0 0 0"
-                             Background="{StaticResource PrimaryColor_050}"
-                             Style="{StaticResource ComboBoxTheme}"
-                             SelectionChanged="SelectMarcas_Changed">
-
-                <ComboBoxItem Tag="0"
-                              IsSelected="True"
-                              Content="Marca"/>
 
             </forms:SelectBox>
 
@@ -78,18 +78,23 @@
                             Label="Cadastrar"
                             Style="{StaticResource DropdownSecondary}"
                             SelectionChanged="ComboCadastroSelectedOption">
+                
                 <ComboBoxItem Tag="P"
                               Content="Produto" 
                               Foreground="#37474F"/>
+                
                 <ComboBoxItem Tag="M"
                               Content="Marca" 
                               Foreground="#37474F"/>
+                
                 <ComboBoxItem Tag="C"
-                              Content="Categorias" 
+                              Content="Categoria" 
                               Foreground="#37474F"/>
+                
                 <ComboBoxItem Tag="T"
                               Content="Tipo" 
                               Foreground="#37474F"/>
+                
             </components:Dropdown>
 
         </Grid>

@@ -30,6 +30,8 @@ namespace VadenStock.View.Models
                 .Count();
         }
 
+
+
         public static List<ItemType> ItensPorProdutoByStatus(int produto, string status)
         {
             return Item.Model
@@ -52,6 +54,18 @@ namespace VadenStock.View.Models
             return Item.Model
                 .Where("almoxarifado", almoxarifado.ToString())
                 .Select();
+        }
+
+
+
+        public static int CountItensPorCategoria(int categoria)
+        {
+            int count = 0;
+
+            foreach(ProdutoType p in ProdutosViewModel.ProdutosPorCategoria(categoria))
+                count += Item.Model.Where("produto", p.Id.ToString()).Count();
+
+            return count;
         }
     }
 }

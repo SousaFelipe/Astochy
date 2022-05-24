@@ -18,5 +18,18 @@ namespace VadenStock.View.Models
         {
             get { return Categoria.Model.Count(); }
         }
+
+
+
+        public static int Create(CategoriaType categoria)
+        {
+            List<string[]> inserts = new()
+            {
+                new string[] { "name", categoria.Name },
+                new string[] { "description", categoria.Description }
+            };
+
+            return Categoria.Model.Create(inserts);
+        }
     }
 }
