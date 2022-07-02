@@ -26,6 +26,13 @@ namespace VadenStock.Model
 
 
 
+        public override Item Or(string column, object operOrValue, object? value = null)
+        {
+            return (Item)base.Or(column, operOrValue, value);
+        }
+
+
+
         public List<ItemType> Select(params string[] selects)
         {
             try

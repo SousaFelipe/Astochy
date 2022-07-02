@@ -92,8 +92,18 @@
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Center"
                                        FontSize="{TemplateBinding FontSize}"
-                                       Foreground="{TemplateBinding Foreground}"
-                                       Text="{TemplateBinding Text}"/>
+                                       Text="{TemplateBinding Text}">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="Foreground" Value="#78909C"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Foreground" Value="#263238"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
 
                             <Popup Placement="Bottom"
                                    Focusable="False"

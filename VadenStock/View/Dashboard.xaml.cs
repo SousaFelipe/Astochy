@@ -6,9 +6,10 @@ using VadenStock.View.Models;
 using VadenStock.View.Structs;
 using VadenStock.View.Components.Cards;
 
-using VadenStock.Model;
-using VadenStock.Model.Types;
+using VadenStock.View.Dialogs;
 using VadenStock.View.Components.Forms;
+
+using VadenStock.Model.Types;
 
 using VadenStock.Tools;
 
@@ -145,6 +146,15 @@ namespace VadenStock.View
                 else
                     RefreshChartByMarcas();
             }
+        }
+
+
+
+        private void ButtonTransf_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+            window.DisplayDialog(new TransferenciaDialog());
         }
 
 

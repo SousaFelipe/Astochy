@@ -26,6 +26,13 @@ namespace VadenStock.Model
 
 
 
+        public override Almoxarifado Or(string column, object operOrValue, object? value = null)
+        {
+            return (Almoxarifado)base.Or(column, operOrValue, value);
+        }
+
+
+
         public List<AlmoxType> Select(params string[] selects)
         {
             try

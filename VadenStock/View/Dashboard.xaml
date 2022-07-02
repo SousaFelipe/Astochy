@@ -9,7 +9,7 @@
              xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:Dashboard}"
-             d:DesignWidth="840"
+             d:DesignWidth="920"
              d:DesignHeight="600">
 
     <StackPanel Margin="12 48 12 0"
@@ -140,10 +140,34 @@
         <StackPanel VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch">
 
-            <TextBlock Margin="8 32 8 16"
-                       Text="Almoxarifados"
-                       FontSize="24"
-                       Foreground="{StaticResource TextPrimaryColor}"/>
+            <Grid Margin="8 32 8 16">
+                
+                <TextBlock HorizontalAlignment="Left"
+                           Text="Almoxarifados"
+                           FontSize="24"
+                           Foreground="{StaticResource TextPrimaryColor}"/>
+
+                <Button x:Name="_ButtonTransf"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ButtonGray}"
+                        Foreground="{StaticResource TextPrimaryColor}" Click="ButtonTransf_Click">
+
+                    <StackPanel Orientation="Horizontal">
+                        
+                        <Image Width="18"
+                               Height="18"
+                               Margin="8 0 0 0"
+                               Opacity="0.7"
+                               Source="/VadenStock;component/Resources/Icons/black-swap.png"/>
+                        
+                        <TextBlock Margin="2 0 12 0"
+                                   Text="Transferência"/>
+                        
+                    </StackPanel>
+
+                </Button>
+
+            </Grid>
 
             <Grid x:Name="_GridAlmoxarifados"
                   VerticalAlignment="Stretch"

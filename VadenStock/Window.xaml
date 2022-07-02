@@ -49,11 +49,13 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="840"/>
+                <ColumnDefinition Width="920"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <partials:TitleBar Grid.Row="0" Grid.ColumnSpan="3"/>
+            <partials:TitleBar
+                Grid.Row="0"
+                Grid.ColumnSpan="3"/>
 
             <Border Grid.Row="1"
                     Grid.ColumnSpan="3"
@@ -61,12 +63,16 @@
                     Background="{StaticResource PrimaryColor_500}">
 
                 <Border.Effect>
-                    <DropShadowEffect Color="#000" Opacity="0.15" Direction="-90" BlurRadius="3" ShadowDepth="3"/>
+                    <DropShadowEffect Color="#000"
+                                      Opacity="0.15"
+                                      Direction="-90"
+                                      BlurRadius="3"
+                                      ShadowDepth="3"/>
                 </Border.Effect>
 
                 <Grid VerticalAlignment="Center"
                       HorizontalAlignment="Stretch"
-                      MaxWidth="800">
+                      MaxWidth="880">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -78,12 +84,15 @@
                             BorderThickness="1"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Stretch"
-                            MaxWidth="800"
+                            MaxWidth="880"
                             Height="48"
                             Background="#FFFFFF">
 
                         <Border.Effect>
-                            <DropShadowEffect Color="#000" Opacity="0.15" BlurRadius="4" ShadowDepth="1"/>
+                            <DropShadowEffect Color="#000"
+                                              Opacity="0.15"
+                                              BlurRadius="4"
+                                              ShadowDepth="1"/>
                         </Border.Effect>
 
                         <Border.Style>
@@ -216,7 +225,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="840"/>
+                        <ColumnDefinition Width="920"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 

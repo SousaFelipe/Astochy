@@ -16,6 +16,20 @@ namespace VadenStock.View.Models
 
 
 
+        public static ItemType? Find(object search)
+        {
+            List<ItemType> loaded = Item.Model
+                .Where("codigo", search)
+                .Or("mac", search)
+                .Select();
+
+            return loaded.Count > 0
+                ? loaded[0]
+                : null;
+        }
+
+
+
         public static List<ItemType> ItensPorProduto(int produto)
         {
             return Item.Model

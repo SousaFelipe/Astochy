@@ -17,6 +17,7 @@
         <None Remove="Resources\Icons\black-close.png" />
         <None Remove="Resources\Icons\black-delete.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
+        <None Remove="Resources\Icons\black-package.png" />
         <None Remove="Resources\Icons\black-save.png" />
         <None Remove="Resources\Icons\black-swap.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
@@ -27,6 +28,7 @@
         <None Remove="Resources\Icons\blue-delete.png" />
         <None Remove="Resources\Icons\blue-image-plus.png" />
         <None Remove="Resources\Icons\blue-information.png" />
+        <None Remove="Resources\Icons\blue-package.png" />
         <None Remove="Resources\Icons\blue-save.png" />
         <None Remove="Resources\Icons\blue-swap.png" />
         <None Remove="Resources\Icons\blue-warehouse.png" />
@@ -57,19 +59,27 @@
         <None Remove="Resources\Icons\white-information.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
         <None Remove="Resources\Icons\white-minimize.png" />
+        <None Remove="Resources\Icons\white-package.png" />
         <None Remove="Resources\Icons\white-plus.png" />
         <None Remove="Resources\Icons\white-restore.png" />
         <None Remove="Resources\Icons\white-save.png" />
         <None Remove="Resources\Icons\white-swap.png" />
         <None Remove="Resources\Images\64-remove.png" />
+        <None Remove="Resources\Images\96-transfer.png" />
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\Icons\black-package.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-save.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-swap.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-package.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-save.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -199,6 +209,10 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Icons\white-package.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Icons\white-plus.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
@@ -217,6 +231,10 @@
 
 		<Resource Include="Resources\Images\64-remove.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Images\96-transfer.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
     </ItemGroup>
 

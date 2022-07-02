@@ -13,5 +13,18 @@ namespace VadenStock.View.Models
         {
             get { return Almoxarifado.Model.Select(); }
         }
+
+
+
+        public static AlmoxType? Find(int id)
+        {
+            List<AlmoxType> search = Almoxarifado.Model
+                .Where("id", id.ToString())
+                .Select();
+
+            return search.Count > 0
+                ? search[0]
+                : null;
+        }
     }
 }

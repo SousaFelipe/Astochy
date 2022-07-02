@@ -75,7 +75,7 @@
 
             <SolidColorBrush x:Key="TextPrimaryColor" Color="#263238"/>
             <SolidColorBrush x:Key="TextSecondaryColor" Color="#607D8B"/>
-            <SolidColorBrush x:Key="TextTertiary" Color="#78909C"/>
+            <SolidColorBrush x:Key="TextTertiaryColor" Color="#78909C"/>
             <SolidColorBrush x:Key="TextMuted" Color="#CFD8DC"/>
 
         </ResourceDictionary>

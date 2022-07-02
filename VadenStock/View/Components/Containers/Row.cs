@@ -9,6 +9,16 @@ namespace VadenStock.View.Components.Containers
 {
     public class Row
     {
+        public enum ActionLevel
+        {
+            None,
+            Info,
+            Warning,
+            Danger
+        }
+
+
+
         public uint Count { get; set; }
         public List<Border> Borders { get; private set; }
 
@@ -84,6 +94,47 @@ namespace VadenStock.View.Components.Containers
                 FontWeight = crrOptions.FontWeight,
                 Text = data.ToString()
             };
+        }
+
+
+
+        public Row Action(object data, ActionLevel level = ActionLevel.None, Options.RowOptions? options = null)
+        {
+            Options.RowOptions crrOptions = options ?? DefaultOptions;
+            Color bgFromAction = Colors.Transparent;
+            Color foregroundFromAction = (Color)ColorConverter.ConvertFromString("#263238");
+
+            bgFromAction = (Color)(
+                (level == ActionLevel.Info)
+                        ? ColorConverter.ConvertFromString("#40C4FF")
+                        : level == ActionLevel.Warning
+                            ? ColorConverter.ConvertFromString("#FFD740")
+                            : ColorConverter.ConvertFromString("#FF7043")
+               );
+
+            foregroundFromAction = (Color)(
+                (level == ActionLevel.Warning || level == ActionLevel.None)
+                    ? ColorConverter.ConvertFromString("#263238")
+                    : Colors.White
+                );
+
+            TextBlock content = Content(data, crrOptions);
+
+            Border container = Container(new Button()
+            {
+                Width = 24,
+                Height = 24,
+                BorderThickness = new Thickness(0),
+                Background = new SolidColorBrush(bgFromAction),
+                Foreground = new SolidColorBrush(foregroundFromAction),
+                Content = content
+            }, crrOptions);
+
+            Borders.Add(container);
+
+            Count++;
+
+            return this;
         }
 
 

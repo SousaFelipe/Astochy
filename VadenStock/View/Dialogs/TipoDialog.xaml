@@ -47,7 +47,7 @@
                          Margin="20 0 20 0"
                          FontSize="14"
                          Background="Transparent"
-                         Foreground="{StaticResource TextTertiary}"
+                         Foreground="{StaticResource TextTertiaryColor}"
                          SelectionChanged="ComboCategorias_Changed">
 
             <ComboBoxItem Tag="0"

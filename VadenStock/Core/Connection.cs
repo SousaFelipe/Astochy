@@ -88,7 +88,7 @@ namespace VadenStock.Core
 
         public virtual Connection Or(string column, object operOrValue, object? value = null)
         {
-            Builder.Or(column, operOrValue.ToString(), value);
+            Builder.Or(column, operOrValue, value);
             return this;
         }
 

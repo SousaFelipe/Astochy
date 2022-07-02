@@ -25,11 +25,11 @@ namespace VadenStock.View.Components.Forms
 
 
 
-        public int Clear(bool safe = false)
+        public int Clear(bool preserveFirst = false)
         {
             if (Items != null && Items.Count > 0)
             {
-                if (safe)
+                if (preserveFirst)
                 {
                     ComboBoxItem first = (ComboBoxItem)Items[0];
 
