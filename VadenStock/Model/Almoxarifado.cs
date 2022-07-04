@@ -72,8 +72,9 @@ namespace VadenStock.Model
                 {
                     Id = reader.GetInt32("id"),
                     Tipo = AlmoxType.GetTipo(reader.GetString("tipo")),
+                    Acao = ItemType.GetStatus(reader.GetString("acao")),
                     Name = reader.GetString("name"),
-                    Description = reader.IsDBNull(3) ? string.Empty : reader.GetString("description"),
+                    Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

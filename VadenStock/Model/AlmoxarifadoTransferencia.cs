@@ -64,10 +64,10 @@ namespace VadenStock.Model
                 AlmoxTransfType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Item = Item.Model.Where("id", reader.GetInt32("item")).Select()[0],
+                    Itens = reader.GetString("itens"),
                     From = Almoxarifado.Model.Where("id", reader.GetInt32("from_almoxarifado")).Select()[0],
-                    To = reader.IsDBNull(3) ? null : Almoxarifado.Model.Where("id", reader.GetInt32("to_almoxarifado")).Select()[0],
-                    Action = ItemType.GetStatus(reader.GetString("action")),
+                    To = Almoxarifado.Model.Where("id", reader.GetInt32("to_almoxarifado")).Select()[0],
+                    Acao = ItemType.GetStatus(reader.GetString("acao")),
                     Description = reader.IsDBNull(5) ? string.Empty : reader.GetString("description"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };

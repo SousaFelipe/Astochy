@@ -11,7 +11,7 @@ namespace VadenStock.View.Models
         {
             int estoque = Item.Model.Where("localizacao", "Estoque").Count();
             int comodato = Item.Model.Where("localizacao", "Comodato").Count();
-            int rota = Item.Model.Where("localizacao", "Em Rota").Count();
+            int rota = Item.Model.Where("localizacao", "Rota").Count();
 
             PatrimonioStruct patrimonio = new()
             {

@@ -153,7 +153,6 @@ namespace VadenStock.View
         private void ButtonTransf_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-
             window.DisplayDialog(new TransferenciaDialog());
         }
 

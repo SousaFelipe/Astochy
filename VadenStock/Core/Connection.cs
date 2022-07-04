@@ -117,6 +117,31 @@ namespace VadenStock.Core
 
 
 
+        public virtual int Update(string[] columns, object[] values)
+        {
+            int output = -1;
+
+            using (Plug = new MySqlConnection(ConnectionString))
+            {
+                Plug.Open();
+                Builder.Update(columns);
+
+                using (Cmmd = new MySqlCommand(Builder.Query, Plug))
+                {
+                    for (int i = 0; i < values.Length; i++)
+                        Cmmd.Parameters.AddWithValue($"@{columns[i]}", values[i]);
+
+                    output = Cmmd.ExecuteNonQuery();
+                }
+
+                Unplug();
+            }
+
+            return output;
+        }
+
+
+
         public virtual bool Delete(int id)
         {
             bool output = false;

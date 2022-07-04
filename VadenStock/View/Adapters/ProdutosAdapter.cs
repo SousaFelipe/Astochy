@@ -139,17 +139,14 @@ namespace VadenStock.View.Adapters
             MidiaThumbCard midia = InstantiateThumbCard(produto, itensPorProduto);
 
             midia.SetMidia(produto.Image);
-
             midia.AddAction("Delete", () =>
             {
-                window.DisplayDialog(new ConfirmDialog()
-                        { Confirm = delegate
-                            {
-                                return ProdutosViewModel.Remove(produto.Id);
-                            }
-                        },
-                        (View != null) ? View.LoadProdutos : null
-                    );
+                ConfirmDialog confirm = new ()
+                {
+                    Confirm = delegate { return ProdutosViewModel.Remove(produto.Id); }
+                };
+
+                window.DisplayDialog(confirm, null != View ? View.LoadProdutos : null);
 
                 return true;
             });

@@ -99,6 +99,7 @@ namespace VadenStock.View.Dialogs
         {
             _TableItens.Clear();
             _PaginationItens.Clear();
+            _ButtonSave.IsEnabled = (Itens.Count > 0);
 
             if (Itens.Count > 0)
             {
@@ -114,7 +115,10 @@ namespace VadenStock.View.Dialogs
                                 .TD(item.Value.Mac)
                                 .TD(item.Value.Produto.Name)
                                 .TD(item.Value.Localizado)
-                                .Action("X")
+                                .AC("X", Row.ActionLevel.Danger, delegate
+                                {
+                                    return RemoveItemFromTransferencia(item.Value.Id);
+                                })
                         );
                     }
                 }
@@ -125,6 +129,23 @@ namespace VadenStock.View.Dialogs
             {
                 _StackEmpty.Visibility = Visibility.Visible;
             }
+        }
+
+
+
+        private bool RemoveItemFromTransferencia(int id)
+        {
+            foreach (ItemType? item in Itens)
+            {
+                if (item != null && item.Value.Id == id)
+                {
+                    Itens.Remove(item);
+                    RefreshTable();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
 
@@ -185,23 +206,68 @@ namespace VadenStock.View.Dialogs
             InputText input = (InputText)sender;
             string search = input.Text;
 
-            if (!string.IsNullOrEmpty(search) && search.Length >= 3)
+            if (!string.IsNullOrEmpty(search) && search.Length >= 4)
             {
                 ItemType? item = ItensViewModel.Find(search);
 
                 if (item != null)
                 {
-                    if (Origem != null && (item.Value.Almoxarifado.Id == Origem.Value.Id))
+                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+                    if (Origem != null && Destino != null && (item.Value.Almoxarifado.Id == Origem.Value.Id))
                     {
-                        Itens.Add(item);
-                        RefreshTable();
+                        if (Itens.Contains(item))
+                        {
+                            window.DisplayAlert(
+                                new AlertDialog(AlertDialog.AlertType.Info, "O item já foi adicionado à lista de transferência!")
+                                );
+                        }
+                        else
+                        {
+                            Itens.Add(item);
+                            RefreshTable();
+                        }
                     }
                     else
                     {
-                        MainWindow window = (MainWindow)Application.Current.MainWindow;
-                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "O equipamento não se encontra no Almoxarifado de Origem!"));
+                        window.DisplayAlert(
+                            new AlertDialog(AlertDialog.AlertType.Info, "O item não se encontra no Almoxarifado de Origem!")
+                            );
                     }
+
+                    input.Text = string.Empty;
                 }
+            }
+        }
+
+
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+            if (Origem == null)
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Selecione o almoxarifado de Origem"));
+
+            else if (Destino == null)
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Selecione o almoxarifado de Destino"));
+
+            else if (Itens.Count <= 0)
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Uma transferência não pode ser registrada sem itens"));
+
+            else
+            {
+                if (AlmoxarifadosViewModel.Transferir(Origem, Destino, Itens))
+                {
+                    _ComboOrigem.Clear(true);
+                    _ComboDestino.Clear(true);
+                    _TableItens.Clear();
+                    _PaginationItens.Clear();
+                    _ButtonSave.IsEnabled = false;
+                    Itens.Clear();
+                }
+                else
+                    window.DisplayDialog(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao realizar transferência"));
             }
         }
 

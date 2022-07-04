@@ -17,7 +17,7 @@ namespace VadenStock.Model.Types
             Extraviado,
             Producao,
             Recolhido,
-            EmRota,
+            Rota,
             Vendido
         };
 
@@ -29,7 +29,7 @@ namespace VadenStock.Model.Types
             "Danificado",
             "Desconhecido",
             "Estoque",
-            "Em Rota",
+            "Rota",
             "Extraviado",
             "Producao",
             "Recolhido",
@@ -61,7 +61,7 @@ namespace VadenStock.Model.Types
                 "Extraviado" => Status.Extraviado,
                 "Producao" => Status.Producao,
                 "Recolhido" => Status.Recolhido,
-                "Em Rota" => Status.EmRota,
+                "Rota" => Status.Rota,
                 "Vendido" => Status.Vendido,
 
                 _ => Status.Desconhecido
@@ -82,7 +82,7 @@ namespace VadenStock.Model.Types
                 Status.Extraviado => "Extraviado",
                 Status.Producao => "Producao",
                 Status.Recolhido => "Recolhido",
-                Status.EmRota => "EmRota",
+                Status.Rota => "Rota",
                 Status.Vendido => "Vendido",
 
                 _ => "Indefinido"

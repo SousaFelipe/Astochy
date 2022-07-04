@@ -83,14 +83,6 @@ namespace VadenStock.Core
 
 
 
-        public QueryBuilder InnnerJoin(string table1, string column1, string? table2 = null, string column2 = "id")
-        {
-            Query += $" INNER JOIN { table1 } ON { table1 }.{ column2 }={ table2 ?? Table }.{ column1 }";
-            return this;
-        }
-
-
-
         public void Where(string column, object operOrValue, object? value = null)
         {
             object realO = value == null ? "=" : operOrValue;
@@ -115,19 +107,20 @@ namespace VadenStock.Core
 
 
 
-        public string? SQL(bool clear = true)
+        public void Update(string[] columns)
         {
-            if (clear)
-                WC = 0;
+            string action = $"UPDATE {Table} SET ";
+            string column;
 
-            return Query;
-        }
+            for (int i = 0; i < columns.Length; i++)
+            {
+                column = columns[i];
+                action = (i < (columns.Length - 1))
+                    ? string.Concat(action, $"{column}=@{column}, ")
+                    : string.Concat(action, $"{column}=@{column} ");
+            }
 
-
-
-        public string Load(int id)
-        {
-            return Raw(new string[] { "id" }, new string[] { id.ToString() });
+            Query = Query.Replace("[ACTION]", action);
         }
 
 

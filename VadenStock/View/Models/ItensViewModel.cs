@@ -81,5 +81,14 @@ namespace VadenStock.View.Models
 
             return count;
         }
+
+
+
+        public static int Update(int id, string[] columns, object[] values)
+        {
+            return Item.Model
+                .Where("id", id.ToString())
+                .Update(columns, values);
+        }
     }
 }

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Collections.Generic;
+
+using VadenStock.View.Components.Buttons;
 
 
 
@@ -21,6 +24,7 @@ namespace VadenStock.View.Components.Containers
 
         public uint Count { get; set; }
         public List<Border> Borders { get; private set; }
+        public Func<bool>? Callback { get; private set; }
 
 
 
@@ -34,6 +38,7 @@ namespace VadenStock.View.Components.Containers
 
             Count = 0;
             Borders = new();
+            Callback = null;
         }
 
 
@@ -98,47 +103,6 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public Row Action(object data, ActionLevel level = ActionLevel.None, Options.RowOptions? options = null)
-        {
-            Options.RowOptions crrOptions = options ?? DefaultOptions;
-            Color bgFromAction = Colors.Transparent;
-            Color foregroundFromAction = (Color)ColorConverter.ConvertFromString("#263238");
-
-            bgFromAction = (Color)(
-                (level == ActionLevel.Info)
-                        ? ColorConverter.ConvertFromString("#40C4FF")
-                        : level == ActionLevel.Warning
-                            ? ColorConverter.ConvertFromString("#FFD740")
-                            : ColorConverter.ConvertFromString("#FF7043")
-               );
-
-            foregroundFromAction = (Color)(
-                (level == ActionLevel.Warning || level == ActionLevel.None)
-                    ? ColorConverter.ConvertFromString("#263238")
-                    : Colors.White
-                );
-
-            TextBlock content = Content(data, crrOptions);
-
-            Border container = Container(new Button()
-            {
-                Width = 24,
-                Height = 24,
-                BorderThickness = new Thickness(0),
-                Background = new SolidColorBrush(bgFromAction),
-                Foreground = new SolidColorBrush(foregroundFromAction),
-                Content = content
-            }, crrOptions);
-
-            Borders.Add(container);
-
-            Count++;
-
-            return this;
-        }
-
-
-
         private static Border Container(UIElement child, Options.RowOptions options)
         {
             return new Border()
@@ -154,6 +118,32 @@ namespace VadenStock.View.Components.Containers
                 BorderThickness = new Thickness(0, 0, 0, options.Divide ? 1 : 0),
                 Child = child
             };
+        }
+
+
+
+        public Row AC(object data, ActionLevel level = ActionLevel.None, Func<bool>? callback = null, Options.RowOptions? options = null)
+        {
+            Callback = callback;
+            Options.RowOptions crrOptions = options ?? DefaultOptions;
+
+            var button = (Button)(
+                (level == ActionLevel.Danger)
+                    ? new ButtonDanger()
+                    : (level == ActionLevel.Warning)
+                        ? new ButtonWarning()
+                        : new ButtonLight()
+            );
+
+            button.Content = data;
+            button.Click += EventCallback;
+
+            Border container = Container(button, crrOptions);
+            Borders.Add(container);
+
+            Count++;
+
+            return this;
         }
 
 
@@ -188,6 +178,16 @@ namespace VadenStock.View.Components.Containers
             Count++;
 
             return this;
+        }
+
+
+
+        private void EventCallback(object sender, RoutedEventArgs e)
+        {
+            if (Callback != null)
+            {
+                Callback.Invoke();
+            }
         }
     }
 }

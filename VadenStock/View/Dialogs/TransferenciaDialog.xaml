@@ -103,9 +103,9 @@
                              IsEnabled="False"/>
 
             <Border Grid.Row="1"
-                    Height="150"
+                    MinHeight="185"
                     Margin="20 16 20 0"
-                    CornerRadius="8"
+                    CornerRadius="4"
                     BorderThickness="1"
                     ClipToBounds="True"
                     BorderBrush="{StaticResource PrimaryColor_050}">
@@ -147,7 +147,8 @@
                     Style="{StaticResource ButtonSecondary}"
                     FontSize="16"
                     Content="Salvar"
-                    IsEnabled="False"/>
+                    IsEnabled="False"
+                    Click="ButtonSave_Click"/>
 
         </StackPanel>
 

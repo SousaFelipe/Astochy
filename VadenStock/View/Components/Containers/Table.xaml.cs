@@ -34,17 +34,10 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public Table(Options.TableOptions? options = null)
+        public void SetOptions(Options.TableOptions options)
         {
-            if (options != null)
-            {
-                DefaultOptions.Stripped = options.Stripped;
-                DefaultOptions.DisplayRows = options.DisplayRows > 0 ? options.DisplayRows : DefaultOptions.DisplayRows;
-            }
-
-            Rows = new();
-
-            InitializeComponent();
+            DefaultOptions.Stripped = options.Stripped;
+            DefaultOptions.DisplayRows = options.DisplayRows;
         }
 
 
