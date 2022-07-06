@@ -147,25 +147,22 @@
                            FontSize="24"
                            Foreground="{StaticResource TextPrimaryColor}"/>
 
-                <Button x:Name="_ButtonTransf"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource ButtonGray}"
-                        Foreground="{StaticResource TextPrimaryColor}" Click="ButtonTransf_Click">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
 
-                    <StackPanel Orientation="Horizontal">
-                        
-                        <Image Width="18"
-                               Height="18"
-                               Margin="8 0 0 0"
-                               Opacity="0.7"
-                               Source="/VadenStock;component/Resources/Icons/black-swap.png"/>
-                        
-                        <TextBlock Margin="2 0 12 0"
-                                   Text="Transferência"/>
-                        
-                    </StackPanel>
+                    <Button x:Name="_ButtonTransf"
+                            Padding="16 0"
+                            Style="{StaticResource ButtonGray}"
+                            Content="Transferência"
+                            Click="ButtonTransf_Click"/>
 
-                </Button>
+                    <Button x:Name="_ButtonEntrada"
+                            Margin="8 0 0 0"
+                            Padding="16 0"
+                            Style="{StaticResource ButtonSecondary}"
+                            Content="Entrada"/>
+
+                </StackPanel>
 
             </Grid>
 

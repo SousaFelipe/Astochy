@@ -32,12 +32,12 @@
                 Padding="8"
                 Style="{StaticResource ButtonLight}"
                 Click="CloseDialog">
-            
+
             <Image Width="24"
                    Height="24"
                    Opacity="0.4"
                    Source="/VadenStock;component/Resources/Icons/black-close.png"/>
-        
+
         </Button>
 
         <StackPanel Grid.Row="1"
@@ -70,9 +70,9 @@
                                  Foreground="{StaticResource TextPrimaryColor}"
                                  Style="{StaticResource InputSelectTheme}"
                                  SelectionChanged="ComboOrigem_Changed">
-                    
+
                     <ComboBoxItem Tag="0" Content="Origem"/>
-                    
+
                 </forms:SelectBox>
 
                 <forms:SelectBox Grid.Column="3"
@@ -86,9 +86,9 @@
                                  Style="{StaticResource InputSelectTheme}"
                                  SelectionChanged="ComboDestino_Changed"
                                  IsEnabled="False">
-                    
+
                     <ComboBoxItem Tag="0" Content="Destino"/>
-                    
+
                 </forms:SelectBox>
 
             </Grid>
@@ -115,7 +115,7 @@
                     <StackPanel x:Name="_StackEmpty"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
-                        
+
                         <Image Width="24"
                                Height="24"
                                Opacity="0.4"
@@ -132,7 +132,7 @@
                                       CornerRadius="4"/>
 
                 </Grid>
-                
+
             </Border>
 
             <components:Pagination x:Name="_PaginationItens"
@@ -153,5 +153,5 @@
         </StackPanel>
 
     </Grid>
-    
+
 </Border>

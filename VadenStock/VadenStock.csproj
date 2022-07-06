@@ -16,6 +16,10 @@
         <None Remove="Resources\Icons\black-chevron-right.png" />
         <None Remove="Resources\Icons\black-close.png" />
         <None Remove="Resources\Icons\black-delete.png" />
+        <None Remove="Resources\Icons\black-down.png" />
+        <None Remove="Resources\Icons\black-inbox-down.png" />
+        <None Remove="Resources\Icons\black-inbox-empty.png" />
+        <None Remove="Resources\Icons\black-inbox-up.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
         <None Remove="Resources\Icons\black-package.png" />
         <None Remove="Resources\Icons\black-save.png" />
@@ -26,7 +30,11 @@
         <None Remove="Resources\Icons\blue-chevron-right.png" />
         <None Remove="Resources\Icons\blue-close.png" />
         <None Remove="Resources\Icons\blue-delete.png" />
+        <None Remove="Resources\Icons\blue-down.png" />
         <None Remove="Resources\Icons\blue-image-plus.png" />
+        <None Remove="Resources\Icons\blue-inbox-down.png" />
+        <None Remove="Resources\Icons\blue-inbox-empty.png" />
+        <None Remove="Resources\Icons\blue-inbox-up.png" />
         <None Remove="Resources\Icons\blue-information.png" />
         <None Remove="Resources\Icons\blue-package.png" />
         <None Remove="Resources\Icons\blue-save.png" />
@@ -56,6 +64,10 @@
         <None Remove="Resources\Icons\white-chevron-right.png" />
         <None Remove="Resources\Icons\white-close.png" />
         <None Remove="Resources\Icons\white-delete.png" />
+        <None Remove="Resources\Icons\white-down.png" />
+        <None Remove="Resources\Icons\white-inbox-down.png" />
+        <None Remove="Resources\Icons\white-inbox-empty.png" />
+        <None Remove="Resources\Icons\white-inbox-up.png" />
         <None Remove="Resources\Icons\white-information.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
         <None Remove="Resources\Icons\white-minimize.png" />
@@ -64,31 +76,58 @@
         <None Remove="Resources\Icons\white-restore.png" />
         <None Remove="Resources\Icons\white-save.png" />
         <None Remove="Resources\Icons\white-swap.png" />
+        <None Remove="Resources\Images\64-inventory-flow.png" />
+        <None Remove="Resources\Images\64-packing.png" />
         <None Remove="Resources\Images\64-remove.png" />
+        <None Remove="Resources\Images\64-unpacking.png" />
         <None Remove="Resources\Images\96-transfer.png" />
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\Icons\black-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-inbox-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-inbox-empty.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-inbox-up.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-package.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-save.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-swap.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-inbox-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-inbox-empty.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-inbox-up.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-package.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-save.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-swap.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\white-delete.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
 
@@ -197,6 +236,22 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Icons\white-down.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-inbox-down.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-inbox-empty.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-inbox-up.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Icons\white-information.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
@@ -226,11 +281,23 @@
 		</Resource>
 
 		<Resource Include="Resources\Icons\white-swap.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Images\64-inventory-flow.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Images\64-packing.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
 		<Resource Include="Resources\Images\64-remove.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Images\64-unpacking.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
 		<Resource Include="Resources\Images\96-transfer.png">

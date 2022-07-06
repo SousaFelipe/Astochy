@@ -4,9 +4,12 @@
     <Style x:Key="ButtonLight"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
-
-        <Setter Property="Cursor" Value="Hand"/>
+        
+        <Setter Property="MinWidth" Value="26"/>
+        <Setter Property="MinHeight" Value="26"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="#455A64"/>
+        <Setter Property="Cursor" Value="Hand"/>
 
         <Setter Property="Foreground">
             <Setter.Value>
@@ -31,7 +34,7 @@
                         <Grid>
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"
-                                              Margin="8 8"
+                                              Margin="{TemplateBinding Padding}"
                                               RecognizesAccessKey="True" />
 
                         </Grid>

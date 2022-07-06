@@ -5,11 +5,12 @@
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
 
-        <Setter Property="MinWidth" Value="28"/>
-        <Setter Property="MinHeight" Value="28"/>
+        <Setter Property="MinWidth" Value="26"/>
+        <Setter Property="MinHeight" Value="26"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Background" Value="#40C4FF"/>
         <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Cursor" Value="Hand"/>
 
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -33,7 +34,6 @@
                                 <Condition Property="IsEnabled" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Background" Value="#38BEFC"/>
-                            <Setter Property="Cursor" Value="Hand"/>
                         </MultiTrigger>
 
                         <Trigger Property="IsEnabled" Value="False">
