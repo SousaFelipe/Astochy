@@ -158,21 +158,28 @@ namespace VadenStock.View
 
 
 
+        private void ButtonEntrada_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+            window.DisplayDialog(new EntradaDialog());
+        }
+
+
+
         private static class Molecules
         {
             public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
             {
-                Thickness thickn = new(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0);
+                MainWindow window = (MainWindow)Application.Current.MainWindow;
                 int itens = ItensViewModel.CountItensPorAlmoxarifado(almox.Id);
-                string subHeader = (Str.ZeroFill(itens) + " item".Pluralize(itens, "n"));
 
                 ThumbnailCard thumb = new()
                 {
-                    Margin = thickn,
+                    Margin = new Thickness(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0),
                     Body = "#FFFFFF",
                     Header = almox.Name,
                     HeaderSize = 16,
-                    SubHeader = subHeader,
+                    SubHeader = (Str.ZeroFill(itens) + " item".Pluralize(itens, "n")),
                     SubHeaderSize = 12,
                 };
 
@@ -183,6 +190,12 @@ namespace VadenStock.View
                                 ? "blue-bike"
                                 : "blue-warehouse"
                     );
+
+                thumb.SetHeaderAction((object sender) =>
+                {
+                    window.DisplayDialog(new AlmoxarifadoDialog(almox));
+                    return true;
+                });
 
                 return thumb;
             }

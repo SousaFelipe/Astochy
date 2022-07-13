@@ -160,7 +160,8 @@
                             Margin="8 0 0 0"
                             Padding="16 0"
                             Style="{StaticResource ButtonSecondary}"
-                            Content="Entrada"/>
+                            Content="Entrada"
+                            Click="ButtonEntrada_Click"/>
 
                 </StackPanel>
 

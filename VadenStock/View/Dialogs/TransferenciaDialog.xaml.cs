@@ -112,7 +112,7 @@ namespace VadenStock.View.Dialogs
                         _TableItens.Add(
                             new Row()
                                 .TD(item.Value.Codigo)
-                                .TD(item.Value.Mac)
+                                .TD(Str.MAC(item.Value.Mac))
                                 .TD(item.Value.Produto.Name)
                                 .TD(item.Value.Localizado)
                                 .AC("X", Row.ActionLevel.Danger, delegate

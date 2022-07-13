@@ -97,7 +97,7 @@ namespace VadenStock.View.Components.Containers
                 FontSize = crrOptions.FontSize,
                 FontStyle = crrOptions.FontStyle,
                 FontWeight = crrOptions.FontWeight,
-                Text = data.ToString()
+                Text = (data != null) ? data.ToString() : string.Empty
             };
         }
 

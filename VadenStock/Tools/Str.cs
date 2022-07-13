@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 
 
@@ -79,6 +80,16 @@ namespace VadenStock.Tools
             }
 
             return clean;
+        }
+
+
+
+        public static string? MAC(string input)
+        {
+            if (input.Length == 12)
+                return Regex.Replace(input, "(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})", "$1:$2:$3:$4:$5:$6");
+
+            return null;
         }
 
 

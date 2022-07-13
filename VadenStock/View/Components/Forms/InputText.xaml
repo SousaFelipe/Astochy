@@ -24,20 +24,24 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         
                         <Border x:Name="_TextBorder"
+                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                 CornerRadius="4"
                                 BorderThickness="1"
                                 BorderBrush="#CFD8DC"
-                                MinHeight="28"
                                 Background="{TemplateBinding Background}">
+                            
                             <Grid VerticalAlignment="Stretch"
                                   HorizontalAlignment="Stretch"
-                                  Margin="8 4 8 4">
+                                  Margin="8 2 8 2">
+                                
                                 <ScrollViewer x:Name="PART_ContentHost"
                                               Focusable="False"
                                               HorizontalAlignment="Stretch"
                                               HorizontalScrollBarVisibility="Hidden"
                                               VerticalScrollBarVisibility="Hidden"
                                               Margin="2 5"/>
+                                
                                 <Label x:Name="LABEL_Placeholder"
                                        Content="{TemplateBinding Tag}"
                                        VerticalAlignment="Center"
@@ -45,6 +49,7 @@
                                        Foreground="{StaticResource TextMuted}"
                                        Visibility="Collapsed"/>
                             </Grid>
+                            
                         </Border>
                         
                         <ControlTemplate.Triggers>

@@ -12,6 +12,9 @@ namespace VadenStock.Tools
             public static string Root { get { return $"{ Directory.GetCurrentDirectory() }\\Resources";  } }
             public static string Storage { get { return "Storage"; } }
             public static string Icons { get { return "Icons"; } }
+            public static string Images { get { return "Images"; } }
+
+
 
             public static string Bind(params string[] paths)
             {
@@ -42,6 +45,7 @@ namespace VadenStock.Tools
             {
                 Directory.CreateDirectory(Resource.Root);
                 Directory.CreateDirectory($"{ Resource.Root }\\{ Resource.Icons }");
+                Directory.CreateDirectory($"{ Resource.Root }\\{ Resource.Images }");
                 Directory.CreateDirectory($"{ Resource.Root }\\{ Resource.Storage }");
 
                 return Directory.Exists(Resource.Root);
@@ -125,6 +129,14 @@ namespace VadenStock.Tools
         public static BitmapImage? Icon(string name)
         {
             string path = $"{ Resource.Root }\\{ Resource.Icons }\\";
+            return OpenBitmap($"{ path }\\{ name }.png");
+        }
+
+
+
+        public static BitmapImage? Image(string name)
+        {
+            string path = $"{ Resource.Root }\\{ Resource.Images }\\";
             return OpenBitmap($"{ path }\\{ name }.png");
         }
 

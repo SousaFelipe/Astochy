@@ -6,8 +6,7 @@
           xmlns:local="clr-namespace:VadenStock.View.Components.Forms"
           mc:Ignorable="d"
           d:DataContext="{d:DesignInstance Type=local:SelectBox}"
-          d:DesignWidth="120"
-          MinHeight="28">
+          d:DesignWidth="120">
 
     <ComboBox.Style>
         <Style TargetType="{x:Type ComboBox}">
@@ -100,7 +99,7 @@
 
                                 <ContentPresenter Grid.Column="0"
                                                   Name="_ContentSiteItems"
-                                                  Margin="8 3 8 4"
+                                                  Margin="8"
                                                   IsHitTestVisible="False"
                                                   HorizontalAlignment="Stretch"
                                                   VerticalAlignment="Center"
@@ -113,7 +112,8 @@
                                          IsReadOnly="{TemplateBinding IsReadOnly}"
                                          Visibility="Hidden"
                                          Background="Transparent"
-                                         HorizontalAlignment="Left"
+                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                         TextAlignment="{TemplateBinding HorizontalContentAlignment}"
                                          VerticalAlignment="Center"
                                          Focusable="True"
                                          FontSize="{TemplateBinding FontSize}"

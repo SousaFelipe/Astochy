@@ -50,6 +50,19 @@ namespace VadenStock.View.Models
 
 
 
+        public static ProdutoType? Find(int id)
+        {
+            List<ProdutoType> list = Produto.Model
+                .Where("id", id)
+                .Select();
+
+            return list.Count > 0
+                ? list[0]
+                : null;
+        }
+
+
+
         public static List<ProdutoType> ProdutosPorMarca(int marca)
         {
             return Produto.Model

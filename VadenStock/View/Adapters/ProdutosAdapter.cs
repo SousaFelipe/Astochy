@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -22,16 +23,26 @@ namespace VadenStock.View.Adapters
         public Dictionary<string, List<ProdutoType>> OrderedDataset = new();
 
 
-
-        private Produtos? View;
-
-
-
-        public ProdutosAdapter(Grid container) : base(container) { }
+        private int Columns;
+        private object? View;
 
 
 
-        public void SetView(Produtos view)
+        public ProdutosAdapter(Grid container) : base(container)
+        {
+            Columns = 4;
+        }
+
+
+
+        public void SetColumns(int columns)
+        {
+            Columns = columns;
+        }
+
+
+
+        public void SetView(object view)
         {
             View = view;
         }
@@ -82,7 +93,7 @@ namespace VadenStock.View.Adapters
                         System.Diagnostics.Trace.WriteLine(Container.RowDefinitions.Count);
 
                         Grid.SetColumn(currentLabel, 0);
-                        Grid.SetColumnSpan(currentLabel, 4);
+                        Grid.SetColumnSpan(currentLabel, Columns);
                         Grid.SetRow(currentLabel, crrRow);
 
                         crrRow++;
@@ -97,7 +108,7 @@ namespace VadenStock.View.Adapters
                             Grid.SetColumn(currentCard, rounds);
                             Grid.SetRow(currentCard, crrRow);
 
-                            if (0 == (rounds - 3))
+                            if (0 == (rounds - (Columns - 1)))
                             {
                                 Container.RowDefinitions.Add(new RowDefinition());
 
@@ -141,12 +152,16 @@ namespace VadenStock.View.Adapters
             midia.SetMidia(produto.Image);
             midia.AddAction("Delete", () =>
             {
-                ConfirmDialog confirm = new ()
-                {
-                    Confirm = delegate { return ProdutosViewModel.Remove(produto.Id); }
-                };
+                MethodInfo? method = View?.GetType().GetMethod("LoadProdutos");
 
-                window.DisplayDialog(confirm, null != View ? View.LoadProdutos : null);
+                window.DisplayDialog
+                (
+                    new ConfirmDialog() { Confirm = delegate { return ProdutosViewModel.Remove(produto.Id); }},
+                    delegate {
+                        method?.Invoke(this, null);
+                        return true;
+                    }
+                );
 
                 return true;
             });

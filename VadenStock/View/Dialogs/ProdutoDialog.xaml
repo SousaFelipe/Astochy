@@ -228,7 +228,7 @@
                                    HorizontalAlignment="Left"
                                    Margin="13 0 0 1"
                                    FontSize="14"
-                                   Foreground="{StaticResource TextTertiary}"/>
+                                   Foreground="{StaticResource TextTertiaryColor}"/>
 
                         <forms:InputCurrency Grid.Column="1"
                                              x:Name="_InputPrice"

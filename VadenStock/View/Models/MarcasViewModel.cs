@@ -26,5 +26,18 @@ namespace VadenStock.View.Models
 
             return Marca.Model.Create(inserts);
         }
+
+
+
+        public static MarcaType? Find(int id)
+        {
+            List<MarcaType> list = Marca.Model
+                .Where("id", id.ToString())
+                .Select();
+
+            return list.Count > 0
+                ? list[0]
+                : null;
+        }
     }
 }

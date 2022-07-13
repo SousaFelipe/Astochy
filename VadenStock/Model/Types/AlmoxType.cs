@@ -25,6 +25,19 @@ namespace VadenStock.Model.Types
 
 
 
+        public static string GetTipo(Hosted tipo)
+        {
+            return tipo switch
+            {
+                Hosted.Estoque => "E",
+                Hosted.Carro => "C",
+                Hosted.Moto => "M",
+                _ => "0"
+            };
+        }
+
+
+
         public static Hosted GetTipo(string tipo)
         {
             return tipo switch

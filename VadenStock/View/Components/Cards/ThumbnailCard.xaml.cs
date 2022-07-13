@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Input;
 using System.Windows.Controls;
 
 using VadenStock.Tools;
@@ -122,6 +124,42 @@ namespace VadenStock.View.Components.Cards
         public void SetThumb(string fileName)
         {
             _ImageThumb.Source = Src.Icon(fileName);
+        }
+
+
+
+        public void SetHeaderAction(Func<object, bool> action)
+        {
+            _TextHeader.MouseLeftButtonUp += delegate {
+                action?.Invoke(this);
+            };
+
+            _TextHeader.MouseEnter += delegate {
+                _TextHeader.TextDecorations = TextDecorations.Underline;
+            };
+
+            _TextHeader.MouseLeave += delegate {
+                _TextHeader.TextDecorations = null;
+            };
+
+            _TextHeader.Cursor = Cursors.Hand;
+        }
+
+        public void SetSubHeaderAction(Func<object, bool> action)
+        {
+            _TextSubHeader.MouseLeftButtonUp += delegate {
+                action?.Invoke(this);
+            };
+
+            _TextSubHeader.MouseEnter += delegate {
+                _TextSubHeader.TextDecorations = TextDecorations.Underline;
+            };
+
+            _TextSubHeader.MouseLeave += delegate {
+                _TextSubHeader.TextDecorations = null;
+            };
+
+            _TextSubHeader.Cursor = Cursors.Hand;
         }
     }
 }
