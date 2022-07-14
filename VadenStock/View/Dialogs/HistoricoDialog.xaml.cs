@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
+using VadenStock.View.Models;
+
 using VadenStock.Model.Types;
 
 
@@ -25,8 +27,13 @@ namespace VadenStock.View.Dialogs
 
             Loaded += delegate
             {
-                List<AlmoxTransfType> transferencias = 
-            }
+                List<AlmoxTransfType> transferencias = TransferenciasViewModel.TransfsPorItem(item.Id);
+
+                foreach (AlmoxTransfType t in transferencias)
+                {
+
+                }
+            };
         }
 
 

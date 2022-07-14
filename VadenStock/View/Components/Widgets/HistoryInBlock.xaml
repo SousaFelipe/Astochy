@@ -26,7 +26,7 @@
                    VerticalAlignment="Center"
                    Foreground="White"
                    FontWeight="Medium"
-                   Text="10/06/2022"/>
+                   Text="13/07/1985"/>
 
     </Border>
 
@@ -67,22 +67,24 @@
                    VerticalAlignment="Top"
                    Source="/VadenStock;component/Resources/Icons/black-car.png"/>
 
-            <TextBlock Grid.Row="0"
+            <TextBlock x:Name="_TextAlmox"
+                       Grid.Row="0"
                        Grid.Column="1"
                        Margin="8 0 0 0"
                        VerticalAlignment="Center"
                        Foreground="{StaticResource TextPrimaryColor}"
                        FontWeight="Medium"
                        FontSize="16"
-                       Text="Matriz"/>
+                       Text="Almoxarifado"/>
 
-            <TextBlock Grid.Row="1"
+            <TextBlock x:Name="_TextDescription"
+                       Grid.Row="1"
                        Grid.Column="1"
                        Margin="8 0 0 0"
                        Foreground="{StaticResource TextPrimaryColor}"
                        TextWrapping="Wrap"
                        FontSize="11"
-                       Text="Transferido de Carlos Alberto"/>
+                       Text="Descrição da transferência"/>
 
         </Grid>
 

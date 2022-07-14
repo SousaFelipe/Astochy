@@ -89,8 +89,8 @@ namespace VadenStock.Core
             object realV = value ?? operOrValue;
 
             Query += (WC > 0)
-                ? $" AND { column }{ realO }'{ realV }'"
-                : $"WHERE { column }{ realO }'{ realV }'";
+                ? $" AND {column} {realO} '{realV}'"
+                : $"WHERE {column} {realO} '{realV}'";
 
             WC += 1;
         }
