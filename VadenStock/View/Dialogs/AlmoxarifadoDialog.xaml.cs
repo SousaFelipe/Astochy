@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using VadenStock.View.Models;
 using VadenStock.View.Adapters;
 using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Containers;
+using VadenStock.View.Components.Widgets;
 
 using VadenStock.Tools;
 
@@ -21,9 +23,8 @@ namespace VadenStock.View.Dialogs
         private AlmoxType Almox;
         private AlmoxType AlmoxNew;
 
-        private List<ProdutoType> Produtos;
-        private Dictionary<string, ItemType[]> Itens;
-
+        private readonly List<ProdutoType> Produtos;
+        private readonly Dictionary<string, ItemType[]> Itens;
         private readonly List<Button> Badges;
 
 
@@ -63,7 +64,7 @@ namespace VadenStock.View.Dialogs
             _TableItens.Headers(
                         Header.Auto("Cod."),
                         Header.Auto("MAC"),
-                        Header.Max("Produto"),
+                        Header.Max("Transferência"),
                         Header.Auto("Ação")
                     );
 
@@ -165,7 +166,6 @@ namespace VadenStock.View.Dialogs
 
 
 
-
         private void SelectBadge(object? sender, RoutedEventArgs? e)
         {
             foreach (Button btn in Badges)
@@ -189,7 +189,6 @@ namespace VadenStock.View.Dialogs
                 {
                     _TableItens.Clear();
                     _PaginationItens.Clear();
-
                     _StackEmpty.Visibility = Visibility.Collapsed;
 
                     foreach (ItemType item in itens)
@@ -197,19 +196,12 @@ namespace VadenStock.View.Dialogs
                         _TableItens.Add(
                                 new Row()
                                     .TD(item.Codigo)
-                                    .TD(Str.MAC(item.Mac))
-                                    .TD(item.Produto.Name)
-                                    .AC(new Image()
+                                    .TD(Str.MAC(item.Mac.Replace(":", "")))
+                                    .TD(item.UltimaTransf.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às "))
+                                    .AC(Icon.Small("history"), Row.ActionLevel.Info, delegate
                                     {
-                                        Width = 18,
-                                        Height = 18,
-                                        HorizontalAlignment = HorizontalAlignment.Center,
-                                        VerticalAlignment = VerticalAlignment.Center,
-                                        Source = Src.Icon("black-history")
-                                    },
-                                    Row.ActionLevel.Info,
-                                    delegate
-                                    {
+                                        MainWindow window = (MainWindow)Application.Current.MainWindow;
+                                        window.DisplayDialog(new HistoricoDialog(Almox, item));
                                         return true;
                                     })
                             );

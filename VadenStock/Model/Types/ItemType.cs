@@ -45,8 +45,9 @@ namespace VadenStock.Model.Types
         public AlmoxType Almoxarifado { get; set; }
         public InventarioType Inventario { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedDate { get; set; }
         public Status Localizado { get; set; }
+        public DateTime UltimaTransf { get; set; }
+        public DateTime CreatedDate { get; set; }
 
 
 

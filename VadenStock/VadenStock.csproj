@@ -12,6 +12,8 @@
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
+        <None Remove="Resources\Icons\black-bike.png" />
+        <None Remove="Resources\Icons\black-car.png" />
         <None Remove="Resources\Icons\black-chevron-left.png" />
         <None Remove="Resources\Icons\black-chevron-right.png" />
         <None Remove="Resources\Icons\black-close.png" />
@@ -90,6 +92,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\Icons\black-bike.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-car.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-down.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
@@ -47,8 +48,16 @@ namespace VadenStock.View.Models
 
                     _ = ItensViewModel.Update(
                             ids[i],
-                            new string[] { "almoxarifado", "localizacao" },
-                            new object[] { destino.Value.Id, ItemType.GetStatusName(destino.Value.Acao) }
+                            new string[] {
+                                "almoxarifado",
+                                "localizacao",
+                                "ultima_transf"
+                            },
+                            new object[] {
+                                destino.Value.Id,
+                                ItemType.GetStatusName(destino.Value.Acao),
+                                DateTime.Now
+                            }
                         );
                 }
             }

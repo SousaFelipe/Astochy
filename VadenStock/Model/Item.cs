@@ -78,6 +78,7 @@ namespace VadenStock.Model
                     Inventario = Inventario.Model.Where("id", reader.GetInt32("inventario")).Select()[0],
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Localizado = ItemType.GetStatus(reader.GetString("localizacao")),
+                    UltimaTransf = reader.IsDBNull(8) ? reader.GetDateTime("created_at") : reader.GetDateTime("ultima_transf"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 
