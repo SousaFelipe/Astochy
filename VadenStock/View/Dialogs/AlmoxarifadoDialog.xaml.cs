@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ using System.Collections.Generic;
 using VadenStock.Model.Types;
 
 using VadenStock.View.Models;
-using VadenStock.View.Adapters;
 using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Containers;
 using VadenStock.View.Components.Widgets;
@@ -25,7 +23,6 @@ namespace VadenStock.View.Dialogs
 
         private readonly List<ProdutoType> Produtos;
         private readonly Dictionary<string, ItemType[]> Itens;
-        private readonly List<Button> Badges;
 
 
 
@@ -37,8 +34,6 @@ namespace VadenStock.View.Dialogs
             Produtos = new();
             Itens = new();
 
-            Badges = new();
-
             InitializeComponent();
 
             Loaded += delegate
@@ -47,7 +42,6 @@ namespace VadenStock.View.Dialogs
                 LoadDetails();
                 LoadTipos();
                 LoadProdutos();
-                LoadBadges();
             };
         }
 
@@ -64,8 +58,8 @@ namespace VadenStock.View.Dialogs
             _TableItens.Headers(
                         Header.Auto("Cod."),
                         Header.Auto("MAC"),
-                        Header.Max("Transferência"),
-                        Header.Auto("Ação")
+                        Header.Max("Entrada"),
+                        Header.Auto("     ")
                     );
 
             _PaginationItens.Table = _TableItens;
@@ -122,59 +116,16 @@ namespace VadenStock.View.Dialogs
             {
                 itens = ItensViewModel.ItensPorAlmoxarifado(Almox.Id, new object[] { "produto", p.Id });
                 Itens.Add(p.Name, itens.ToArray());
-            }
-        }
 
-
-
-        private void LoadBadges()
-        {
-            string produto;
-            ItemType[] itens;
-            Button buttonBadge;
-
-            Badges.Clear();
-            _StackBadges.Children.Clear();
-
-            for (int p = 0; p < Produtos.Count; p++)
-            {
-                produto = Produtos[p].Name;
-
-                if (Itens.ContainsKey(produto))
+                _SelectProdutos.Items.Add(new ComboBoxItem()
                 {
-                    itens = Itens[produto];
-
-                    if (itens != null && itens.Length > 0)
-                    {
-                        buttonBadge = new()
-                        {
-                            Margin = new Thickness(2, 0, 2, 0),
-                            Content = $"{produto} ({Str.ZeroFill(itens.Length)})",
-                            Tag = produto
-                        };
-
-                        buttonBadge.Click += SelectBadge;
-
-                        _StackBadges.Children.Add(buttonBadge);
-                        Badges.Add(buttonBadge);
-                    }
-                }
+                    Tag = p.Name,
+                    Content = p.Name
+                });
             }
 
-            SelectBadge(null, null);
-        }
-
-
-
-        private void SelectBadge(object? sender, RoutedEventArgs? e)
-        {
-            foreach (Button btn in Badges)
-                btn.Style = (Style)FindResource("BadgeGray");
-
-            Button button = (Button)(sender ?? Badges[0]);
-            button.Style = (Style)FindResource("BadgeSecondary");
-
-            RefreshTable(button.Tag.ToString());
+            if (Produtos.Count > 0)
+                _SelectProdutos.SelectedIndex = 1;
         }
 
 
@@ -197,11 +148,11 @@ namespace VadenStock.View.Dialogs
                                 new Row()
                                     .TD(item.Codigo)
                                     .TD(Str.MAC(item.Mac.Replace(":", "")))
-                                    .TD(item.UltimaTransf.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às "))
+                                    .TD(item.CreatedDate.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às "))
                                     .AC(Icon.Small("history"), Row.ActionLevel.Info, delegate
                                     {
-                                        MainWindow window = (MainWindow)Application.Current.MainWindow;
-                                        window.DisplayDialog(new HistoricoDialog(Almox, item));
+                                        _GridDefault.Visibility = Visibility.Collapsed;
+                                        _GridContainer.Children.Add(new HistoricoDialog(Almox, item, this));
                                         return true;
                                     })
                             );
@@ -233,11 +184,33 @@ namespace VadenStock.View.Dialogs
 
 
 
+        public void BackToMain(object sender)
+        {
+            _GridContainer.Children.Remove((UIElement)sender);
+            _GridDefault.Visibility = Visibility.Visible;
+        }
+
+
+
         private void InputAlmoxName_Changed(object sender, TextChangedEventArgs e)
         {
             InputText input = (InputText)sender;
             AlmoxNew.Name = input.Text.Trim();
             ShouldBeEnabledSave();
+        }
+
+
+
+        private void SelectTipo_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            SelectBox select = (SelectBox)sender;
+            ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
+
+            if (item != null)
+            {
+                AlmoxNew.Tipo = AlmoxType.GetTipo((string)item.Tag);
+                ShouldBeEnabledSave();
+            }
         }
 
 
@@ -255,15 +228,15 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void SelectTipo_Changed(object sender, SelectionChangedEventArgs e)
+        private void SelectProduto_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
 
             if (item != null)
             {
-                AlmoxNew.Tipo = AlmoxType.GetTipo((string)item.Tag);
-                ShouldBeEnabledSave();
+                string? produto = item.Tag.ToString();
+                RefreshTable(produto);
             }
         }
 

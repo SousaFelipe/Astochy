@@ -60,12 +60,12 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Row="0"
+            <Image x:Name="_ImageIcon"
+                   Grid.Row="0"
                    Grid.Column="1"
                    Width="24"
                    Height="24"
-                   VerticalAlignment="Top"
-                   Source="/VadenStock;component/Resources/Icons/black-car.png"/>
+                   VerticalAlignment="Top"/>
 
             <TextBlock x:Name="_TextAlmox"
                        Grid.Row="0"

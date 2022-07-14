@@ -4,6 +4,8 @@ using System.Windows.Controls;
 
 using VadenStock.Model.Types;
 
+using VadenStock.Tools;
+
 
 
 namespace VadenStock.View.Components.Widgets
@@ -22,9 +24,10 @@ namespace VadenStock.View.Components.Widgets
 
             Loaded += delegate
             {
+                _ImageIcon.Source = Src.Icon(transferencia.To.GetIcon("black"));
                 _TextTransfData.Text = Transferencia.CreatedDate.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às ");
                 _TextAlmox.Text = Transferencia.To.Name;
-                _TextAlmox.Text = Transferencia.Description;
+                _TextDescription.Text = Transferencia.Description;
             };
         }
     }

@@ -102,13 +102,17 @@ namespace VadenStock
 
 
 
-		public void CloseDialog(UIElement element)
+		public void CloseDialog(UIElement element, bool unique = true)
         {
 			OnCloseDialogCallback?.Invoke();
 
 			_DialogContainer.Children.Remove(element);
-			_DialogContainer.Children.Clear();
-			_BorderShadow.Visibility = Visibility.Collapsed;
+
+			if (unique)
+            {
+				_DialogContainer.Children.Clear();
+				_BorderShadow.Visibility = Visibility.Collapsed;
+			}
         }
 
 

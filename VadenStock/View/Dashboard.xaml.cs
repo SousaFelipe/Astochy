@@ -183,13 +183,7 @@ namespace VadenStock.View
                     SubHeaderSize = 12,
                 };
 
-                thumb.SetThumb(
-                        almox.Tipo == AlmoxType.Hosted.Carro
-                            ? "blue-car"
-                            : almox.Tipo == AlmoxType.Hosted.Moto
-                                ? "blue-bike"
-                                : "blue-warehouse"
-                    );
+                thumb.SetThumb(almox.GetIcon());
 
                 thumb.SetHeaderAction((object sender) =>
                 {

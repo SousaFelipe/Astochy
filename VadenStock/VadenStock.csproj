@@ -23,10 +23,12 @@
         <None Remove="Resources\Icons\black-inbox-down.png" />
         <None Remove="Resources\Icons\black-inbox-empty.png" />
         <None Remove="Resources\Icons\black-inbox-up.png" />
+        <None Remove="Resources\Icons\black-left.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
         <None Remove="Resources\Icons\black-package.png" />
         <None Remove="Resources\Icons\black-save.png" />
         <None Remove="Resources\Icons\black-swap.png" />
+        <None Remove="Resources\Icons\black-warehouse.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
         <None Remove="Resources\Icons\blue-car.png" />
         <None Remove="Resources\Icons\blue-chevron-left.png" />
@@ -40,6 +42,7 @@
         <None Remove="Resources\Icons\blue-inbox-empty.png" />
         <None Remove="Resources\Icons\blue-inbox-up.png" />
         <None Remove="Resources\Icons\blue-information.png" />
+        <None Remove="Resources\Icons\blue-left.png" />
         <None Remove="Resources\Icons\blue-package.png" />
         <None Remove="Resources\Icons\blue-save.png" />
         <None Remove="Resources\Icons\blue-swap.png" />
@@ -74,6 +77,7 @@
         <None Remove="Resources\Icons\white-inbox-empty.png" />
         <None Remove="Resources\Icons\white-inbox-up.png" />
         <None Remove="Resources\Icons\white-information.png" />
+        <None Remove="Resources\Icons\white-left.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
         <None Remove="Resources\Icons\white-minimize.png" />
         <None Remove="Resources\Icons\white-package.png" />
@@ -122,6 +126,9 @@
       <Resource Include="Resources\Icons\black-swap.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\black-warehouse.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\blue-down.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -137,6 +144,12 @@
       <Resource Include="Resources\Icons\blue-inbox-up.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+	  <Resource Include="Resources\Icons\black-left.png">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\Icons\blue-left.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
       <Resource Include="Resources\Icons\blue-package.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -278,6 +291,10 @@
 
 		<Resource Include="Resources\Icons\white-information.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-left.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
 		<Resource Include="Resources\Icons\white-maximize.png">

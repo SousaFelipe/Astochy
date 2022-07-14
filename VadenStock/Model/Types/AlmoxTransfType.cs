@@ -50,16 +50,11 @@ namespace VadenStock.Model.Types
 
         public static string Implode(int[] itens)
         {
-            string imploeded = string.Empty;
-            int id;
+            string imploeded = $";{itens[0]};";
 
-            for (int i = 0; i < itens.Length; i++)
-            {
-                id = itens[i];
-                imploeded = (i >= 1)
-                    ? string.Concat(imploeded, $";{id}")
-                    : string.Concat(imploeded, id.ToString());
-            }
+            if (itens.Length > 1)
+                for (int i = 1; i < itens.Length; i++)
+                    imploeded = string.Concat(imploeded, $"{itens[i]};");
 
             return imploeded;
         }

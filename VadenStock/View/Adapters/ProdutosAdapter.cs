@@ -90,8 +90,6 @@ namespace VadenStock.View.Adapters
 
                         Container.Children.Add(currentLabel);
 
-                        System.Diagnostics.Trace.WriteLine(Container.RowDefinitions.Count);
-
                         Grid.SetColumn(currentLabel, 0);
                         Grid.SetColumnSpan(currentLabel, Columns);
                         Grid.SetRow(currentLabel, crrRow);
@@ -158,7 +156,7 @@ namespace VadenStock.View.Adapters
                 (
                     new ConfirmDialog() { Confirm = delegate { return ProdutosViewModel.Remove(produto.Id); }},
                     delegate {
-                        method?.Invoke(this, null);
+                        method?.Invoke(View, new object?[] { this });
                         return true;
                     }
                 );

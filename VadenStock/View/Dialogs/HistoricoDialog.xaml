@@ -24,6 +24,22 @@
 
         <Button Grid.Row="0"
                 VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Height="38"
+                Margin="8 8 0 8"
+                Padding="8"
+                Style="{StaticResource ButtonLight}"
+                Click="BackButton_Click">
+
+            <Image Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-left.png"/>
+
+        </Button>
+
+        <Button Grid.Row="0"
+                VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Height="38"
                 Margin="0 8 8 8"
@@ -41,9 +57,68 @@
         <ScrollViewer Grid.Row="1"
                       HorizontalAlignment="Stretch">
 
-            <StackPanel x:Name="_StackHistoryBlocks"
-                        Margin="20"
-                        HorizontalAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Stretch"
+                        Margin="20">
+
+                <Grid>
+
+                    <Border VerticalAlignment="Stretch"
+                            HorizontalAlignment="Center"
+                            Width="1"
+                            Background="{StaticResource PrimaryColor_100}"/>
+
+                    <Border Margin="4 0 4 16"
+                            HorizontalAlignment="Center"
+                            CornerRadius="4"
+                            Background="{StaticResource SuccessColor}">
+
+                        <TextBlock x:Name="_TextEntradaData"
+                                   Margin="8 2"
+                                   Foreground="White"
+                                   FontWeight="Medium"
+                                   Text="13/07/1985"/>
+
+                    </Border>
+
+                </Grid>
+
+                <StackPanel x:Name="_StackHistoryBlocks"
+                            HorizontalAlignment="Stretch">
+
+                </StackPanel>
+
+                <Grid>
+
+                    <Border VerticalAlignment="Stretch"
+                            HorizontalAlignment="Center"
+                            Width="1"
+                            Background="{StaticResource PrimaryColor_100}"/>
+
+                    <Border Margin="4 16 4 0"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            CornerRadius="4"
+                            Background="{StaticResource PrimaryColor_500}">
+
+                        <StackPanel>
+
+                            <TextBlock Margin="8 2 8 0"
+                                       Foreground="White"
+                                       FontSize="10"
+                                       Text="Responsabilidade:"/>
+
+                            <TextBlock x:Name="_TextAlmoxRespons"
+                                       Margin="8 0 8 2"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"
+                                       Foreground="White"
+                                       Text="Almoxarifado"/>
+
+                        </StackPanel>
+
+                    </Border>
+
+                </Grid>
 
             </StackPanel>
 

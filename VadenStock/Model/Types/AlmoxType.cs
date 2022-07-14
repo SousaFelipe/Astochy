@@ -25,6 +25,19 @@ namespace VadenStock.Model.Types
 
 
 
+        public string GetIcon(string color = "blue")
+        {
+            string icon = Tipo == Hosted.Carro
+                ? "car"
+                : Tipo == Hosted.Moto
+                    ? "bike"
+                    : "warehouse";
+
+            return $"{color}-{icon}";
+        }
+
+
+
         public static string GetTipo(Hosted tipo)
         {
             return tipo switch
