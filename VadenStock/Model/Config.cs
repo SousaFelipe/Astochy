@@ -66,7 +66,10 @@ namespace VadenStock.Model
                 ConfigType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    ProductionPath = reader.GetString("production_path"),
+                    ProductionPath = reader.IsDBNull(1) ? string.Empty : reader.GetString("production_path"),
+                    ServerAddress = reader.GetString("server_address"),
+                    ServerProtocol = reader.IsDBNull(3) ? ConfigType.Protocol.HTTP : ConfigType.GetProtocol(reader.GetString("server_protocol")),
+                    ServerToken = reader.GetString("server_token"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

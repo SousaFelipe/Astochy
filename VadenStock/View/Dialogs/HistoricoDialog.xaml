@@ -73,7 +73,7 @@
                             Background="{StaticResource SuccessColor}">
 
                         <TextBlock x:Name="_TextEntradaData"
-                                   Margin="8 2"
+                                   Margin="8 4"
                                    Foreground="White"
                                    FontWeight="Medium"
                                    Text="13/07/1985"/>
@@ -105,7 +105,7 @@
                             <TextBlock Margin="8 2 8 0"
                                        Foreground="White"
                                        FontSize="10"
-                                       Text="Responsabilidade:"/>
+                                       Text="Atual Responsável"/>
 
                             <TextBlock x:Name="_TextAlmoxRespons"
                                        Margin="8 0 8 2"

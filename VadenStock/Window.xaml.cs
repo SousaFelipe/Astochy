@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Windows;
+using System.Threading;
+using System.Reflection;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Runtime.InteropServices;
 using System.Windows.Threading;
-using System.Windows.Controls;
-using System.Reflection;
-using System.Threading;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 using VadenStock.View.Dialogs;
+
+using VadenStock.Model;
+using VadenStock.Model.Types;
+
+using VadenStock.Tools;
 
 
 
@@ -31,14 +36,24 @@ namespace VadenStock
 
 
 
-		public object? CurrentFocusedAdapter { get; set; }
-
-
-
 		public MainWindow()
         {
             InitializeComponent();
+			IsTheVeryFirstStart();
 		}
+
+
+
+		private void IsTheVeryFirstStart()
+        {
+			Config model = Config.Model;
+			List<ConfigType> configs = model.Where("id", 1).Select();
+
+			if (configs == null || configs.Count <= 0)
+            {
+				System.Diagnostics.Trace.WriteLine(Src.Resource.Root);
+            }
+        }
 
 
 
@@ -96,7 +111,6 @@ namespace VadenStock
         {
 			_BorderShadow.Visibility = Visibility.Visible;
 			_DialogContainer.Children.Add(element);
-
 			OnCloseDialogCallback = onCloseDialogCallback;
 		}
 

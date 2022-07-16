@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 
@@ -118,6 +119,28 @@ namespace VadenStock.Tools
             }
 
             return subject;
+        }
+
+
+
+        static public string ToBase64(this string encode)
+        {
+            byte[] toEncodeAsBytes  = Encoding.ASCII.GetBytes(encode);
+            string returnValue = Convert.ToBase64String(toEncodeAsBytes);
+
+            return returnValue;
+        }
+
+
+
+        public static string FromBase64(this string decode)
+        {
+            if (string.IsNullOrEmpty(decode))
+                return string.Empty;
+
+            byte[] valueBytes = Convert.FromBase64String(decode);
+
+            return Encoding.UTF8.GetString(valueBytes);
         }
     }
 }

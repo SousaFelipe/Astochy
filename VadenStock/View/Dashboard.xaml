@@ -163,6 +163,13 @@
                             Content="Entrada"
                             Click="ButtonEntrada_Click"/>
 
+                    <Button x:Name="_ButtonSaida"
+                            Margin="8 0 0 0"
+                            Padding="16 0"
+                            Style="{StaticResource ButtonDanger}"
+                            Content="Saída"
+                            Click="ButtonSaida_Click"/>
+
                 </StackPanel>
 
             </Grid>

@@ -106,7 +106,7 @@
                     </Grid.ColumnDefinitions>
 
                     <forms:SelectBox Grid.Column="0"
-                                     x:Name="_SelectAcao"
+                                     x:Name="_SelectAcoes"
                                      Width="100"
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Stretch"
@@ -128,7 +128,7 @@
                                      Tag="Descrição..."
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"
-                                     TextChanged="InputAlmoxName_Changed"/>
+                                     TextChanged="InputAlmoxDescription_Changed"/>
 
                 </Grid>
 

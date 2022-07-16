@@ -41,6 +41,7 @@ namespace VadenStock.View.Dialogs
                 InitTable();
                 LoadDetails();
                 LoadTipos();
+                LoadAcoes();
                 LoadProdutos();
             };
         }
@@ -59,7 +60,7 @@ namespace VadenStock.View.Dialogs
                         Header.Auto("Cod."),
                         Header.Auto("MAC"),
                         Header.Max("Entrada"),
-                        Header.Auto("     ")
+                        Header.Auto("Ação")
                     );
 
             _PaginationItens.Table = _TableItens;
@@ -74,6 +75,7 @@ namespace VadenStock.View.Dialogs
                 );
 
             _TextAlmoxName.Text = Almox.Name;
+            _TextDescription.Text = Almox.Description;
         }
 
 
@@ -98,8 +100,25 @@ namespace VadenStock.View.Dialogs
                 });
             }
 
-            foreach (ComboBoxItem item in _SelectTipo.Items)
-                item.IsSelected = (AlmoxType.GetTipo(Almox.Tipo) == (string)item.Tag);
+            (_SelectTipo.Find(AlmoxType.GetTipoName(Almox.Tipo)) ?? (ComboBoxItem)_SelectTipo.Items[0]).IsSelected = true;
+        }
+
+
+
+        private void LoadAcoes()
+        {
+            _SelectAcoes.Clear(true);
+
+            foreach (string acao in AlmoxType.ACOES)
+            {
+                _SelectAcoes.Items.Add(new ComboBoxItem()
+                {
+                    Tag = acao,
+                    Content = acao
+                });
+            }
+
+            (_SelectAcoes.Find(ItemType.GetStatusName(Almox.Acao)) ?? (ComboBoxItem)_SelectAcoes.Items[0]).IsSelected = true;
         }
 
 
@@ -176,7 +195,7 @@ namespace VadenStock.View.Dialogs
                 _ButtonSave.IsEnabled = (
                     Almox.Tipo != AlmoxNew.Tipo ||
                     Almox.Acao != AlmoxNew.Acao ||
-                    Almox.Name != AlmoxNew.Name ||
+                    Almox.Name != AlmoxNew.Name && AlmoxNew.Name.Length > 0 ||
                     Almox.Description != AlmoxNew.Description
                 );
             }
@@ -195,7 +214,7 @@ namespace VadenStock.View.Dialogs
         private void InputAlmoxName_Changed(object sender, TextChangedEventArgs e)
         {
             InputText input = (InputText)sender;
-            AlmoxNew.Name = input.Text.Trim();
+            AlmoxNew.Name = input.Text.TrimEnd();
             ShouldBeEnabledSave();
         }
 
@@ -222,8 +241,18 @@ namespace VadenStock.View.Dialogs
 
             if (item != null)
             {
-
+                AlmoxNew.Acao = ItemType.GetStatus((string)item.Tag);
+                ShouldBeEnabledSave();
             }
+        }
+
+
+
+        private void InputAlmoxDescription_Changed(object sender, TextChangedEventArgs e)
+        {
+            InputText input = (InputText)sender;
+            AlmoxNew.Description = input.Text.TrimEnd();
+            ShouldBeEnabledSave();
         }
 
 
@@ -244,7 +273,24 @@ namespace VadenStock.View.Dialogs
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
+            int row = AlmoxarifadosViewModel.Update(
+                    AlmoxNew.Id,
+                    new KeyValuePair<string, object>("tipo", AlmoxType.GetTipoName(AlmoxNew.Tipo)),
+                    new KeyValuePair<string, object>("acao", ItemType.GetStatusName(AlmoxNew.Acao)),
+                    new KeyValuePair<string, object>("name", AlmoxNew.Name),
+                    new KeyValuePair<string, object>("description", AlmoxNew.Description)
+                );
 
+            MainWindow window = (MainWindow)Application.Current.MainWindow;
+
+            if (row > 0)
+            {
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Almoxarifado atualizado com sucesso!", "Ohoow!"));
+                _ButtonSave.IsEnabled = false;
+                Almox = AlmoxNew;
+            }
+            else
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao salvar alterações"));
         }
 
 

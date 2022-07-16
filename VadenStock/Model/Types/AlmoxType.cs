@@ -25,6 +25,22 @@ namespace VadenStock.Model.Types
 
 
 
+        public static readonly string[] ACOES = new string[]
+        {
+            "Comodato",
+            "Conserto",
+            "Danificado",
+            "Desconhecido",
+            "Estoque",
+            "Extraviado",
+            "Producao",
+            "Recolhido",
+            "Rota",
+            "Vendido"
+        };
+
+
+
         public string GetIcon(string color = "blue")
         {
             string icon = Tipo == Hosted.Carro
@@ -38,19 +54,6 @@ namespace VadenStock.Model.Types
 
 
 
-        public static string GetTipo(Hosted tipo)
-        {
-            return tipo switch
-            {
-                Hosted.Estoque => "E",
-                Hosted.Carro => "C",
-                Hosted.Moto => "M",
-                _ => "0"
-            };
-        }
-
-
-
         public static Hosted GetTipo(string tipo)
         {
             return tipo switch
@@ -59,6 +62,19 @@ namespace VadenStock.Model.Types
                 "C" => Hosted.Carro,
                 "M" => Hosted.Moto,
                 _ => Hosted.Indefinido
+            };
+        }
+
+
+
+        public static string GetTipoName(Hosted tipo)
+        {
+            return tipo switch
+            {
+                Hosted.Estoque => "E",
+                Hosted.Carro => "C",
+                Hosted.Moto => "M",
+                _ => "0"
             };
         }
     }

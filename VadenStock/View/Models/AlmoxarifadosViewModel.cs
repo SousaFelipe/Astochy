@@ -31,6 +31,25 @@ namespace VadenStock.View.Models
         }
 
 
+        
+        public static int Update(int id, params KeyValuePair<string, object>[] pairs)
+        {
+            string[] columns = new string[pairs.Length];
+            object[] values = new string[pairs.Length];
+
+            int pair;
+            for (pair = 0; pair < pairs.Length; pair++)
+            {
+                columns[pair] = pairs[pair].Key;
+                values[pair] = pairs[pair].Value;
+            }
+
+            return Almoxarifado.Model
+                .Where("id", id)
+                .Update(columns, values);
+        }
+
+
 
         public static bool Transferir(AlmoxType? origem, AlmoxType? destino, List<ItemType?> itens)
         {

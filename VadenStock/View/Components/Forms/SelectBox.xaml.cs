@@ -14,10 +14,10 @@ namespace VadenStock.View.Components.Forms
 
 
 
-        public ComboBoxItem? Find(int tag)
+        public ComboBoxItem? Find(object tag)
         {
             foreach(ComboBoxItem cbi in Items)
-                if(Convert.ToInt32(cbi.Tag) == tag)
+                if(cbi.Tag == tag)
                     return cbi;
 
             return null;

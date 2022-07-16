@@ -340,14 +340,14 @@ namespace VadenStock.View.Dialogs
 
                     else
                     {
-                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, $"Ocorreu um erro ao salvar o item '{it.Codigo}'"));
+                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, $"Ocorreu um erro ao salvar o item '{it.Codigo}'", "Visshh!"));
                         break;
                     }
                 }
 
                 if (saveCount == Itens.Count)
                 {
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, $"Entrada salva com sucesso!"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, $"Entrada salva com sucesso!", "Ieehoow"));
 
                     Itens.Clear();
                     RefreshTable();
