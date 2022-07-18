@@ -28,19 +28,8 @@ namespace VadenStock.Core.Http
         public IXCClient(string table)
         {
             Table = table;
-
             Body = new Payload(Table);
-
-            //DefaultConfigs = Config.Model.Where("id", 1).Select()[0];
-
-            DefaultConfigs = new()
-            {
-                Id = 1,
-                ServerAddress = "agilityquixeramobim.com.br",
-                ServerProtocol = ConfigType.Protocol.HTTPS,
-                ServerToken = "6:d94f8ccff332c49a266088ea3e0afaa2bdac77157bc4c698d7ab7e35971192bd"
-            };
-
+            DefaultConfigs = Config.Model.Where("id", 1).Select()[0];
             Client = new HttpClient();
         }
 
@@ -76,13 +65,29 @@ namespace VadenStock.Core.Http
 
 
 
+        public IXCClient OrderBy(string column, string order)
+        {
+            Body.OrderBy(column, order);
+            return this;
+        }
+
+
+
+        public IXCClient In(int page)
+        {
+            Body.In(page);
+            return this;
+        }
+
+
+
         public async Task<Response> Get(int rowsPerPage = 0)
         {
             try
             {
                 Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", DefaultConfigs.ServerToken.ToBase64());
 
-                string body = Body.RowCount(rowsPerPage > 0 ? rowsPerPage : 20).ToString();
+                string body = Body.Max(rowsPerPage > 0 ? rowsPerPage : 20).ToString();
                 HttpResponseMessage response = await Client.PostAsync(Url(), Content(body)).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)

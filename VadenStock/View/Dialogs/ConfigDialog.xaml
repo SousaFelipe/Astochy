@@ -1,0 +1,94 @@
+﻿<Border x:Class="VadenStock.View.Dialogs.ConfigDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:ConfigDialog}"
+        Width="420"
+        Height="auto"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        CornerRadius="8"
+        ClipToBounds="True"
+        Background="#FFFFFF">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Margin="24"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Foreground="{StaticResource TextPrimaryColor}"
+                   FontSize="18"
+                   TextWrapping="Wrap"
+                   Text="Antes de continuar, é necessário preencher as seguintes informações..."/>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              Margin="20 0 20 0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <forms:SelectBox Grid.Column="0"
+                             x:Name="_SelectProtocolo"
+                             Width="100"
+                             Height="38"
+                             FontSize="14"
+                             Background="Transparent"
+                             Foreground="{StaticResource TextTertiaryColor}"
+                             SelectionChanged="SelectProtocolo_Changed">
+
+                <ComboBoxItem Tag="0" Content="Protocolo" IsSelected="True"/>
+                <ComboBoxItem Tag="HTTP" Content="HTTP" Foreground="{StaticResource TextPrimaryColor}"/>
+                <ComboBoxItem Tag="HTTPS" Content="HTTPS" Foreground="{StaticResource TextPrimaryColor}"/>
+
+            </forms:SelectBox>
+
+            <forms:InputText Grid.Column="1"
+                             x:Name="_InputAddress"
+                             Margin="8 0 0 0"
+                             HorizontalAlignment="Stretch"
+                             Tag="Domínio ou IP do servidor IXC"
+                             FontSize="14"
+                             Foreground="{StaticResource TextPrimaryColor}"
+                             TextChanged="InputAddress_Changed"/>
+
+        </Grid>
+
+        <forms:InputText Grid.Row="2"
+                         x:Name="_InputToken"
+                         HorizontalAlignment="Stretch"
+                         Margin="20 10 20 0"
+                         Tag="IXC Token"
+                         FontSize="14"
+                         Foreground="{StaticResource TextPrimaryColor}"
+                         TextChanged="InputToken_Changed"/>
+
+        <Button Grid.Row="3"
+                x:Name="_ButtonSave"
+                HorizontalAlignment="Stretch"
+                Padding="0 7 0 8"
+                Margin="20"
+                Style="{StaticResource ButtonSecondary}"
+                FontSize="16"
+                Content="Salvar"
+                Click="ButtonSave_Click"
+                IsEnabled="False"/>
+
+    </Grid>
+
+</Border>

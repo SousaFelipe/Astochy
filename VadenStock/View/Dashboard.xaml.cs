@@ -12,7 +12,8 @@ using VadenStock.View.Components.Forms;
 using VadenStock.Model.Types;
 
 using VadenStock.Tools;
-using VadenStock.Core.Http;
+
+
 
 namespace VadenStock.View
 {
@@ -24,10 +25,28 @@ namespace VadenStock.View
 
             Loaded += delegate {
 
-                LoadCardPatrimonio();
-                LoadAlmoxCards();
-                RefreshChartByMarcas();
+                if (ConfigsViewModel.Configured())
+                    LoadAll();
+                
+                else
+                {
+                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+                    window.DisplayDialog(new ConfigDialog(), delegate
+                    {
+                        LoadAll();
+                        return true;
+                    });
+                }
             };
+        }
+
+
+
+        private void LoadAll()
+        {
+            LoadCardPatrimonio();
+            LoadAlmoxCards();
+            RefreshChartByMarcas();
         }
 
 
@@ -105,7 +124,7 @@ namespace VadenStock.View
             _ChartEstoqueNivel.Draw();
 
             VadenStock.Http.Cliente cliente = new();
-            Response res = cliente.Where("id", 1251).Get(10).Result;
+            VadenStock.Core.Http.Response res = cliente.Where("id", 1251).Get(10).Result;
         }
 
 

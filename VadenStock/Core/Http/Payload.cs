@@ -39,6 +39,22 @@ namespace VadenStock.Core.Http
 
 
 
+        private static string CompileObject(string obj)
+        {
+            string jsonObj = "{[OBJ]}";
+            return jsonObj.Replace("[OBJ]", obj);
+        }
+
+
+
+        private static string CompileArray(string array)
+        {
+            string jsonArray = "[{ARRAY}]";
+            return jsonArray.Replace("{ARRAY}", array);
+        }
+
+
+
         public void Where(string qtype, object oper, object query)
         {
             string strQtype = $"{ (qtype ?? "id") }";
@@ -67,23 +83,15 @@ namespace VadenStock.Core.Http
 
 
 
-        public static string CompileObject(string obj)
+        public Payload In(int page)
         {
-            string jsonObj = "{[OBJ]}";
-            return jsonObj.Replace("[OBJ]", obj);
+            this.page = page;
+            return this;
         }
 
 
 
-        public static string CompileArray(string array)
-        {
-            string jsonArray = "[{ARRAY}]";
-            return jsonArray.Replace("{ARRAY}", array);
-        }
-
-
-
-        public Payload RowCount(int rp)
+        public Payload Max(int rp)
         {
             this.rp = rp;
             return this;

@@ -262,7 +262,7 @@ namespace VadenStock.View.Dialogs
             SelectBox select = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
 
-            if (item != null)
+            if (item != null && select.SelectedIndex > 0)
             {
                 string? produto = item.Tag.ToString();
                 RefreshTable(produto);
