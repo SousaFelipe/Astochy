@@ -122,9 +122,6 @@ namespace VadenStock.View
             _ChartEstoqueNivel.SetSeries(values);
             _ChartEstoqueNivel.SetLabels(labels);
             _ChartEstoqueNivel.Draw();
-
-            VadenStock.Http.Cliente cliente = new();
-            VadenStock.Core.Http.Response res = cliente.Where("id", 1251).Get(10).Result;
         }
 
 
@@ -191,7 +188,7 @@ namespace VadenStock.View
         private void ButtonSaida_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.DisplayDialog(new EntradaDialog());
+            window.DisplayDialog(new SaidaDialog());
         }
 
 

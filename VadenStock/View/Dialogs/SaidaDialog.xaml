@@ -1,0 +1,172 @@
+﻿<Border x:Class="VadenStock.View.Dialogs.SaidaDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:components="clr-namespace:VadenStock.View.Components"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:SaidaDialog}"
+        Width="520"
+        Height="auto"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        CornerRadius="8"
+        Background="#FFFFFF">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Height="38"
+                Margin="0 8 8 8"
+                Padding="8"
+                Style="{StaticResource ButtonLight}"
+                Click="CloseDialog">
+
+            <Image Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-close.png"/>
+
+        </Button>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Stretch">
+
+            <Image Width="64"
+                   Height="64"
+                   Source="/VadenStock;component/Resources/Images/64-unpacking.png"/>
+
+            <TextBlock HorizontalAlignment="Center"
+                       Text="Saída de itens"
+                       Foreground="{StaticResource TextTertiaryColor}"/>
+
+            <forms:InputSearch Grid.Column="0"
+                               x:Name="_InputCliente"
+                               Margin="20 24 20 0"
+                               Tag="Nome ou CPF do cliente..."
+                               FontSize="14"
+                               Foreground="{StaticResource TextPrimaryColor}"/>
+
+            <Grid HorizontalAlignment="Stretch"
+                  Margin="20 24 20 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <forms:InputText Grid.Column="0"
+                                 x:Name="_InputCodigo"
+                                 Tag="Código do equipamento..."
+                                 FontSize="14"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 TextChanged="InputCodigo_Changed"/>
+
+                <forms:SelectBox Grid.Column="1"
+                                 x:Name="_SelectAcoes"
+                                 Width="130"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="8 0 0 0"
+                                 Background="#FFFFFF"
+                                 Text="Ação"
+                                 FontSize="14"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 Style="{StaticResource InputSelectTheme}"
+                                 SelectionChanged="SelectAcoes_Changed">
+
+                    <ComboBoxItem Tag="Desconhecido" Content="Ação"/>
+                    <ComboBoxItem Tag="Comodato" Content="Comodato"/>
+                    <ComboBoxItem Tag="Conserto" Content="Conserto"/>
+                    <ComboBoxItem Tag="Danificaado" Content="Danificado"/>
+                    <ComboBoxItem Tag="Extraviado" Content="Extraviado"/>
+                    <ComboBoxItem Tag="Producao" Content="Produção"/>
+                    <ComboBoxItem Tag="Rota" Content="Rota"/>
+                    <ComboBoxItem Tag="Vendido" Content="Vendido"/>
+
+                </forms:SelectBox>
+
+            </Grid>
+
+            <Border Grid.Row="1"
+                    MinHeight="185"
+                    Margin="20 8 20 0"
+                    CornerRadius="4"
+                    BorderThickness="1"
+                    ClipToBounds="True"
+                    BorderBrush="{StaticResource PrimaryColor_050}">
+
+                <Grid>
+
+                    <StackPanel x:Name="_StackEmpty"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                        <Image Width="24"
+                               Height="24"
+                               Opacity="0.4"
+                               Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                        <TextBlock Text="Nenhum Item"
+                                   Foreground="{StaticResource TextSecondaryColor}"/>
+
+                    </StackPanel>
+
+                    <containers:Table x:Name="_TableItens"
+                                      VerticalAlignment="Stretch"
+                                      HorizontalAlignment="Stretch"
+                                      CornerRadius="4"/>
+
+                </Grid>
+
+            </Border>
+
+            <components:Pagination x:Name="_PaginationItens"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="0 8 20 0"/>
+
+            <Button x:Name="_ButtonSave"
+                    HorizontalAlignment="Stretch"
+                    Padding="0 7 0 8"
+                    Margin="20 24 20 24"
+                    Style="{StaticResource ButtonSecondary}"
+                    FontSize="16"
+                    Content="Salvar"
+                    IsEnabled="False"
+                    Click="ButtonSave_Click"/>
+
+        </StackPanel>
+
+        <Border Grid.Row="1"
+                x:Name="_BorderClientes"
+                Height="auto"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
+                Background="White"
+                CornerRadius="4"
+                BorderThickness="1"
+                BorderBrush="{StaticResource PrimaryColor_050}"
+                Margin="20 140 20 20"
+                Visibility="Collapsed">
+
+            <StackPanel x:Name="_StackClientes"
+                        HorizontalAlignment="Stretch"
+                        Margin="8"/>
+
+        </Border>
+
+    </Grid>
+
+</Border>

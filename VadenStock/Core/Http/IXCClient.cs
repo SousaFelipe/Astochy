@@ -83,6 +83,8 @@ namespace VadenStock.Core.Http
 
         public async Task<Response> Get(int rowsPerPage = 0)
         {
+            Client.CancelPendingRequests();
+
             try
             {
                 Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", DefaultConfigs.ServerToken.ToBase64());
@@ -98,12 +100,7 @@ namespace VadenStock.Core.Http
             }
             catch (Exception e)
             {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-            finally
-            {
-                Client.CancelPendingRequests();
-                Client.Dispose();
+                System.Diagnostics.Trace.WriteLine("[VADEN.ERROR]" + e.Message);
             }
 
             return new Response(string.Empty);
