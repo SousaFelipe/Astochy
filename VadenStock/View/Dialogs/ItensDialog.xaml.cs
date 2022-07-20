@@ -150,7 +150,7 @@ namespace VadenStock.View.Dialogs
                             .TD(Str.MAC(item.Mac))
                             .TD(item.Almoxarifado.Name)
                             .TD(item.UltimaTransf.ToString("dd/MM/yyyy"))
-                            .AC(Icon.Small("trash"), Row.ActionLevel.Danger, () => RemoveItem(item.Id))
+                            .AC(Icon.Small("delete", "white"), Row.ActionLevel.Danger, () => RemoveItem(item.Id))
                     );
             }
 
