@@ -1,16 +1,14 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
-using System.Collections.Generic;
 
+using VadenStock.View.Components.Cards;
+using VadenStock.View.Components.Forms;
+using VadenStock.View.Dialogs;
 using VadenStock.View.Models;
 using VadenStock.View.Structs;
-using VadenStock.View.Components.Cards;
-
-using VadenStock.View.Dialogs;
-using VadenStock.View.Components.Forms;
-
 using VadenStock.Model.Types;
-
 using VadenStock.Tools;
 
 
@@ -64,26 +62,29 @@ namespace VadenStock.View
 
         private void LoadAlmoxCards()
         {
-            List<AlmoxType> almoxarifados = AlmoxarifadosViewModel.TodosOsAlmoxarifados;
+            AlmoxType[] almoxarifados = AlmoxarifadosViewModel
+                .TodosOsAlmoxarifados
+                .Where(a => a.Listagem)
+                .ToArray();
 
             _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
 
             if (almoxarifados != null)
             {
-                AlmoxType currentAlmo;
-                ThumbnailCard currentCard;
+                AlmoxType currentA;
+                ThumbnailCard currentC;
 
                 int r = 0;
                 int l = 0;
 
-                for (int a = 0; a < almoxarifados.Count; a++)
+                for (int a = 0; a < almoxarifados.Length; a++)
                 {
-                    currentAlmo = almoxarifados[a];
-                    currentCard = Molecules.AlmoxarifadoThumbCard(currentAlmo, a, r);
+                    currentA = almoxarifados[a];
+                    currentC = Molecules.AlmoxarifadoThumbCard(currentA, a, r);
 
-                    _GridAlmoxarifados.Children.Add(currentCard);
-                     Grid.SetColumn(currentCard, r);
-                     Grid.SetRow(currentCard, l);
+                    _GridAlmoxarifados.Children.Add(currentC);
+                     Grid.SetColumn(currentC, r);
+                     Grid.SetRow(currentC, l);
 
                     if (0 == (r - 3))
                     {

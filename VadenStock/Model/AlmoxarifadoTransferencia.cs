@@ -26,7 +26,7 @@ namespace VadenStock.Model
 
 
 
-        public List<AlmoxTransfType> Select(params string[] selects)
+        public List<TransfType> Select(params string[] selects)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace VadenStock.Model
                     Plug.Open();
                     Builder.Select(selects);
 
-                    List<AlmoxTransfType> list = new();
+                    List<TransfType> list = new();
 
                     using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
@@ -59,9 +59,9 @@ namespace VadenStock.Model
 
         private class Content
         {
-            public static AlmoxTransfType Get(MySqlDataReader reader)
+            public static TransfType Get(MySqlDataReader reader)
             {
-                AlmoxTransfType contract = new()
+                TransfType contract = new()
                 {
                     Id = reader.GetInt32("id"),
                     Itens = reader.GetString("itens"),

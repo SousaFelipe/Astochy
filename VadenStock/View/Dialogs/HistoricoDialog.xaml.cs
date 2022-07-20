@@ -48,17 +48,17 @@ namespace VadenStock.View.Dialogs
 
         private void LoadTransferencias()
         {
-            List<AlmoxTransfType> transferencias = TransferenciasViewModel.TransfsPorItem(Item.Id);
+            List<TransfType> transferencias = TransferenciasViewModel.TransfsPorItem(Item.Id);
 
             if (transferencias.Count > 0)
             {
-                AlmoxTransfType current;
+                TransfType current;
 
                 for (int t = 0; t < transferencias.Count; t++)
                 {
                     current = transferencias[t];
 
-                    if (Almoxarifado.Id == current.To.Id)
+                    if (ConfigsViewModel.Default != null && ConfigsViewModel.Default.Value.AlmoxPrincipal.Id == current.To.Id)
                         _StackHistoryBlocks.Children.Add(new HistoryInBlock(current));
                     
                     else

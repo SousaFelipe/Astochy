@@ -16,6 +16,7 @@ namespace VadenStock.Model.Types
 
         public int Id { get; set; }
         public string ProductionPath { get; set; }
+        public AlmoxType AlmoxPrincipal { get; set; }
         public string ServerAddress { get; set; }
         public Protocol ServerProtocol { get; set; }
         public string ServerToken { get; set; }

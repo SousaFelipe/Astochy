@@ -12,11 +12,11 @@ namespace VadenStock.View.Components.Widgets
 {
     public partial class HistoryInBlock : Grid
     {
-        public AlmoxTransfType Transferencia { get; private set; }
+        public TransfType Transferencia { get; private set; }
 
 
 
-        public HistoryInBlock(AlmoxTransfType transferencia)
+        public HistoryInBlock(TransfType transferencia)
         {
             Transferencia = transferencia;
 

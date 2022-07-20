@@ -10,6 +10,19 @@ namespace VadenStock.View.Models
 {
     public class ConfigsViewModel
     {
+        public static ConfigType? Default
+        {
+            get
+            {
+                if (Configured())
+                    return Config.Model.Where("id", 1).Select()[0];
+
+                return null;
+            }
+        }
+
+
+
         public static bool Configured()
         {
             List<ConfigType> configs = Config.Model.Where("id", 1).Select();

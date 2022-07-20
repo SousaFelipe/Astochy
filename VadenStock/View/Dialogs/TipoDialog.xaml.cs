@@ -87,14 +87,14 @@ namespace VadenStock.View.Dialogs
             MainWindow window = (MainWindow)Application.Current.MainWindow;
 
             if (Tipo.Categoria <= 0)
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a Categoria!", "Oops!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a Categoria"));
 
             else if (string.IsNullOrEmpty(Tipo.Name))
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você esqueceu de inseir o nome do Tipo!", "Oops!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você esqueceu de inseir o nome do Tipo"));
 
             else if (TiposViewModel.Create(Tipo) > 0)
             {
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Registro inserido com sucesso!", "Yhow!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Registro inserido com sucesso!"));
                 ClearForm();
             }
             else

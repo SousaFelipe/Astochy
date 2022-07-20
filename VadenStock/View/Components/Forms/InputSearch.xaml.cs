@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -35,7 +34,13 @@ namespace VadenStock.View.Components.Forms
 
 
 
-        private Task? SearchTask;
+        public UIElement? Popup { get; private set; }
+        public StackPanel? Container { get; private set; }
+
+
+
+        private bool CanDecay;
+        private int SearchDecay;
         private Action<string>? Callback;
 
 
@@ -44,10 +49,53 @@ namespace VadenStock.View.Components.Forms
         {
             InitializeComponent();
 
+            SearchDecay = 100;
+            CanDecay = false;
+
             Loaded += delegate
             {
                 TextChanged += InputText_Changed;
+
+                BootObserver();
             };
+        }
+
+
+
+        private void BootObserver()
+        {
+            Application.Current.Dispatcher.Invoke(async () => {
+                for(;;)
+                {
+                    await Task.Delay(25);
+
+                    if (CanDecay)
+                    {
+                        if (SearchDecay > 0)
+                            SearchDecay -= 1;
+                        else
+                        {
+                            Callback?.Invoke(Text);
+                            CanDecay = false;
+                            SearchDecay = 50;
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+        public void SetPopup(UIElement popup)
+        {
+            Popup = popup;
+        }
+
+
+
+        public void SetContainer(StackPanel container)
+        {
+            Container = container;
         }
 
 
@@ -59,23 +107,30 @@ namespace VadenStock.View.Components.Forms
 
 
 
+        public void Select(string text)
+        {
+            Callback = null;
+            SearchDecay = 50;
+            CanDecay = false;
+
+            if (Container != null)
+                Container.Children.Clear();
+
+            if (Popup != null)
+                Popup.Visibility = Visibility.Collapsed;
+
+            Text = text;
+            CaretIndex = Text.Length;
+        }
+
+
+
         private void InputText_Changed(object sender, TextChangedEventArgs e)
         {
-            InputSearch input = (InputSearch)sender;
-            string text = input.Text;
-
-            SearchTask?.Dispose();
-            SearchTask = null;
-
-            Application.Current.Dispatcher.Invoke(() => {
-                SearchTask = new Task(async () =>
-                {
-                    await Task.Delay(1000);
-                    Callback?.Invoke(text);
-                });
-            });
-
-            SearchTask?.Start();
+            SearchDecay = 50;
+            
+            if (!CanDecay)
+                CanDecay = true;
         }
     }
 }

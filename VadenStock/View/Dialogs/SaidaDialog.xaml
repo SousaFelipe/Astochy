@@ -52,13 +52,6 @@
                        Text="Saída de itens"
                        Foreground="{StaticResource TextTertiaryColor}"/>
 
-            <forms:InputSearch Grid.Column="0"
-                               x:Name="_InputCliente"
-                               Margin="20 24 20 0"
-                               Tag="Nome ou CPF do cliente..."
-                               FontSize="14"
-                               Foreground="{StaticResource TextPrimaryColor}"/>
-
             <Grid HorizontalAlignment="Stretch"
                   Margin="20 24 20 0">
 
@@ -67,12 +60,11 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <forms:InputText Grid.Column="0"
-                                 x:Name="_InputCodigo"
-                                 Tag="Código do equipamento..."
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 TextChanged="InputCodigo_Changed"/>
+                <forms:InputSearch Grid.Column="0"
+                                   x:Name="_InputCliente"
+                                   Tag="Nome ou CPF do cliente..."
+                                   FontSize="14"
+                                   Foreground="{StaticResource TextPrimaryColor}"/>
 
                 <forms:SelectBox Grid.Column="1"
                                  x:Name="_SelectAcoes"
@@ -96,6 +88,31 @@
                     <ComboBoxItem Tag="Vendido" Content="Vendido"/>
 
                 </forms:SelectBox>
+
+            </Grid>
+
+            <Grid HorizontalAlignment="Stretch"
+                  Margin="20 24 20 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <forms:InputText Grid.Column="0"
+                                 x:Name="_InputCodigo"
+                                 Tag="Código do equipamento..."
+                                 FontSize="14"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 Focusable="True"/>
+
+                <Button Grid.Column="1"
+                        x:Name="_ButtonEntrada"
+                        Margin="8 0 0 0"
+                        Padding="16 0"
+                        Style="{StaticResource ButtonGray}"
+                        Content="Adicionar"
+                        Click="ButtonAddItem_Click"/>
 
             </Grid>
 

@@ -21,6 +21,7 @@ namespace VadenStock.Model.Types
         public ItemType.Status Acao { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool Listagem { get; set; }
         public DateTime CreatedDate { get; set; }
 
 

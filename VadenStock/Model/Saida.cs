@@ -9,24 +9,24 @@ using VadenStock.Model.Types;
 
 namespace VadenStock.Model
 {
-    public class Config : Connection
+    public class Saida : Connection
     {
-        public static Config Model { get { return new Config(); } }
+        public static Saida Model { get { return new Saida(); } }
 
 
 
-        public Config() : base("configs") { }
+        public Saida() : base("saidas") { }
 
 
 
-        public override Config Where(string column, object operOrValue, object? value = null)
+        public override Saida Where(string column, object operOrValue, object? value = null)
         {
-            return (Config)base.Where(column, operOrValue, value);
+            return (Saida)base.Where(column, operOrValue, value);
         }
 
 
 
-        public List<ConfigType> Select(params string[] selects)
+        public List<SaidaType> Select(params string[] selects)
         {
             try
             {
@@ -35,16 +35,14 @@ namespace VadenStock.Model
                     Plug.Open();
                     Builder.Select(selects);
 
-                    List<ConfigType> list = new();
+                    List<SaidaType> list = new();
 
                     using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
                         using (Reader = Cmmd.ExecuteReader())
                         {
                             while (Reader.Read())
-                            {
                                 list.Add(Content.Get(Reader));
-                            }
 
                             return list;
                         }
@@ -61,16 +59,14 @@ namespace VadenStock.Model
 
         private class Content
         {
-            public static ConfigType Get(MySqlDataReader reader)
+            public static SaidaType Get(MySqlDataReader reader)
             {
-                ConfigType contract = new()
+                SaidaType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    ProductionPath = reader.IsDBNull(1) ? string.Empty : reader.GetString("production_path"),
-                    AlmoxPrincipal = Almoxarifado.Model.Where("id", reader.GetInt32("almox_principal")).Select()[0],
-                    ServerAddress = reader.GetString("server_address"),
-                    ServerProtocol = reader.IsDBNull(4) ? ConfigType.Protocol.HTTP : ConfigType.GetProtocol(reader.GetString("server_protocol")),
-                    ServerToken = reader.GetString("server_token"),
+                    Transferencia = AlmoxarifadoTransferencia.Model.Where("id", reader.GetInt32("transferencia")).Select()[0],
+                    Responsavel = reader.GetString("responsavel"),
+                    Tipo = ItemType.GetStatus(reader.GetString("tipo")),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

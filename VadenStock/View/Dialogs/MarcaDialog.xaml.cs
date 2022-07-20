@@ -47,11 +47,11 @@ namespace VadenStock.View.Dialogs
             MainWindow window = (MainWindow)Application.Current.MainWindow;
 
             if (string.IsNullOrEmpty(Marca.Name))
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você esqueceu de inseir o nome da Marca!", "Oops!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você esqueceu de inseir o nome da Marca"));
 
             else if (MarcasViewModel.Create(Marca) > 0)
             {
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Registro inserido com sucesso!", "Yhow!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Registro inserido com sucesso"));
                 ClearForm();
             }
             else

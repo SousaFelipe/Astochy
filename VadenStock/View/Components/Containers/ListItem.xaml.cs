@@ -10,21 +10,23 @@ namespace VadenStock.View.Components.Containers
 {
     public partial class ListItem : Grid
     {
-        public int Id { get; private set; }
-        public Func<bool>? Callback { get; private set; } 
+        public object[] Represents;
+        public Action<object[]>? Callback { get; private set; } 
 
 
 
         public ListItem()
         {
+            Represents = Array.Empty<object>();
+
             InitializeComponent();
         }
 
 
 
-        public ListItem(int id, params string[] children)
+        public ListItem(params string[] children)
         {
-            Id = id;
+            Represents = new object[children.Length];
 
             InitializeComponent();
 
@@ -59,6 +61,8 @@ namespace VadenStock.View.Components.Containers
                 param = children[i].Split(":")[0];
                 value = children[i].Split(":")[1];
 
+                Represents[i] = value;
+
                 ColumnDefinitions.Add(Definition(param));
                 text = Content(value);
                 Children.Add(text);
@@ -82,13 +86,13 @@ namespace VadenStock.View.Components.Containers
 
             MouseLeftButtonUp += (sender, e) =>
             {
-                Callback?.Invoke();
+                Callback?.Invoke(Represents);
             };
         }
 
 
 
-        public ListItem Action(Func<bool> callback)
+        public ListItem Action(Action<object[]> callback)
         {
             Callback = callback;
             return this;

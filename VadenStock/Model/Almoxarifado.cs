@@ -75,6 +75,7 @@ namespace VadenStock.Model
                     Acao = ItemType.GetStatus(reader.GetString("acao")),
                     Name = reader.GetString("name"),
                     Description = reader.IsDBNull(4) ? string.Empty : reader.GetString("description"),
+                    Listagem = reader.GetBoolean("listagem"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

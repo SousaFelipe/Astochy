@@ -41,6 +41,10 @@ namespace VadenStock.View.Dialogs
 
 
 
+        SolidColorBrush Foreground = new SolidColorBrush(Colors.White);
+
+
+
         static readonly float InitialPosition = -100;
         static readonly float DisplayPosition = 44;
 
@@ -55,7 +59,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        public AlertDialog(AlertType type, string message, string caption = "Eitaa!")
+        public AlertDialog(AlertType type, string message)
         {
             InitializeComponent();
 
@@ -63,10 +67,29 @@ namespace VadenStock.View.Dialogs
 
             Loaded += delegate
             {
+                _TextCaption.Text = GetCaptionFromType(type);
+                _TextCaption.Foreground = GetForegroundFromType(type);
+
                 _TextMessage.Text = message;
-                _TextCaption.Text = caption;
+                _TextMessage.Foreground = GetForegroundFromType(type);
+
                 _ImageIcon.Source = Src.Icon(GetIconFromType(type));
+
                 Background = new SolidColorBrush(GetBackgroundFromType(type));
+            };
+        }
+
+
+
+        static string GetCaptionFromType(AlertType type)
+        {
+            return type switch
+            {
+                AlertType.Success => "Yehoow!",
+                AlertType.Warning => "Woopss!",
+                AlertType.Danger => "Visshh!",
+                AlertType.Info => "Heey!",
+                _ => "Eeitaa!"
             };
         }
 
@@ -77,9 +100,9 @@ namespace VadenStock.View.Dialogs
             return type switch
             {
                 AlertType.Success => "white-checked",
-                AlertType.Warning => "white-alert",
+                AlertType.Warning => "black-alert",
                 AlertType.Danger => "white-bomb",
-                AlertType.Info => "white-information",
+                AlertType.Info => "black-information",
                 _ => "white-error"
             };
         }
@@ -96,6 +119,15 @@ namespace VadenStock.View.Dialogs
                 AlertType.Info => (Color)ColorConverter.ConvertFromString("#40C4FF"),
                 _ => (Color)ColorConverter.ConvertFromString("#AB47BC")
             };
+        }
+
+
+
+        static SolidColorBrush GetForegroundFromType(AlertType type)
+        {
+            return type == AlertType.Warning || type == AlertType.Info
+                ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#263238"))
+                : new SolidColorBrush(Colors.White);
         }
 
 

@@ -19,11 +19,14 @@ namespace VadenStock.View.Models
 
 
 
-        public static AlmoxType? Find(int id)
+        public static AlmoxType? Find(params object[][] wheres)
         {
-            List<AlmoxType> search = Almoxarifado.Model
-                .Where("id", id.ToString())
-                .Select();
+            Almoxarifado model = Almoxarifado.Model;
+
+            foreach (object[] w in wheres)
+                model.Where(w[0].ToString(), w[1]);
+
+            List<AlmoxType> search = model.Select();
 
             return search.Count > 0
                 ? search[0]
@@ -85,7 +88,7 @@ namespace VadenStock.View.Models
             {
                 List<string[]> inserts = new()
                 {
-                    new string[] { "itens", AlmoxTransfType.Implode(ids) },
+                    new string[] { "itens", TransfType.Implode(ids) },
                     new string[] { "from_almoxarifado", origem.Value.Id.ToString() },
                     new string[] { "to_almoxarifado", destino.Value.Id.ToString() },
                     new string[] { "acao", ItemType.GetStatusName(destino.Value.Acao) },

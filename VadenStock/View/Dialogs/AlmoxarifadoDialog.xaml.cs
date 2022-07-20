@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 using VadenStock.Model.Types;
 
-using VadenStock.View.Models;
+using VadenStock.Tools;
+
 using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Containers;
 using VadenStock.View.Components.Widgets;
-
-using VadenStock.Tools;
+using VadenStock.View.Models;
 
 
 
@@ -285,7 +285,7 @@ namespace VadenStock.View.Dialogs
 
             if (row > 0)
             {
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Almoxarifado atualizado com sucesso!", "Ohoow!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Almoxarifado atualizado com sucesso"));
                 _ButtonSave.IsEnabled = false;
                 Almox = AlmoxNew;
             }

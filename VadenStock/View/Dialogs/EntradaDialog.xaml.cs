@@ -248,7 +248,7 @@ namespace VadenStock.View.Dialogs
 
                 if (tag > 0)
                 {
-                    AlmoxType? almox = AlmoxarifadosViewModel.Find(tag);
+                    AlmoxType? almox = AlmoxarifadosViewModel.Find(new object[] { "id", tag });
 
                     if (almox != null)
                     {
@@ -264,11 +264,10 @@ namespace VadenStock.View.Dialogs
         private void InputMAC_TextChanged(object sender, TextChangedEventArgs e)
         {
             InputText input = (InputText)sender;
+            string mac = input.Text.Trim().Replace(":", "");
 
-            if (input.Text.Length <= 12)
+            if (mac.Length <= 12)
             {
-                string mac = input.Text;
-
                 if (!string.IsNullOrEmpty(mac) && mac.Length >= 12)
                 {
                     ItemType? item = ItensViewModel.Find(mac);
@@ -340,14 +339,14 @@ namespace VadenStock.View.Dialogs
 
                     else
                     {
-                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, $"Ocorreu um erro ao salvar o item '{it.Codigo}'", "Visshh!"));
+                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, $"Ocorreu um erro ao salvar o item '{it.Codigo}'"));
                         break;
                     }
                 }
 
                 if (saveCount == Itens.Count)
                 {
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, $"Entrada salva com sucesso!", "Ieehoow"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, $"Entrada salva com sucesso"));
 
                     Itens.Clear();
                     RefreshTable();

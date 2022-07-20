@@ -115,10 +115,7 @@ namespace VadenStock.View.Dialogs
                                 .TD(Str.MAC(item.Value.Mac))
                                 .TD(item.Value.Produto.Name)
                                 .TD(item.Value.Localizado)
-                                .AC("X", Row.ActionLevel.Danger, delegate
-                                {
-                                    return RemoveItemFromTransferencia(item.Value.Id);
-                                })
+                                .AC("X", Row.ActionLevel.Danger, () => RemoveItemFromTransferencia(item.Value.Id))
                         );
                     }
                 }
@@ -161,7 +158,7 @@ namespace VadenStock.View.Dialogs
 
                 if (tag > 0)
                 {
-                    Origem = AlmoxarifadosViewModel.Find(tag);
+                    Origem = AlmoxarifadosViewModel.Find(new object[] { "id", tag });
                     _ComboDestino.IsEnabled = true;
                     LoadAlmoxDestino();
                 }
@@ -187,7 +184,7 @@ namespace VadenStock.View.Dialogs
 
                 if (tag > 0)
                 {
-                    Destino = AlmoxarifadosViewModel.Find(tag);
+                    Destino = AlmoxarifadosViewModel.Find(new object[] { "id", tag });
                     _InputCodigo.IsEnabled = true;
                 }
                 else
@@ -217,11 +214,8 @@ namespace VadenStock.View.Dialogs
                     if (Origem != null && Destino != null && (item.Value.Almoxarifado.Id == Origem.Value.Id))
                     {
                         if (Itens.Contains(item))
-                        {
-                            window.DisplayAlert(
-                                new AlertDialog(AlertDialog.AlertType.Info, "O item já foi adicionado à lista de transferência!")
-                                );
-                        }
+                            window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "O item já foi adicionado à lista de transferência"));
+                        
                         else
                         {
                             Itens.Add(item);
@@ -231,7 +225,7 @@ namespace VadenStock.View.Dialogs
                     else
                     {
                         window.DisplayAlert(
-                            new AlertDialog(AlertDialog.AlertType.Info, "O item não se encontra no Almoxarifado de Origem!")
+                            new AlertDialog(AlertDialog.AlertType.Info, "O item não se encontra no Almoxarifado de Origem")
                             );
                     }
 
@@ -265,6 +259,7 @@ namespace VadenStock.View.Dialogs
                     _PaginationItens.Clear();
                     _ButtonSave.IsEnabled = false;
                     Itens.Clear();
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Transferência realizada com sucesso"));
                 }
                 else
                     window.DisplayDialog(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao realizar transferência"));

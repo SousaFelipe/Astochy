@@ -12,6 +12,7 @@
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
         <None Remove="Resources\Icons\bike.png" />
+        <None Remove="Resources\Icons\black-alert.png" />
         <None Remove="Resources\Icons\black-bike.png" />
         <None Remove="Resources\Icons\black-car.png" />
         <None Remove="Resources\Icons\black-chevron-left.png" />
@@ -23,6 +24,7 @@
         <None Remove="Resources\Icons\black-inbox-down.png" />
         <None Remove="Resources\Icons\black-inbox-empty.png" />
         <None Remove="Resources\Icons\black-inbox-up.png" />
+        <None Remove="Resources\Icons\black-information.png" />
         <None Remove="Resources\Icons\black-left.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
         <None Remove="Resources\Icons\black-package.png" />
@@ -96,6 +98,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\Icons\black-alert.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-bike.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -115,6 +120,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-inbox-up.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-information.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-package.png">

@@ -90,7 +90,7 @@ namespace VadenStock.View.Dialogs
 
             if (ConfigsViewModel.Create(Config))
             {
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Configurações atualizadas com sucesso", "Yehooow!"));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Configurações atualizadas com sucesso"));
                 CloseDialog(sender, e);
             }
             else

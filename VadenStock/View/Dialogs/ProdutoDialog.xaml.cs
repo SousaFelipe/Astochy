@@ -316,7 +316,7 @@ namespace VadenStock.View.Dialogs
             if (string.IsNullOrEmpty(Produto.Image.FileName))
             {
                 if (string.IsNullOrEmpty(Produto.Image.Origin))
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Adicione uma imagem ao produto!"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Adicione uma imagem ao produto"));
 
                 else
                 {
@@ -376,7 +376,7 @@ namespace VadenStock.View.Dialogs
                     _InputPrice.Text = "0,00";
                     _InputDescription.Clear();
 
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso", "Wooow!"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso"));
                 }
                 else
                     window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Não foi possível salvar o Produto"));
@@ -412,13 +412,13 @@ namespace VadenStock.View.Dialogs
                     _InputPrice.Text = "0,00";
                     _InputDescription.Clear();
 
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso", "Wooow!"));
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Produto salvo com sucesso"));
                 }
                 else
                     window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Não foi possível salvar o Produto"));
             }
             else
-                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema."));
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Danger, "Erro ao copiar imagem para o sistema"));
         }
 
 

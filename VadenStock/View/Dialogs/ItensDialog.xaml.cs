@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 using VadenStock.Model.Types;
 
-using VadenStock.View.Models;
-using VadenStock.View.Components.Containers;
-
 using VadenStock.Tools;
+
+using VadenStock.View.Components;
+using VadenStock.View.Components.Containers;
+using VadenStock.View.Components.Widgets;
+using VadenStock.View.Models;
 
 
 
@@ -59,8 +61,8 @@ namespace VadenStock.View.Dialogs
                         Header.Auto("Cod."),
                         Header.Auto("MAC"),
                         Header.Max("Almoxarifado"),
-                        Header.Max("Descrição"),
-                        Header.Auto("Status")
+                        Header.Max("Ult. Transf."),
+                        Header.Auto("Ações")
                     );
 
             _Pagination.Table = _TableItens;
@@ -145,14 +147,21 @@ namespace VadenStock.View.Dialogs
                 _TableItens.Add(
                         new Row()
                             .TD(item.Codigo)
-                            .TD(item.Mac)
+                            .TD(Str.MAC(item.Mac))
                             .TD(item.Almoxarifado.Name)
-                            .TD(item.Description)
-                            .TD(item.Localizado)
+                            .TD(item.UltimaTransf.ToString("dd/MM/yyyy"))
+                            .AC(Icon.Small("trash"), Row.ActionLevel.Danger, () => RemoveItem(item.Id))
                     );
             }
 
             _Pagination.Paginate();
+        }
+
+
+
+        private bool RemoveItem(int id)
+        {
+            return true;
         }
 
 
