@@ -9,8 +9,8 @@
         d:DataContext="{d:DesignInstance Type=local:HistoricoDialog}"
         Width="520"
         Height="auto"
-        VerticalAlignment="Center"
-        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Stretch"
         CornerRadius="8"
         Background="#FFFFFF">
 
@@ -58,7 +58,7 @@
                       HorizontalAlignment="Stretch">
 
             <StackPanel HorizontalAlignment="Stretch"
-                        Margin="20">
+                        Margin="20 10 20 20">
 
                 <Grid>
 

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ using VadenStock.Model.Types;
 
 using VadenStock.Tools;
 
-using VadenStock.View.Components;
+using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Containers;
 using VadenStock.View.Components.Widgets;
 using VadenStock.View.Models;
@@ -18,19 +19,16 @@ namespace VadenStock.View.Dialogs
     public partial class ItensDialog : Border
     {
         ProdutoType Produto { get; set; }
+        List<string> Status { get; set; }
         Dictionary<string, ItemType[]> Itens { get; set; }
-
-
-
-        readonly List<Button> Badges;
 
 
 
         public ItensDialog()
         {
             Produto = new();
+            Status = new();
             Itens = new();
-            Badges = new();
 
             InitializeComponent();
         }
@@ -40,8 +38,8 @@ namespace VadenStock.View.Dialogs
         public ItensDialog(ProdutoType produto)
         {
             Produto = produto;
+            Status = new();
             Itens = new();
-            Badges = new();
 
             InitializeComponent();
 
@@ -49,7 +47,7 @@ namespace VadenStock.View.Dialogs
             {
                 InitTable();
                 LoadItens();
-                LoadBadges();
+                LoadStatus();
             };
         }
 
@@ -58,11 +56,11 @@ namespace VadenStock.View.Dialogs
         private void InitTable()
         {
             _TableItens.Headers(
-                        Header.Auto("Cod."),
+                        Header.Auto("COD."),
                         Header.Auto("MAC"),
-                        Header.Max("Almoxarifado"),
-                        Header.Max("Ult. Transf."),
-                        Header.Auto("Ações")
+                        Header.Max("ALMOXARIFADO"),
+                        Header.Max("TRANSFERÊNCIA"),
+                        Header.Auto("AÇÃO")
                     );
 
             _Pagination.Table = _TableItens;
@@ -79,108 +77,105 @@ namespace VadenStock.View.Dialogs
                 itens = ItensViewModel.ItensPorProdutoByStatus(Produto.Id, status).ToArray();
 
                 if (itens != null && itens.Length > 0)
-                    Itens.Add(status, itens);
-            }
-        }
-
-
-
-        private void LoadBadges()
-        {
-            string status;
-            ItemType[] itens;
-            Button buttonBadge;
-
-            for (int s = 0; s < ItemType.STATUS.Length; s++)
-            {
-                status = ItemType.STATUS[s];
-                
-                if (Itens.ContainsKey(status))
                 {
-                    itens = Itens[status];
-
-                    if (itens != null && itens.Length > 0)
-                    {
-                        buttonBadge = new()
-                        {
-                            Margin = new Thickness(2, 0, 2, 0),
-                            Content = $"{ status } ({ Str.ZeroFill(itens.Length) })",
-                            Tag = status
-                        };
-
-                        buttonBadge.Click += SelectBadge;
-
-                        _StackBadges.Children.Add(buttonBadge);
-                        Badges.Add(buttonBadge);
-                    }
+                    Status.Add(status);
+                    Itens.Add(status, itens);
                 }
             }
-
-            SelectBadge(null, null);
         }
 
 
 
-        private void SelectBadge(object? sender, RoutedEventArgs? e)
+        private void LoadStatus()
         {
-            foreach (Button btn in Badges)
-                btn.Style = (Style)FindResource("BadgeGray");
+            foreach(string status in Status)
+            {
+                _SelectStatus.Items.Add(new ComboBoxItem()
+                {
+                    Tag = status,
+                    Content = $"{status} ({Str.ZeroFill(Itens[status].Length)})"
+                });
+            }
 
-            Button button = (Button)(sender ?? Badges[0]);
-            button.Style = (Style)FindResource("BadgeSecondary");
-
-            LoadTable(button.Tag.ToString());
-            UpdateResume(button.Tag.ToString());
+            if (Status.Count > 0)
+                (_SelectStatus.Find(Status[0]) ?? new ComboBoxItem()).IsSelected = true;
         }
 
 
 
-        private void LoadTable(string status)
+        private void RefreshTable()
         {
+            string status = (string)((ComboBoxItem)_SelectStatus.SelectedItem).Tag;
+
             _TableItens.Clear();
             _Pagination.Clear();
 
-            ItemType[] itens = Itens[status];
-
-            foreach (ItemType item in itens)
+            if (!string.IsNullOrEmpty(status))
             {
-                _TableItens.Add(
-                        new Row()
-                            .TD(item.Codigo)
-                            .TD(Str.MAC(item.Mac))
-                            .TD(item.Almoxarifado.Name)
-                            .TD(item.UltimaTransf.ToString("dd/MM/yyyy"))
-                            .AC(Icon.Small("delete", "white"), Row.ActionLevel.Danger, () => RemoveItem(item.Id))
-                    );
+                ItemType[] itens = Itens[status];
+
+                _StackEmpty.Visibility = Visibility.Collapsed;
+
+                foreach (ItemType item in itens)
+                {
+                    _TableItens.Add(
+                            new Row()
+                                .TD(item.Codigo)
+                                .TD(Str.MAC(item.Mac))
+                                .TD(item.Almoxarifado.Name)
+                                .TD(item.UltimaTransf.ToString("dd/MM/yyyy"))
+                                .AC(Icon.Small("history"), Row.ActionLevel.Info, sender => {
+                                    _GridDefault.Visibility = Visibility.Collapsed;
+                                    _GridContainer.Children.Add(new HistoricoDialog(item, this));
+                                })
+                        );
+                }
+
+                _TableItens.Draw();
+                _Pagination.Paginate();
             }
-
-            _Pagination.Paginate();
+            else
+                _StackEmpty.Visibility = Visibility.Visible;
         }
 
 
 
-        private bool RemoveItem(int id)
+        private void UpdateResume()
         {
-            return true;
-        }
-
-
-
-        private void UpdateResume(string status)
-        {
-            ItemType[] itens = Itens[status];
+            string status = (string)((ComboBoxItem)_SelectStatus.SelectedItem).Tag;
             int quantidade = 0;
             decimal valor = 00;
 
-            foreach (ItemType item in itens)
+            if (!string.IsNullOrEmpty(status))
             {
-                quantidade++;
-                valor += item.Produto.Price;
+                ItemType[] itens = Itens[status];
+
+                foreach (ItemType item in itens)
+                {
+                    quantidade++;
+                    valor += item.Produto.Price;
+                }
             }
 
             _TextQuantItens.Text = Str.ZeroFill(quantidade);
             _TextLabelQuantItens.Text = (" item".Pluralize(quantidade, "n") + ", totalizando ");
             _TextTotalItens.Text = ("R$ " + Str.Currency((valor * 100).ToString()));
+        }
+
+
+
+        public void BackToMain(object sender)
+        {
+            _GridContainer.Children.Remove((UIElement)sender);
+            _GridDefault.Visibility = Visibility.Visible;
+        }
+
+
+
+        private void SelectStatus_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshTable();
+            UpdateResume();
         }
 
 

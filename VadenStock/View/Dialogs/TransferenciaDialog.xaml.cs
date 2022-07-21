@@ -115,7 +115,7 @@ namespace VadenStock.View.Dialogs
                                 .TD(Str.MAC(item.Value.Mac))
                                 .TD(item.Value.Produto.Name)
                                 .TD(item.Value.Localizado)
-                                .AC("X", Row.ActionLevel.Danger, () => RemoveItemFromTransferencia(item.Value.Id))
+                                .AC("X", Row.ActionLevel.Danger, sender => RemoveItemFromTransferencia(item.Value.Id))
                         );
                     }
                 }

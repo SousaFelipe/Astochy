@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Collections.Generic;
 
 using VadenStock.View.Components.Buttons;
 
@@ -24,7 +24,7 @@ namespace VadenStock.View.Components.Containers
 
         public uint Count { get; set; }
         public List<Border> Borders { get; private set; }
-        public Func<bool>? Callback { get; private set; }
+        public Action<object>? Callback { get; private set; }
 
 
 
@@ -122,7 +122,7 @@ namespace VadenStock.View.Components.Containers
 
 
 
-        public Row AC(object data, ActionLevel level = ActionLevel.None, Func<bool>? callback = null, Options.RowOptions? options = null)
+        public Row AC(object data, ActionLevel level = ActionLevel.None, Action<object>? callback = null, Options.RowOptions? options = null)
         {
             Callback = callback;
             Options.RowOptions crrOptions = options ?? DefaultOptions;
@@ -185,9 +185,7 @@ namespace VadenStock.View.Components.Containers
         private void EventCallback(object sender, RoutedEventArgs e)
         {
             if (Callback != null)
-            {
-                Callback.Invoke();
-            }
+                Callback.Invoke(sender);
         }
     }
 }

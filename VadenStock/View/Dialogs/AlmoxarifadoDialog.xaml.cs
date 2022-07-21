@@ -168,11 +168,9 @@ namespace VadenStock.View.Dialogs
                                     .TD(item.Codigo)
                                     .TD(Str.MAC(item.Mac.Replace(":", "")))
                                     .TD(item.CreatedDate.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às "))
-                                    .AC(Icon.Small("history"), Row.ActionLevel.Info, delegate
-                                    {
+                                    .AC(Icon.Small("history"), Row.ActionLevel.Info, sender => {
                                         _GridDefault.Visibility = Visibility.Collapsed;
-                                        _GridContainer.Children.Add(new HistoricoDialog(Almox, item, this));
-                                        return true;
+                                        _GridContainer.Children.Add(new HistoricoDialog(item, this));
                                     })
                             );
                     }

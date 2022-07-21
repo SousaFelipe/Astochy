@@ -53,13 +53,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <partials:TitleBar
-                Grid.Row="0"
-                Grid.ColumnSpan="3"/>
+            <partials:TitleBar Grid.Row="0"
+                               Grid.ColumnSpan="3"/>
 
             <Border Grid.Row="1"
                     Grid.ColumnSpan="3"
-                    Padding="0 24 0 0"
+                    Height="127"
                     Background="{StaticResource PrimaryColor_500}">
 
                 <Border.Effect>
@@ -69,150 +68,6 @@
                                       BlurRadius="3"
                                       ShadowDepth="3"/>
                 </Border.Effect>
-
-                <Grid VerticalAlignment="Center"
-                      HorizontalAlignment="Stretch"
-                      MaxWidth="880">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Border Grid.Row="0"
-                            CornerRadius="12"
-                            BorderThickness="1"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Stretch"
-                            MaxWidth="880"
-                            Height="48"
-                            Background="#FFFFFF">
-
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000"
-                                              Opacity="0.15"
-                                              BlurRadius="4"
-                                              ShadowDepth="1"/>
-                        </Border.Effect>
-
-                        <Border.Style>
-                            <Style TargetType="{x:Type Border}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsFocused, ElementName=_TextBoxMainSearch}" Value="True">
-                                        <Setter Property="BorderBrush" Value="{StaticResource Secondary}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="BorderBrush" Value="Transparent" />
-                            </Style>
-                        </Border.Style>
-
-                        <Grid>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="14 0 12 0"
-                                   Width="24"
-                                   Height="24"
-                                   Opacity="0.4"
-                                   Source="/VadenStock;component/Resources/Icons/black-magnify.png"/>
-
-                            <TextBox Grid.Column="1"
-                                     x:Name="_TextBoxMainSearch"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Stretch"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     FontSize="18"/>
-
-                            <TextBlock Grid.Column="1"
-                                       IsHitTestVisible="False"
-                                       Text="Buscar..."
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Margin="1 2 14 0"
-                                       FontSize="18"
-                                       Foreground="#B0BEC5">
-
-                                <TextBlock.Style>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </TextBlock.Style>
-
-                            </TextBlock>
-
-                            <Image Grid.Column="2"
-                                   Source="/VadenStock;component/Resources/Icons/blue-close.png"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="12 0 14 0"
-                                   Width="24"
-                                   Height="24"
-                                   Cursor="Hand"
-                                   MouseLeftButtonUp="ClearMainTextBoxSearch">
-
-                                <Image.Style>
-                                    <Style TargetType="{x:Type Image}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-
-                            </Image>
-
-                        </Grid>
-
-                    </Border>
-
-                    <StackPanel Grid.Row="1"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
-
-                        <RadioButton VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     IsChecked="True"
-                                     Content="DASHBOARD"
-                                     Cursor="Hand"
-                                     Style="{StaticResource TabControlTheme}"
-                                     Command="{Binding DashbordCommand}"/>
-
-                        <RadioButton VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     Content="PRODUTOS"
-                                     Style="{StaticResource TabControlTheme}"
-                                     Command="{Binding ProdutosCommand}"/>
-
-                        <RadioButton VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     Content="COMPRAS"
-                                     Style="{StaticResource TabControlTheme}"
-                                     Command="{Binding ComprasCommand}"/>
-
-                        <RadioButton VerticalAlignment="Center"
-                                     VerticalContentAlignment="Center"
-                                     Content="FORNECEDORES"
-                                     Style="{StaticResource TabControlTheme}"
-                                     Command="{Binding FornecedoresCommand}"/>
-
-                    </StackPanel>
-
-                </Grid>
 
             </Border>
 
@@ -251,6 +106,173 @@
                       HorizontalAlignment="Stretch"/>
 
             </Border>
+
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Center">
+
+                <RadioButton VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     IsChecked="True"
+                                     Content="DASHBOARD"
+                                     Cursor="Hand"
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding DashbordCommand}"/>
+
+                <RadioButton VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Content="PRODUTOS"
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding ProdutosCommand}"/>
+
+                <RadioButton VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Content="COMPRAS"
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding ComprasCommand}"/>
+
+                <RadioButton VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center"
+                                     Content="FORNECEDORES"
+                                     Style="{StaticResource TabControlTheme}"
+                                     Command="{Binding FornecedoresCommand}"/>
+
+            </StackPanel>
+
+            <Border Grid.RowSpan="3"
+                    Grid.ColumnSpan="3"
+                    x:Name="_BorderSeach"
+                    Margin="0 32 0 0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Background="{StaticResource PrimaryColor_050}"
+                    Visibility="Collapsed">
+
+                <StackPanel HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Margin="68 98 68 40">
+                    
+                    
+                    
+                </StackPanel>
+                
+            </Border>
+
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="0 24 0 0"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Stretch"
+                  MaxWidth="880">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        CornerRadius="12"
+                        BorderThickness="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Stretch"
+                        MaxWidth="880"
+                        Height="48"
+                        Background="#FFFFFF">
+
+                    <Border.Effect>
+                        <DropShadowEffect Color="#000"
+                                          Opacity="0.15"
+                                          BlurRadius="4"
+                                          ShadowDepth="1"/>
+                    </Border.Effect>
+
+                    <Border.Style>
+                        <Style TargetType="{x:Type Border}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFocused, ElementName=_TextBoxMainSearch}" Value="True">
+                                    <Setter Property="BorderBrush" Value="{StaticResource Secondary}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                        </Style>
+                    </Border.Style>
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="14 0 12 0"
+                               Width="24"
+                               Height="24"
+                               Opacity="0.4"
+                               Source="/VadenStock;component/Resources/Icons/black-magnify.png"/>
+
+                        <TextBox Grid.Column="1"
+                                 x:Name="_TextBoxMainSearch"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Stretch"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 FontSize="18"/>
+
+                        <TextBlock Grid.Column="1"
+                                   IsHitTestVisible="False"
+                                   Text="Buscar..."
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Margin="1 2 14 0"
+                                   FontSize="18"
+                                   Foreground="#B0BEC5">
+
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                        <Image Grid.Column="2"
+                               Source="/VadenStock;component/Resources/Icons/blue-close.png"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="12 0 14 0"
+                               Width="24"
+                               Height="24"
+                               Cursor="Hand"
+                               MouseLeftButtonUp="ClearMainTextBoxSearch">
+
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+
+                        </Image>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
 
         </Grid>
 

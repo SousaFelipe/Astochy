@@ -78,10 +78,7 @@ namespace VadenStock.View.Dialogs
                                 .TD(item.Codigo)
                                 .TD(Str.MAC(item.Mac))
                                 .TD(item.Produto.Name)
-                                .AC("X", Row.ActionLevel.Danger, delegate
-                                {
-                                    return RemoveItemFromEntrada(item.Codigo);
-                                })
+                                .AC("X", Row.ActionLevel.Danger, sender => RemoveItemFromEntrada(item.Codigo))
                         );
                 }
 

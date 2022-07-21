@@ -6,41 +6,23 @@
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
         xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ItensDialog}"
-        d:DesignWidth="620"
-        d:DesignHeight="460"
-        Width="620"
-        MaxHeight="475"
+        MinWidth="520"
+        MaxWidth="620"
+        MinHeight="475"
+        Height="auto"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
         CornerRadius="8"
         Background="#FFFFFF">
 
-    <Grid VerticalAlignment="Stretch"
+    <Grid x:Name="_GridContainer"
+          VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-
-        <Button Grid.Row="0"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Right"
-                Height="38"
-                Margin="8"
-                Padding="8"
-                Style="{StaticResource ButtonLight}"
-                Click="CloseDialog">
-
-            <Image Width="24"
-                   Height="24"
-                   Opacity="0.4"
-                   Source="/VadenStock;component/Resources/Icons/black-close.png"/>
-
-        </Button>
-
-        <Grid Grid.Row="1"
+        <Grid x:Name="_GridDefault"
               VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch">
 
@@ -50,25 +32,83 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0"
-                        x:Name="_StackBadges"
-                        Orientation="Horizontal"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Margin="18 10 0 0"/>
+            <Button Grid.Row="0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Right"
+                    Height="38"
+                    Margin="8"
+                    Padding="8"
+                    Style="{StaticResource ButtonLight}"
+                    Click="CloseDialog">
 
-            <containers:Table Grid.Row="1"
-                              CornerRadius="4"
-                              x:Name="_TableItens"
-                              HorizontalAlignment="Stretch"
-                              Margin="20 10 20 10"/>
+                <Image Width="24"
+                       Height="24"
+                       Opacity="0.4"
+                       Source="/VadenStock;component/Resources/Icons/black-close.png"/>
 
-            <Border Grid.Row="2"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Stretch"
-                    Margin="20 0"
-                    Height="1"
-                    Background="{StaticResource PrimaryColor_050}"/>
+            </Button>
+
+            <ScrollViewer Grid.Row="1"
+                          HorizontalAlignment="Stretch">
+
+                <Grid VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <forms:SelectBox Grid.Row="0"
+                                     x:Name="_SelectStatus"
+                                     Width="150"
+                                     HorizontalAlignment="Left"
+                                     Margin="20 0 0 0"
+                                     Background="#FFFFFF"
+                                     Text="Status"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     Style="{StaticResource InputSelectTheme}"
+                                     SelectionChanged="SelectStatus_Changed"/>
+
+                    <Border Grid.Row="1"
+                            MinHeight="185"
+                            Margin="20 8 20 0"
+                            CornerRadius="4"
+                            BorderThickness="1"
+                            ClipToBounds="True"
+                            BorderBrush="{StaticResource PrimaryColor_050}">
+
+                        <Grid VerticalAlignment="Stretch"
+                              HorizontalAlignment="Stretch">
+
+                            <StackPanel x:Name="_StackEmpty"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+
+                                <Image Width="24"
+                                        Height="24"
+                                        Opacity="0.4"
+                                        Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                                <TextBlock Text="Nenhum Item"
+                                           Foreground="{StaticResource TextSecondaryColor}"/>
+
+                            </StackPanel>
+
+                            <containers:Table x:Name="_TableItens"
+                                              VerticalAlignment="Stretch"
+                                              HorizontalAlignment="Stretch"
+                                              CornerRadius="4"/>
+
+                        </Grid>
+
+                    </Border>
+
+                </Grid>
+
+            </ScrollViewer>
 
             <Grid Grid.Row="2"
                   HorizontalAlignment="Stretch"

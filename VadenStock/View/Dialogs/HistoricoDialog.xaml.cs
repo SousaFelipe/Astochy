@@ -15,15 +15,13 @@ namespace VadenStock.View.Dialogs
 {
     public partial class HistoricoDialog : Border
     {
-        public AlmoxType Almoxarifado { get; private set; }
         public ItemType Item { get; private set; }
         public object? View { get; private set; }
 
 
 
-        public HistoricoDialog(AlmoxType almoxarifado, ItemType item, object parent)
+        public HistoricoDialog(ItemType item, object parent)
         {
-            Almoxarifado = almoxarifado;
             Item = item;
             View = parent;
 
