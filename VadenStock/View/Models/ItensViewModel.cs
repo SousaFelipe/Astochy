@@ -17,11 +17,11 @@ namespace VadenStock.View.Models
 
 
 
-        public static ItemType? Find(object search)
+        public static ItemType? Find(object codeOrMAC)
         {
             List<ItemType> loaded = Item.Model
-                .Where("codigo", search)
-                .Or("mac", search)
+                .Where("codigo", codeOrMAC)
+                .Or("mac", codeOrMAC)
                 .Select();
 
             return loaded.Count > 0
@@ -47,18 +47,6 @@ namespace VadenStock.View.Models
         }
 
 
-
-        public static List<ItemType> ItensPorProduto(int produto, params string[][] query)
-        {
-            Item model = Item.Model
-                .Where("produto", produto.ToString());
-
-            if (query.Length > 0)
-                foreach (string[] q in query)
-                    model.Where(Convert.ToString(q[0]), Convert.ToString(q[1]));
-
-            return model.Select();
-        }
 
         public static int CountItensPorProduto(int produto)
         {
@@ -96,18 +84,6 @@ namespace VadenStock.View.Models
                     model.Where(Convert.ToString(q[0]), Convert.ToString(q[1]));
 
             return model.Select();
-        }
-
-
-
-        public static int CountItensPorCategoria(int categoria)
-        {
-            int count = 0;
-
-            foreach(ProdutoType p in ProdutosViewModel.ProdutosPorCategoria(categoria))
-                count += Item.Model.Where("produto", p.Id.ToString()).Count();
-
-            return count;
         }
 
 

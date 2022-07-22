@@ -85,6 +85,42 @@ namespace VadenStock.Tools
 
 
 
+        public static bool IsNumber(string text)
+        {
+            int crrAscii;
+            char[] chars = text.ToCharArray();
+
+            for (int c = 0; c < chars.Length; c++)
+            {
+                crrAscii = (int)chars[0];
+
+                if (crrAscii < 48 || crrAscii > 57)
+                    return false;
+            }
+
+            return true;
+        }
+
+
+
+        public static bool IsText(string text)
+        {
+            int crrAscii;
+            char[] chars = text.ToCharArray();
+
+            for (int c = 0; c < chars.Length; c++)
+            {
+                crrAscii = (int)chars[0];
+
+                if (crrAscii < 65 || (crrAscii > 90 && crrAscii < 97) || crrAscii > 122)
+                    return false;
+            }
+
+            return true;
+        }
+
+
+
         public static string? MAC(string input)
         {
             if (input.Length == 12)

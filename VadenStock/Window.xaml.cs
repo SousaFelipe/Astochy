@@ -1,19 +1,23 @@
 ﻿using System;
-using System.Windows;
-using System.Threading;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-using VadenStock.View.Dialogs;
+using VadenStock.Core.Http;
+using VadenStock.Http;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
 
 using VadenStock.Tools;
+
+using VadenStock.View.Dialogs;
+using VadenStock.View.Models;
 
 
 
@@ -39,21 +43,7 @@ namespace VadenStock
 		public MainWindow()
         {
             InitializeComponent();
-			IsTheVeryFirstStart();
 		}
-
-
-
-		private void IsTheVeryFirstStart()
-        {
-			Config model = Config.Model;
-			List<ConfigType> configs = model.Where("id", 1).Select();
-
-			if (configs == null || configs.Count <= 0)
-            {
-				System.Diagnostics.Trace.WriteLine(Src.Resource.Root);
-            }
-        }
 
 
 
@@ -89,7 +79,7 @@ namespace VadenStock
 				Thread thread = new(() =>
 				{
 					if (!self)
-						Thread.Sleep(5000);
+						Thread.Sleep(6000);
 
 					Application.Current.Dispatcher.BeginInvoke(
 							DispatcherPriority.Background,
@@ -111,27 +101,151 @@ namespace VadenStock
         {
 			_BorderShadow.Visibility = Visibility.Visible;
 			_DialogContainer.Children.Add(element);
+
 			OnCloseDialogCallback = onCloseDialogCallback;
 		}
 
 
 
-		public void CloseDialog(UIElement element, bool unique = true)
+		public void CloseDialog(UIElement element)
         {
-			OnCloseDialogCallback?.Invoke();
-
 			_DialogContainer.Children.Remove(element);
+			_DialogContainer.Children.Clear();
+			_BorderShadow.Visibility = Visibility.Collapsed;
 
-			if (unique)
-            {
-				_DialogContainer.Children.Clear();
-				_BorderShadow.Visibility = Visibility.Collapsed;
+			OnCloseDialogCallback?.Invoke();
+		}
+
+
+
+		private void CallCurrentFocusedElement(string method, string action, string property)
+		{
+			IInputElement element = FocusManager.GetFocusedElement(this);
+
+			if (element != null && element.GetType() != null)
+			{
+				object? val;
+
+				foreach (PropertyInfo pi in element.GetType().GetProperties())
+				{
+					if (pi.Name == property)
+					{
+						val = pi.GetValue(element);
+
+						if (val != null && ((bool)val) == true)
+						{
+							MethodInfo? mi = element.GetType().GetMethod(method);
+							mi?.Invoke(element, new object[] { action });
+						}
+					}
+				}
 			}
-        }
+		}
 
 
 
-		public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+		private void SearchWhenItsNumber(string search)
+        {
+			Application.Current.Dispatcher.Invoke(async () =>
+			{
+				Response response = await Cliente.Conn
+					.Where("cnpj_cpf", "LE", search)
+					.Get();
+
+				List<ItemType> itens = Item.Model
+					.Where("codigo", "LIKE", search)
+					.Select();
+			});
+		}
+
+
+
+		private void SearchWhenItsText(string search)
+        {
+			Application.Current.Dispatcher.Invoke(async () => {
+
+				Response response = await Cliente.Conn
+					.Where("razao", "LE", search)
+					.Get();
+
+				List<ProdutoType> produtos = Produto.Model
+					.Where("name", "LE", search)
+					.Select();
+
+
+			});
+		}
+
+
+
+		private void SearchWhenNotNumberOrText(string search)
+        {
+			List<ItemType> itens = Item.Model
+				.Where("mac", "LIKE", search)
+				.Select();
+
+			List<ProdutoType> produtos = Produto.Model
+				.Where("name", "LE", search)
+				.Select();
+		}
+
+
+
+		private void InputMainSearch_Changed(object sender, TextChangedEventArgs e)
+		{
+			TextBox input = (TextBox)sender;
+			string search = input.Text;
+
+			if (!string.IsNullOrEmpty(search) && search.Length >= 3)
+            {
+				_GridLoadingSearch.Visibility = Visibility.Visible;
+				_BorderSeach.Visibility = Visibility.Visible;
+
+				if (Str.IsNumber(search))
+					SearchWhenItsNumber(search);
+
+				else if (Str.IsText(search))
+					SearchWhenItsText(search);
+
+				else
+					SearchWhenNotNumberOrText(search);
+			}
+			else
+            {
+				_BorderSeach.Visibility = Visibility.Collapsed;
+            }
+		}
+
+
+
+		private void ImageClearSearch_Click(object sender, MouseButtonEventArgs e)
+		{
+			_InputMainSearch.Clear();
+		}
+
+
+
+		private void Window_KeyUp(object sender, KeyEventArgs e)
+		{
+			switch (e.Key)
+			{
+				case Key.Delete:
+					CallCurrentFocusedElement("FireControlAction", "Delete", "IsSelected");
+					break;
+			}
+		}
+
+
+
+		private void ShutdownApplication(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+
+
+        #region Window Control
+        public static IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
 		{
 			if (msg == WM_GETMINMAXINFO)
 			{
@@ -221,57 +335,6 @@ namespace VadenStock
 			public POINT ptMinTrackSize;
 			public POINT ptMaxTrackSize;
 		}
-
-
-
-		private void ClearMainTextBoxSearch(object sender, MouseButtonEventArgs e)
-		{
-			_TextBoxMainSearch.Clear();
-		}
-
-
-
-		private void ShutdownApplication(object sender, RoutedEventArgs e)
-        {
-			Application.Current.Shutdown();
-        }
-
-
-
-        private void Window_KeyUp(object sender, KeyEventArgs e)
-        {
-			switch (e.Key)
-			{
-				case Key.Delete:
-					CallCurrentFocusedElement("FireControlAction", "Delete", "IsSelected");
-					break;
-			}
-        }
-
-
-
-		private void CallCurrentFocusedElement(string method, string action, string property)
-		{
-			IInputElement element = FocusManager.GetFocusedElement(this);
-
-			if (element != null && element.GetType() != null)
-			{
-				object? val;
-
-				foreach (PropertyInfo pi in element.GetType().GetProperties())
-				{
-					if (pi.Name == property)
-					{
-						val = pi.GetValue(element);
-
-						if (val != null && ((bool)val) == true)
-                        {
-							MethodInfo? mi = element.GetType().GetMethod(method);
-							mi?.Invoke(element, new object[] { action });
-                        }
-					}
-				}
-			}
-		}
-	}
+        #endregion
+    }
 }

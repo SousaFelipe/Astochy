@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:VadenStock.View"
         xmlns:partials="clr-namespace:VadenStock.View.Partials"
@@ -144,19 +145,65 @@
             <Border Grid.RowSpan="3"
                     Grid.ColumnSpan="3"
                     x:Name="_BorderSeach"
-                    Margin="0 32 0 0"
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
+                    Margin="0 32 0 0"
                     Background="{StaticResource PrimaryColor_050}"
-                    Visibility="Collapsed">
+                    Visibility="Visible">
 
-                <StackPanel HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            Margin="68 98 68 40">
-                    
-                    
-                    
-                </StackPanel>
+                <Grid VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
+
+                    <StackPanel HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top"
+                                MaxWidth="880"
+                                Margin="68 98 68 40">
+
+                        <StackPanel x:Name="_StackResultClientesContainer"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Stretch">
+
+                            <Border CornerRadius="2"
+                                    Background="{StaticResource PrimaryColor_100}">
+                                
+                                <TextBlock Margin="8 2"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Foreground="{StaticResource TextSecondaryColor}"
+                                           FontSize="9"
+                                           Text="CLIENTES"/>
+                                
+                            </Border>
+
+                            <StackPanel x:Name="_StackClientesResult"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Stretch"
+                                        Margin="0 8 0 0">
+
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Grid x:Name="_GridLoadingSearch"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch"
+                          Background="{StaticResource PrimaryColor_050}"
+                          Visibility="Collapsed">
+
+                        <fa:ImageAwesome Width="32"
+                                         Height="32"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Foreground="{StaticResource Secondary}"
+                                         Icon="Refresh"
+                                         Spin="True"
+                                         SpinDuration="2" />
+
+                    </Grid>
+
+                </Grid>
                 
             </Border>
 
@@ -217,12 +264,12 @@
                                Source="/VadenStock;component/Resources/Icons/black-magnify.png"/>
 
                         <TextBox Grid.Column="1"
-                                 x:Name="_TextBoxMainSearch"
+                                 x:Name="_InputMainSearch"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"
                                  Background="Transparent"
                                  BorderThickness="0"
-                                 FontSize="18"/>
+                                 FontSize="18" TextChanged="InputMainSearch_Changed"/>
 
                         <TextBlock Grid.Column="1"
                                    IsHitTestVisible="False"
@@ -254,7 +301,7 @@
                                Width="24"
                                Height="24"
                                Cursor="Hand"
-                               MouseLeftButtonUp="ClearMainTextBoxSearch">
+                               MouseLeftButtonUp="ImageClearSearch_Click">
 
                             <Image.Style>
                                 <Style TargetType="{x:Type Image}">

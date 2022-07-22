@@ -31,6 +31,7 @@
         <None Remove="Resources\Icons\black-save.png" />
         <None Remove="Resources\Icons\black-swap.png" />
         <None Remove="Resources\Icons\black-warehouse.png" />
+        <None Remove="Resources\Icons\blue-account.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
         <None Remove="Resources\Icons\blue-car.png" />
         <None Remove="Resources\Icons\blue-chevron-left.png" />
@@ -38,6 +39,7 @@
         <None Remove="Resources\Icons\blue-close.png" />
         <None Remove="Resources\Icons\blue-delete.png" />
         <None Remove="Resources\Icons\blue-down.png" />
+        <None Remove="Resources\Icons\blue-file.png" />
         <None Remove="Resources\Icons\blue-history.png" />
         <None Remove="Resources\Icons\blue-image-plus.png" />
         <None Remove="Resources\Icons\blue-inbox-down.png" />
@@ -54,7 +56,11 @@
         <None Remove="Resources\Icons\close-dark.png" />
         <None Remove="Resources\Icons\close.png" />
         <None Remove="Resources\Icons\filter.png" />
+        <None Remove="Resources\Icons\gray-file.png" />
+        <None Remove="Resources\Icons\green-account.png" />
+        <None Remove="Resources\Icons\green-check.png" />
         <None Remove="Resources\Icons\green-checked-cicle.png" />
+        <None Remove="Resources\Icons\green-wifi.png" />
         <None Remove="Resources\Icons\image-plus-active.png" />
         <None Remove="Resources\Icons\magnify.png" />
         <None Remove="Resources\Icons\maximize.png" />
@@ -62,7 +68,11 @@
         <None Remove="Resources\Icons\orange-alert.png" />
         <None Remove="Resources\Icons\package-plus.png" />
         <None Remove="Resources\Icons\plus.png" />
+        <None Remove="Resources\Icons\red-account.png" />
         <None Remove="Resources\Icons\red-bomb.png" />
+        <None Remove="Resources\Icons\red-file.png" />
+        <None Remove="Resources\Icons\red-lock.png" />
+        <None Remove="Resources\Icons\red-wifi.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
         <None Remove="Resources\Icons\white-alert.png" />
@@ -137,7 +147,13 @@
       <Resource Include="Resources\Icons\black-warehouse.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\blue-account.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\blue-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-file.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-history.png">
@@ -167,6 +183,30 @@
       <Resource Include="Resources\Icons\blue-swap.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\gray-file.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\green-account.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\green-check.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\green-wifi.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\red-account.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\red-file.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\red-lock.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\red-wifi.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\white-delete.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -177,6 +217,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
         <PackageReference Include="MySql.Data" Version="8.0.29" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
