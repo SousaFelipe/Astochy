@@ -36,19 +36,18 @@
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left">
 
-                <fa:ImageAwesome VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Width="18"
-                                 Height="18"
-                                 Foreground="{StaticResource SuccessColor}"
-                                 Icon="UserCircle" />
+                <Image Grid.Column="0"
+                       x:Name="_ImageAccount"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Width="18"
+                       Height="18"/>
 
                 <TextBlock x:Name="_TextNomeCliente"
                            VerticalAlignment="Center"
                            Margin="8 0 8 0"
                            Foreground="{StaticResource TextPrimaryColor}"
-                           FontWeight="Medium"
-                           Text="FELIPE DE SOUSA DO CARMO"/>
+                           FontWeight="Medium"/>
 
             </StackPanel>
 
@@ -57,8 +56,7 @@
                        x:Name="_TextEndereco"
                        VerticalAlignment="Center"
                        Margin="4 0 4 0"
-                       Foreground="{StaticResource TextSecondaryColor}"
-                       Text="ALGODÕES - 03, PRÓXIMO AO GINÁSIO DA ESCOLA"/>
+                       Foreground="{StaticResource TextSecondaryColor}"/>
 
         </Grid>
 
@@ -85,12 +83,12 @@
                         Orientation="Horizontal"
                         Margin="4 4 0 4">
 
-                <fa:ImageAwesome VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Width="10"
-                                 Height="10"
-                                 Foreground="{StaticResource SuccessColor}"
-                                 Icon="Wifi" />
+                <Image Grid.Column="0"
+                       x:Name="_ImageLoginStatus"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Width="12"
+                       Height="12"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.ColumnSpan="2"
@@ -98,17 +96,16 @@
                            VerticalAlignment="Center"
                            Margin="4 0 8 0"
                            FontSize="10"
-                           Foreground="{StaticResource TextSecondaryColor}"
-                           Text="FELIPESOUSA@IXC.COM.BR"/>
+                           Foreground="{StaticResource TextSecondaryColor}"/>
 
             </StackPanel>
 
             <TextBlock Grid.Column="1"
+                       x:Name="_TextMAC"
                        VerticalAlignment="Center"
                        Margin="4 4 8 4"
                        FontSize="10"
-                       Foreground="{StaticResource TextSecondaryColor}"
-                       Text="MAC: 00:27:22:08:D6:72"/>
+                       Foreground="{StaticResource TextSecondaryColor}"/>
 
             <StackPanel Grid.Column="2"
                         Orientation="Horizontal"
@@ -116,12 +113,12 @@
                         HorizontalAlignment="Left"
                         Margin="4 4 8 4">
 
-                <fa:ImageAwesome VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 Width="10"
-                                 Height="10"
-                                 Foreground="{StaticResource SuccessColor}"
-                                 Icon="CheckCircle" />
+                <Image Grid.Column="0"
+                       x:Name="_ImageContratoStatus"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Width="12"
+                       Height="12"/>
 
                 <TextBlock Grid.Column="1"
                            Grid.ColumnSpan="2"
@@ -129,8 +126,7 @@
                            VerticalAlignment="Center"
                            Margin="4 0 0 0"
                            FontSize="10"
-                           Foreground="{StaticResource TextSecondaryColor}"
-                           Text="30MB POR R$60,00 (FIBRA LIGHT)"/>
+                           Foreground="{StaticResource TextSecondaryColor}"/>
 
             </StackPanel>
 

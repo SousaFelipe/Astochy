@@ -27,7 +27,7 @@
                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                 CornerRadius="4"
-                                BorderThickness="1"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="#CFD8DC"
                                 Background="{TemplateBinding Background}">
 

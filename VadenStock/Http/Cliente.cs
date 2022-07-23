@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using VadenStock.Core;
 using VadenStock.Core.Http;
 
@@ -27,15 +30,13 @@ namespace VadenStock.Http
 
 
 
-        public int id;
-        public int id_ixc;
         public string razao;
         public int tipo_assinante;
-        public TipoPessoa tipo_pessoa;
+        public string tipo_pessoa;
         public string? cnpj_cpf;
         public string? ie_identidade;
         public bool contribuinte_icms;
-        public DateTime? data_nascimento;
+        public string? data_nascimento;
         public bool ativo;
         public int filial_id;
         public string cep;
@@ -45,34 +46,60 @@ namespace VadenStock.Http
         public string bairro;
         public int cidade;
         public string? referencia;
-        public TipoZona tipo_localidade;
+        public string tipo_localidade;
         public string? telefone_comercial;
         public string? telefone_celular;
         public string? whatsapp;
         public string? obs;
         public string? alerta;
-        public bool sync;
-        public DateTime? updated_at;
-        public DateTime created_at;
 
 
 
         public Cliente() : base("cliente")
         {
-            id = 0;
-            id_ixc = 0;
+            tipo_pessoa = string.Empty;
             razao = string.Empty;
-            tipo_assinante = 0;
-            tipo_pessoa = TipoPessoa.Fisica;
-            filial_id = 0;
             cep = string.Empty;
             endereco = string.Empty;
-            numero = "SN";
+            numero = string.Empty;
             bairro = string.Empty;
-            cidade = 0;
-            tipo_localidade = TipoZona.Rural;
-            sync = false;
-            created_at = DateTime.Now;
+            tipo_localidade = string.Empty;
+        }
+
+
+
+        public List<Contrato> RequestContratos()
+        {
+            List<Contrato>? contratos = new();
+
+            Task.Run(async () =>
+            {
+                Response response = await Contrato.Conn
+                    .Where("id_cliente", "=", id_ixc)
+                    .Get();
+
+                contratos = response.Registros.ToObject<List<Contrato>>();
+            });
+
+            return contratos ?? new List<Contrato>();
+        }
+
+
+
+        public List<Login> RequestLogin()
+        {
+            List<Login>? logins = new();
+
+            Task.Run(async () =>
+            {
+                Response response = await Login.Conn
+                    .Where("id_cliente", "=", id_ixc)
+                    .Get();
+
+                logins = response.Registros.ToObject<List<Login>>();
+            });
+
+            return logins ?? new List<Login>();
         }
     }
 }

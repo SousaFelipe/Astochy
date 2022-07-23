@@ -8,6 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
+
+using Newtonsoft.Json.Linq;
+
 using VadenStock.Core.Http;
 using VadenStock.Http;
 
@@ -16,6 +19,7 @@ using VadenStock.Model.Types;
 
 using VadenStock.Tools;
 
+using VadenStock.View.Components;
 using VadenStock.View.Dialogs;
 using VadenStock.View.Models;
 
@@ -43,6 +47,11 @@ namespace VadenStock
 		public MainWindow()
         {
             InitializeComponent();
+
+			Loaded += delegate
+			{
+				_InputMainSearch.OnSearch((result) => InputMainSearch_Changed(result));
+			};
 		}
 
 
@@ -146,13 +155,16 @@ namespace VadenStock
 
 		private void SearchWhenItsNumber(string search)
         {
+			Response response;
+			List<ItemType> itens;
+
 			Application.Current.Dispatcher.Invoke(async () =>
 			{
-				Response response = await Cliente.Conn
+				response = await Cliente.Conn
 					.Where("cnpj_cpf", "LE", search)
 					.Get();
 
-				List<ItemType> itens = Item.Model
+				itens = Item.Model
 					.Where("codigo", "LIKE", search)
 					.Select();
 			});
@@ -164,15 +176,18 @@ namespace VadenStock
         {
 			Application.Current.Dispatcher.Invoke(async () => {
 
-				Response response = await Cliente.Conn
-					.Where("razao", "LE", search)
-					.Get();
+				Response response = await Cliente.Conn.Where("razao", "LE", search).Get(10);
 
-				List<ProdutoType> produtos = Produto.Model
-					.Where("name", "LE", search)
-					.Select();
+				/*List<ProdutoType> produtos = Produto.Model
+					.Where("name", "LIKE", search)
+					.Select();*/
 
+				List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
+				foreach (Cliente c in clientes)
+                {
+					System.Diagnostics.Trace.WriteLine(c.razao);
+                }
 			});
 		}
 
@@ -185,35 +200,30 @@ namespace VadenStock
 				.Select();
 
 			List<ProdutoType> produtos = Produto.Model
-				.Where("name", "LE", search)
+				.Where("name", "LIKE", search)
 				.Select();
 		}
 
 
 
-		private void InputMainSearch_Changed(object sender, TextChangedEventArgs e)
+		private void InputMainSearch_Changed(string result)
 		{
-			TextBox input = (TextBox)sender;
-			string search = input.Text;
+			_BorderSeach.Visibility = Visibility.Visible;
+			//_GridLoadingSearch.Visibility = Visibility.Visible;
 
-			if (!string.IsNullOrEmpty(search) && search.Length >= 3)
+			if (!string.IsNullOrEmpty(result) && result.Length >= 3)
             {
-				_GridLoadingSearch.Visibility = Visibility.Visible;
-				_BorderSeach.Visibility = Visibility.Visible;
+				if (Str.IsNumber(result))
+					SearchWhenItsNumber(result);
 
-				if (Str.IsNumber(search))
-					SearchWhenItsNumber(search);
-
-				else if (Str.IsText(search))
-					SearchWhenItsText(search);
+				else if (Str.IsText(result))
+					SearchWhenItsText(result);
 
 				else
-					SearchWhenNotNumberOrText(search);
+					SearchWhenNotNumberOrText(result);
 			}
 			else
-            {
-				_BorderSeach.Visibility = Visibility.Collapsed;
-            }
+				_BorderSeach.Visibility = Visibility.Visible;
 		}
 
 
@@ -221,6 +231,8 @@ namespace VadenStock
 		private void ImageClearSearch_Click(object sender, MouseButtonEventArgs e)
 		{
 			_InputMainSearch.Clear();
+			_BorderSeach.Visibility = Visibility.Collapsed;
+			_GridLoadingSearch.Visibility = Visibility.Visible;
 		}
 
 

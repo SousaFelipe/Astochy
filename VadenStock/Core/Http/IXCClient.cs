@@ -17,6 +17,14 @@ namespace VadenStock.Core.Http
 {
     public class IXCClient
     {
+        public int id;
+        public int id_ixc;
+        public bool sync;
+        public DateTime? updated_at;
+        public DateTime created_at;
+
+
+
         private ConfigType DefaultConfigs;
 
         private readonly string     Table;
@@ -27,6 +35,11 @@ namespace VadenStock.Core.Http
 
         public IXCClient(string table)
         {
+            id = 0;
+            id_ixc = 0;
+            sync = false;
+            created_at = DateTime.Now;
+
             Table = table;
             Body = new Payload(Table);
             DefaultConfigs = Config.Model.Where("id", 1).Select()[0];

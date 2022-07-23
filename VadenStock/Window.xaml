@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:VadenStock.View"
         xmlns:partials="clr-namespace:VadenStock.View.Partials"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         mc:Ignorable="d"
         Title="Vaden - Controle de Estoque"
         Width="1000"
@@ -148,20 +149,21 @@
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     Margin="0 32 0 0"
-                    Background="{StaticResource PrimaryColor_050}"
-                    Visibility="Visible">
+                    Background="{StaticResource PrimaryColor_050}">
 
                 <Grid VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch">
 
-                    <StackPanel HorizontalAlignment="Stretch"
-                                VerticalAlignment="Top"
+                    <StackPanel VerticalAlignment="Top"
+                                HorizontalAlignment="Stretch"
                                 MaxWidth="880"
+                                Height="auto"
                                 Margin="68 98 68 40">
 
                         <StackPanel x:Name="_StackResultClientesContainer"
                                     VerticalAlignment="Top"
-                                    HorizontalAlignment="Stretch">
+                                    HorizontalAlignment="Stretch"
+                                    Height="auto">
 
                             <Border CornerRadius="2"
                                     Background="{StaticResource PrimaryColor_100}">
@@ -178,9 +180,8 @@
                             <StackPanel x:Name="_StackClientesResult"
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Stretch"
-                                        Margin="0 8 0 0">
-
-                            </StackPanel>
+                                        Height="auto"
+                                        Margin="0 8 0 0"/>
 
                         </StackPanel>
 
@@ -238,7 +239,7 @@
                     <Border.Style>
                         <Style TargetType="{x:Type Border}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsFocused, ElementName=_TextBoxMainSearch}" Value="True">
+                                <DataTrigger Binding="{Binding IsFocused, ElementName=_InputMainSearch}" Value="True">
                                     <Setter Property="BorderBrush" Value="{StaticResource Secondary}"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -263,13 +264,14 @@
                                Opacity="0.4"
                                Source="/VadenStock;component/Resources/Icons/black-magnify.png"/>
 
-                        <TextBox Grid.Column="1"
-                                 x:Name="_InputMainSearch"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Stretch"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 FontSize="18" TextChanged="InputMainSearch_Changed"/>
+                        <forms:InputSearch Grid.Column="1"
+                                           x:Name="_InputMainSearch"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Stretch"
+                                           Margin="-10 0 0 0"
+                                           Background="Transparent"
+                                           BorderThickness="0"
+                                           FontSize="18"/>
 
                         <TextBlock Grid.Column="1"
                                    IsHitTestVisible="False"
@@ -283,7 +285,7 @@
                             <TextBlock.Style>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                        <DataTrigger Binding="{Binding Text, ElementName=_InputMainSearch}" Value="">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -306,7 +308,7 @@
                             <Image.Style>
                                 <Style TargetType="{x:Type Image}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=_TextBoxMainSearch}" Value="">
+                                        <DataTrigger Binding="{Binding Text, ElementName=_InputMainSearch}" Value="">
                                             <Setter Property="Visibility" Value="Collapsed"/>
                                         </DataTrigger>
                                     </Style.Triggers>
