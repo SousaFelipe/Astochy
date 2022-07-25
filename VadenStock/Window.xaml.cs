@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +20,7 @@ using VadenStock.Model.Types;
 
 using VadenStock.Tools;
 
-using VadenStock.View.Components;
+using VadenStock.View.Components.Organisms;
 using VadenStock.View.Dialogs;
 using VadenStock.View.Models;
 
@@ -172,23 +173,18 @@ namespace VadenStock
 
 
 
-		private void SearchWhenItsText(string search)
+		private async void SearchWhenItsText(string search)
         {
-			Application.Current.Dispatcher.Invoke(async () => {
+			Response response = await Cliente.Conn.Where("razao", "LE", search).Get(10);
+			List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
-				Response response = await Cliente.Conn.Where("razao", "LE", search).Get(10);
-
-				/*List<ProdutoType> produtos = Produto.Model
-					.Where("name", "LIKE", search)
-					.Select();*/
-
-				List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
+			if (clientes != null)
+			{
+				_StackClientesResult.Children.Clear();
 
 				foreach (Cliente c in clientes)
-                {
-					System.Diagnostics.Trace.WriteLine(c.razao);
-                }
-			});
+					_StackClientesResult.Children.Add(new ClienteItem(c));
+			}
 		}
 
 

@@ -28,11 +28,11 @@ namespace VadenStock.Http
         public int id_cliente;
         public int id_filial;
         public string login;
-        public bool senha_md5;
+        public string senha_md5;
         public string senha;
         public int login_simultaneo;
-        public bool ativo;
-        public bool online;
+        public string ativo;
+        public string online;
         public string ip;
         public string auto_preencher_ip;
         public string fixar_ip;
@@ -55,7 +55,10 @@ namespace VadenStock.Http
         {
             autenticacao = string.Empty;
             login = string.Empty;
+            senha_md5 = string.Empty;
             senha = string.Empty;
+            ativo = string.Empty;
+            online = string.Empty;
             ip = string.Empty;
             auto_preencher_ip = string.Empty;
             fixar_ip = string.Empty;
@@ -80,6 +83,20 @@ namespace VadenStock.Http
                 "I" => TipoAutenticaco.Integracao,
                 _ => TipoAutenticaco.PPPoE
             };
+        }
+
+
+
+        public bool IsSenhaMD5()
+        {
+            return senha_md5.Equals("S");
+        }
+
+
+
+        public bool IsAtivo()
+        {
+            return ativo.Equals("S");
         }
     }
 }

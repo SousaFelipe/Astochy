@@ -1,0 +1,63 @@
+﻿<Grid x:Class="VadenStock.View.Components.Organisms.ContratoItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VadenStock.View.Components.Organisms"
+      d:DataContext="{d:DesignInstance Type=local:ContratoItem}"
+      mc:Ignorable="d"
+      VerticalAlignment="Top"
+      HorizontalAlignment="Stretch">
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <StackPanel Grid.Column="0"
+                Orientation="Horizontal"
+                Margin="4 4 0 4">
+
+        <Image x:Name="_ImageLoginStatus"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Width="12"
+               Height="12"/>
+
+        <TextBlock x:Name="_TextLogin"
+                   VerticalAlignment="Center"
+                   Margin="4 0 8 0"
+                   FontSize="10"
+                   Foreground="{StaticResource TextSecondaryColor}"/>
+
+    </StackPanel>
+
+    <TextBlock Grid.Column="1"
+               x:Name="_TextMAC"
+               VerticalAlignment="Center"
+               Margin="4 4 8 4"
+               FontSize="10"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+    <StackPanel Grid.Column="2"
+                Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="4 4 8 4">
+
+        <Image x:Name="_ImageContratoStatus"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Width="12"
+               Height="12"/>
+
+        <TextBlock x:Name="_TextContrato"
+                   VerticalAlignment="Center"
+                   Margin="4 0 0 0"
+                   FontSize="10"
+                   Foreground="{StaticResource TextSecondaryColor}"/>
+
+    </StackPanel>
+
+</Grid>

@@ -35,9 +35,9 @@ namespace VadenStock.Http
         public string tipo_pessoa;
         public string? cnpj_cpf;
         public string? ie_identidade;
-        public bool contribuinte_icms;
+        public string contribuinte_icms;
         public string? data_nascimento;
-        public bool ativo;
+        public string ativo;
         public int filial_id;
         public string cep;
         public string endereco;
@@ -58,6 +58,8 @@ namespace VadenStock.Http
         public Cliente() : base("cliente")
         {
             tipo_pessoa = string.Empty;
+            contribuinte_icms = string.Empty;
+            ativo = string.Empty;
             razao = string.Empty;
             cep = string.Empty;
             endereco = string.Empty;
@@ -86,7 +88,7 @@ namespace VadenStock.Http
 
 
 
-        public List<Login> RequestLogin()
+        public List<Login> RequestLogins()
         {
             List<Login>? logins = new();
 

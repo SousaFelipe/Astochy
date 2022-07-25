@@ -60,9 +60,9 @@ namespace VadenStock.Http
         public int id_vendedor;
         public string? cc_previsao;
         public string? tipo_cobranca;
-        public bool renovacao_automatica;
-        public bool bloqueio_automatico;
-        public bool aviso_atraso;
+        public string renovacao_automatica;
+        public string bloqueio_automatico;
+        public string aviso_atraso;
         public string? data_cancelamento;
 
 
@@ -76,6 +76,9 @@ namespace VadenStock.Http
             dica_data_base = string.Empty;
             status = string.Empty;
             status_internet = string.Empty;
+            renovacao_automatica = string.Empty;
+            bloqueio_automatico = string.Empty;
+            aviso_atraso = string.Empty;
         }
 
 
@@ -121,6 +124,13 @@ namespace VadenStock.Http
                 "AA" => Acesso.AguardandoAssunatura,
                 _ => Acesso.Desativado
             };
+        }
+
+
+
+        public bool IsRenovaAuto()
+        {
+            return renovacao_automatica.Equals("S");
         }
     }
 }
