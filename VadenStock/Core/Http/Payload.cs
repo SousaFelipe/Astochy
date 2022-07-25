@@ -39,17 +39,23 @@ namespace VadenStock.Core.Http
 
 
 
-        private static string CompileObject(string obj)
+        private static string CompileObject(string obj, bool quotes = false)
         {
-            string jsonObj = "{[OBJ]}";
+            string jsonObj = quotes
+                ? "\"{[OBJ]}\""
+                : "{[OBJ]}";
+
             return jsonObj.Replace("[OBJ]", obj);
         }
 
 
 
-        private static string CompileArray(string array)
+        private static string CompileArray(string array, bool quotes = false)
         {
-            string jsonArray = "[{ARRAY}]";
+            string jsonArray = quotes
+                ? "\"[{ARRAY}]\""
+                : "[{ARRAY}]";
+
             return jsonArray.Replace("{ARRAY}", array);
         }
 
@@ -59,7 +65,7 @@ namespace VadenStock.Core.Http
         {
             string strQtype = $"{ (qtype ?? "id") }";
             string strQuery = $"{ (query ?? "0") }";
-            string strOper = $"{(oper ?? "!=")}";
+            string strOper = $"{ (oper ?? "!=") }";
 
             if (WhereCount == 0)
             {
@@ -114,11 +120,11 @@ namespace VadenStock.Core.Http
                 payload += ", \"grid_param\": ";
 
                 int count = 0;
-                string grid = "";
+                string grid = string.Empty;
 
                 foreach (var row in this.grid)
                 {
-                    string current = $"\"TB\": \"{ Table }.{ row.Key }\", \"OP\": \"{ row.Value[0] }\", \"P\": \"{row.Value[1]}\"";
+                    string current = $"\\\"TB\\\": \\\"{ Table }.{ row.Key }\\\", \\\"OP\\\": \\\"{ row.Value[0] }\\\", \\\"P\\\": \\\"{row.Value[1]}\\\"";
 
                     grid += (count < (this.grid.Count - 1))
                         ? string.Concat(CompileObject(current), ", ")
@@ -127,7 +133,7 @@ namespace VadenStock.Core.Http
                     count++;
                 }
 
-                payload = string.Concat(payload, CompileArray(grid));
+                payload = string.Concat(payload, CompileArray(grid, true));
             }
 
             WhereCount = 0;

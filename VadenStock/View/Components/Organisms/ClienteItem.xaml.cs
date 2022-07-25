@@ -48,15 +48,13 @@ namespace VadenStock.View.Components.Organisms
 
         private async void RequestContratos()
         {
-            Response response = await Contrato.Conn.Where("id_cliente", "=", cliente.id_ixc).Get(10);
+            Response response = await Contrato.Conn.Where("id_cliente", "=", cliente.id).Get(10);
+
             List<Contrato>? contratos = response.Registros.ToObject<List<Contrato>>();
 
             if (contratos != null && contratos.Count > 0)
                 foreach (Contrato contrato in contratos)
                     _StackPlanos.Children.Add(new ContratoItem(contrato));
-
-            else
-                System.Diagnostics.Trace.WriteLine("A BUSCA RETORNOU UMA LISTA DE CONTRATOS NULA");
         }
 
 

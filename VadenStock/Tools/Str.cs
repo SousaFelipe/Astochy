@@ -92,7 +92,7 @@ namespace VadenStock.Tools
 
             for (int c = 0; c < chars.Length; c++)
             {
-                crrAscii = (int)chars[0];
+                crrAscii = (int)chars[c];
 
                 if (crrAscii < 48 || crrAscii > 57)
                     return false;
@@ -110,9 +110,9 @@ namespace VadenStock.Tools
 
             for (int c = 0; c < chars.Length; c++)
             {
-                crrAscii = (int)chars[0];
+                crrAscii = (int)chars[c];
 
-                if (crrAscii < 65 || (crrAscii > 90 && crrAscii < 97) || crrAscii > 122)
+                if ((crrAscii < 65 && crrAscii != 32) || (crrAscii > 90 && crrAscii < 97) || crrAscii > 122)
                     return false;
             }
 

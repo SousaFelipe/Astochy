@@ -1,0 +1,76 @@
+﻿<Grid x:Class="VadenStock.View.Components.Organisms.ItemItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:button="clr-namespace:VadenStock.View.Components.Buttons"
+      xmlns:local="clr-namespace:VadenStock.View.Components.Organisms"
+      d:DataContext="{d:DesignInstance Type=local:ItemItem}"
+      mc:Ignorable="d"
+      VerticalAlignment="Top"
+      HorizontalAlignment="Stretch"
+      Margin="0 4 0 0">
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <TextBlock Grid.Column="0"
+               x:Name="_TextCodigo"
+               VerticalAlignment="Center"
+               Margin="8 4 8 4"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+    <TextBlock Grid.Column="1"
+               x:Name="_TextProduto"
+               VerticalAlignment="Center"
+               Margin="4 4 8 4"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+    <TextBlock Grid.Column="2"
+               x:Name="_TextMAC"
+               VerticalAlignment="Center"
+               Margin="4 4 8 4"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+    <TextBlock Grid.Column="3"
+               x:Name="_TextAlmox"
+               VerticalAlignment="Center"
+               Margin="4 4 8 4"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+    <TextBlock Grid.Column="4"
+               x:Name="_TextUltTransf"
+               VerticalAlignment="Center"
+               Margin="4 4 8 4"
+               Foreground="{StaticResource TextSecondaryColor}"/>
+
+
+
+    <button:ButtonLight Grid.Column="5"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="8 4 8 4"
+                        Click="ButtonHistory_Click">
+
+        <Image VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Width="18"
+               Height="18"
+               Source="/VadenStock;component/Resources/Icons/black-history.png"/>
+
+    </button:ButtonLight>
+
+
+    <Border Grid.Column="0"
+            Grid.ColumnSpan="6"
+            CornerRadius="4"
+            BorderThickness="1"
+            BorderBrush="{StaticResource PrimaryColor_100}"/>
+
+</Grid>

@@ -20,7 +20,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        public HistoricoDialog(ItemType item, object parent)
+        public HistoricoDialog(ItemType item, object? parent = null)
         {
             Item = item;
             View = parent;
@@ -29,6 +29,12 @@ namespace VadenStock.View.Dialogs
 
             Loaded += delegate
             {
+                if (View != null)
+                {
+                    _ButtonBack.Visibility = Visibility.Visible;
+                    VerticalAlignment = VerticalAlignment.Top;
+                }
+
                 LoadDetails();
                 LoadTransferencias();
             };
@@ -67,7 +73,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             MethodInfo? method = View?.GetType().GetMethod("BackToMain");
             method?.Invoke(View, new object?[] { this });

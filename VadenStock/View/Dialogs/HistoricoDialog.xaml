@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=local:HistoricoDialog}"
         Width="520"
         Height="auto"
-        VerticalAlignment="Top"
+        VerticalAlignment="Center"
         HorizontalAlignment="Stretch"
         CornerRadius="8"
         Background="#FFFFFF">
@@ -23,13 +23,15 @@
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0"
+                x:Name="_ButtonBack"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Left"
                 Height="38"
                 Margin="8 8 0 8"
                 Padding="8"
                 Style="{StaticResource ButtonLight}"
-                Click="BackButton_Click">
+                Visibility="Collapsed"
+                Click="ButtonBack_Click">
 
             <Image Width="24"
                    Height="24"

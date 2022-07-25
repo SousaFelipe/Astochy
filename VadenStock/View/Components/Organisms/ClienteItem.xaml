@@ -62,17 +62,9 @@
         </Grid>
 
         <Grid Grid.Row="1"
-              Grid.Column="0"
-              Grid.ColumnSpan="3"
               VerticalAlignment="Top"
               HorizontalAlignment="Stretch"
               Margin="0 8 0 0">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0"
                     Grid.ColumnSpan="3"

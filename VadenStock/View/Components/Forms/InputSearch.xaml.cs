@@ -49,7 +49,7 @@ namespace VadenStock.View.Components.Forms
         {
             InitializeComponent();
 
-            SearchDecay = 100;
+            SearchDecay = 50;
             CanDecay = false;
 
             Loaded += delegate
@@ -73,11 +73,12 @@ namespace VadenStock.View.Components.Forms
                     {
                         if (SearchDecay > 0)
                             SearchDecay -= 1;
+
                         else
                         {
                             Callback?.Invoke(Text);
-                            CanDecay = false;
                             SearchDecay = 50;
+                            CanDecay = false;
                         }
                     }
                 }

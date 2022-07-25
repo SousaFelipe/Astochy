@@ -175,15 +175,17 @@ namespace VadenStock
 
 		private async void SearchWhenItsText(string search)
         {
-			Response response = await Cliente.Conn.Where("razao", "LE", search).Get(10);
+			Response response = await Cliente.Conn.Where("razao", "L", search).Where("ativo", "S").Get(10);
 			List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
 			if (clientes != null)
 			{
+				_StackClientesResultContainer.Visibility = Visibility.Visible;
+				_GridLoadingSearch.Visibility = Visibility.Collapsed;
 				_StackClientesResult.Children.Clear();
 
-				foreach (Cliente c in clientes)
-					_StackClientesResult.Children.Add(new ClienteItem(c));
+				foreach (Cliente cliente in clientes)
+					_StackClientesResult.Children.Add(new ClienteItem(cliente));
 			}
 		}
 
@@ -191,13 +193,21 @@ namespace VadenStock
 
 		private void SearchWhenNotNumberOrText(string search)
         {
+			string clean = search.Replace(":", "");
+
 			List<ItemType> itens = Item.Model
-				.Where("mac", "LIKE", search)
+				.Where("mac", "LIKE", clean)
 				.Select();
 
-			List<ProdutoType> produtos = Produto.Model
-				.Where("name", "LIKE", search)
-				.Select();
+			if (itens.Count > 0)
+			{
+				_StackProdutosResultContainer.Visibility = Visibility.Visible;
+				_GridLoadingSearch.Visibility = Visibility.Collapsed;
+				_StackProdutosResult.Children.Clear();
+
+				foreach (ItemType item in itens)
+					_StackProdutosResult.Children.Add(new ItemItem(item));
+            }
 		}
 
 
@@ -205,7 +215,7 @@ namespace VadenStock
 		private void InputMainSearch_Changed(string result)
 		{
 			_BorderSeach.Visibility = Visibility.Visible;
-			//_GridLoadingSearch.Visibility = Visibility.Visible;
+			_GridLoadingSearch.Visibility = Visibility.Visible;
 
 			if (!string.IsNullOrEmpty(result) && result.Length >= 3)
             {
@@ -219,7 +229,7 @@ namespace VadenStock
 					SearchWhenNotNumberOrText(result);
 			}
 			else
-				_BorderSeach.Visibility = Visibility.Visible;
+				_BorderSeach.Visibility = Visibility.Collapsed;
 		}
 
 

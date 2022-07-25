@@ -55,9 +55,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <partials:TitleBar Grid.Row="0"
-                               Grid.ColumnSpan="3"/>
-
             <Border Grid.Row="1"
                     Grid.ColumnSpan="3"
                     Height="127"
@@ -94,20 +91,6 @@
                 </Grid>
 
             </ScrollViewer>
-
-            <Border x:Name="_BorderShadow"
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                    Background="#4D000000"
-                    Visibility="Collapsed">
-
-                <Grid x:Name="_DialogContainer"
-                      VerticalAlignment="Stretch"
-                      HorizontalAlignment="Stretch"/>
-
-            </Border>
 
             <StackPanel Grid.Row="1"
                         Grid.Column="1"
@@ -161,10 +144,12 @@
                                 Height="auto"
                                 Margin="68 98 68 40">
 
-                        <StackPanel x:Name="_StackResultClientesContainer"
+                        <StackPanel x:Name="_StackClientesResultContainer"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Stretch"
-                                    Height="auto">
+                                    Height="auto"
+                                    Margin="0 8 0 0"
+                                    Visibility="Collapsed">
 
                             <Border CornerRadius="2"
                                     Background="{StaticResource PrimaryColor_100}">
@@ -181,8 +166,33 @@
                             <StackPanel x:Name="_StackClientesResult"
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Stretch"
-                                        Height="auto"
-                                        Margin="0 8 0 0"/>
+                                        Height="auto"/>
+
+                        </StackPanel>
+
+                        <StackPanel x:Name="_StackProdutosResultContainer"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Stretch"
+                                    Height="auto"
+                                    Margin="0 8 0 0"
+                                    Visibility="Collapsed">
+
+                            <Border CornerRadius="2"
+                                    Background="{StaticResource PrimaryColor_100}">
+
+                                <TextBlock Margin="8 2"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Foreground="{StaticResource TextSecondaryColor}"
+                                           FontSize="9"
+                                           Text="PRODUTOS"/>
+
+                            </Border>
+
+                            <StackPanel x:Name="_StackProdutosResult"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Stretch"
+                                        Height="auto"/>
 
                         </StackPanel>
 
@@ -191,8 +201,7 @@
                     <Grid x:Name="_GridLoadingSearch"
                           VerticalAlignment="Stretch"
                           HorizontalAlignment="Stretch"
-                          Background="{StaticResource PrimaryColor_050}"
-                          Visibility="Collapsed">
+                          Background="{StaticResource PrimaryColor_050}">
 
                         <fa:ImageAwesome Width="32"
                                          Height="32"
@@ -323,6 +332,23 @@
                 </Border>
 
             </Grid>
+
+            <Border x:Name="_BorderShadow"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Background="#4D000000"
+                    Visibility="Collapsed">
+
+                <Grid x:Name="_DialogContainer"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"/>
+
+            </Border>
+
+            <partials:TitleBar Grid.Row="0"
+                               Grid.ColumnSpan="3"/>
 
         </Grid>
 
