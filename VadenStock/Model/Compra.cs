@@ -58,6 +58,14 @@ namespace VadenStock.Model
 
 
 
+        public List<CompraType> OrderBy(string column, string order)
+        {
+            Builder.OrderBy(column, order);
+            return Select();
+        }
+
+
+
         private class Content
         {
             public static CompraType Get(MySqlDataReader reader)
@@ -66,11 +74,12 @@ namespace VadenStock.Model
                 {
                     Id = reader.GetInt32("id"),
                     Fornecedor = Fornecedor.Model.Where("id", reader.GetInt32("fornecedor")).Select()[0],
-                    NumSerie = reader.GetString("ns"),
+                    NumSerie = reader.IsDBNull(2) ? string.Empty : reader.GetString("ns"),
                     ValorTotal = reader.GetDouble("valor_total"),
-                    DataEmissao = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime("data_emissao"),
+                    DataEmissao = reader.IsDBNull(4) ? null : reader.GetDateTime("data_emissao"),
                     Status = CompraType.GetStatus(reader.GetString("status")),
-                    CreatedDate = reader.IsDBNull(6) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
+                    UpdatedAt = reader.IsDBNull(6) ? null : reader.GetDateTime("updated_at"),
+                    CreatedDate = reader.GetDateTime("created_at")
                 };
 
                 return contract;

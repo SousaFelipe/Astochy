@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <None Remove="Resources\favicon.ico" />
         <None Remove="Resources\Fonts\RobotoFlex\RobotoFlex.ttf" />
         <None Remove="Resources\Icons\arrow-up-down.png" />
         <None Remove="Resources\Icons\arrow-up.png" />
@@ -15,8 +16,10 @@
         <None Remove="Resources\Icons\black-alert.png" />
         <None Remove="Resources\Icons\black-bike.png" />
         <None Remove="Resources\Icons\black-car.png" />
+        <None Remove="Resources\Icons\black-chevron-down.png" />
         <None Remove="Resources\Icons\black-chevron-left.png" />
         <None Remove="Resources\Icons\black-chevron-right.png" />
+        <None Remove="Resources\Icons\black-chevron-up.png" />
         <None Remove="Resources\Icons\black-close.png" />
         <None Remove="Resources\Icons\black-delete.png" />
         <None Remove="Resources\Icons\black-down.png" />
@@ -27,12 +30,15 @@
         <None Remove="Resources\Icons\black-information.png" />
         <None Remove="Resources\Icons\black-left.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
+        <None Remove="Resources\Icons\black-package-check.png" />
+        <None Remove="Resources\Icons\black-package-remove.png" />
         <None Remove="Resources\Icons\black-package.png" />
         <None Remove="Resources\Icons\black-save.png" />
         <None Remove="Resources\Icons\black-swap.png" />
         <None Remove="Resources\Icons\black-warehouse.png" />
         <None Remove="Resources\Icons\blue-account.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
+        <None Remove="Resources\Icons\blue-calendar.png" />
         <None Remove="Resources\Icons\blue-car.png" />
         <None Remove="Resources\Icons\blue-chevron-left.png" />
         <None Remove="Resources\Icons\blue-chevron-right.png" />
@@ -47,6 +53,8 @@
         <None Remove="Resources\Icons\blue-inbox-up.png" />
         <None Remove="Resources\Icons\blue-information.png" />
         <None Remove="Resources\Icons\blue-left.png" />
+        <None Remove="Resources\Icons\blue-package-check.png" />
+        <None Remove="Resources\Icons\blue-package-remove.png" />
         <None Remove="Resources\Icons\blue-package.png" />
         <None Remove="Resources\Icons\blue-save.png" />
         <None Remove="Resources\Icons\blue-swap.png" />
@@ -56,12 +64,16 @@
         <None Remove="Resources\Icons\close-dark.png" />
         <None Remove="Resources\Icons\close.png" />
         <None Remove="Resources\Icons\filter.png" />
+        <None Remove="Resources\Icons\gray-calendar.png" />
         <None Remove="Resources\Icons\gray-file.png" />
         <None Remove="Resources\Icons\gray-image-off.png" />
+        <None Remove="Resources\Icons\gray-package-check.png" />
+        <None Remove="Resources\Icons\gray-range.png" />
         <None Remove="Resources\Icons\gray-wifi.png" />
         <None Remove="Resources\Icons\green-account.png" />
         <None Remove="Resources\Icons\green-check.png" />
         <None Remove="Resources\Icons\green-checked-cicle.png" />
+        <None Remove="Resources\Icons\green-package-check.png" />
         <None Remove="Resources\Icons\green-wifi.png" />
         <None Remove="Resources\Icons\image-plus-active.png" />
         <None Remove="Resources\Icons\magnify.png" />
@@ -74,6 +86,7 @@
         <None Remove="Resources\Icons\red-bomb.png" />
         <None Remove="Resources\Icons\red-file.png" />
         <None Remove="Resources\Icons\red-lock.png" />
+        <None Remove="Resources\Icons\red-package-remove.png" />
         <None Remove="Resources\Icons\red-wifi.png" />
         <None Remove="Resources\Icons\restore.png" />
         <None Remove="Resources\Icons\warehouse.png" />
@@ -94,15 +107,20 @@
         <None Remove="Resources\Icons\white-left.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
         <None Remove="Resources\Icons\white-minimize.png" />
+        <None Remove="Resources\Icons\white-package-check.png" />
+        <None Remove="Resources\Icons\white-package-remove.png" />
         <None Remove="Resources\Icons\white-package.png" />
         <None Remove="Resources\Icons\white-plus.png" />
         <None Remove="Resources\Icons\white-restore.png" />
         <None Remove="Resources\Icons\white-save.png" />
         <None Remove="Resources\Icons\white-swap.png" />
         <None Remove="Resources\Images\64-car.png" />
+        <None Remove="Resources\Images\64-info.png" />
         <None Remove="Resources\Images\64-inventory-flow.png" />
         <None Remove="Resources\Images\64-moto.png" />
+        <None Remove="Resources\Images\64-order.png" />
         <None Remove="Resources\Images\64-packing.png" />
+        <None Remove="Resources\Images\64-question.png" />
         <None Remove="Resources\Images\64-remove.png" />
         <None Remove="Resources\Images\64-unpacking.png" />
         <None Remove="Resources\Images\64-warehouse.png" />
@@ -110,6 +128,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Resources\favicon.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-alert.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -117,6 +138,12 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-car.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-chevron-down.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-chevron-up.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-down.png">
@@ -137,6 +164,12 @@
       <Resource Include="Resources\Icons\black-information.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\black-package-check.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-package-remove.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-package.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -150,6 +183,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-account.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\blue-calendar.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\blue-down.png">
@@ -176,6 +212,12 @@
 	  <Resource Include="Resources\Icons\blue-left.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
+	  <Resource Include="Resources\Icons\blue-package-check.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\Icons\blue-package-remove.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
       <Resource Include="Resources\Icons\blue-package.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -185,10 +227,19 @@
       <Resource Include="Resources\Icons\blue-swap.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\gray-calendar.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\gray-file.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\gray-image-off.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\gray-package-check.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\gray-range.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\gray-wifi.png">
@@ -198,6 +249,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\green-check.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\green-package-check.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\green-wifi.png">
@@ -210,6 +264,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\red-lock.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\red-package-remove.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\red-wifi.png">
@@ -225,8 +282,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-        <PackageReference Include="MySql.Data" Version="8.0.29" />
+        <PackageReference Include="FontAwesome.WPF" Version="4.5.0.8" />
+        <PackageReference Include="MySql.Data" Version="8.0.30" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
@@ -363,6 +420,14 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Icons\white-package-check.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-package-remove.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Icons\white-package.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
@@ -387,6 +452,10 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Images\64-info.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Images\64-inventory-flow.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
@@ -395,7 +464,15 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Images\64-order.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Images\64-packing.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Images\64-question.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 

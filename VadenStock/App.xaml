@@ -1,10 +1,9 @@
-﻿<Application
-    x:Class="VadenStock.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:view="clr-namespace:VadenStock.View"
-    xmlns:viewModel="clr-namespace:VadenStock.View.Models"
-    StartupUri="Window.xaml">
+﻿<Application x:Class="VadenStock.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:view="clr-namespace:VadenStock.View"
+             xmlns:viewModel="clr-namespace:VadenStock.View.Models"
+             StartupUri="Window.xaml">
 
     <Application.Resources>
         <ResourceDictionary>

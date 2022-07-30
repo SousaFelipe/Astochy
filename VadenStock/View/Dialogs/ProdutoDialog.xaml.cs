@@ -290,7 +290,7 @@ namespace VadenStock.View.Dialogs
         private void InputPrice_Changed(object sender, TextChangedEventArgs e)
         {
             InputCurrency input = (InputCurrency)sender;
-            Produto.Price = Convert.ToDecimal(input.Text);
+            Produto.Price = Convert.ToDouble(input.Text);
 
             if (EditMode)
                 ShouldBeSaveEnabled();

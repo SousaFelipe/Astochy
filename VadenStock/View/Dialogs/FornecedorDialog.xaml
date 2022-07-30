@@ -1,0 +1,136 @@
+﻿<Border x:Class="VadenStock.View.Dialogs.FornecedorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:components="clr-namespace:VadenStock.View.Components"
+        xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+        xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=local:FornecedorDialog}"
+        Width="520"
+        Height="auto"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        CornerRadius="8"
+        Background="#FFFFFF">
+
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Height="38"
+                Margin="0 8 8 8"
+                Padding="8"
+                Style="{StaticResource ButtonLight}"
+                Click="CloseDialog">
+
+            <Image Width="24"
+                   Height="24"
+                   Opacity="0.4"
+                   Source="/VadenStock;component/Resources/Icons/black-close.png"/>
+
+        </Button>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
+
+            <StackPanel VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch"
+                        Margin="20 8 20 0">
+
+                <forms:InputText x:Name="_InputFantasia"
+                                 Tag="Nome Fantasia"
+                                 FontSize="14"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 TextChanged="InputFantasia_Changed"/>
+
+                <Grid HorizontalAlignment="Stretch"
+                      Margin="0 8 0 0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <forms:InputText Grid.Column="0"
+                                     x:Name="_InputCNPJ"
+                                     Tag="CNPJ"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputCNPJ_Changed"/>
+
+                    <forms:InputText Grid.Column="1"
+                                     x:Name="_InputEmail"
+                                     Margin="8 0 0 0"
+                                     Width="200"
+                                     Tag="E-mail"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputEmail_Changed"/>
+
+                </Grid>
+
+                <Grid HorizontalAlignment="Stretch"
+                      Margin="0 8 0 12">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <forms:InputText Grid.Column="0"
+                                     x:Name="_InputContato"
+                                     Margin="0 0 4 0"
+                                     Tag="Contato"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputContato_Changed"/>
+
+                    <forms:InputText Grid.Column="1"
+                                     x:Name="_InputTelefone"
+                                     Margin="4 0 4 0"
+                                     Tag="Telefone"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputTelefone_Changed"/>
+
+                    <forms:InputText Grid.Column="2"
+                                     x:Name="_InputWhatsapp"
+                                     Margin="4 0 0 0"
+                                     Tag="WhatsApp"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputWhatsapp_Changed"/>
+
+                </Grid>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <Button Grid.Row="2"
+                x:Name="_ButtonSave"
+                HorizontalAlignment="Stretch"
+                Padding="0 7 0 8"
+                Margin="20 12 20 24"
+                Style="{StaticResource ButtonSecondary}"
+                FontSize="16"
+                Content="Salvar"
+                IsEnabled="False"
+                Click="ButtonSave_Click"/>
+
+    </Grid>
+
+</Border>

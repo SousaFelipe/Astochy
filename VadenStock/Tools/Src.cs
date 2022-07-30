@@ -36,7 +36,7 @@ namespace VadenStock.Tools
 
 
 
-        public static bool CreateSorcePath()
+        public static bool CreateSourcePath()
         {
             if (Directory.Exists(Resource.Root))
                 goto exit_whitout_create;

@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0"
@@ -36,234 +37,239 @@
                    Source="/VadenStock;component/Resources/Icons/black-close.png"/>
         </Button>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Stretch">
-
-            <Border HorizontalAlignment="Stretch"
-                    Background="{StaticResource PrimaryColor_050}"
-                    Padding="0 8">
-
-                <Grid VerticalAlignment="Stretch"
+        <ScrollViewer Grid.Row="1"
+                      VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch">
 
-                    <StackPanel VerticalAlignment="Stretch"
-                                HorizontalAlignment="Center"
-                                Margin="0 16 0 0">
+            <StackPanel HorizontalAlignment="Stretch">
 
-                        <Grid HorizontalAlignment="Center"      
-                              Width="86"
-                              Height="86">
+                <Border HorizontalAlignment="Stretch"
+                        Background="{StaticResource PrimaryColor_050}"
+                        Padding="0 8">
 
-                            <Border x:Name="_BorderBackground"
-                                    CornerRadius="16"
-                                    BorderThickness="1"
-                                    Background="#FFFFFF"
-                                    IsHitTestVisible="True"
-                                    MouseLeftButtonUp="OpenImageDialog">
+                    <Grid VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
 
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Setters>
-                                            <Setter Property="Cursor" Value="Hand"/>
-                                            <Setter Property="BorderBrush" Value="#FFFFFF"/>
-                                        </Style.Setters>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" Value="#40C4FF"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
+                        <StackPanel VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Center"
+                                    Margin="0 16 0 0">
 
-                                <Border x:Name="_BorderImage"
+                            <Grid HorizontalAlignment="Center"      
+                                  Width="86"
+                                  Height="86">
+
+                                <Border x:Name="_BorderBackground"
                                         CornerRadius="16"
-                                        VerticalAlignment="Stretch"
-                                        HorizontalAlignment="Stretch"
-                                        IsHitTestVisible="False">
+                                        BorderThickness="1"
+                                        Background="#FFFFFF"
+                                        IsHitTestVisible="True"
+                                        MouseLeftButtonUp="OpenImageDialog">
 
-                                    <Border.Background>
-                                        <ImageBrush Stretch="Fill"
-                                                    ImageSource="/VadenStock;component/Resources/Icons/blue-image-plus.png"/>
-                                    </Border.Background>
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Setters>
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                                            </Style.Setters>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="#40C4FF"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+
+                                    <Border x:Name="_BorderImage"
+                                            CornerRadius="16"
+                                            VerticalAlignment="Stretch"
+                                            HorizontalAlignment="Stretch"
+                                            IsHitTestVisible="False">
+
+                                        <Border.Background>
+                                            <ImageBrush Stretch="Fill"
+                                                        ImageSource="/VadenStock;component/Resources/Icons/blue-image-plus.png"/>
+                                        </Border.Background>
+
+                                    </Border>
 
                                 </Border>
 
-                            </Border>
+                                <Border x:Name="_BorderButtonClearAvatar"
+                                        CornerRadius="9"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Width="18"
+                                        Height="18"
+                                        Margin="0 -3 -3 0"
+                                        Cursor="Hand"
+                                        Background="{StaticResource DangerColor}"
+                                        Visibility="Hidden"
+                                        MouseLeftButtonUp="ButtonClearAvatar_Click">
 
-                            <Border x:Name="_BorderButtonClearAvatar"
-                                    CornerRadius="9"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Right"
-                                    Width="18"
-                                    Height="18"
-                                    Margin="0 -3 -3 0"
-                                    Cursor="Hand"
-                                    Background="{StaticResource DangerColor}"
-                                    Visibility="Hidden"
-                                    MouseLeftButtonUp="ButtonClearAvatar_Click">
+                                    <Image VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Width="8"
+                                           Height="8"
+                                           Source="/VadenStock;component/Resources/Icons/white-close.png"/>
 
-                                <Image VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Width="8"
-                                       Height="8"
-                                       Source="/VadenStock;component/Resources/Icons/white-close.png"/>
+                                </Border>
 
-                            </Border>
+                            </Grid>
 
-                        </Grid>
+                            <forms:InputTransparent x:Name="_TextImageName"
+                                                    TextAlignment="Center"
+                                                    Foreground="{StaticResource TextPrimaryColor}"
+                                                    Tag="Salvar imagem como..."
+                                                    TextChanged="InputImageName_Change"/>
 
-                        <forms:InputTransparent x:Name="_TextImageName"
-                                                TextAlignment="Center"
-                                                Foreground="{StaticResource TextPrimaryColor}"
-                                                Tag="Salvar imagem como..."
-                                                TextChanged="InputImageName_Change"/>
+                        </StackPanel>
 
-                    </StackPanel>
+                    </Grid>
 
-                </Grid>
+                </Border>
 
-            </Border>
+                <StackPanel HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Margin="16 24 16 0">
 
-            <StackPanel HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        Margin="16 24 16 0">
-
-                <forms:InputText x:Name="_InputName"
-                                 HorizontalAlignment="Stretch"
-                                 Margin="4 0 4 0"
-                                 Tag="Nome do produto..."
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 TextChanged="InputName_Changed"/>
-
-                <TextBlock Margin="4 16 4 8"
-                           Text="DETALHES"
-                           Foreground="{StaticResource TextMuted}"
-                           FontSize="11"/>
-
-                <Grid HorizontalAlignment="Stretch">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <forms:SelectBox Grid.Column="0"
-                                     x:Name="_ComboMarcas"
+                    <forms:InputText x:Name="_InputName"
                                      HorizontalAlignment="Stretch"
                                      Margin="4 0 4 0"
-                                     Background="#FFFFFF"
-                                     Text="Marca"
+                                     Tag="Nome do produto..."
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectMarca_Changed">
-                        <ComboBoxItem Tag="0" Content="Marca"/>
-                    </forms:SelectBox>
+                                     TextChanged="InputName_Changed"/>
 
-                    <forms:SelectBox Grid.Column="1"
-                                     x:Name="_ComboCategorias"
-                                     HorizontalAlignment="Stretch"
-                                     Margin="4 0 4 0"
-                                     Background="#FFFFFF"
-                                     Text="Categoria"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectCategoria_Changed">
-                        <ComboBoxItem Tag="0" Content="Categoria"/>
-                    </forms:SelectBox>
-
-                    <forms:SelectBox Grid.Column="2"
-                                     x:Name="_ComboTipos"
-                                     HorizontalAlignment="Stretch"
-                                     Margin="4 0 4 0"
-                                     Background="#FFFFFF"
-                                     Text="Tipo"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectTipo_Changed">
-                        <ComboBoxItem Tag="0" Content="Tipo"/>
-                    </forms:SelectBox>
-
-                </Grid>
-
-                <Border CornerRadius="4"
-                        BorderThickness="1"
-                        BorderBrush="{StaticResource PrimaryColor_100}"
-                        HorizontalAlignment="Stretch"
-                        Margin="4 16 4 0"
-                        IsHitTestVisible="True">
-
-                    <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="Border.Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFFFFF"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=_InputPrice, Path=IsFocused}" Value="True">
-                                    <DataTrigger.Setters>
-                                        <Setter Property="Border.Background" Value="#F5F8FA"/>
-                                    </DataTrigger.Setters>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
+                    <TextBlock Margin="4 16 4 8"
+                               Text="DETALHES"
+                               Foreground="{StaticResource TextMuted}"
+                               FontSize="11"/>
 
                     <Grid HorizontalAlignment="Stretch">
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0"
-                                   Text="Preço"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="13 0 0 1"
-                                   FontSize="14"
-                                   Foreground="{StaticResource TextTertiaryColor}"/>
+                        <forms:SelectBox Grid.Column="0"
+                                         x:Name="_ComboMarcas"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Marca"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectMarca_Changed">
+                            <ComboBoxItem Tag="0" Content="Marca"/>
+                        </forms:SelectBox>
 
-                        <forms:InputCurrency Grid.Column="1"
-                                             x:Name="_InputPrice"
-                                             HorizontalAlignment="Stretch"
-                                             BorderThickness="0"
-                                             Margin="0 9 8 10"
-                                             Background="Transparent"
-                                             Foreground="{StaticResource TextPrimaryColor}"
-                                             Text="0,00"
-                                             FontSize="14"
-                                             TextChanged="InputPrice_Changed"/>
+                        <forms:SelectBox Grid.Column="1"
+                                         x:Name="_ComboCategorias"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Categoria"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectCategoria_Changed">
+                            <ComboBoxItem Tag="0" Content="Categoria"/>
+                        </forms:SelectBox>
+
+                        <forms:SelectBox Grid.Column="2"
+                                         x:Name="_ComboTipos"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Tipo"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectTipo_Changed">
+                            <ComboBoxItem Tag="0" Content="Tipo"/>
+                        </forms:SelectBox>
 
                     </Grid>
-                </Border>
 
-                <forms:InputText x:Name="_InputDescription"
-                                 HorizontalAlignment="Stretch"
-                                 Margin="4 16 4 0"
-                                 Tag="Descrição (opcional)"
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 TextChanged="InputDescription_Changed"/>
+                    <Border CornerRadius="4"
+                            BorderThickness="1"
+                            BorderBrush="{StaticResource PrimaryColor_100}"
+                            HorizontalAlignment="Stretch"
+                            Margin="4 16 4 0"
+                            IsHitTestVisible="True">
+
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Border.Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="#FFFFFF"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=_InputPrice, Path=IsFocused}" Value="True">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="Border.Background" Value="#F5F8FA"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <Grid HorizontalAlignment="Stretch">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                                       Text="Preço"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Margin="13 0 0 1"
+                                       FontSize="14"
+                                       Foreground="{StaticResource TextTertiaryColor}"/>
+
+                            <forms:InputCurrency Grid.Column="1"
+                                                 x:Name="_InputPrice"
+                                                 HorizontalAlignment="Stretch"
+                                                 BorderThickness="0"
+                                                 Margin="0 9 8 10"
+                                                 Background="Transparent"
+                                                 Foreground="{StaticResource TextPrimaryColor}"
+                                                 Text="0,00"
+                                                 FontSize="14"
+                                                 TextChanged="InputPrice_Changed"/>
+
+                        </Grid>
+                    </Border>
+
+                    <forms:InputText x:Name="_InputDescription"
+                                     HorizontalAlignment="Stretch"
+                                     Margin="4 16 4 12"
+                                     Tag="Descrição (opcional)"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputDescription_Changed"/>
+
+                </StackPanel>
 
             </StackPanel>
 
-            <Button x:Name="_ButtonSave"
-                    HorizontalAlignment="Stretch"
-                    Padding="0 7 0 8"
-                    Margin="20 24 20 24"
-                    Style="{StaticResource ButtonSecondary}"
-                    FontSize="16"
-                    Content="Salvar"
-                    Click="ButtonSave_Click"/>
+        </ScrollViewer>
 
-        </StackPanel>
+        <Button Grid.Row="2"
+                x:Name="_ButtonSave"
+                HorizontalAlignment="Stretch"
+                Padding="0 7 0 8"
+                Margin="20 12 20 24"
+                Style="{StaticResource ButtonSecondary}"
+                FontSize="16"
+                Content="Salvar"
+                Click="ButtonSave_Click"/>
 
     </Grid>
 

@@ -95,7 +95,7 @@ namespace VadenStock.View.Models
                     new string[] { "description", $"{Str.ZeroFill(num, " item".Pluralize(num, "n"))} {"transferido".Pluralize(num)} de '{origem.Value.Name}' para '{destino.Value.Name}'" }
                 };
 
-                return AlmoxarifadoTransferencia.Model.Create(inserts) > 0;
+                return AlmoxarofadoTransferencia.Model.Create(inserts) > 0;
             }
 
             return false;

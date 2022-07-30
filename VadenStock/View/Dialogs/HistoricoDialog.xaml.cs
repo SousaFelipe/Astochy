@@ -62,7 +62,11 @@ namespace VadenStock.View.Dialogs
                 {
                     current = transferencias[t];
 
-                    if (ConfigsViewModel.Default != null && ConfigsViewModel.Default.Value.AlmoxPrincipal.Id == current.To.Id)
+                    if (
+                        ConfigsViewModel.Default != null &&
+                        ConfigsViewModel.Default.Value.AlmoxPrincipal != null &&
+                        ConfigsViewModel.Default.Value.AlmoxPrincipal.Value.Id == current.To.Id
+                       )
                         _StackHistoryBlocks.Children.Add(new HistoryInBlock(current));
                     
                     else

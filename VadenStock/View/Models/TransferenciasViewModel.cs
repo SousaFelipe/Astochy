@@ -15,7 +15,7 @@ namespace VadenStock.View.Models
         {
             get
             {
-                TransfType[] select = AlmoxarifadoTransferencia.Model
+                TransfType[] select = AlmoxarofadoTransferencia.Model
                     .Select()
                     .OrderByDescending(a => a.Id)
                     .ToArray();
@@ -28,7 +28,7 @@ namespace VadenStock.View.Models
 
         public static List<TransfType> TransfsPorItem(int item, params object[][] wheres)
         {
-            AlmoxarifadoTransferencia model = AlmoxarifadoTransferencia.Model
+            AlmoxarofadoTransferencia model = AlmoxarofadoTransferencia.Model
                 .Where("itens", "LIKE", $";{item};");
 
             foreach (object[] where in wheres)

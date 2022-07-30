@@ -52,14 +52,14 @@ namespace VadenStock.View.Adapters
                 int r = 0;
                 int l = 0;
 
-                for (int c = 0; c < (Dataset.Count - 1); c++)
+                for (int c = 0; c < Dataset.Count; c++)
                 {
-                    compra = Dataset[c + 1];
+                    compra = Dataset[c];
 
                     card = CreateCard(
-                            Str.Currency(compra.ValorTotal.ToString()),
+                            Str.Currency((compra.ValorTotal * 100).ToString()),
                             compra.Fornecedor.Fantasia,
-                            compra.CreatedDate.ToString("dd/MM/yyyy"),
+                            (compra.DataEmissao ?? compra.CreatedDate).ToString("dd/MM/yyyy HH:mm").Replace(" ", " ás "),
                             new int[] { c, r }
                         );
 
@@ -92,14 +92,18 @@ namespace VadenStock.View.Adapters
             };
 
             card.Header(new Text(header, 18));
-
             card.SubHeader(new Text(sub, 13, Text.ColorSecondary));
+            card.Body(new Text(body, 10, Text.ColorTertiary) { TextAlignment = TextAlignment.Right });
 
-            card.Body(
-                new Text(body, 10, Text.ColorTertiary)
-                {
-                    TextAlignment = TextAlignment.Right
-                });
+            card.Action("package-remove", Card.ActionLevel.Danger, sender =>
+            {
+
+            });
+
+            card.Action("package-check", Card.ActionLevel.Success, sender =>
+            {
+
+            });
 
             return card;
         }

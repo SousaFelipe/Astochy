@@ -9,7 +9,6 @@ namespace VadenStock.Model.Types
         public enum Status
         {
             Desconhecido = 0,
-
             Comodato,
             Conserto,
             Danificado,
@@ -43,10 +42,12 @@ namespace VadenStock.Model.Types
         public string Mac { get; set; }
         public ProdutoType Produto { get; set; }
         public AlmoxType Almoxarifado { get; set; }
-        public InventarioType Inventario { get; set; }
+        public CompraType Compra { get; set; }
         public string Description { get; set; }
         public Status Localizado { get; set; }
         public DateTime UltimaTransf { get; set; }
+        public bool Orcamento { get; set; }
+        public double Valor { get; set; }
         public DateTime CreatedDate { get; set; }
 
 

@@ -27,7 +27,7 @@
 
         <TextBlock x:Name="_TextLogin"
                    VerticalAlignment="Center"
-                   Margin="4 0 8 0"
+                   Margin="10 0 8 0"
                    FontSize="10"
                    Foreground="{StaticResource TextSecondaryColor}"/>
 
@@ -38,7 +38,11 @@
                VerticalAlignment="Center"
                Margin="4 4 8 4"
                FontSize="10"
-               Foreground="{StaticResource TextSecondaryColor}"/>
+               Foreground="{StaticResource TextSecondaryColor}"
+               Cursor="Hand"
+               MouseEnter="TextMAC_MouseEnter"
+               MouseLeave="TextMAC_MouseLeave"
+               MouseLeftButtonUp="TextMAC_Click"/>
 
     <StackPanel Grid.Column="2"
                 Orientation="Horizontal"

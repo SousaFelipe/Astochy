@@ -107,6 +107,15 @@ namespace VadenStock.Core
 
 
 
+        public void OrderBy(string column, string order)
+        {
+            Query += Query.Contains("[ACTION]")
+                ? $"ORDER BY {column} {order}"
+                : $" ORDER BY {column} {order}";
+        }
+
+
+
         public void Update(string[] columns)
         {
             string action = $"UPDATE {Table} SET ";

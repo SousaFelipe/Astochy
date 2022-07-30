@@ -17,6 +17,35 @@ namespace VadenStock.View.Models
 
 
 
+        public static int Create(ItemType item)
+        {
+            List<string[]> inserts = new()
+            {
+                new string[] { "codigo", item.Codigo },
+                new string[] { "mac", item.Mac },
+                new string[] { "produto", item.Produto.Id.ToString() },
+                new string[] { "almoxarifado", item.Almoxarifado.Id.ToString() },
+                new string[] { "compra", item.Compra.Id.ToString() },
+                new string[] { "localizacao", ItemType.GetStatusName(item.Localizado) }
+            };
+
+            return Item.Model.Create(inserts);
+        }
+
+
+
+        public static List<ItemType> Read(params object[][] wheres)
+        {
+            Item model = Item.Model;
+
+            foreach (object[] where in wheres)
+                model.Where(Convert.ToString(where[0]), where[1]);
+
+            return model.Select();
+        }
+
+
+
         public static ItemType? Find(object codeOrMAC)
         {
             List<ItemType> loaded = Item.Model
@@ -31,27 +60,11 @@ namespace VadenStock.View.Models
 
 
 
-        public static int Create(ItemType item)
-        {
-            List<string[]> inserts = new()
-            {
-                new string[] { "codigo", item.Codigo },
-                new string[] { "mac", item.Mac },
-                new string[] { "produto", item.Produto.Id.ToString() },
-                new string[] { "almoxarifado", item.Almoxarifado.Id.ToString() },
-                new string[] { "inventario", item.Inventario.Id.ToString() },
-                new string[] { "localizacao", ItemType.GetStatusName(item.Localizado) }
-            };
-
-            return Item.Model.Create(inserts);
-        }
-
-
-
         public static int CountItensPorProduto(int produto)
         {
             return Item.Model
-                .Where("produto", produto.ToString())
+                .Where("produto", produto)
+                .Where("orcamento", 0)
                 .Count();
         }
 
@@ -62,6 +75,7 @@ namespace VadenStock.View.Models
             return Item.Model
                 .Where("produto", produto.ToString())
                 .Where("localizacao", status)
+                .Where("orcamento", "0")
                 .Select();
         }
 
@@ -71,17 +85,20 @@ namespace VadenStock.View.Models
         {
             return Item.Model
                 .Where("almoxarifado", almoxarifado.ToString())
+                .Where("orcamento", "0")
                 .Count();
         }
 
-        public static List<ItemType> ItensPorAlmoxarifado(int almoxarifado, params object[][] query)
+
+
+        public static List<ItemType> ItensPorAlmoxarifado(int almoxarifado, params object[][] wheres)
         {
             Item model = Item.Model
+                .Where("orcamento", "0")
                 .Where("almoxarifado", almoxarifado.ToString());
 
-            if (query.Length > 0)
-                foreach (object[] q in query)
-                    model.Where(Convert.ToString(q[0]), Convert.ToString(q[1]));
+            foreach (object[] where in wheres)
+                model.Where(Convert.ToString(where[0]), where[1]);
 
             return model.Select();
         }

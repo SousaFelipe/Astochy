@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+             xmlns:buttons="clr-namespace:VadenStock.View.Components.Buttons"
+             xmlns:charts="clr-namespace:VadenStock.View.Components.Charts"
              xmlns:components="clr-namespace:VadenStock.View.Components"
+             xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
              xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:Compras}"
@@ -15,52 +18,200 @@
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch">
 
-        <StackPanel x:Name="_StackOrcamentos"
-                    Visibility="Collapsed">
-            
-            <TextBlock Text="Orçamentos"
-                       FontSize="24"
-                       Foreground="{StaticResource TextPrimaryColor}"/>
+        <StackPanel x:Name="_StackOrcamentos">
 
-            <Grid x:Name="_GridOrcamentos"
-                  HorizontalAlignment="Stretch"
-                  Margin="0 16">
+            <Grid VerticalAlignment="Center"
+                  HorizontalAlignment="Stretch">
 
+                <TextBlock Text="Orçamentos"
+                           FontSize="24"
+                           Foreground="{StaticResource TextPrimaryColor}"/>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
+                <Button x:Name="_ButtonNovoOrcamento"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="8 0 0 0"
+                        Padding="16 7 16 8"
+                        Style="{StaticResource ButtonSecondary}"
+                        Content="Novo"
+                        Click="ButtonNovoOrcamento_Click"/>
+
             </Grid>
 
+            <Border BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    Margin="0 8 0 0">
+
+                <Grid HorizontalAlignment="Stretch">
+
+                    <Grid x:Name="_GridOrcamentos"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch"
+                          Margin="0 16">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                    </Grid>
+
+                    <StackPanel Grid.ColumnSpan="4"
+                                x:Name="_StackOrcamentosEmpty"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Margin="0 16">
+
+                        <Image Width="24"
+                               Height="24"
+                               Opacity="0.4"
+                               Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                        <TextBlock Text="Nenhum Item"
+                                   Foreground="{StaticResource TextSecondaryColor}"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Stretch">
+        <Border HorizontalAlignment="Stretch"
+                Margin="2 2 2 16"
+                Height="1"
+                Background="{StaticResource PrimaryColor_100}"/>
 
-            <forms:Radio Grid.Column="1"
-                         Content="Aprovadas"
-                         Tag="Aprovada"
-                         IsChecked="True"
-                         Foreground="{StaticResource TextSecondaryColor}"/>
+        <Border Margin="0 0 0 0"
+                BorderThickness="0"
+                CornerRadius="8"
+                Background="White">
 
-            <forms:Radio Grid.Column="1"
-                         Margin="16 0 0 0"
-                         Content="Recusadas"
-                         Tag="Recusada"
-                         Foreground="{StaticResource TextSecondaryColor}"/>
+            <Border.Effect>
+                <DropShadowEffect Color="#000"
+                                  Opacity="0.15"
+                                  BlurRadius="4"
+                                  ShadowDepth="1"/>
+            </Border.Effect>
 
-            <forms:Radio Grid.Column="1"
-                         Margin="16 0 0 0"
-                         Content="Canceladas"
-                         Tag="Cancelada"
-                         Foreground="{StaticResource TextSecondaryColor}"/>
+            <StackPanel Margin="16">
+
+                <TextBlock Foreground="{StaticResource TextPrimaryColor}"
+                           FontSize="18"
+                           Text="Compras Finalizadas"/>
+                
+                <TextBlock Foreground="{StaticResource TextSecondaryColor}"
+                           FontSize="10"
+                           Text="Evolução das compras nos ultimos 12 meses" />
+
+                <charts:ColumnChart x:Name="_ChartCompras"
+                                    LineColor="#00B0FF"
+                                    ColumnThickness="12"
+                                    ColumnTopCornerStyle="Round"
+                                    ColumnBottomCornerStyle="Round"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0 8 0 0"
+                                    Height="200"/>
+
+            </StackPanel>
+
+        </Border>
+
+        <StackPanel Margin="0 24 0 0">
+
+            <TextBlock Foreground="{StaticResource TextSecondaryColor}"
+                       FontSize="21"
+                       Text="Todas as compras"/>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 8 0 0">
+
+                <forms:InputText x:Name="_InputSerie"
+                                 Width="120"
+                                 Tag="N° de série..."
+                                 BorderBrush="{StaticResource PrimaryColor_100}"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 TextChanged="InputSerie_Changed"/>
+
+                <forms:SelectBox x:Name="_SelectStatus"
+                                 VerticalAlignment="Stretch"
+                                 Width="120"
+                                 Margin="8 0 0 0"
+                                 Background="White"
+                                 Style="{StaticResource ComboBoxTheme}"
+                                 SelectionChanged="SelectStatus_Changed">
+                    <ComboBoxItem Tag="Indefinido" Content="Status" IsSelected="True"/>
+                    <ComboBoxItem Tag="Recebida" Content="Recebidas"/>
+                    <ComboBoxItem Tag="Finalizada" Content="Finalizadas"/>
+                    <ComboBoxItem Tag="Aprovada" Content="Aprovadas"/>
+                </forms:SelectBox>
+
+                <forms:SelectBox x:Name="_SelectFornecedores"
+                                 VerticalAlignment="Stretch"
+                                 Width="120"
+                                 Margin="8 0 0 0"
+                                 Background="White"
+                                 Style="{StaticResource ComboBoxTheme}"
+                                 SelectionChanged="SelectFornecedores_Changed">
+                    <ComboBoxItem Tag="" Content="Fornecedor" IsSelected="True"/>
+                </forms:SelectBox>
+
+                <forms:InputDate Width="120"
+                                 Tag="DE..."
+                                 Margin="8 0 0 0"
+                                 SelectedDateChanged="InputDateDe_Changed"/>
+
+                <forms:InputDate Width="120"
+                                 Tag="ATÉ..."
+                                 Margin="8 0 0 0"
+                                 SelectedDateChanged="InputDateAte_Changed"/>
+
+            </StackPanel>
 
         </StackPanel>
+
+        <Border Grid.Row="1"
+                MinHeight="185"
+                Margin="0 8 0 0"
+                CornerRadius="4"
+                BorderThickness="1"
+                ClipToBounds="True"
+                BorderBrush="{StaticResource PrimaryColor_100}">
+
+            <Grid VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+
+                <StackPanel x:Name="_StackEmpty"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+
+                    <Image Width="24"
+                           Height="24"
+                           Opacity="0.4"
+                           Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                    <TextBlock Text="Nenhum Item"
+                               Foreground="{StaticResource TextSecondaryColor}"/>
+
+                </StackPanel>
+
+                <containers:Table x:Name="_TableCompras"
+                                  VerticalAlignment="Stretch"
+                                  HorizontalAlignment="Stretch"
+                                  CornerRadius="4"/>
+
+            </Grid>
+
+        </Border>
+
+        <components:Pagination x:Name="_PaginationCompras"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0 8 20 8"/>
 
     </StackPanel>
     

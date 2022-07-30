@@ -35,7 +35,7 @@ namespace VadenStock.View
 
 
 
-        private bool LoadCategorias()
+        private void LoadCategorias()
         {
             if (_ComboCategorias != null)
             {
@@ -51,13 +51,40 @@ namespace VadenStock.View
                     });
                 }
             }
-
-            return true;
         }
 
 
 
-        private bool LoadTipos()
+        private void LoadMarcas()
+        {
+            if (_ComboMarcas.Items.Count > 1)
+                _ComboMarcas.Clear(true);
+
+            foreach (MarcaType m in MarcasViewModel.TodasAsMarcas)
+            {
+                _ComboMarcas.Items.Add(new ComboBoxItem()
+                {
+                    Tag = m.Id.ToString(),
+                    Content = m.Name
+                });
+            }
+        }
+
+
+
+        public void LoadProdutos()
+        {
+            List<ProdutoType> produtos = ProdutosViewModel.FilterData(Filter);
+
+            ProdutosAdapter adapter = new(_GridProdutos);
+            adapter.SetView(this);
+            adapter.Clear();
+            adapter.Update(produtos);
+        }
+
+
+
+        private void LoadTipos()
         {
             if (_ComboTipos != null)
             {
@@ -73,41 +100,6 @@ namespace VadenStock.View
                     });
                 }
             }
-
-            return true;
-        }
-
-
-
-        private bool LoadMarcas()
-        {
-            if (_ComboMarcas.Items.Count > 1)
-                _ComboMarcas.Clear(true);
-
-            foreach (MarcaType m in MarcasViewModel.TodasAsMarcas)
-            {
-                _ComboMarcas.Items.Add(new ComboBoxItem()
-                {
-                    Tag = m.Id.ToString(),
-                    Content = m.Name
-                });
-            }
-
-            return true;
-        }
-
-
-
-        public bool LoadProdutos()
-        {
-            List<ProdutoType> produtos = ProdutosViewModel.FilterData(Filter);
-
-            ProdutosAdapter adapter = new(_GridProdutos);
-            adapter.SetView(this);
-            adapter.Clear();
-            adapter.Update(produtos);
-
-            return true;
         }
 
 
@@ -123,19 +115,19 @@ namespace VadenStock.View
                 switch (cbi.Tag)
                 {
                     case "P":
-                        window.DisplayDialog(new ProdutoDialog(), LoadProdutos);
+                        window.DisplayDialog(new ProdutoDialog(), sender => LoadProdutos());
                         break;
 
                     case "M":
-                        window.DisplayDialog(new MarcaDialog(), LoadMarcas);
+                        window.DisplayDialog(new MarcaDialog(), sender => LoadMarcas());
                         break;
 
                     case "C":
-                        window.DisplayDialog(new CategoriaDialog(), LoadCategorias);
+                        window.DisplayDialog(new CategoriaDialog(), sender => LoadCategorias());
                         break;
 
                     case "T":
-                        window.DisplayDialog(new TipoDialog(), LoadTipos);
+                        window.DisplayDialog(new TipoDialog(), sender => LoadTipos());
                         break;
                 }
 

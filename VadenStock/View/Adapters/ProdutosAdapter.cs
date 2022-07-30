@@ -154,13 +154,10 @@ namespace VadenStock.View.Adapters
 
                 window.DisplayDialog
                 (
-                    new ConfirmDialog() { Confirm = delegate { return ProdutosViewModel.Remove(produto.Id); }},
-                    delegate {
-                        method?.Invoke(View, new object?[] { this });
-                        return true;
-                    }
+                    new ConfirmDialog(ConfirmDialog.ConfirmType.Delete, "Tem certeza que você deseja remover esse registro?").OnConfirm((sender) => ProdutosViewModel.Remove(produto.Id)),
+                    sender => { method?.Invoke(View, null); }
                 );
-
+                
                 return true;
             });
 

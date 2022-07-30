@@ -7,7 +7,6 @@ using VadenStock.Model.Types;
 
 using VadenStock.Tools;
 
-using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Containers;
 using VadenStock.View.Components.Widgets;
 using VadenStock.View.Models;
@@ -144,7 +143,7 @@ namespace VadenStock.View.Dialogs
         {
             string status = (string)((ComboBoxItem)_SelectStatus.SelectedItem).Tag;
             int quantidade = 0;
-            decimal valor = 00;
+            double valor = 0;
 
             if (!string.IsNullOrEmpty(status))
             {

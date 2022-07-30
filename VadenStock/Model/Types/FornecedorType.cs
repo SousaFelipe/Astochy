@@ -8,6 +8,7 @@ namespace VadenStock.Model.Types
     {
         public int Id { get; set; }
         public string Cnpj { get; set; }
+        public string Tag { get; set; }
         public string Fantasia { get; set; }
         public string Email { get; set; }
         public string Contato { get; set; }

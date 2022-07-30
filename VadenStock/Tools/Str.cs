@@ -121,16 +121,6 @@ namespace VadenStock.Tools
 
 
 
-        public static string? MAC(string input)
-        {
-            if (input.Length == 12)
-                return Regex.Replace(input, "(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})", "$1:$2:$3:$4:$5:$6");
-
-            return null;
-        }
-
-
-
         public static string ZeroFill(int number, string? concat = "")
         {
             string zero = (number > 0 && number < 10)
@@ -177,6 +167,66 @@ namespace VadenStock.Tools
             byte[] valueBytes = Convert.FromBase64String(decode);
 
             return Encoding.UTF8.GetString(valueBytes);
+        }
+
+
+
+        public static string? MAC(string input)
+        {
+            if (input.Length == 12)
+                return Regex.Replace(input, "(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})", "$1:$2:$3:$4:$5:$6");
+
+            return null;
+        }
+
+
+
+        public static string Phone(string input)
+        {
+            if (input == null)
+                return string.Empty;
+
+            string output = input.ToString()
+                .Replace("(", string.Empty)
+                .Replace(")", string.Empty)
+                .Replace(" ", string.Empty)
+                .Replace("-", string.Empty);
+
+            if (output.Length > 11)
+                output = output[..11];
+
+            return output.Length switch
+            {
+                8 => Regex.Replace(output, @"(\d{4})(\d{4})", "$1-$2"),
+                10 => Regex.Replace(output, @"(\d{2})(\d{4})(\d{4})", "($1) $2-$3"),
+                11 => Regex.Replace(output, @"(\d{2})(\d{1})(\d{4})(\d{4})", "($1) $2 $3-$4"),
+                _ => output,
+            };
+        }
+
+
+
+        public static string CNPJ(string input)
+        {
+            if (input == null)
+                return string.Empty;
+
+            string output = input.ToString()
+                .Replace(".", string.Empty)
+                .Replace("/", string.Empty)
+                .Replace("-", string.Empty);
+
+            if (output.Length > 14)
+                output = output[..14];
+
+            return output.Length switch
+            {
+                5 => Regex.Replace(output, @"(\d{2})(\d{3})", "$1.$2"),
+                8 => Regex.Replace(output, @"(\d{2})(\d{3})(\d{3})", "$1.$2.$3"),
+                12 => Regex.Replace(output, @"(\d{2})(\d{3})(\d{3})(\d{4})", "$1.$2.$3/$4"),
+                14 => Regex.Replace(output, @"(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})", "$1.$2.$3/$4-$5"),
+                _ => output
+            };
         }
     }
 }

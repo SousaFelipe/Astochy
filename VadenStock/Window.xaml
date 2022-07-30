@@ -30,7 +30,8 @@
         TabIndex="1"
         AllowDrop="True"
         SnapsToDevicePixels="True"
-        KeyUp="Window_KeyUp">
+        KeyUp="Window_KeyUp"
+        Icon="/VadenStock;component/Resources/favicon.ico">
 
     <Window.DataContext>
         <view:ViewControl/>
@@ -142,7 +143,7 @@
                                 HorizontalAlignment="Stretch"
                                 MaxWidth="880"
                                 Height="auto"
-                                Margin="68 98 68 40">
+                                Margin="68 79 68 40">
 
                         <StackPanel x:Name="_StackClientesResultContainer"
                                     VerticalAlignment="Top"
@@ -166,6 +167,7 @@
                             <StackPanel x:Name="_StackClientesResult"
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Stretch"
+                                        Margin="0 4 0 0"
                                         Height="auto"/>
 
                         </StackPanel>
@@ -192,7 +194,8 @@
                             <StackPanel x:Name="_StackProdutosResult"
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Stretch"
-                                        Height="auto"/>
+                                        Height="auto"
+                                        Margin="0 4 0 0"/>
 
                         </StackPanel>
 

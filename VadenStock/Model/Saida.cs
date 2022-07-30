@@ -64,7 +64,7 @@ namespace VadenStock.Model
                 SaidaType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Transferencia = AlmoxarifadoTransferencia.Model.Where("id", reader.GetInt32("transferencia")).Select()[0],
+                    Transferencia = AlmoxarofadoTransferencia.Model.Where("id", reader.GetInt32("transferencia")).Select()[0],
                     Responsavel = reader.GetString("responsavel"),
                     Tipo = ItemType.GetStatus(reader.GetString("tipo")),
                     CreatedDate = reader.GetDateTime("created_at")

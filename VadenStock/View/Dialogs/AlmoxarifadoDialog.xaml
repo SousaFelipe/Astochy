@@ -27,6 +27,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
             <Button Grid.Row="0"
@@ -195,23 +196,24 @@
                         <components:Pagination x:Name="_PaginationItens"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Right"
-                                               Margin="0 8 20 0"/>
-
-                        <Button x:Name="_ButtonSave"
-                                HorizontalAlignment="Stretch"
-                                Padding="0 7 0 8"
-                                Margin="20 24 20 24"
-                                Style="{StaticResource ButtonSecondary}"
-                                FontSize="16"
-                                Content="Salvar"
-                                Click="ButtonSave_Click"
-                                IsEnabled="False"/>
+                                               Margin="0 8 20 12"/>
 
                     </StackPanel>
 
                 </Grid>
 
             </ScrollViewer>
+
+            <Button Grid.Row="2"
+                    x:Name="_ButtonSave"
+                    HorizontalAlignment="Stretch"
+                    Padding="0 7 0 8"
+                    Margin="20 12 20 24"
+                    Style="{StaticResource ButtonSecondary}"
+                    FontSize="16"
+                    Content="Salvar"
+                    Click="ButtonSave_Click"
+                    IsEnabled="False"/>
 
         </Grid>
 

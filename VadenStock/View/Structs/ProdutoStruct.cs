@@ -18,7 +18,7 @@ namespace VadenStock.View.Structs
         public int Tipo;
         public int Marca;
         public Img Image;
-        public decimal Price;
+        public double Price;
         public string Description;
     }
 }

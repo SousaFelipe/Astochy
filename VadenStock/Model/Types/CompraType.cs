@@ -12,6 +12,8 @@ namespace VadenStock.Model.Types
             Aprovada,
             Recusada,
             Cancelada,
+            Finalizada,
+            Recebida,
             Indefinido
         }
 
@@ -21,8 +23,9 @@ namespace VadenStock.Model.Types
         public FornecedorType Fornecedor { get; set; }
         public string NumSerie { get; set; }
         public double ValorTotal { get; set; }
-        public DateTime DataEmissao { get; set; }
+        public DateTime? DataEmissao { get; set; }
         public CompraStatus Status { get; set; }
+        public DateTime? UpdatedAt { get; set; }
         public DateTime CreatedDate { get; set; }
 
 
@@ -35,6 +38,8 @@ namespace VadenStock.Model.Types
                 CompraStatus.Aprovada => "Aprovada",
                 CompraStatus.Recusada => "Recusada",
                 CompraStatus.Cancelada => "Cancelada",
+                CompraStatus.Finalizada => "Finalizada",
+                CompraStatus.Recebida => "Recebida",
                 _ => "Indefinido"
             };
         }
@@ -49,6 +54,8 @@ namespace VadenStock.Model.Types
                 "Aprovada" => CompraStatus.Aprovada,
                 "Recusada" => CompraStatus.Recusada,
                 "Cancelada" => CompraStatus.Cancelada,
+                "Finalizada" => CompraStatus.Finalizada,
+                "Recebida" => CompraStatus.Recebida,
                 _ => CompraStatus.Indefinido,
             };
         }

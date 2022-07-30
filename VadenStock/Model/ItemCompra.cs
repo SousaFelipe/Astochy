@@ -9,24 +9,31 @@ using VadenStock.Model.Types;
 
 namespace VadenStock.Model
 {
-    public class AlmoxarifadoTransferencia : Connection
+    public class ItemCompra : Connection
     {
-        public static AlmoxarifadoTransferencia Model { get { return new AlmoxarifadoTransferencia(); } }
+        public static ItemCompra Model { get { return new ItemCompra(); } }
 
 
 
-        public AlmoxarifadoTransferencia() : base("almoxarifados_transferencias") { }
+        public ItemCompra() : base("itens_compra") { }
 
 
 
-        public override AlmoxarifadoTransferencia Where(string column, object operOrValue, object? value = null)
+        public override ItemCompra Where(string column, object operOrValue, object? value = null)
         {
-            return (AlmoxarifadoTransferencia)base.Where(column, operOrValue, value);
+            return (ItemCompra)base.Where(column, operOrValue, value);
         }
 
 
 
-        public List<TransfType> Select(params string[] selects)
+        public override ItemCompra Or(string column, object operOrValue, object? value = null)
+        {
+            return (ItemCompra)base.Or(column, operOrValue, value);
+        }
+
+
+
+        public List<ItemCompraType> Select(params string[] selects)
         {
             try
             {
@@ -35,7 +42,7 @@ namespace VadenStock.Model
                     Plug.Open();
                     Builder.Select(selects);
 
-                    List<TransfType> list = new();
+                    List<ItemCompraType> list = new();
 
                     using (Cmmd = new MySqlCommand(Builder.Query, Plug))
                     {
@@ -59,16 +66,15 @@ namespace VadenStock.Model
 
         private class Content
         {
-            public static TransfType Get(MySqlDataReader reader)
+            public static ItemCompraType Get(MySqlDataReader reader)
             {
-                TransfType contract = new()
+                ItemCompraType contract = new()
                 {
                     Id = reader.GetInt32("id"),
-                    Itens = reader.GetString("itens"),
-                    From = Almoxarifado.Model.Where("id", reader.GetInt32("from_almoxarifado")).Select()[0],
-                    To = Almoxarifado.Model.Where("id", reader.GetInt32("to_almoxarifado")).Select()[0],
-                    Acao = ItemType.GetStatus(reader.GetString("acao")),
-                    Description = reader.IsDBNull(5) ? string.Empty : reader.GetString("description"),
+                    Compra = Compra.Model.Where("id", reader.GetInt32("compra")).Select()[0],
+                    Produto = Produto.Model.Where("id", reader.GetInt32("produto")).Select()[0],
+                    Quantidade = reader.GetInt32("quantidade"),
+                    ValorTotal = reader.GetDouble("valor_total"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

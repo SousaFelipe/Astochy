@@ -18,13 +18,6 @@ namespace VadenStock.View.Models
 
 
 
-        public static int CountTodosOsProdutos
-        {
-            get { return Produto.Model.Count(); }
-        }
-
-
-
         public static int Create(ProdutoStruct produto)
         {
             List<string[]> inserts = new()
@@ -39,13 +32,6 @@ namespace VadenStock.View.Models
             };
 
             return Produto.Model.Create(inserts);
-        }
-
-
-
-        public static bool Remove(int produto)
-        {
-            return Produto.Model.Delete(produto);
         }
 
 
@@ -76,15 +62,6 @@ namespace VadenStock.View.Models
         {
             return Produto.Model
                 .Where("categoria", categoria.ToString())
-                .Select();
-        }
-
-
-
-        public static List<ProdutoType> ProdutosPorTipo(int tipo)
-        {
-            return Produto.Model
-                .Where("tipo", tipo.ToString())
                 .Select();
         }
 
@@ -130,24 +107,9 @@ namespace VadenStock.View.Models
 
 
 
-        public static Dictionary<string, List<ProdutoType>> OrderByCategoria(List<ProdutoType> produtos)
+        public static bool Remove(int produto)
         {
-            List<ProdutoType> typeToOrder;
-            Dictionary<string, List<ProdutoType>> ordered = new();
-            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
-            
-            foreach (CategoriaType cat in categorias)
-            {
-                typeToOrder = new();
-
-                foreach (ProdutoType pro in produtos)
-                    if (pro.Categoria.Id == cat.Id)
-                        typeToOrder.Add(pro);
-
-                ordered.Add(cat.Name, typeToOrder);
-            }
-
-            return ordered;
+            return Produto.Model.Delete(produto);
         }
     }
 }

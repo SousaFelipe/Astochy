@@ -26,35 +26,68 @@
                HorizontalAlignment="Center"
                Width="64"
                Height="64"
-               Margin="0 8 0 8"
-               Source="/VadenStock;component/Resources/Images/64-remove.png"/>
+               Margin="0 8 0 8"/>
 
         <TextBlock Grid.Row="1"
                    x:Name="_TextMessage"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   Text="Tem certeza que você deseja remover esse registro?"
                    FontSize="14"
+                   TextAlignment="Center"
                    TextWrapping="Wrap"
                    Foreground="{StaticResource TextSecondaryColor}"/>
 
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    Margin="0 8">
+        <Grid Grid.Row="2"
+              x:Name="_GridButtonsOne"
+              HorizontalAlignment="Center"
+              Margin="0 8"
+              Visibility="Collapsed">
 
-            <Button Content="Sim"
-                    Padding="12 4"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Content="Sim"
+                    Padding="14 6"
                     Style="{StaticResource ButtonGray}"
                     Click="CallConfirm"/>
 
-            <Button Content="Não"
-                    Padding="12 4"
+            <Button Grid.Column="1"
+                    Content="Não"
+                    Padding="14 6"
                     Margin="4 0 0 0"
                     Style="{StaticResource ButtonSecondary}"
                     Click="CallCancel"/>
 
-        </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              x:Name="_GridButtonsTwoo"
+              HorizontalAlignment="Center"
+              Margin="0 8"
+              Visibility="Collapsed">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    Content="Sim"
+                    Padding="14 6"
+                    Style="{StaticResource ButtonSecondary}"
+                    Click="CallConfirm"/>
+
+            <Button Grid.Column="1"
+                    Content="Não"
+                    Padding="14 6"
+                    Margin="4 0 0 0"
+                    Style="{StaticResource ButtonGray}"
+                    Click="CallCancel"/>
+
+        </Grid>
 
     </Grid>
     

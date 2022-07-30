@@ -41,7 +41,8 @@ namespace VadenStock
 
 
 
-		private Func<bool>? OnCloseDialogCallback { get; set; }
+		private readonly List<Action<object>?> Callbacks = new();
+		private readonly List<UIElement> Dialogs = new();
 
 
 
@@ -107,23 +108,44 @@ namespace VadenStock
 
 
 
-		public void DisplayDialog(UIElement element, Func<bool>? onCloseDialogCallback = null)
+		public void DisplayDialog(UIElement element, Action<object>? onCloseCallback = null)
         {
+			if (!Dialogs.Contains(element))
+            {
+				Dialogs.Add(element);
+
+				if (!Callbacks.Contains(onCloseCallback))
+					 Callbacks.Add(onCloseCallback);
+			}
+
 			_BorderShadow.Visibility = Visibility.Visible;
 			_DialogContainer.Children.Add(element);
-
-			OnCloseDialogCallback = onCloseDialogCallback;
 		}
 
 
 
 		public void CloseDialog(UIElement element)
         {
-			_DialogContainer.Children.Remove(element);
-			_DialogContainer.Children.Clear();
-			_BorderShadow.Visibility = Visibility.Collapsed;
+			if (Dialogs.Contains(element))
+			{
+				int index = Dialogs.IndexOf(element);
 
-			OnCloseDialogCallback?.Invoke();
+				Action<object>? callback = Callbacks[index];
+				callback?.Invoke(this);
+
+				Dialogs.Remove(element);
+
+				if (callback != null)
+					Callbacks.Remove(callback);
+
+				_DialogContainer.Children.Remove(element);
+			}
+			
+			if (Dialogs.Count == 0)
+            {
+				Callbacks.Clear();
+				_BorderShadow.Visibility = Visibility.Collapsed;
+			}
 		}
 
 
@@ -135,17 +157,17 @@ namespace VadenStock
 			if (element != null && element.GetType() != null)
 			{
 				object? val;
-
-				foreach (PropertyInfo pi in element.GetType().GetProperties())
+				
+				foreach (PropertyInfo prop in element.GetType().GetProperties())
 				{
-					if (pi.Name == property)
+					if (prop.Name == property)
 					{
-						val = pi.GetValue(element);
+						val = prop.GetValue(element);
 
 						if (val != null && ((bool)val) == true)
 						{
-							MethodInfo? mi = element.GetType().GetMethod(method);
-							mi?.Invoke(element, new object[] { action });
+							MethodInfo? minf = element.GetType().GetMethod(method);
+							minf?.Invoke(element, new object[] { action });
 						}
 					}
 				}
@@ -154,21 +176,32 @@ namespace VadenStock
 
 
 
-		private void SearchWhenItsNumber(string search)
+		private async void SearchWhenItsNumber(string search)
         {
-			Response response;
-			List<ItemType> itens;
+			Response response = await Cliente.Conn.Where("cnpj_cpf", "L", search).Get();
+			List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
-			Application.Current.Dispatcher.Invoke(async () =>
+			if (clientes != null && clientes.Count > 0)
 			{
-				response = await Cliente.Conn
-					.Where("cnpj_cpf", "LE", search)
-					.Get();
+				_StackClientesResultContainer.Visibility = Visibility.Visible;
+				_GridLoadingSearch.Visibility = Visibility.Collapsed;
+				_StackClientesResult.Children.Clear();
 
-				itens = Item.Model
-					.Where("codigo", "LIKE", search)
-					.Select();
-			});
+				foreach (Cliente cliente in clientes)
+					_StackClientesResult.Children.Add(new ClienteItem(cliente));
+			}
+
+			List<ItemType> itens = Item.Model.Where("codigo", "LIKE", search).Or("mac", "LIKE", search).Select();
+
+			if (itens != null && itens.Count > 0)
+            {
+				_StackProdutosResultContainer.Visibility = Visibility.Visible;
+				_GridLoadingSearch.Visibility = Visibility.Collapsed;
+				_StackProdutosResult.Children.Clear();
+
+				foreach (ItemType item in itens)
+					_StackProdutosResult.Children.Add(new ItemItem(item));
+			}
 		}
 
 
@@ -178,7 +211,7 @@ namespace VadenStock
 			Response response = await Cliente.Conn.Where("razao", "L", search).Where("ativo", "S").Get(10);
 			List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
-			if (clientes != null)
+			if (clientes != null && clientes.Count > 0)
 			{
 				_StackClientesResultContainer.Visibility = Visibility.Visible;
 				_GridLoadingSearch.Visibility = Visibility.Collapsed;
@@ -193,7 +226,7 @@ namespace VadenStock
 
 		private void SearchWhenNotNumberOrText(string search)
         {
-			string clean = search.Replace(":", "");
+			string clean = search.Replace(":", "").Trim();
 
 			List<ItemType> itens = Item.Model
 				.Where("mac", "LIKE", clean)

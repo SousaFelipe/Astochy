@@ -17,22 +17,37 @@ namespace VadenStock.View.Dialogs
 {
     public partial class EntradaDialog : Border
     {
+        private CompraType Compra;
+        private List<ItemCompraType> ItensDaCompra;
+
         private ItemType NovoItem;
         private readonly List<ItemType> Itens;
 
 
 
+        public EntradaDialog(CompraType compra)
+        {
+            ItensDaCompra = new();
+            NovoItem = new() { Compra = compra };
+            Itens = new();
+
+            InitializeComponent();
+
+            Loaded += delegate
+            {
+                InitTable();
+                LoadMarcas();
+                LoadAlmoxarifados();
+            };
+        }
+
+
+
         public EntradaDialog()
         {
-            InventarioType? inventario = InventariosViewModel.Find(1);
-
-            NovoItem = new()
-            {
-                Inventario = inventario != null
-                    ? (InventarioType)inventario
-                    : new InventarioType() { Id = 1 },
-            };
-
+            Compra = new() { Id = 1 };
+            ItensDaCompra = new();
+            NovoItem = new();
             Itens = new();
 
             InitializeComponent();
@@ -150,10 +165,7 @@ namespace VadenStock.View.Dialogs
             {
                 if (i.Codigo == NovoItem.Codigo || i.Mac == NovoItem.Mac)
                 {
-                    window.DisplayAlert(
-                        new AlertDialog(AlertDialog.AlertType.Info, "Este item já foi adicionado à lista")
-                        );
-
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "Este item já foi adicionado à lista"));
                     goto exit_function;
                 }
             }

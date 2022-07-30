@@ -5,12 +5,84 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
              xmlns:components="clr-namespace:VadenStock.View.Components"
+             xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
              xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:Fornecedores}"
              d:DesignWidth="840"
              d:DesignHeight="600">
-    <Grid>
-            
-    </Grid>
+
+    <StackPanel Margin="20 48 20 0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+
+        <Grid HorizontalAlignment="Stretch">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <forms:InputText Grid.Column="0"
+                             x:Name="_InputBusca"
+                             HorizontalAlignment="Stretch"
+                             Tag="Buscar fornecedor..."
+                             FontSize="14"
+                             Foreground="{StaticResource TextPrimaryColor}"
+                             TextChanged="InputBusca_Changed"
+                             Cursor="IBeam"/>
+
+            <Button Grid.Column="1"
+                    x:Name="_ButtonSave"
+                    HorizontalAlignment="Right"
+                    Padding="16 7 16 8"
+                    Style="{StaticResource ButtonSecondary}"
+                    FontSize="16"
+                    Content="Cadastrar"
+                    Click="ButtonNovoFornecedor_Click"
+                    Cursor="Hand"/>
+
+        </Grid>
+
+        <Border Grid.Row="1"
+                Margin="0 8 0 0"
+                CornerRadius="4"
+                BorderThickness="1"
+                ClipToBounds="True"
+                BorderBrush="{StaticResource PrimaryColor_100}"
+                Background="white">
+
+            <Grid VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch">
+
+                <StackPanel x:Name="_StackEmpty"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0 24 0 24">
+
+                    <Image Width="24"
+                           Height="24"
+                           Opacity="0.4"
+                           Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                    <TextBlock Text="Nenhum Item"
+                               Foreground="{StaticResource TextSecondaryColor}"/>
+
+                </StackPanel>
+
+                <containers:Table x:Name="_TableFornecedores"
+                                  HorizontalAlignment="Stretch"
+                                  CornerRadius="4"/>
+
+            </Grid>
+
+        </Border>
+
+        <components:Pagination x:Name="_PaginationFornecedores"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0 8 0 8"/>
+
+    </StackPanel>
+
 </UserControl>

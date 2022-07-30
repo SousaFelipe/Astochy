@@ -241,20 +241,19 @@ namespace VadenStock.View.Components.Charts
 
         private Line CreateLine(double startLine, double endLine, string hexColor)
         {
-            Line line = new();
-
-            line.SnapsToDevicePixels = true;
-            line.Y1 = startLine;
-            line.Y2 = endLine;
-            line.Margin = new Thickness(4, 0, 0, 0);
-            line.VerticalAlignment = VerticalAlignment.Bottom;
-            line.HorizontalAlignment = HorizontalAlignment.Center;
-            line.StrokeStartLineCap = ColumnTopCornerStyle;
-            line.StrokeEndLineCap = ColumnBottomCornerStyle;
-            line.StrokeThickness = ColumnThickness;
-            line.Stroke = Clr.Color(hexColor);
-
-            return line;
+            return new Line()
+            {
+                SnapsToDevicePixels = true,
+                Y1 = startLine,
+                Y2 = endLine,
+                Margin = new Thickness(4, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                StrokeStartLineCap = ColumnTopCornerStyle,
+                StrokeEndLineCap = ColumnBottomCornerStyle,
+                StrokeThickness = ColumnThickness,
+                Stroke = Clr.Color(hexColor)
+            };
         }
 
 
@@ -263,10 +262,11 @@ namespace VadenStock.View.Components.Charts
         {
             return new TextBlock()
             {
-                Text = Labels[pos],
-                TextAlignment = TextAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom,
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontSize = 9,
+                Text = Labels[pos].ToUpper(),
             };
         }
 

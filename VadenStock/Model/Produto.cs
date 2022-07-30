@@ -70,7 +70,7 @@ namespace VadenStock.Model
                     Name = reader.GetString("name"),
                     Image = reader.IsDBNull(5) ? string.Empty : reader.GetString("image"),
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
-                    Price = reader.GetDecimal("price"),
+                    Price = reader.GetDouble("price"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

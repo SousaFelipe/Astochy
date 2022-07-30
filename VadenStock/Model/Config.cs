@@ -67,7 +67,7 @@ namespace VadenStock.Model
                 {
                     Id = reader.GetInt32("id"),
                     ProductionPath = reader.IsDBNull(1) ? string.Empty : reader.GetString("production_path"),
-                    AlmoxPrincipal = Almoxarifado.Model.Where("id", reader.GetInt32("almox_principal")).Select()[0],
+                    AlmoxPrincipal = reader.IsDBNull(2) ? null : Almoxarifado.Model.Where("id", reader.GetInt32("almox_principal")).Select()[0],
                     ServerAddress = reader.GetString("server_address"),
                     ServerProtocol = reader.IsDBNull(4) ? ConfigType.Protocol.HTTP : ConfigType.GetProtocol(reader.GetString("server_protocol")),
                     ServerToken = reader.GetString("server_token"),

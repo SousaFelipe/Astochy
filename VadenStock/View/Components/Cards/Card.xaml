@@ -19,21 +19,33 @@
                           Direction="-90"/>
     </Border.Effect>
 
-    <StackPanel Orientation="Vertical"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Margin="12 16 12 12">
+    <Grid VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
 
-        <Grid x:Name="_GridHeader"
-              HorizontalAlignment="Stretch"/>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="12 16 12 12"
+                    MouseDown="Card_MouseDown">
 
-        <Grid x:Name="_GridSubHeader"
-              HorizontalAlignment="Stretch"/>
+            <Grid x:Name="_GridHeader"
+                  HorizontalAlignment="Stretch"/>
 
-        <Grid x:Name="_GridBody"
-              HorizontalAlignment="Stretch"
-              Margin="0 8 0 0"/>
+            <Grid x:Name="_GridSubHeader"
+                  HorizontalAlignment="Stretch"/>
 
-    </StackPanel>
+            <Grid x:Name="_GridBody"
+                  HorizontalAlignment="Stretch"
+                  Margin="0 8 0 0"/>
+
+        </StackPanel>
+
+        <StackPanel x:Name="_StackActions"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Margin="0 4 4 0"/>
+
+    </Grid>
     
 </Border>

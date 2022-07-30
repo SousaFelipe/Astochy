@@ -22,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0"
@@ -40,117 +41,123 @@
         
         </Button>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Stretch">
+        <ScrollViewer Grid.Row="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch">
 
-            <Image Width="64"
-                   Height="64"
-                   Source="/VadenStock;component/Resources/Images/64-inventory-flow.png"/>
+            <StackPanel VerticalAlignment="Top"
+                        HorizontalAlignment="Stretch">
 
-            <TextBlock HorizontalAlignment="Center"
-                       Text="Transferência entre Almoxarifados"
-                       Foreground="{StaticResource TextTertiaryColor}"/>
+                <Image Width="64"
+                       Height="64"
+                       Source="/VadenStock;component/Resources/Images/64-inventory-flow.png"/>
 
-            <Grid HorizontalAlignment="Stretch"
-                  Margin="16 42 16 0">
+                <TextBlock HorizontalAlignment="Center"
+                           Text="Transferência entre Almoxarifados"
+                           Foreground="{StaticResource TextTertiaryColor}"/>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <Grid HorizontalAlignment="Stretch"
+                      Margin="16 42 16 0">
 
-                <forms:SelectBox Grid.Column="0"
-                                 x:Name="_ComboOrigem"
-                                 HorizontalAlignment="Stretch"
-                                 Margin="4 0 4 0"
-                                 Background="#FFFFFF"
-                                 Text="Origem"
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 Style="{StaticResource InputSelectTheme}"
-                                 SelectionChanged="ComboOrigem_Changed">
-                    
-                    <ComboBoxItem Tag="0" Content="Origem"/>
-                    
-                </forms:SelectBox>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <forms:SelectBox Grid.Column="3"
-                                 x:Name="_ComboDestino"
-                                 HorizontalAlignment="Stretch"
-                                 Margin="4 0 4 0"
-                                 Background="#FFFFFF"
-                                 Text="Destino"
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 Style="{StaticResource InputSelectTheme}"
-                                 SelectionChanged="ComboDestino_Changed"
-                                 IsEnabled="False">
-                    
-                    <ComboBoxItem Tag="0" Content="Destino"/>
-                    
-                </forms:SelectBox>
+                    <forms:SelectBox Grid.Column="0"
+                                     x:Name="_ComboOrigem"
+                                     HorizontalAlignment="Stretch"
+                                     Margin="4 0 4 0"
+                                     Background="#FFFFFF"
+                                     Text="Origem"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     Style="{StaticResource InputSelectTheme}"
+                                     SelectionChanged="ComboOrigem_Changed">
 
-            </Grid>
+                        <ComboBoxItem Tag="0" Content="Origem"/>
 
-            <forms:InputText x:Name="_InputCodigo"
-                             HorizontalAlignment="Stretch"
-                             Margin="20 16 20 0"
-                             Tag="Código do equipamento..."
-                             FontSize="16"
-                             Foreground="{StaticResource TextPrimaryColor}"
-                             TextChanged="InputCodigo_TextChanged"
-                             IsEnabled="False"/>
+                    </forms:SelectBox>
 
-            <Border Grid.Row="1"
-                    MinHeight="185"
-                    Margin="20 16 20 0"
-                    CornerRadius="4"
-                    BorderThickness="1"
-                    ClipToBounds="True"
-                    BorderBrush="{StaticResource PrimaryColor_050}">
+                    <forms:SelectBox Grid.Column="3"
+                                     x:Name="_ComboDestino"
+                                     HorizontalAlignment="Stretch"
+                                     Margin="4 0 4 0"
+                                     Background="#FFFFFF"
+                                     Text="Destino"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     Style="{StaticResource InputSelectTheme}"
+                                     SelectionChanged="ComboDestino_Changed"
+                                     IsEnabled="False">
 
-                <Grid>
+                        <ComboBoxItem Tag="0" Content="Destino"/>
 
-                    <StackPanel x:Name="_StackEmpty"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center">
-                        
-                        <Image Width="24"
-                               Height="24"
-                               Opacity="0.4"
-                               Source="/VadenStock;component/Resources/Icons/black-package.png"/>
-
-                        <TextBlock Text="Nenhum Item"
-                                   Foreground="{StaticResource TextSecondaryColor}"/>
-
-                    </StackPanel>
-
-                    <containers:Table x:Name="_TableItens"
-                                      VerticalAlignment="Stretch"
-                                      HorizontalAlignment="Stretch"
-                                      CornerRadius="4"/>
+                    </forms:SelectBox>
 
                 </Grid>
-                
-            </Border>
 
-            <components:Pagination x:Name="_PaginationItens"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Margin="0 8 20 0"/>
+                <forms:InputText x:Name="_InputCodigo"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="20 16 20 0"
+                                 Tag="Código do equipamento..."
+                                 FontSize="16"
+                                 Foreground="{StaticResource TextPrimaryColor}"
+                                 TextChanged="InputCodigo_TextChanged"
+                                 IsEnabled="False"/>
 
-            <Button x:Name="_ButtonSave"
-                    HorizontalAlignment="Stretch"
-                    Padding="0 7 0 8"
-                    Margin="20 24 20 24"
-                    Style="{StaticResource ButtonSecondary}"
-                    FontSize="16"
-                    Content="Salvar"
-                    IsEnabled="False"
-                    Click="ButtonSave_Click"/>
+                <Border Grid.Row="1"
+                        MinHeight="185"
+                        Margin="20 16 20 0"
+                        CornerRadius="4"
+                        BorderThickness="1"
+                        ClipToBounds="True"
+                        BorderBrush="{StaticResource PrimaryColor_050}">
 
-        </StackPanel>
+                    <Grid>
+
+                        <StackPanel x:Name="_StackEmpty"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+
+                            <Image Width="24"
+                                   Height="24"
+                                   Opacity="0.4"
+                                   Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                            <TextBlock Text="Nenhum Item"
+                                       Foreground="{StaticResource TextSecondaryColor}"/>
+
+                        </StackPanel>
+
+                        <containers:Table x:Name="_TableItens"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Stretch"
+                                          CornerRadius="4"/>
+
+                    </Grid>
+
+                </Border>
+
+                <components:Pagination x:Name="_PaginationItens"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Margin="0 8 20 12"/>
+
+            </StackPanel>
+
+        </ScrollViewer>
+
+        <Button Grid.Row="2"
+                x:Name="_ButtonSave"
+                HorizontalAlignment="Stretch"
+                Padding="0 7 0 8"
+                Margin="20 12 20 24"
+                Style="{StaticResource ButtonSecondary}"
+                FontSize="16"
+                Content="Salvar"
+                IsEnabled="False"
+                Click="ButtonSave_Click"/>
 
     </Grid>
     

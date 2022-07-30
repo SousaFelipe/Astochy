@@ -1,0 +1,119 @@
+﻿<DatePicker x:Class="VadenStock.View.Components.Forms.InputDate"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:VadenStock.View.Components.Forms"
+            xmlns:buttons="clr-namespace:VadenStock.View.Components.Buttons"
+            d:DataContext="{d:DesignInstance Type=local:InputDate}"
+            mc:Ignorable="d"
+            MinWidth="100">
+    
+    <DatePicker.Style>
+        <Style TargetType="{x:Type DatePicker}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Name="PART_Root"
+                                CornerRadius="5"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource PrimaryColor_100}"
+                                Background="White">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <DatePickerTextBox Grid.Column="0"
+                                                   x:Name="PART_TextBox"
+                                                   Visibility="Collapsed"/>
+
+                                <TextBox Grid.Column="0"
+                                         x:Name="_TextDate"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="8 2 4 2"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         Foreground="{StaticResource TextSecondaryColor}"
+                                         Text="{Binding Path=Text, ElementName=PART_TextBox}"
+                                         TextChanged="TextDate_TextChanged"
+                                         KeyDown="TextDate_KeyDown"/>
+
+                                <TextBlock Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Stretch"
+                                           Margin="8 2 4 2"
+                                           Foreground="{StaticResource TextSecondaryColor}"
+                                           Text="{TemplateBinding Tag}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=_TextDate}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+
+                                <buttons:ButtonLight Grid.Column="1"
+                                                     x:Name="PART_Button"
+                                                     Margin="2"
+                                                     Width="20"
+                                                     Height="20">
+
+                                    <Image Width="18"
+                                           Height="18"
+                                           Source="/VadenStock;Component/Resources/Icons/gray-calendar.png"/>
+
+                                </buttons:ButtonLight>
+
+                                <Grid Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       x:Name="PART_DisabledVisual"
+                                       IsHitTestVisible="False"
+                                       Opacity="0">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Rectangle Grid.Column="0"
+                                               Grid.Row="0"
+                                               Fill="#A5FFFFFF"
+                                               RadiusY="1"
+                                               RadiusX="1" />
+
+                                    <Rectangle Grid.Column="1"
+                                               Grid.Row="0"
+                                               Fill="#A5FFFFFF"
+                                               Width="19"
+                                               Height="18"
+                                               Margin="3 0 3 0"
+                                               RadiusY="1"
+                                               RadiusX="1"/>
+
+                                    <Popup x:Name="PART_Popup"
+                                           AllowsTransparency="True"
+                                           Placement="Bottom"
+                                           PlacementTarget="{Binding ElementName=PART_TextBox}"
+                                           StaysOpen="False" />
+                                </Grid>
+
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </DatePicker.Style>
+    
+</DatePicker>

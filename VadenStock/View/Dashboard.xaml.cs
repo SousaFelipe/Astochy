@@ -29,11 +29,7 @@ namespace VadenStock.View
                 else
                 {
                     MainWindow window = (MainWindow)Application.Current.MainWindow;
-                    window.DisplayDialog(new ConfigDialog(), delegate
-                    {
-                        LoadAll();
-                        return true;
-                    });
+                    window.DisplayDialog(new ConfigDialog(), sender => LoadAll());
                 }
             };
         }
@@ -44,7 +40,7 @@ namespace VadenStock.View
         {
             LoadCardPatrimonio();
             LoadAlmoxCards();
-            RefreshChartByMarcas();
+            RefreshChartByCategorias();
         }
 
 
@@ -57,6 +53,61 @@ namespace VadenStock.View
             _PatrimonioEmComodato.UpdateValue(patrimonio.Comodato, patrimonio.Total);
             _PatrimonioEmRota.UpdateValue(patrimonio.EmRota, patrimonio.Total);
         }
+
+
+
+        private void RefreshChartByCategorias()
+        {
+            CategoriaType current;
+            List<ProdutoType> produtos;
+            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
+
+            string[] labels = new string[categorias.Count];
+            double[] values = new double[categorias.Count];
+
+            for (int i = 0; i < categorias.Count; i++)
+            {
+                current = categorias[i];
+                labels[i] = current.Name;
+                produtos = ProdutosViewModel.ProdutosPorCategoria(current.Id);
+
+                for (int p = 0; p < produtos.Count; p++)
+                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
+            }
+
+            _ChartEstoqueNivel.Clear();
+            _ChartEstoqueNivel.SetSeries(values);
+            _ChartEstoqueNivel.SetLabels(labels);
+            _ChartEstoqueNivel.Draw();
+        }
+
+
+
+        private void RefreshChartByMarcas()
+        {
+            MarcaType current;
+            List<ProdutoType> produtos;
+            List<MarcaType> marcas = MarcasViewModel.TodasAsMarcas;
+
+            string[] labels = new string[marcas.Count];
+            double[] values = new double[marcas.Count];
+
+            for (int i = 0; i < marcas.Count; i++)
+            {
+                current = marcas[i];
+                labels[i] = current.Name;
+                produtos = ProdutosViewModel.ProdutosPorMarca(current.Id);
+
+                for (int p = 0; p < produtos.Count; p++)
+                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
+            }
+
+            _ChartEstoqueNivel.Clear();
+            _ChartEstoqueNivel.SetSeries(values);
+            _ChartEstoqueNivel.SetLabels(labels);
+            _ChartEstoqueNivel.Draw();
+        }
+
 
 
 
@@ -96,60 +147,6 @@ namespace VadenStock.View
                     else r++;
                 }
             }
-        }
-
-
-
-        private void RefreshChartByMarcas()
-        {
-            MarcaType current;
-            List<ProdutoType> produtos;
-            List<MarcaType> marcas = MarcasViewModel.TodasAsMarcas;
-
-            string[] labels = new string[marcas.Count];
-            double[] values = new double[marcas.Count];
-
-            for (int i = 0; i < marcas.Count; i++)
-            {
-                current = marcas[i];
-                labels[i] = current.Name[..3];
-                produtos = ProdutosViewModel.ProdutosPorMarca(current.Id);
-
-                for (int p = 0; p < produtos.Count; p++)
-                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
-            }
-
-            _ChartEstoqueNivel.Clear();
-            _ChartEstoqueNivel.SetSeries(values);
-            _ChartEstoqueNivel.SetLabels(labels);
-            _ChartEstoqueNivel.Draw();
-        }
-
-
-
-        private void RefreshChartByCategorias()
-        {
-            CategoriaType current;
-            List<ProdutoType> produtos;
-            List<CategoriaType> categorias = CategoriasViewModel.TodasAsCategorias;
-
-            string[] labels = new string[categorias.Count];
-            double[] values = new double[categorias.Count];
-
-            for (int i = 0; i < categorias.Count; i++)
-            {
-                current = categorias[i];
-                labels[i] = current.Name[..3];
-                produtos = ProdutosViewModel.ProdutosPorCategoria(current.Id);
-
-                for (int p = 0; p < produtos.Count; p++)
-                    values[i] += ItensViewModel.CountItensPorProduto(produtos[p].Id);
-            }
-
-            _ChartEstoqueNivel.Clear();
-            _ChartEstoqueNivel.SetSeries(values);
-            _ChartEstoqueNivel.SetLabels(labels);
-            _ChartEstoqueNivel.Draw();
         }
 
 
