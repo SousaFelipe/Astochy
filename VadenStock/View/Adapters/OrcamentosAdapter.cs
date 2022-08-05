@@ -2,15 +2,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
-using VadenStock.Tools;
+using System.Reflection;
 
 using VadenStock.Model.Types;
-
-using VadenStock.View.Models;
+using VadenStock.Tools;
 using VadenStock.View.Components;
 using VadenStock.View.Components.Cards;
-
+using VadenStock.View.Dialogs;
 
 
 namespace VadenStock.View.Adapters
@@ -21,7 +19,18 @@ namespace VadenStock.View.Adapters
 
 
 
+        private object? View;
+
+
+
         public OrcamentosAdapter(Grid container) : base(container) { }
+
+
+
+        public void SetView(object view)
+        {
+            View = view;
+        }
 
 
 
@@ -55,13 +64,7 @@ namespace VadenStock.View.Adapters
                 for (int c = 0; c < Dataset.Count; c++)
                 {
                     compra = Dataset[c];
-
-                    card = CreateCard(
-                            Str.Currency((compra.ValorTotal * 100).ToString()),
-                            compra.Fornecedor.Fantasia,
-                            (compra.DataEmissao ?? compra.CreatedDate).ToString("dd/MM/yyyy HH:mm").Replace(" ", " ás "),
-                            new int[] { c, r }
-                        );
+                    card = CreateCard(compra, new int[] { c, r });
 
                     Container.Children.Add(card);
                     
@@ -84,25 +87,34 @@ namespace VadenStock.View.Adapters
 
 
 
-        public static Card CreateCard(string header, string sub, string body, int[] position)
+        public Card CreateCard(CompraType compra, int[] position)
         {
             Card card = new()
             {
                 Margin = new Thickness(2, (position[0] > 0 && ((position[1] - 3) == -3)) ? 12 : 0, 2, 0)
             };
 
+            string header = Str.Currency(compra.ValorTotal);
+            string body = (compra.DataEmissao ?? compra.CreatedDate).ToString("dd/MM/yyyy HH:mm").Replace(" ", " ás ");
+
             card.Header(new Text(header, 18));
-            card.SubHeader(new Text(sub, 13, Text.ColorSecondary));
+            card.SubHeader(new Text(compra.Fornecedor.Fantasia, 13, Text.ColorSecondary));
             card.Body(new Text(body, 10, Text.ColorTertiary) { TextAlignment = TextAlignment.Right });
 
-            card.Action("package-remove", Card.ActionLevel.Danger, sender =>
+            card.Action("open", Card.ActionLevel.Simple, sender =>
             {
+                MainWindow window = (MainWindow)Application.Current.MainWindow;
 
-            });
+                window.DisplayDialog(new OrcamentoDialog(compra), sender =>
+                {
+                    MethodInfo? loadOrc = View?.GetType().GetMethod("LoadOrcamentos");
+                    MethodInfo? refComp = View?.GetType().GetMethod("RefreshCompras");
+                    MethodInfo? refTabl = View?.GetType().GetMethod("RefreshTable");
 
-            card.Action("package-check", Card.ActionLevel.Success, sender =>
-            {
-
+                    loadOrc?.Invoke(View, null);
+                    refComp?.Invoke(View, null);
+                    refTabl?.Invoke(View, null);
+                });
             });
 
             return card;

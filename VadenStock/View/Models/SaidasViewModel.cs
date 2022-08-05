@@ -12,11 +12,11 @@ namespace VadenStock.View.Models
     {
         public static int Create(SaidaType saida)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "transferencia", (saida.Transferencia ?? new TransfType()).Id.ToString() },
-                new string[] { "responsavel", saida.Responsavel.ToString() },
-                new string[] { "tipo", ItemType.GetStatusName(saida.Tipo) }
+                new object[] { "transferencia", (saida.Transferencia ?? new TransfType()).Id },
+                new object[] { "responsavel", saida.Responsavel },
+                new object[] { "tipo", ItemType.GetStatusName(saida.Tipo) }
             };
 
             return Saida.Model.Create(inserts);

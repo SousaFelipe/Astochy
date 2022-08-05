@@ -4,7 +4,7 @@
 
 namespace VadenStock.Model.Types
 {
-    public struct ConfigType : IModelType
+    public struct ConfigType
     {
         public enum Protocol
         {

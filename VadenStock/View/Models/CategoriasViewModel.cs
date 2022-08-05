@@ -23,10 +23,10 @@ namespace VadenStock.View.Models
 
         public static int Create(CategoriaType categoria)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "name", categoria.Name },
-                new string[] { "description", categoria.Description }
+                new object[] { "name", categoria.Name },
+                new object[] { "description", categoria.Description }
             };
 
             return Categoria.Model.Create(inserts);

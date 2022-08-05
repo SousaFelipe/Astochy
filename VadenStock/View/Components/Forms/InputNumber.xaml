@@ -95,6 +95,11 @@
                                     <Setter Property="Background" Value="#F7FAFC"/>
                                 </Trigger.Setters>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Trigger.Setters>
+                                    <Setter Property="Foreground" Value="#78909C"/>
+                                </Trigger.Setters>
+                            </Trigger>
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>

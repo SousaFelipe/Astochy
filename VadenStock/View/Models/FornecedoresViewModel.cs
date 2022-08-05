@@ -19,14 +19,14 @@ namespace VadenStock.View.Models
 
         public static bool Create(FornecedorType fornecedor)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[2] { "cnpj", fornecedor.Cnpj },
-                new string[2] { "fantasia", fornecedor.Fantasia },
-                new string[2] { "email", fornecedor.Email },
-                new string[2] { "contato", fornecedor.Contato },
-                new string[2] { "telefone", fornecedor.Telefone },
-                new string[2] { "whatsapp", fornecedor.Whatsapp }
+                new object[2] { "cnpj", fornecedor.Cnpj },
+                new object[2] { "fantasia", fornecedor.Fantasia },
+                new object[2] { "email", fornecedor.Email },
+                new object[2] { "contato", fornecedor.Contato },
+                new object[2] { "telefone", fornecedor.Telefone },
+                new object[2] { "whatsapp", fornecedor.Whatsapp }
             };
 
             return Fornecedor.Model.Create(inserts) > 0;

@@ -75,6 +75,7 @@ namespace VadenStock.Model
                     Produto = Produto.Model.Where("id", reader.GetInt32("produto")).Select()[0],
                     Quantidade = reader.GetInt32("quantidade"),
                     ValorTotal = reader.GetDouble("valor_total"),
+                    Status = ItemCompraType.GetStatus(reader.GetString("status")),
                     CreatedDate = reader.GetDateTime("created_at")
                 };
 

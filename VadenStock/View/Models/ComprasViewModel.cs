@@ -12,11 +12,11 @@ namespace VadenStock.View.Models
     {
         public static bool Create(CompraType compra)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "fornecedor", compra.Fornecedor.Id.ToString() },
-                new string[] { "valor_total", compra.ValorTotal.ToString().Replace(".", "").Replace(",", ".") },
-                new string[] { "status", CompraType.GetStatusName(compra.Status) }
+                new object[] { "fornecedor", compra.Fornecedor.Id },
+                new object[] { "valor_total", compra.ValorTotal },
+                new object[] { "status", CompraType.GetStatusName(compra.Status) }
             };
 
             return Compra.Model.Create(inserts) > 0;
@@ -57,6 +57,38 @@ namespace VadenStock.View.Models
                 .Where("id", ">", 1)
                 .Where("status", CompraType.GetStatusName(status))
                 .Select();
+        }
+
+
+
+        public static int Update(CompraType compra)
+        {
+            string[] columns = new string[]
+            {
+                "fornecedor",
+                "valor_total",
+                "status",
+                "updated_at"
+            };
+
+            object[] values = new object[]
+            {
+                compra.Fornecedor.Id,
+                compra.ValorTotal,
+                CompraType.GetStatusName(compra.Status),
+                DateTime.Now
+            };
+
+            return Compra.Model
+                .Where("id", compra.Id)
+                .Update(columns, values);
+        }
+
+
+
+        public static bool Delete(int id)
+        {
+            return Compra.Model.Delete(id);
         }
     }
 }

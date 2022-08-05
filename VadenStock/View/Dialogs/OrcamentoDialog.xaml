@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:VadenStock.View.Dialogs"
+        xmlns:buttons="clr-namespace:VadenStock.View.Components.Buttons"
         xmlns:components="clr-namespace:VadenStock.View.Components"
         xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
         xmlns:containers="clr-namespace:VadenStock.View.Components.Containers"
@@ -16,180 +17,222 @@
         CornerRadius="8"
         Background="#FFFFFF">
 
-    <Grid VerticalAlignment="Stretch"
+    <Grid x:Name="_GridContainer"
+          VerticalAlignment="Stretch"
           HorizontalAlignment="Stretch">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+        <Grid x:Name="_GridDefault"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch">
 
-        <Button Grid.Row="0"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Right"
-                Height="38"
-                Margin="0 8 8 8"
-                Padding="8"
-                Style="{StaticResource ButtonLight}"
-                Click="CloseDialog">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-            <Image Width="24"
-                   Height="24"
-                   Opacity="0.4"
-                   Source="/VadenStock;component/Resources/Icons/black-close.png"/>
+            <Button Grid.Row="0"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Right"
+                    Height="38"
+                    Margin="0 8 8 8"
+                    Padding="8"
+                    Style="{StaticResource ButtonLight}"
+                    Click="CloseDialog">
 
-        </Button>
+                <Image Width="24"
+                       Height="24"
+                       Opacity="0.4"
+                       Source="/VadenStock;component/Resources/Icons/black-close.png"/>
 
-        <ScrollViewer Grid.Row="1"
-                      VerticalAlignment="Stretch"
-                      HorizontalAlignment="Stretch">
+            </Button>
 
-            <StackPanel VerticalAlignment="Top"
-                        HorizontalAlignment="Stretch">
+            <ScrollViewer Grid.Row="1"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch">
 
-                <Image Width="64"
-                       Height="64"
-                       Source="/VadenStock;component/Resources/Images/64-order.png"/>
+                <StackPanel VerticalAlignment="Top"
+                            HorizontalAlignment="Stretch">
 
-                <TextBlock HorizontalAlignment="Center"
-                           Text="Orçamento"
-                           Foreground="{StaticResource TextTertiaryColor}"/>
+                    <Image Width="64"
+                           Height="64"
+                           Source="/VadenStock;component/Resources/Images/64-order.png"/>
 
-                <Grid HorizontalAlignment="Stretch"
-                      Margin="20 32 20 0">
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="Orçamento"
+                               Foreground="{StaticResource TextTertiaryColor}"/>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <StackPanel x:Name="_StackControls"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0 8 0 0"
+                                Visibility="Collapsed">
 
-                    <forms:SelectBox Grid.Column="0"
-                                     x:Name="_SelectFornecedores"
-                                     Margin="0 0 4 0"
-                                     HorizontalAlignment="Stretch"
-                                     Background="#FFFFFF"
-                                     Text="Fornecedor"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectFornecedores_Changed">
+                        <buttons:ButtonLight x:Name="_ButtonCancelar"
+                                             Content="Cancelar"
+                                             Padding="8 4"
+                                             Margin="2 0 0 0"
+                                             Click="ButtonCancelar_Click"/>
 
-                        <ComboBoxItem Tag="0" Content="Fornecedor"/>
+                        <buttons:ButtonSuccess x:Name="_ButtonAprovar"
+                                               Content="Aprovar"
+                                               Padding="8 4"
+                                               Margin="2 0 0 0"
+                                               Visibility="Collapsed"
+                                               Click="ButtonAprovar_Click"/>
 
-                    </forms:SelectBox>
+                    </StackPanel>
 
-                    <forms:SelectBox Grid.Column="1"
-                                     x:Name="_SelectMarcas"
-                                     HorizontalAlignment="Stretch"
-                                     Margin="4 0 0 0"
-                                     Background="#FFFFFF"
-                                     Text="Marca"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectMarcas_Changed">
+                    <TextBlock x:Name="_TextValorTotal"
+                               HorizontalAlignment="Center"
+                               Margin="0 32 0 0"
+                               Foreground="{StaticResource TextPrimaryColor}"
+                               FontWeight="Medium"
+                               FontSize="21"
+                               Text="R$ 0,00"/>
 
-                        <ComboBoxItem Tag="0" Content="Marca"/>
+                    <TextBlock HorizontalAlignment="Center"
+                               Foreground="{StaticResource TextSecondaryColor}"
+                               FontSize="09"
+                               Text="VALOR TOTAL"/>
 
-                    </forms:SelectBox>
+                    <Grid HorizontalAlignment="Stretch"
+                          Margin="20 32 20 0">
 
-                </Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid HorizontalAlignment="Stretch"
-                      Margin="20 8 20 0">
+                        <forms:SelectBox Grid.Column="0"
+                                         x:Name="_SelectFornecedores"
+                                         Margin="0 0 4 0"
+                                         HorizontalAlignment="Stretch"
+                                         Background="#FFFFFF"
+                                         Text="Fornecedor"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectFornecedores_Changed">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
+                            <ComboBoxItem Tag="0" Content="Fornecedor"/>
 
-                    <forms:SelectBox Grid.Column="0"
-                                     x:Name="_SelectProdutos"
-                                     HorizontalAlignment="Stretch"
-                                     Width="236"
-                                     Margin="0 0 4 0"
-                                     Background="#FFFFFF"
-                                     Text="Produto"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="SelectProdutos_Changed">
+                        </forms:SelectBox>
 
-                        <ComboBoxItem Tag="0" Content="Produto"/>
+                        <forms:SelectBox Grid.Column="1"
+                                         x:Name="_SelectMarcas"
+                                         HorizontalAlignment="Stretch"
+                                         Margin="4 0 0 0"
+                                         Background="#FFFFFF"
+                                         Text="Marca"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectMarcas_Changed">
 
-                    </forms:SelectBox>
+                            <ComboBoxItem Tag="0" Content="Marca"/>
 
-                    <forms:InputNumber Grid.Column="1"
-                                       x:Name="_InputQuantidade"
-                                       HorizontalAlignment="Stretch"
-                                       Margin="4 0 0 0"
-                                       Placeholder="Quantidade"
-                                       TextChanged="InputQuantidade_Changed"/>
-
-                    <Button Grid.Column="2"
-                            x:Name="_ButtonEntrada"
-                            Margin="8 0 0 0"
-                            Padding="16 0"
-                            Style="{StaticResource ButtonGray}"
-                            Content="Adicionar"
-                            Click="ButtonAddItem_Click"/>
-
-                </Grid>
-
-                <Border Grid.Row="1"
-                        MinHeight="185"
-                        Margin="20 8 20 0"
-                        CornerRadius="4"
-                        BorderThickness="1"
-                        ClipToBounds="True"
-                        BorderBrush="{StaticResource PrimaryColor_050}">
-
-                    <Grid>
-
-                        <StackPanel x:Name="_StackEmpty"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center">
-
-                            <Image Width="24"
-                                   Height="24"
-                                   Opacity="0.4"
-                                   Source="/VadenStock;component/Resources/Icons/black-package.png"/>
-
-                            <TextBlock Text="Nenhum Item"
-                                       Foreground="{StaticResource TextSecondaryColor}"/>
-
-                        </StackPanel>
-
-                        <containers:Table x:Name="_TableItens"
-                                          VerticalAlignment="Stretch"
-                                          HorizontalAlignment="Stretch"
-                                          CornerRadius="4"/>
+                        </forms:SelectBox>
 
                     </Grid>
 
-                </Border>
+                    <Grid HorizontalAlignment="Stretch"
+                      Margin="20 8 20 0">
 
-                <components:Pagination x:Name="_PaginationItens"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Right"
-                                       Margin="0 8 20 12"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-            </StackPanel>
+                        <forms:SelectBox Grid.Column="0"
+                                         x:Name="_SelectProdutos"
+                                         HorizontalAlignment="Stretch"
+                                         Width="236"
+                                         Margin="0 0 4 0"
+                                         Background="#FFFFFF"
+                                         Text="Produto"
+                                         FontSize="14"
+                                         Foreground="{StaticResource TextPrimaryColor}"
+                                         Style="{StaticResource InputSelectTheme}"
+                                         SelectionChanged="SelectProdutos_Changed">
 
-        </ScrollViewer>
+                            <ComboBoxItem Tag="0" Content="Produto"/>
 
-        <Button Grid.Row="2"
-                x:Name="_ButtonSave"
-                HorizontalAlignment="Stretch"
-                Padding="0 7 0 8"
-                Margin="20 12 20 24"
-                Style="{StaticResource ButtonSecondary}"
-                FontSize="16"
-                Content="Salvar"
-                IsEnabled="False"
-                Click="ButtonSave_Click"/>
+                        </forms:SelectBox>
+
+                        <forms:InputNumber Grid.Column="1"
+                                           x:Name="_InputQuantidade"
+                                           HorizontalAlignment="Stretch"
+                                           Margin="4 0 0 0"
+                                           Placeholder="Quantidade"
+                                           TextChanged="InputQuantidade_Changed"
+                                           IsEnabled="False"/>
+
+                        <Button Grid.Column="2"
+                                x:Name="_ButtonEntrada"
+                                Margin="8 0 0 0"
+                                Padding="16 0"
+                                Style="{StaticResource ButtonGray}"
+                                Content="Adicionar"
+                                Click="ButtonAddItem_Click"/>
+
+                    </Grid>
+
+                    <Border Grid.Row="1"
+                            MinHeight="185"
+                            Margin="20 8 20 0"
+                            CornerRadius="4"
+                            BorderThickness="1"
+                            ClipToBounds="True"
+                            BorderBrush="{StaticResource PrimaryColor_050}">
+
+                        <Grid>
+
+                            <StackPanel x:Name="_StackEmpty"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+
+                                <Image Width="24"
+                                       Height="24"
+                                       Opacity="0.4"
+                                       Source="/VadenStock;component/Resources/Icons/black-package.png"/>
+
+                                <TextBlock Text="Nenhum Item"
+                                           Foreground="{StaticResource TextSecondaryColor}"/>
+
+                            </StackPanel>
+
+                            <containers:Table x:Name="_TableItens"
+                                              VerticalAlignment="Stretch"
+                                              HorizontalAlignment="Stretch"
+                                              CornerRadius="4"/>
+
+                        </Grid>
+
+                    </Border>
+
+                    <components:Pagination x:Name="_PaginationItens"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="0 8 20 12"/>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+            <Button Grid.Row="2"
+                    x:Name="_ButtonSave"
+                    HorizontalAlignment="Stretch"
+                    Padding="0 7 0 8"
+                    Margin="20 12 20 24"
+                    Style="{StaticResource ButtonSecondary}"
+                    FontSize="16"
+                    Content="Salvar"
+                    IsEnabled="False"
+                    Click="ButtonSave_Click"/>
+
+        </Grid>
 
     </Grid>
 

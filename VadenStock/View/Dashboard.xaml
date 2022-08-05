@@ -12,7 +12,7 @@
              d:DesignWidth="920"
              d:DesignHeight="600">
 
-    <StackPanel Margin="12 48 12 0"
+    <StackPanel Margin="12 32 12 0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch">
 
@@ -140,7 +140,7 @@
         <StackPanel VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch">
 
-            <Grid Margin="8 32 8 16">
+            <Grid Margin="8 32 8 4">
                 
                 <TextBlock HorizontalAlignment="Left"
                            Text="Almoxarifados"

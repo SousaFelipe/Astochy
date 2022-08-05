@@ -30,17 +30,24 @@ namespace VadenStock.Tools
 
 
 
-        public static DateOnly FirstDayOfMonth()
+        public static DateOnly FirstDayOfMonth(DateTime? subject = null)
         {
-            DateTime date = DateTime.Now;
+            DateTime date = (subject == null)
+                ? DateTime.Now
+                : subject.Value;
+
             return new DateOnly(date.Year, date.Month, 1);
         }
 
 
 
-        public static DateOnly LastDayOfMonth()
+        public static DateOnly LastDayOfMonth(DateTime? subject = null)
         {
-            return FirstDayOfMonth().AddMonths(1).AddDays(-1);
+            DateTime? date = (subject == null)
+                ? null
+                : subject.Value;
+
+            return FirstDayOfMonth(date).AddMonths(1).AddDays(-1);
         }
 
 

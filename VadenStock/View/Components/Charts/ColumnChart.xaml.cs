@@ -6,8 +6,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 
 using VadenStock.Tools;
-
-
+using System.Globalization;
 
 namespace VadenStock.View.Components.Charts
 {
@@ -116,6 +115,7 @@ namespace VadenStock.View.Components.Charts
 
         public List<double> Values = new();
         public List<string> Labels = new();
+        public List<string> Tags = new();
         public List<Line> Lines = new();
 
 
@@ -134,7 +134,7 @@ namespace VadenStock.View.Components.Charts
 
         public void SetSeries(double[] series)
         {
-            if (series.Length > 0)
+            if (series != null && series.Length > 0)
             {
                 int i;
                 double currentMax = series[0];
@@ -157,10 +157,21 @@ namespace VadenStock.View.Components.Charts
 
         public void SetLabels(string[] labels)
         {
-            if (labels.Length > 0)
+            if (labels != null && labels.Length > 0)
             {
                 foreach (string label in labels)
                     Labels.Add(label);
+            }
+        }
+
+
+
+        public void SetTags(string[] tags)
+        {
+            if (tags != null && tags.Length > 0)
+            {
+                foreach (string tag in tags)
+                    Tags.Add(tag);
             }
         }
 
@@ -197,18 +208,20 @@ namespace VadenStock.View.Components.Charts
             #region Draw lines
             for (int v = 0; v < Values.Count; v++)
             {
-                Line lineColumn = CreateLine(
-                        StartLineFromCanvasHeight(Values[v]),
-                        _Canvas.ActualHeight,
-                        LineColor
-                    );
+                Line lineColumn = CreateLine(StartLineFromCanvasHeight(Values[v]), _Canvas.ActualHeight, LineColor);
+                TextBlock block = TextTag(lineColumn.Y1, v);
 
                 _Canvas.ColumnDefinitions.Add(new ColumnDefinition());
                 _Canvas.Children.Add(lineColumn);
-                Canvas.SetZIndex(lineColumn, 1);
+                _Canvas.Children.Add(block);
 
                 Grid.SetRow(lineColumn, 0);
                 Grid.SetColumn(lineColumn, v);
+                Panel.SetZIndex(lineColumn, 0);
+
+                Grid.SetRow(block, 0);
+                Grid.SetColumn(block, v);
+                Panel.SetZIndex(block, 1);
 
                 Lines.Add(lineColumn);
             }
@@ -254,6 +267,25 @@ namespace VadenStock.View.Components.Charts
                 StrokeThickness = ColumnThickness,
                 Stroke = Clr.Color(hexColor)
             };
+        }
+
+
+
+        private TextBlock TextTag(double y, int pos)
+        {
+            double top = (y - 38);
+
+            TextBlock block = new()
+            {
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(0, top, 0, 0),
+                Foreground = new SolidColorBrush(Colors.Black),
+                FontSize = 09,
+                Text = Tags.Count > pos ? Tags[pos] : string.Empty,
+            };
+
+            return block;
         }
 
 

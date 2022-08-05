@@ -50,10 +50,13 @@ namespace VadenStock.View.Components.Forms
 
 
 
-        public void Zero()
+        public void Zero(bool disable = false)
         {
             Text = "0";
             Quantidade = 0;
+
+            if (disable)
+                IsEnabled = false;
         }
 
 

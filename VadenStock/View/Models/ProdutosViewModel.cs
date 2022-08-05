@@ -20,15 +20,15 @@ namespace VadenStock.View.Models
 
         public static int Create(ProdutoStruct produto)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "name", produto.Name },
-                new string[] { "categoria", produto.Categoria.ToString() },
-                new string[] { "tipo", produto.Tipo.ToString() },
-                new string[] { "marca", produto.Marca.ToString() },
-                new string[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" },
-                new string[] { "price", produto.Price.ToString().Replace(".", "").Replace(",", ".") },
-                new string[] { "description", produto.Description }
+                new object[] { "name", produto.Name },
+                new object[] { "categoria", produto.Categoria },
+                new object[] { "tipo", produto.Tipo },
+                new object[] { "marca", produto.Marca },
+                new object[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" },
+                new object[] { "price", produto.Valor },
+                new object[] { "description", produto.Description }
             };
 
             return Produto.Model.Create(inserts);

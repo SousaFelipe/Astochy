@@ -36,7 +36,7 @@ namespace VadenStock.View.Components.Organisms
                 _TextProduto.Text = item.Produto.Name;
                 _TextMAC.Text = Str.MAC(item.Mac);
                 _TextAlmox.Text = item.Almoxarifado.Name;
-                _TextUltTransf.Text = item.UltimaTransf.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às ");
+                _TextUltTransf.Text = (item.UltimaTransf != null) ? item.UltimaTransf.Value.ToString("dd/MM/yyyy HH:mm").Replace(" ", " às ") : "__/__/____";
             };
         }
 

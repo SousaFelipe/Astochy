@@ -57,10 +57,10 @@ namespace VadenStock.View.Dialogs
             });
 
             _TableItens.Headers(
-                        Header.Auto("Cod."),
+                        Header.Auto("CÓD."),
                         Header.Auto("MAC"),
-                        Header.Max("Entrada"),
-                        Header.Auto("Ação")
+                        Header.Max("ENTRADA"),
+                        Header.Auto("AÇÃO")
                     );
 
             _PaginationItens.Table = _TableItens;

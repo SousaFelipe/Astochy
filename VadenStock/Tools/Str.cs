@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -8,38 +9,31 @@ namespace VadenStock.Tools
 {
     public static class Str
     {
-        public static string Currency(string input)
+        public static string Currency(object input)
         {
-            if (string.IsNullOrEmpty(input))
+            string? convertedInput = Convert.ToString(input);
+
+            if (string.IsNullOrEmpty(convertedInput))
                 return "0,00";
 
-            string output = Sanitize(input, 3);
-            char[] vecout = output.ToCharArray();
-
-            Array.Reverse(vecout);
-
-            string reversedOutput = new(vecout);
-            int reversedOutLength = reversedOutput.Length;
-
-            int i,
-                dotCount = 0;
-
-            for (i = 0; i < reversedOutLength; i++)
+            CultureInfo culture = new("pt-BR")
             {
-                if (i == 2)
-                    reversedOutput = reversedOutput.Insert(i, ",");
-                else if (i == 5 || i == 8 || i == 11 || i == 14 || i == 17 || i == 20)
+                DateTimeFormat = new()
                 {
-                    dotCount++;
-                    reversedOutput = reversedOutput.Insert(i + dotCount, ".");
+
+                    ShortDatePattern = "dd/MM/yyyy",
+                    ShortTimePattern = "HH:mm"
+                },
+
+                NumberFormat = new()
+                {
+                    NumberDecimalDigits = 2,
+                    NumberGroupSeparator = ".",
+                    NumberDecimalSeparator = ","
                 }
-            }
+            };
 
-            char[] subversedOutput = reversedOutput.ToCharArray();
-
-            Array.Reverse(subversedOutput);
-
-            return new string(subversedOutput);
+            return string.Format(culture, "{0:N}", input);
         }
 
 
@@ -173,6 +167,9 @@ namespace VadenStock.Tools
 
         public static string? MAC(string input)
         {
+            if (input == null)
+                return string.Empty;
+
             if (input.Length == 12)
                 return Regex.Replace(input, "(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})", "$1:$2:$3:$4:$5:$6");
 

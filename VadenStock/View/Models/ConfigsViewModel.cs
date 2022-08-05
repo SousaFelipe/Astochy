@@ -33,12 +33,12 @@ namespace VadenStock.View.Models
 
         public static bool Create(ConfigType config)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "production_path", config.ProductionPath },
-                new string[] { "server_address", config.ServerAddress },
-                new string[] { "server_protocol", config.ServerProtocol.ToString() },
-                new string[] { "server_token", config.ServerToken },
+                new object[] { "production_path", config.ProductionPath },
+                new object[] { "server_address", config.ServerAddress },
+                new object[] { "server_protocol", config.ServerProtocol.ToString() },
+                new object[] { "server_token", config.ServerToken },
             };
 
             return Config.Model.Create(inserts) > 0;

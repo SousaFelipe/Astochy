@@ -32,6 +32,8 @@ namespace VadenStock.View.Dialogs
                 if (View != null)
                 {
                     _ButtonBack.Visibility = Visibility.Visible;
+                    _ButtonClose.Visibility = Visibility.Collapsed;
+
                     VerticalAlignment = VerticalAlignment.Top;
                 }
 

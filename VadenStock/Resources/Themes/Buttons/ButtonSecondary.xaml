@@ -20,6 +20,10 @@
                             CornerRadius="4"
                             Background="{TemplateBinding Background}">
 
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000" Opacity="0.2" BlurRadius="2" ShadowDepth="1"/>
+                        </Border.Effect>
+
                         <ContentPresenter VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           Margin="{TemplateBinding Padding}"/>

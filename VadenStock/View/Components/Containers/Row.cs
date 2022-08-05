@@ -32,6 +32,10 @@ namespace VadenStock.View.Components.Containers
 
 
 
+        private SolidColorBrush HoverBrush;
+
+
+
         public Row(Options.RowOptions? options = null)
         {
             FilterOptions(options);
@@ -39,6 +43,7 @@ namespace VadenStock.View.Components.Containers
             Count = 0;
             Borders = new();
             Callback = null;
+            HoverBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECEFF3"));
         }
 
 
@@ -75,6 +80,13 @@ namespace VadenStock.View.Components.Containers
                 foreach (Border b in Borders)
                     b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
             }
+        }
+
+
+
+        public void SetHover(string color)
+        {
+            HoverBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
         }
 
 
@@ -132,7 +144,9 @@ namespace VadenStock.View.Components.Containers
                     ? new ButtonDanger()
                     : (level == ActionLevel.Warning)
                         ? new ButtonWarning()
-                        : new ButtonLight()
+                        : (level == ActionLevel.Info)
+                            ? new ButtonGray()
+                            : new ButtonLight()
             );
 
             button.Content = data;
@@ -165,7 +179,7 @@ namespace VadenStock.View.Components.Containers
                     brush = Borders[0].Background;
 
                     foreach (Border b in Borders)
-                        b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECEFF3"));
+                        b.Background = HoverBrush;
                 };
 
                 container.MouseLeave += delegate

@@ -36,7 +36,7 @@ namespace VadenStock.View
 
 
 
-        private void LoadAll()
+        public void LoadAll()
         {
             LoadCardPatrimonio();
             LoadAlmoxCards();
@@ -131,7 +131,7 @@ namespace VadenStock.View
                 for (int a = 0; a < almoxarifados.Length; a++)
                 {
                     currentA = almoxarifados[a];
-                    currentC = Molecules.AlmoxarifadoThumbCard(currentA, a, r);
+                    currentC = Molecules.AlmoxarifadoThumbCard(currentA);
 
                     _GridAlmoxarifados.Children.Add(currentC);
                      Grid.SetColumn(currentC, r);
@@ -170,7 +170,10 @@ namespace VadenStock.View
         private void ButtonTransf_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.DisplayDialog(new TransferenciaDialog());
+            window.DisplayDialog(new TransferenciaDialog(), sender =>
+            {
+                LoadAll();
+            });
         }
 
 
@@ -178,7 +181,10 @@ namespace VadenStock.View
         private void ButtonEntrada_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.DisplayDialog(new EntradaDialog());
+            window.DisplayDialog(new EntradaDialog(), sender =>
+            {
+                LoadAll();
+            });
         }
 
 
@@ -186,21 +192,24 @@ namespace VadenStock.View
         private void ButtonSaida_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.DisplayDialog(new SaidaDialog());
+            window.DisplayDialog(new SaidaDialog(), sender =>
+            {
+                LoadAll();
+            });
         }
 
 
 
         private static class Molecules
         {
-            public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox, int position, int rounds)
+            public static ThumbnailCard AlmoxarifadoThumbCard(AlmoxType almox)
             {
                 MainWindow window = (MainWindow)Application.Current.MainWindow;
                 int itens = ItensViewModel.CountItensPorAlmoxarifado(almox.Id);
 
                 ThumbnailCard thumb = new()
                 {
-                    Margin = new Thickness(6, (position > 0 && ((rounds - 3) == -3)) ? 12 : 0, 6, 0),
+                    Margin = new Thickness(6, 12, 6, 0),
                     Body = "#FFFFFF",
                     Header = almox.Name,
                     HeaderSize = 16,

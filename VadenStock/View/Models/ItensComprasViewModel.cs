@@ -15,15 +15,61 @@ namespace VadenStock.View.Models
             if (item.Compra.Id <= 0)
                 return false;
 
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "compra", item.Compra.Id.ToString() },
-                new string[] { "produto", item.Produto.Id.ToString() },
-                new string[] { "quantidade", item.Quantidade.ToString() },
-                new string[] { "valor_total", item.ValorTotal.ToString().Replace(".", "").Replace(",", ".") }
+                new object[] { "compra", item.Compra.Id },
+                new object[] { "produto", item.Produto.Id },
+                new object[] { "quantidade", item.Quantidade },
+                new object[] { "valor_total", item.ValorTotal }
             };
 
             return ItemCompra.Model.Create(inserts) > 0;
+        }
+
+
+
+        public static List<ItemCompraType> Read(params object[][] wheres)
+        {
+            ItemCompra model = ItemCompra.Model;
+
+            foreach (object[] where in wheres)
+                model.Where(Convert.ToString(where[0]), where[1]);
+
+            return model.Select();
+        }
+
+
+
+        public static int Update(ItemCompraType item)
+        {
+            string[] columns = new string[]
+            {
+                "compra",
+                "produto",
+                "quantidade",
+                "status",
+                "valor_total"
+            };
+
+            object[] values = new object[]
+            {
+                item.Compra.Id,
+                item.Produto.Id,
+                item.Quantidade,
+                ItemCompraType.GetStatusName(item.Status),
+                item.ValorTotal
+            };
+
+            return ItemCompra.Model
+                .Where("id", item.Id)
+                .Update(columns, values);
+        }
+
+
+
+        public static bool Delete(int id)
+        {
+            return ItemCompra.Model.Delete(id);
         }
     }
 }

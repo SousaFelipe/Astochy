@@ -45,8 +45,7 @@ namespace VadenStock.Model.Types
         public CompraType Compra { get; set; }
         public string Description { get; set; }
         public Status Localizado { get; set; }
-        public DateTime UltimaTransf { get; set; }
-        public bool Orcamento { get; set; }
+        public DateTime? UltimaTransf { get; set; }
         public double Valor { get; set; }
         public DateTime CreatedDate { get; set; }
 

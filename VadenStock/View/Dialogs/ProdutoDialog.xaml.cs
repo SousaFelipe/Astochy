@@ -43,17 +43,7 @@ namespace VadenStock.View.Dialogs
 
         public ProdutoDialog(ProdutoType produto)
         {
-            Produto.Id = produto.Id;
-            Produto.Name = produto.Name;
-            Produto.Categoria = produto.Categoria.Id;
-            Produto.Tipo = produto.Tipo.Id;
-            Produto.Marca = produto.Marca.Id;
-            Produto.Price = produto.Price;
-            Produto.Description = produto.Description;
-            Produto.Image.FileExtension = Path.GetExtension(produto.Image);
-            Produto.Image.FileName = produto.Image.Replace(Path.GetExtension(produto.Image), "");
-            Produto.Image.Origin = Src.Resource.Bind(Src.Resource.Root, Src.Resource.Storage) + produto.Image;
-
+            Produto = new(produto);
             EditarProduto = Produto;
             EditMode = true;
 
@@ -70,16 +60,30 @@ namespace VadenStock.View.Dialogs
 
 
 
-        public void LoadProduto()
+        void LoadTipos()
         {
-            _BorderImage.Background = new ImageBrush() { ImageSource = Src.Storage($"{ EditarProduto.Image.FileName }{ EditarProduto.Image.FileExtension }") };
-            _TextImageName.Text = EditarProduto.Image.FileName;
-            _InputName.Text = EditarProduto.Name;
-            _ComboMarcas.SelectedItem = _ComboMarcas.Find(Produto.Marca);
-            _ComboCategorias.SelectedItem = _ComboCategorias.Find(EditarProduto.Categoria);
-            _ComboTipos.SelectedItem = _ComboTipos.Find(EditarProduto.Tipo);
-            _InputPrice.Text = Str.Currency((EditarProduto.Price * 100).ToString());
-            _InputDescription.Text = EditarProduto.Description;
+            foreach (TipoType t in TiposViewModel.TiposPorCategoria(Produto.Categoria))
+            {
+                _ComboTipos.Items.Add(new ComboBoxItem()
+                {
+                    Tag = t.Id,
+                    Content = t.Name
+                });
+            }
+        }
+
+
+
+        void LoadCategorias()
+        {
+            foreach (CategoriaType c in CategoriasViewModel.TodasAsCategorias)
+            {
+                _ComboCategorias.Items.Add(new ComboBoxItem()
+                {
+                    Tag = c.Id,
+                    Content = c.Name
+                });
+            }
         }
 
 
@@ -98,30 +102,16 @@ namespace VadenStock.View.Dialogs
 
 
 
-        void LoadCategorias()
+        public void LoadProduto()
         {
-            foreach(CategoriaType c in CategoriasViewModel.TodasAsCategorias)
-            {
-                _ComboCategorias.Items.Add(new ComboBoxItem()
-                {
-                    Tag = c.Id,
-                    Content = c.Name
-                });
-            }
-        }
-
-
-
-        void LoadTipos()
-        {
-            foreach (TipoType t in TiposViewModel.TiposPorCategoria(Produto.Categoria))
-            {
-                _ComboTipos.Items.Add(new ComboBoxItem()
-                {
-                    Tag = t.Id,
-                    Content = t.Name
-                });
-            }
+            _BorderImage.Background = new ImageBrush() { ImageSource = Src.Storage($"{ EditarProduto.Image.FileName }{ EditarProduto.Image.FileExtension }") };
+            _TextImageName.Text = EditarProduto.Image.FileName;
+            _InputName.Text = EditarProduto.Name;
+            _ComboMarcas.SelectedItem = _ComboMarcas.Find(Produto.Marca);
+            _ComboCategorias.SelectedItem = _ComboCategorias.Find(EditarProduto.Categoria);
+            _ComboTipos.SelectedItem = _ComboTipos.Find(EditarProduto.Tipo);
+            _InputPrice.Text = Str.Currency(EditarProduto.Valor);
+            _InputDescription.Text = EditarProduto.Description;
         }
 
 
@@ -290,7 +280,7 @@ namespace VadenStock.View.Dialogs
         private void InputPrice_Changed(object sender, TextChangedEventArgs e)
         {
             InputCurrency input = (InputCurrency)sender;
-            Produto.Price = Convert.ToDouble(input.Text);
+            Produto.Valor = Convert.ToDouble(input.Text.Replace(".", "").Replace(",", "."));
 
             if (EditMode)
                 ShouldBeSaveEnabled();
@@ -338,7 +328,7 @@ namespace VadenStock.View.Dialogs
             else if (Produto.Marca <= 0)
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Você precisa selecionar a marca"));
 
-            else if (Produto.Price <= 0)
+            else if (Produto.Valor <= 0)
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "O preço do produto não pode ser 0,00"));
 
             else

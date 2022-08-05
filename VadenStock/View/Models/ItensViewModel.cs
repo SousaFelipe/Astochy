@@ -17,19 +17,26 @@ namespace VadenStock.View.Models
 
 
 
-        public static int Create(ItemType item)
+        public static bool Create(ItemType item)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "codigo", item.Codigo },
-                new string[] { "mac", item.Mac },
-                new string[] { "produto", item.Produto.Id.ToString() },
-                new string[] { "almoxarifado", item.Almoxarifado.Id.ToString() },
-                new string[] { "compra", item.Compra.Id.ToString() },
-                new string[] { "localizacao", ItemType.GetStatusName(item.Localizado) }
+                new object[] { "codigo", item.Codigo },
+                new object[] { "mac", item.Mac },
+                new object[] { "produto", item.Produto.Id },
+                new object[] { "almoxarifado", item.Almoxarifado.Id },
+                new object[] { "localizacao", ItemType.GetStatusName(item.Localizado) }
             };
 
-            return Item.Model.Create(inserts);
+            if (item.Compra != null)
+                inserts.Add(new object[] { "compra", item.Compra.Id });
+
+            if (item.UltimaTransf != null)
+                inserts.Add(new object[] { "ultima_transf", item.UltimaTransf });
+
+            inserts.Add(new object[] { "valor", item.Valor });
+
+            return Item.Model.Create(inserts) > 0;
         }
 
 
@@ -64,7 +71,6 @@ namespace VadenStock.View.Models
         {
             return Item.Model
                 .Where("produto", produto)
-                .Where("orcamento", 0)
                 .Count();
         }
 
@@ -75,7 +81,6 @@ namespace VadenStock.View.Models
             return Item.Model
                 .Where("produto", produto.ToString())
                 .Where("localizacao", status)
-                .Where("orcamento", "0")
                 .Select();
         }
 
@@ -84,8 +89,7 @@ namespace VadenStock.View.Models
         public static int CountItensPorAlmoxarifado(int almoxarifado)
         {
             return Item.Model
-                .Where("almoxarifado", almoxarifado.ToString())
-                .Where("orcamento", "0")
+                .Where("almoxarifado", almoxarifado)
                 .Count();
         }
 
@@ -94,7 +98,6 @@ namespace VadenStock.View.Models
         public static List<ItemType> ItensPorAlmoxarifado(int almoxarifado, params object[][] wheres)
         {
             Item model = Item.Model
-                .Where("orcamento", "0")
                 .Where("almoxarifado", almoxarifado.ToString());
 
             foreach (object[] where in wheres)

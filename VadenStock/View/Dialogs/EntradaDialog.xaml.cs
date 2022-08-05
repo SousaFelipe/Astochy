@@ -17,36 +17,13 @@ namespace VadenStock.View.Dialogs
 {
     public partial class EntradaDialog : Border
     {
-        private CompraType Compra;
-        private List<ItemCompraType> ItensDaCompra;
-
         private ItemType NovoItem;
         private readonly List<ItemType> Itens;
 
 
 
-        public EntradaDialog(CompraType compra)
-        {
-            ItensDaCompra = new();
-            NovoItem = new() { Compra = compra };
-            Itens = new();
-
-            InitializeComponent();
-
-            Loaded += delegate
-            {
-                InitTable();
-                LoadMarcas();
-                LoadAlmoxarifados();
-            };
-        }
-
-
-
         public EntradaDialog()
         {
-            Compra = new() { Id = 1 };
-            ItensDaCompra = new();
             NovoItem = new();
             Itens = new();
 
@@ -65,10 +42,10 @@ namespace VadenStock.View.Dialogs
         private void InitTable()
         {
             _TableItens.Headers(
-                        Header.Auto("Cod."),
+                        Header.Auto("CÓD."),
                         Header.Auto("MAC"),
-                        Header.Max("Produto"),
-                        Header.Auto("Ação")
+                        Header.Max("PRODUTO"),
+                        Header.Auto("AÇÃO")
                     );
 
             _PaginationItens.Table = _TableItens;
@@ -277,7 +254,7 @@ namespace VadenStock.View.Dialogs
 
             if (mac.Length <= 12)
             {
-                if (!string.IsNullOrEmpty(mac) && mac.Length >= 12)
+                if (!string.IsNullOrEmpty(mac) && mac.Length == 12)
                 {
                     ItemType? item = ItensViewModel.Find(mac);
 
@@ -316,6 +293,9 @@ namespace VadenStock.View.Dialogs
             else if (string.IsNullOrEmpty(_InputCodigo.Text))
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Por favor, insira o Código"));
 
+            else if (!string.IsNullOrEmpty(NovoItem.Mac) && NovoItem.Mac.Length != 12)
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "O MAC inserido está no formato incorreto"));
+
             else
             {
                 string codigo = _InputCodigo.Text;
@@ -343,7 +323,7 @@ namespace VadenStock.View.Dialogs
 
                 foreach (ItemType it in Itens)
                 {
-                    if (ItensViewModel.Create(it) > 0)
+                    if (ItensViewModel.Create(it))
                         saveCount++;
 
                     else

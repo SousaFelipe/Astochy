@@ -27,6 +27,13 @@ namespace VadenStock.Model
 
 
 
+        public override Compra Or(string column, object operOrValue, object? value = null)
+        {
+            return (Compra)base.Or(column, operOrValue, value);
+        }
+
+
+
         public List<CompraType> Select(params string[] selects)
         {
             try

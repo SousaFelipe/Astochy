@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace VadenStock.Model.Types
 {
-    public class TransfType : IModelType
+    public class TransfType
     {
         public int Id { get; set; }
         public string? Itens { get; set; }

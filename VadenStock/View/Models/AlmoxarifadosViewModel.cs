@@ -86,13 +86,13 @@ namespace VadenStock.View.Models
 
             if (origem != null && destino != null)
             {
-                List<string[]> inserts = new()
+                List<object[]> inserts = new()
                 {
-                    new string[] { "itens", TransfType.Implode(ids) },
-                    new string[] { "from_almoxarifado", origem.Value.Id.ToString() },
-                    new string[] { "to_almoxarifado", destino.Value.Id.ToString() },
-                    new string[] { "acao", ItemType.GetStatusName(destino.Value.Acao) },
-                    new string[] { "description", $"{Str.ZeroFill(num, " item".Pluralize(num, "n"))} {"transferido".Pluralize(num)} de '{origem.Value.Name}' para '{destino.Value.Name}'" }
+                    new object[] { "itens", TransfType.Implode(ids) },
+                    new object[] { "from_almoxarifado", origem.Value.Id },
+                    new object[] { "to_almoxarifado", destino.Value.Id },
+                    new object[] { "acao", ItemType.GetStatusName(destino.Value.Acao) },
+                    new object[] { "description", $"{Str.ZeroFill(num, " item".Pluralize(num, "n"))} {"transferido".Pluralize(num)} de '{origem.Value.Name}' para '{destino.Value.Name}'" }
                 };
 
                 return AlmoxarofadoTransferencia.Model.Create(inserts) > 0;

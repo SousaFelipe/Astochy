@@ -17,11 +17,11 @@ namespace VadenStock.View.Models
 
         public static int Create(TipoStruct tipo)
         {
-            List<string[]> inserts = new()
+            List<object[]> inserts = new()
             {
-                new string[] { "categoria", tipo.Categoria.ToString() },
-                new string[] { "name", tipo.Name },
-                new string[] { "description", tipo.Description },
+                new object[] { "categoria", tipo.Categoria },
+                new object[] { "name", tipo.Name },
+                new object[] { "description", tipo.Description },
             };
 
             return Tipo.Model.Create(inserts);

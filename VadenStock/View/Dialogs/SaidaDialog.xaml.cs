@@ -49,11 +49,11 @@ namespace VadenStock.View.Dialogs
         private void InitTable()
         {
             _TableItens.Headers(
-                        Header.Auto("Cod."),
+                        Header.Auto("CÓD."),
                         Header.Auto("MAC"),
-                        Header.Max("Produto"),
-                        Header.Auto("Status"),
-                        Header.Auto("Ação")
+                        Header.Max("PRODUTO"),
+                        Header.Auto("STATUS"),
+                        Header.Auto("AÇÃO")
                     );
 
             _PaginationItens.Table = _TableItens;

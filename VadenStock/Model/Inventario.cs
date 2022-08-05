@@ -65,7 +65,7 @@ namespace VadenStock.Model
                 {
                     Id = reader.GetInt32("id"),
                     Compra = Compra.Model.Where("id", reader.GetInt32("compra")).Select()[0],
-                    ValorTotal = reader.GetDouble("valor_total"),
+                    ValorTotal = reader.GetDouble("valor_total") * 100,
                     CreatedDate = reader.IsDBNull(3) ? System.DateTime.MinValue : reader.GetDateTime("created_at")
                 };
 

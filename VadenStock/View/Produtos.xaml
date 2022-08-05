@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:forms="clr-namespace:VadenStock.View.Components.Forms"
+             xmlns:buttons="clr-namespace:VadenStock.View.Components.Buttons"
              xmlns:components="clr-namespace:VadenStock.View.Components"
              xmlns:local="clr-namespace:VadenStock.View"
              mc:Ignorable="d"
@@ -11,7 +12,7 @@
              d:DesignWidth="840"
              d:DesignHeight="600">
 
-    <StackPanel Margin="12 48 12 0"
+    <StackPanel Margin="12 32 12 0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch">
 
@@ -29,23 +30,17 @@
             <forms:SelectBox Grid.Column="0"
                              x:Name="_ComboMarcas"
                              Width="130"
-                             Height="28"
-                             Background="{StaticResource PrimaryColor_050}"
+                             Background="White"
                              Style="{StaticResource ComboBoxTheme}"
                              SelectionChanged="SelectMarcas_Changed">
-
-                <ComboBoxItem Tag="0"
-                              IsSelected="True"
-                              Content="Marca"/>
-
+                <ComboBoxItem Tag="0" IsSelected="True" Content="Marca"/>
             </forms:SelectBox>
 
             <forms:SelectBox Grid.Column="1"
                              x:Name="_ComboCategorias"
                              Width="130"
-                             Height="28"
                              Margin="8 0 0 0"
-                             Background="{StaticResource PrimaryColor_050}"
+                             Background="White"
                              Style="{StaticResource ComboBoxTheme}"
                              SelectionChanged="SelectCategorias_Changed">
 
@@ -58,9 +53,8 @@
             <forms:SelectBox Grid.Column="2"
                              x:Name="_ComboTipos"
                              Width="130"
-                             Height="28"
                              Margin="8 0 0 0"
-                             Background="{StaticResource PrimaryColor_050}"
+                             Background="White"
                              Style="{StaticResource ComboBoxTheme}"
                              SelectionChanged="SelectTipos_Changed">
 
@@ -70,15 +64,14 @@
 
             </forms:SelectBox>
 
-            <components:Dropdown Grid.Column="3"
-                            x:Name="_ComboCadastro"
-                            HorizontalAlignment="Right"
-                            Width="100"
-                            Height="28"
-                            Label="Cadastrar"
-                            Style="{StaticResource DropdownSecondary}"
-                            SelectionChanged="ComboCadastroSelectedOption">
-                
+            <buttons:DropDownSecondary Grid.Column="3"
+                                       x:Name="_ComboCadastro"
+                                       HorizontalAlignment="Right"
+                                       Label="Cadastrar"
+                                       FontSize="16"
+                                       Tag="Cadastrar"
+                                       SelectionChanged="ComboCadastroSelectedOption">
+
                 <ComboBoxItem Tag="P"
                               Content="Produto" 
                               Foreground="#37474F"/>
@@ -94,8 +87,8 @@
                 <ComboBoxItem Tag="T"
                               Content="Tipo" 
                               Foreground="#37474F"/>
-                
-            </components:Dropdown>
+
+            </buttons:DropDownSecondary>
 
         </Grid>
 

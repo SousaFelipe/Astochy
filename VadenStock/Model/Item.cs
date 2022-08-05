@@ -78,8 +78,7 @@ namespace VadenStock.Model
                     Compra = Compra.Model.Where("id", reader.GetInt32("compra")).Select()[0],
                     Description = reader.IsDBNull(6) ? string.Empty : reader.GetString("description"),
                     Localizado = ItemType.GetStatus(reader.GetString("localizacao")),
-                    UltimaTransf = reader.IsDBNull(8) ? reader.GetDateTime("created_at") : reader.GetDateTime("ultima_transf"),
-                    Orcamento = (reader.GetInt32("orcamento") > 0),
+                    UltimaTransf = reader.IsDBNull(8) ? null : reader.GetDateTime("ultima_transf"),
                     Valor = reader.GetDouble("valor"),
                     CreatedDate = reader.GetDateTime("created_at")
                 };

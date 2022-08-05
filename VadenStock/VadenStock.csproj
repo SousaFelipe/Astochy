@@ -30,11 +30,14 @@
         <None Remove="Resources\Icons\black-information.png" />
         <None Remove="Resources\Icons\black-left.png" />
         <None Remove="Resources\Icons\black-magnify.png" />
+        <None Remove="Resources\Icons\black-open-in-new.png" />
+        <None Remove="Resources\Icons\black-open.png" />
         <None Remove="Resources\Icons\black-package-check.png" />
         <None Remove="Resources\Icons\black-package-remove.png" />
         <None Remove="Resources\Icons\black-package.png" />
         <None Remove="Resources\Icons\black-save.png" />
         <None Remove="Resources\Icons\black-swap.png" />
+        <None Remove="Resources\Icons\black-timer.png" />
         <None Remove="Resources\Icons\black-warehouse.png" />
         <None Remove="Resources\Icons\blue-account.png" />
         <None Remove="Resources\Icons\blue-bike.png" />
@@ -67,6 +70,7 @@
         <None Remove="Resources\Icons\gray-calendar.png" />
         <None Remove="Resources\Icons\gray-file.png" />
         <None Remove="Resources\Icons\gray-image-off.png" />
+        <None Remove="Resources\Icons\gray-open.png" />
         <None Remove="Resources\Icons\gray-package-check.png" />
         <None Remove="Resources\Icons\gray-range.png" />
         <None Remove="Resources\Icons\gray-wifi.png" />
@@ -107,11 +111,13 @@
         <None Remove="Resources\Icons\white-left.png" />
         <None Remove="Resources\Icons\white-maximize.png" />
         <None Remove="Resources\Icons\white-minimize.png" />
+        <None Remove="Resources\Icons\white-open-in-new.png" />
         <None Remove="Resources\Icons\white-package-check.png" />
         <None Remove="Resources\Icons\white-package-remove.png" />
         <None Remove="Resources\Icons\white-package.png" />
         <None Remove="Resources\Icons\white-plus.png" />
         <None Remove="Resources\Icons\white-restore.png" />
+        <None Remove="Resources\Icons\white-right.png" />
         <None Remove="Resources\Icons\white-save.png" />
         <None Remove="Resources\Icons\white-swap.png" />
         <None Remove="Resources\Images\64-car.png" />
@@ -164,6 +170,12 @@
       <Resource Include="Resources\Icons\black-information.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Resources\Icons\black-open-in-new.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-open.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Resource Include="Resources\Icons\black-package-check.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
@@ -177,6 +189,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-swap.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\black-timer.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\black-warehouse.png">
@@ -234,6 +249,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\gray-image-off.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Resources\Icons\gray-open.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <Resource Include="Resources\Icons\gray-package-check.png">
@@ -420,6 +438,10 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 
+		<Resource Include="Resources\Icons\white-open-in-new.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+
 		<Resource Include="Resources\Icons\white-package-check.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
@@ -438,6 +460,10 @@
 
 		<Resource Include="Resources\Icons\white-restore.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+
+		<Resource Include="Resources\Icons\white-right.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 
 		<Resource Include="Resources\Icons\white-save.png">

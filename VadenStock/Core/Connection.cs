@@ -39,16 +39,16 @@ namespace VadenStock.Core
 
 
 
-        public virtual int Create(List<string[]> inserts, bool timestamps = true)
+        public virtual int Create(List<object[]> inserts, bool timestamps = true)
         {
             int output = -1;
 
             List<string> fields = new();
-            List<string> values = new();
+            List<object> values = new();
 
-            foreach (string[] row in inserts)
+            foreach (object[] row in inserts)
             {
-                fields.Add(row[0]);
+                fields.Add(Convert.ToString(row[0]));
                 values.Add(row[1]);
             }
 

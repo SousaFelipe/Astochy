@@ -19,10 +19,10 @@ namespace VadenStock.View
 {
     public partial class Compras : UserControl
     {
-        private CompraType Filtro;
+        private readonly CompraType Filtro;
 
-        private DateTime? FiltroDataDe;
-        private DateTime? FiltroDataAte;
+        private string? FiltroDataDe;
+        private string? FiltroDataAte;
 
 
 
@@ -49,13 +49,20 @@ namespace VadenStock.View
 
         private void InitTable()
         {
+            _TableCompras.SetColors(
+                "#FFFFFF",
+                "#ECEFF1",
+                "#DFE4E7",
+                "#CFD8DC"
+            );
+
             _TableCompras.Headers(
                         Header.Auto("NS"),
                         Header.Max("FORNECEDOR"),
-                        Header.Auto("VALOR"),
-                        Header.Auto("ITENS"),
+                        Header.Max("VALOR"),
+                        Header.Max("ITENS"),
                         Header.Max("STATUS"),
-                        Header.Max("EMISSÃO"),
+                        Header.Auto("EMISSÃO"),
                         Header.Auto("AÇÃO")
                     );
 
@@ -64,14 +71,15 @@ namespace VadenStock.View
 
 
 
-        private void LoadOrcamentos()
+        public void LoadOrcamentos()
         {
             List<CompraType> compras = Compra.Model
-                .Where("id", ">", 1)
-                .Where("status", "=", "Orcamento")
+                .Where("status", "Orcamento")
+                .Or("status", "Aprovada")
                 .Select();
 
             OrcamentosAdapter adapter = new(_GridOrcamentos);
+            adapter.SetView(this);
 
             if (compras.Count > 0)
             {
@@ -87,33 +95,61 @@ namespace VadenStock.View
 
 
 
-        private void RefreshCompras()
+        public void RefreshCompras()
         {
-            string[] months = new string[12];
+            Dictionary<string, string[]> dates = new();
+            DateTime[] months = new DateTime[12];
+
+            string[] labels = new string[12];
             double[] values = new double[12];
+            string[] tags = new string[12];
 
             List<CompraType> compras;
 
             for (int m = 0; m < 12; m++)
             {
-                months[m] = DateTime.Now.AddMonths(m - 11).ToString("MM/yyyy");
+                months[m] = DateTime.Now.AddMonths(m - 11);
+                labels[m] = months[m].ToString("MM/yyyy");
 
+                dates.Add(
+                    labels[m],
+                    new string[]
+                    {
+                        Tmp.FirstDayOfMonth(months[m]).ToString("yyyy-MM-dd") + " 00:00:00",
+                        Tmp.LastDayOfMonth(months[m]).ToString("yyyy-MM-dd") + " 23:59:00"
+                    }
+                );
+            }
+
+            int d = 0;
+            foreach (var date in dates)
+            {
                 compras = Compra.Model
-                    .Where("status", "Finalizada")
-                    .Where("updated_at", "LIKE", months[m])
+                    .Where("status", "!=", "Orcamento")
+                    .Where("status", "!=", "Cancelada")
+                    .Where("status", "!=", "Indefinido")
+                    .Where("updated_at", ">=", date.Value[0])
+                    .Where("updated_at", "<=", date.Value[1])
                     .Select();
 
                 if (compras != null)
+                {
                     foreach (CompraType compra in compras)
-                        values[m] += compra.ValorTotal;
+                        values[d] += compra.ValorTotal;
+
+                    tags[d] = Str.Currency(values[d]);
+                }
 
                 else
-                    values[m] = 0.00;
+                    values[d] = 0.00;
+
+                d++;
             }
 
             _ChartCompras.Clear();
             _ChartCompras.SetSeries(values);
-            _ChartCompras.SetLabels(months);
+            _ChartCompras.SetLabels(labels);
+            _ChartCompras.SetTags(tags);
             _ChartCompras.Draw();
         }
 
@@ -137,7 +173,7 @@ namespace VadenStock.View
 
 
 
-        private void RefreshTable()
+        public void RefreshTable()
         {
             if (_TableCompras != null)
             {
@@ -148,29 +184,40 @@ namespace VadenStock.View
 
                 if (compras != null && compras.Count > 0)
                 {
-                    List<ItemType> itens;
+                    int itens = 0;
+
+                    _StackEmpty.Visibility = Visibility.Collapsed;
 
                     foreach (CompraType compra in compras)
                     {
-                        _StackEmpty.Visibility = Visibility.Collapsed;
+                        if (compra.Status == CompraType.CompraStatus.Recebida)
+                            itens = ItensViewModel.Read(new object[] { "compra", compra.Id }).Count;
 
-                        itens = ItensViewModel.Read(new string[] { "compra", compra.Id.ToString() });
+                        else
+                        {
+                            List<ItemCompraType> ictps = ItensComprasViewModel.Read(new object[] { "compra", compra.Id });
+
+                            foreach (ItemCompraType itc in ictps)
+                                itens += itc.Quantidade;
+                        }
 
                         _TableCompras.Add(
                             new Row()
-                                .TD(compra.NumSerie)
+                                .TD(string.IsNullOrEmpty(compra.NumSerie) ? "-----" : compra.NumSerie)
                                 .TD(compra.Fornecedor.Tag)
-                                .TD(Str.Currency(Convert.ToString(compra.ValorTotal)))
-                                .TD(Str.ZeroFill(itens.Count))
+                                .TD(Str.Currency(compra.ValorTotal))
+                                .TD(Str.ZeroFill(itens))
                                 .TD(CompraType.GetStatusName(compra.Status))
-                                .TD((compra.DataEmissao ?? compra.CreatedDate).ToString("dd/MM/yyyy HH:mm").Replace(" ", " às "))
-                                .AC(Icon.Small("history"), Row.ActionLevel.Info, sender => {
-
+                                .TD(GetDateFromStatusTable(compra))
+                                .AC(Icon.Small("open-in-new"), Row.ActionLevel.None, sender =>
+                                {
+                                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+                                    window.DisplayDialog(new OrcamentoDialog(compra));
                                 })
                         );
-
-                        _PaginationCompras.Paginate();
                     }
+
+                    _PaginationCompras.Paginate();
                 }
                 else
                 {
@@ -183,7 +230,9 @@ namespace VadenStock.View
 
         private List<CompraType> GetFilteredDataset()
         {
-            Compra model = Compra.Model.Where("id", ">", 1);
+            Compra model = Compra.Model
+                .Where("id", ">", 1)
+                .Where("status", "!=", "Orcamento");
 
             if (!string.IsNullOrEmpty(Filtro.NumSerie))
                 model.Where("ns", "LIKE", Filtro.NumSerie);
@@ -191,16 +240,25 @@ namespace VadenStock.View
             if (Filtro.Status != CompraType.CompraStatus.Indefinido)
                 model.Where("status", CompraType.GetStatusName(Filtro.Status));
 
-            if (Filtro.Fornecedor.Id > 0)
+            if (Filtro.Fornecedor.Id > 1)
                 model.Where("fornecedor", Filtro.Fornecedor.Id);
 
             if (FiltroDataDe != null)
-                model.Where("updated_at", ">=", FiltroDataDe.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                model.Where("updated_at", ">=", FiltroDataDe);
 
             if (FiltroDataAte != null)
-                model.Where("updated_at", ">=", FiltroDataAte.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                model.Where("updated_at", "<=", FiltroDataAte);
 
-            return model.Select();
+            return model.OrderBy("id", "DESC");
+        }
+
+
+
+        private static string GetDateFromStatusTable(CompraType compra)
+        {
+            return (compra.Status == CompraType.CompraStatus.Recebida)
+                ? (compra.DataEmissao ?? compra.CreatedDate).ToString("dd/MM/yyyy HH:mm").Replace(" ", " às ")
+                : "--/--/----";
         }
 
 
@@ -208,7 +266,12 @@ namespace VadenStock.View
         private void ButtonNovoOrcamento_Click(object sender, RoutedEventArgs e)
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            window.DisplayDialog(new OrcamentoDialog(), sender => LoadOrcamentos());
+            window.DisplayDialog(new OrcamentoDialog(), sender =>
+            {
+                LoadOrcamentos();
+                RefreshCompras();
+                RefreshTable();
+            });
         }
 
 
@@ -248,8 +311,11 @@ namespace VadenStock.View
             {
                 FornecedorType? fornecedor = FornecedoresViewModel.Find(item.Tag);
 
-                if (fornecedor != null)
-                    Filtro.Fornecedor = fornecedor ?? new FornecedorType() { Id = 0 };
+                if (fornecedor != null && fornecedor.Value.Id > 1)
+                    Filtro.Fornecedor = fornecedor.Value;
+
+                else
+                    Filtro.Fornecedor = new FornecedorType() { Id = 0 };
             }
 
             RefreshTable();
@@ -260,17 +326,35 @@ namespace VadenStock.View
         private void InputDateDe_Changed(object sender, SelectionChangedEventArgs e)
         {
             DatePicker picker = (DatePicker)sender;
-            FiltroDataDe = picker.SelectedDate ?? null;
+
+            if (string.IsNullOrEmpty(picker.Text) || picker.Text.Length < 10)
+                FiltroDataDe = null;
+
+            else
+            {
+                string[] dateArray = picker.Text.Split('/');
+                Array.Reverse(dateArray);
+                FiltroDataDe = $"{string.Join('-', dateArray)} 00:00:00";
+            }
 
             RefreshTable();
         }
 
-
+        
 
         private void InputDateAte_Changed(object sender, SelectionChangedEventArgs e)
         {
             DatePicker picker = (DatePicker)sender;
-            FiltroDataAte = picker.SelectedDate ?? null;
+
+            if (string.IsNullOrEmpty(picker.Text) || picker.Text.Length < 10)
+                FiltroDataAte = null;
+
+            else
+            {
+                string[] dateArray = picker.Text.Split('/');
+                Array.Reverse(dateArray);
+                FiltroDataAte = $"{string.Join('-', dateArray)} 23:59:00";
+            }
 
             RefreshTable();
         }

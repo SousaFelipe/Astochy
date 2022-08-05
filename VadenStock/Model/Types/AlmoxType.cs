@@ -4,7 +4,7 @@
 
 namespace VadenStock.Model.Types
 {
-    public struct AlmoxType : IModelType
+    public struct AlmoxType
     {
         public enum Hosted
         {

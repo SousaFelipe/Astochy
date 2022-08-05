@@ -41,6 +41,7 @@
         </Button>
 
         <Button Grid.Row="0"
+                x:Name="_ButtonClose"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Right"
                 Height="38"

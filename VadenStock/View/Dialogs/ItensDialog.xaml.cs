@@ -10,13 +10,17 @@ using VadenStock.Tools;
 using VadenStock.View.Components.Containers;
 using VadenStock.View.Components.Widgets;
 using VadenStock.View.Models;
-
-
+using System.Linq;
+using System.Reflection;
 
 namespace VadenStock.View.Dialogs
 {
     public partial class ItensDialog : Border
     {
+        public object? View { get; private set; }
+
+
+
         ProdutoType Produto { get; set; }
         List<string> Status { get; set; }
         Dictionary<string, ItemType[]> Itens { get; set; }
@@ -52,6 +56,33 @@ namespace VadenStock.View.Dialogs
 
 
 
+        public ItensDialog(List<ItemType> itens, object? parent = null)
+        {
+            Produto = new ProdutoType() { Id = 0 };
+            Status = new();
+            Itens = new();
+            View = parent;
+
+            InitializeComponent();
+
+            Loaded += delegate
+            {
+                if (View != null)
+                {
+                    _ButtonBack.Visibility = Visibility.Visible;
+                    _ButtonClose.Visibility = Visibility.Collapsed;
+
+                    VerticalAlignment = VerticalAlignment.Top;
+                }
+
+                InitTable();
+                LoadItens(itens);
+                LoadStatus();
+            };
+        }
+
+
+
         private void InitTable()
         {
             _TableItens.Headers(
@@ -67,13 +98,17 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void LoadItens()
+        private void LoadItens(List<ItemType>? itemList = null)
         {
             ItemType[] itens;
 
             foreach (string status in ItemType.STATUS)
             {
-                itens = ItensViewModel.ItensPorProdutoByStatus(Produto.Id, status).ToArray();
+                if (itemList == null)
+                    itens = ItensViewModel.ItensPorProdutoByStatus(Produto.Id, status).ToArray();
+                
+                else
+                    itens = itemList.Where(i => i.Localizado.Equals(ItemType.GetStatus(status))).ToArray();
 
                 if (itens != null && itens.Length > 0)
                 {
@@ -122,8 +157,8 @@ namespace VadenStock.View.Dialogs
                                 .TD(item.Codigo)
                                 .TD(Str.MAC(item.Mac))
                                 .TD(item.Almoxarifado.Name)
-                                .TD(item.UltimaTransf.ToString("dd/MM/yyyy"))
-                                .AC(Icon.Small("history"), Row.ActionLevel.Info, sender => {
+                                .TD(item.UltimaTransf != null ? item.UltimaTransf.Value.ToString("dd/MM/yyyy") : string.Empty)
+                                .AC(Icon.Small("history"), Row.ActionLevel.None, sender => {
                                     _GridDefault.Visibility = Visibility.Collapsed;
                                     _GridContainer.Children.Add(new HistoricoDialog(item, this));
                                 })
@@ -152,21 +187,21 @@ namespace VadenStock.View.Dialogs
                 foreach (ItemType item in itens)
                 {
                     quantidade++;
-                    valor += item.Produto.Price;
+                    valor += item.Produto.Valor;
                 }
             }
 
             _TextQuantItens.Text = Str.ZeroFill(quantidade);
             _TextLabelQuantItens.Text = (" item".Pluralize(quantidade, "n") + ", totalizando ");
-            _TextTotalItens.Text = ("R$ " + Str.Currency((valor * 100).ToString()));
+            _TextTotalItens.Text = ("R$ " + Str.Currency(valor));
         }
 
 
 
-        public void BackToMain(object sender)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            _GridContainer.Children.Remove((UIElement)sender);
-            _GridDefault.Visibility = Visibility.Visible;
+            MethodInfo? method = View?.GetType().GetMethod("BackToMain");
+            method?.Invoke(View, new object?[] { this });
         }
 
 
@@ -175,6 +210,14 @@ namespace VadenStock.View.Dialogs
         {
             RefreshTable();
             UpdateResume();
+        }
+
+
+
+        public void BackToMain(object sender)
+        {
+            _GridContainer.Children.Remove((UIElement)sender);
+            _GridDefault.Visibility = Visibility.Visible;
         }
 
 

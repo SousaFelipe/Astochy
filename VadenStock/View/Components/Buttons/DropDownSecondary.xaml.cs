@@ -4,14 +4,14 @@ using System.Windows.Controls;
 
 
 
-namespace VadenStock.View.Components
+namespace VadenStock.View.Components.Buttons
 {
-    public partial class Dropdown : ComboBox
+    public partial class DropDownSecondary : ComboBox
     {
         public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(
                 "Label",
                 typeof(string),
-                typeof(Dropdown),
+                typeof(DropDownSecondary),
                 new UIPropertyMetadata(string.Empty, LabelPropertyCallback)
             );
 
@@ -27,13 +27,13 @@ namespace VadenStock.View.Components
 
         public static void LabelPropertyCallback(DependencyObject root, DependencyPropertyChangedEventArgs e)
         {
-            Dropdown dropdown = (Dropdown)root;
+            DropDownSecondary dropdown = (DropDownSecondary)root;
             dropdown.Label = (string)e.NewValue;
         }
 
 
 
-        public Dropdown()
+        public DropDownSecondary()
         {
             InitializeComponent();
         }

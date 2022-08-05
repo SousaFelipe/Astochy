@@ -4,7 +4,7 @@
 
 namespace VadenStock.Model.Types
 {
-    public struct CategoriaType : IModelType
+    public struct CategoriaType
     {
         public int Id { get; set; }
         public string Name { get; set; }

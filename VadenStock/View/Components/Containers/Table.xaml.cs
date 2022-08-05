@@ -24,6 +24,10 @@ namespace VadenStock.View.Components.Containers
 
 
 
+        private readonly string[] Colors = new string[4] { "#ECEFF1", "#FFFFFF", "#F6FBFD", "#ECEFF3" };
+
+
+
         public Table()
         {
             Rows = new();
@@ -42,6 +46,16 @@ namespace VadenStock.View.Components.Containers
 
 
 
+        public void SetColors(string header, string light, string dark, string? hover = null)
+        {
+            Colors[0] = header;
+            Colors[1] = light;
+            Colors[2] = dark;
+            Colors[3] = hover ?? "#ECEFF3";
+        }
+
+
+
         public void Headers(params Header[] headers)
         {
             HasHeader = true;
@@ -50,7 +64,7 @@ namespace VadenStock.View.Components.Containers
             TableHeader = new(new()
             {
                 RowSize = Options.RowOptions.Size.Large,
-                Background = "#ECEFF1",
+                Background = Colors[0],
                 FontStyle = FontStyles.Normal,
                 FontWeight = FontWeights.Bold,
                 Hover = false
@@ -78,6 +92,7 @@ namespace VadenStock.View.Components.Containers
 
         public Table Add(Row row)
         {
+            row.SetHover(Colors[3]);
             Rows.Add(row);
             return this;
         }
@@ -154,7 +169,7 @@ namespace VadenStock.View.Components.Containers
                 {
                     _GridContainer.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-                    currentRow.Paint((r % 2 != 0) ? null : "#F6FBFD");
+                    currentRow.Paint((r % 2 != 0) ? Colors[1] : Colors[2]);
 
                     for (int d = 0; d < Columns; d++)
                     {

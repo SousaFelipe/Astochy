@@ -52,7 +52,7 @@ namespace VadenStock.View.Components.Forms
 
             if (e.Key >= Key.D0 || e.Key <= Key.D9)
             {
-                string output = Str.Currency(input.Text.TrimStart('0'));
+                string output = Str.Currency(input.Text);
                 input.Text = output;
             }
 
