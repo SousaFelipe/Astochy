@@ -65,7 +65,7 @@ namespace VadenStock.View.Components.Forms
 
                 for (; ((input[0] == '0') ? (c < (input.Length - 1)) : (c < input.Length)); c++)
                 {
-                    if ((c + 1) < input.Length && input[c + 1] != '0')
+                    if ((c + 1) < input.Length)
                         output.Add(input[c + 1]);
 
                     else if (input[0] == '0' && c >= 0 && c < input.Length)
