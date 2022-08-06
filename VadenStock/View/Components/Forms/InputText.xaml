@@ -24,8 +24,8 @@
                     <ControlTemplate TargetType="{x:Type TextBox}">
                         
                         <Border x:Name="_TextBorder"
-                                VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch"
                                 CornerRadius="4"
                                 BorderThickness="1"
                                 BorderBrush="#CFD8DC"

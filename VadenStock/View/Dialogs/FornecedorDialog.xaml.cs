@@ -23,6 +23,7 @@ namespace VadenStock.View.Dialogs
             NewFornecedor = new()
             {
                 Cnpj = string.Empty,
+                Tag = string.Empty,
                 Fantasia = string.Empty,
                 Email = string.Empty,
                 Contato = string.Empty,
@@ -38,6 +39,7 @@ namespace VadenStock.View.Dialogs
         public void ShouldBeSaveEnabled()
         {
             _ButtonSave.IsEnabled = (
+                !string.IsNullOrEmpty(NewFornecedor.Tag) &&
                 !string.IsNullOrEmpty(NewFornecedor.Fantasia) &&
                 !string.IsNullOrEmpty(NewFornecedor.Telefone) &&
                 NewFornecedor.Cnpj.Length >= 18 &&
@@ -53,6 +55,18 @@ namespace VadenStock.View.Dialogs
             string fantasia = input.Text;
 
             NewFornecedor.Fantasia = fantasia;
+
+            ShouldBeSaveEnabled();
+        }
+
+
+
+        private void InputTag_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            InputText input = (InputText)sender;
+            string tag = input.Text;
+
+            NewFornecedor.Tag = tag;
 
             ShouldBeSaveEnabled();
         }
@@ -131,7 +145,10 @@ namespace VadenStock.View.Dialogs
         {
             MainWindow window = (MainWindow)Application.Current.MainWindow;
 
-            if (string.IsNullOrEmpty(NewFornecedor.Fantasia))
+            if (string.IsNullOrEmpty(NewFornecedor.Tag))
+                window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Por favor insira tag de identificação do fornecedor"));
+
+            else if (string.IsNullOrEmpty(NewFornecedor.Fantasia))
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Por favor insira o nome fantasia do fornecedor"));
 
             else if (string.IsNullOrEmpty(NewFornecedor.Cnpj) || NewFornecedor.Cnpj.Length < 18)
@@ -149,6 +166,7 @@ namespace VadenStock.View.Dialogs
 
                 else if (FornecedoresViewModel.Create(NewFornecedor))
                 {
+                    _InputTag.Clear();
                     _InputFantasia.Clear();
                     _InputEmail.Clear();
                     _InputCNPJ.Clear();

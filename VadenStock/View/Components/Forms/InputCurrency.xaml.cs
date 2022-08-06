@@ -50,10 +50,15 @@ namespace VadenStock.View.Components.Forms
 
         private void OnTypeText(object sender, KeyEventArgs e)
         {
-            string input = Str.Sanitize(Text);
             List<char> output = new();
 
-            if (!string.IsNullOrEmpty(input))
+            string input = Str.Sanitize(Text);
+            string outst;
+
+            if (string.IsNullOrEmpty(input))
+                outst = "0,00";
+            
+            else
             {
                 int  z = (input[0] == '0') ? 3 : input.Length;
                 int  c = (input.Length - (z + 1));
@@ -63,15 +68,15 @@ namespace VadenStock.View.Components.Forms
                     if ((c + 1) < input.Length && input[c + 1] != '0')
                         output.Add(input[c + 1]);
 
-                    else if (input[0] == '0' && c < input.Length)
+                    else if (input[0] == '0' && c >= 0 && c < input.Length)
                         output.Add(input[c]);
                 }
+
+                outst = new(output.ToArray());
+                outst = outst.Insert(outst.Length - 2, ",");
             }
 
-            string outstr = new(output.ToArray());
-            outstr = outstr.Insert(outstr.Length - 2, ",");
-
-            Text = Str.Currency(Convert.ToDouble(outstr));
+            Text = Str.Currency(Convert.ToDouble(outst));
             CaretIndex = Text.Length;
         }
 

@@ -49,11 +49,31 @@
                         HorizontalAlignment="Stretch"
                         Margin="20 8 20 0">
 
-                <forms:InputText x:Name="_InputFantasia"
-                                 Tag="Nome Fantasia"
-                                 FontSize="14"
-                                 Foreground="{StaticResource TextPrimaryColor}"
-                                 TextChanged="InputFantasia_Changed"/>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <forms:InputText Grid.Column="0"
+                                     x:Name="_InputFantasia"
+                                     Tag="Nome Fantasia"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputFantasia_Changed"/>
+
+                    <forms:InputText Grid.Column="1"
+                                     x:Name="_InputTag"
+                                     HorizontalAlignment="Right"
+                                     Margin="8 0 0 0"
+                                     Width="160"
+                                     Tag="Tag"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputTag_TextChanged"/>
+
+                </Grid>
 
                 <Grid HorizontalAlignment="Stretch"
                       Margin="0 8 0 0">
@@ -73,7 +93,7 @@
                     <forms:InputText Grid.Column="1"
                                      x:Name="_InputEmail"
                                      Margin="8 0 0 0"
-                                     Width="200"
+                                     Width="280"
                                      Tag="E-mail"
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"

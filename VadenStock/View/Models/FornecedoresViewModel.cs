@@ -22,6 +22,7 @@ namespace VadenStock.View.Models
             List<object[]> inserts = new()
             {
                 new object[2] { "cnpj", fornecedor.Cnpj },
+                new object[2] { "tag", fornecedor.Tag },
                 new object[2] { "fantasia", fornecedor.Fantasia },
                 new object[2] { "email", fornecedor.Email },
                 new object[2] { "contato", fornecedor.Contato },
