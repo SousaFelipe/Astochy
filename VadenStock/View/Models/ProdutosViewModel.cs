@@ -27,7 +27,7 @@ namespace VadenStock.View.Models
                 new object[] { "tipo", produto.Tipo },
                 new object[] { "marca", produto.Marca },
                 new object[] { "image", $"{ produto.Image.FileName }{ produto.Image.FileExtension }" },
-                new object[] { "price", produto.Valor },
+                new object[] { "valor", produto.Valor },
                 new object[] { "description", produto.Description }
             };
 
