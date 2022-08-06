@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -280,7 +281,12 @@ namespace VadenStock.View.Dialogs
         private void InputPrice_Changed(object sender, TextChangedEventArgs e)
         {
             InputCurrency input = (InputCurrency)sender;
-            Produto.Valor = Convert.ToDouble(input.Text.Replace(".", "").Replace(",", "."));
+            string? text = input.Text;
+            
+            if (!string.IsNullOrEmpty(text))
+                Produto.Valor = Convert.ToDouble(text);
+
+            System.Diagnostics.Trace.WriteLine(Produto.Valor);
 
             if (EditMode)
                 ShouldBeSaveEnabled();

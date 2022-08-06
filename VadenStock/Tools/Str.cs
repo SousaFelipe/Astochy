@@ -9,31 +9,33 @@ namespace VadenStock.Tools
 {
     public static class Str
     {
+        private static readonly CultureInfo Culture = new("pt-BR")
+        {
+            DateTimeFormat = new()
+            {
+
+                ShortDatePattern = "dd/MM/yyyy",
+                ShortTimePattern = "HH:mm"
+            },
+
+            NumberFormat = new()
+            {
+                NumberDecimalDigits = 2,
+                NumberGroupSeparator = ".",
+                NumberDecimalSeparator = ","
+            }
+        };
+
+
+
         public static string Currency(object input)
         {
             string? convertedInput = Convert.ToString(input);
 
             if (string.IsNullOrEmpty(convertedInput))
-                return "0,00";
+                return string.Empty;
 
-            CultureInfo culture = new("pt-BR")
-            {
-                DateTimeFormat = new()
-                {
-
-                    ShortDatePattern = "dd/MM/yyyy",
-                    ShortTimePattern = "HH:mm"
-                },
-
-                NumberFormat = new()
-                {
-                    NumberDecimalDigits = 2,
-                    NumberGroupSeparator = ".",
-                    NumberDecimalSeparator = ","
-                }
-            };
-
-            return string.Format(culture, "{0:N}", input);
+            return string.Format(Culture, "{0:N}", input);
         }
 
 
@@ -79,16 +81,16 @@ namespace VadenStock.Tools
 
 
 
-        public static bool IsNumber(string text)
+        public static bool IsNumber(string input)
         {
-            int crrAscii;
-            char[] chars = text.ToCharArray();
+            int ascii;
+            char[] chars = input.ToCharArray();
 
             for (int c = 0; c < chars.Length; c++)
             {
-                crrAscii = (int)chars[c];
+                ascii = (int)chars[c];
 
-                if (crrAscii < 48 || crrAscii > 57)
+                if ((ascii < 48 && ascii != 44 && ascii != 46) || ascii > 57)
                     return false;
             }
 

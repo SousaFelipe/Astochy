@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -48,16 +50,29 @@ namespace VadenStock.View.Components.Forms
 
         private void OnTypeText(object sender, KeyEventArgs e)
         {
-            InputCurrency input = (InputCurrency)sender;
+            string input = Str.Sanitize(Text);
+            List<char> output = new();
 
-            if (e.Key >= Key.D0 || e.Key <= Key.D9)
+            if (!string.IsNullOrEmpty(input))
             {
-                string output = Str.Currency(input.Text);
-                input.Text = output;
+                int  z = (input[0] == '0') ? 3 : input.Length;
+                int  c = (input.Length - (z + 1));
+
+                for (; ((input[0] == '0') ? (c < (input.Length - 1)) : (c < input.Length)); c++)
+                {
+                    if ((c + 1) < input.Length && input[c + 1] != '0')
+                        output.Add(input[c + 1]);
+
+                    else if (input[0] == '0' && c < input.Length)
+                        output.Add(input[c]);
+                }
             }
 
-            if (input.Text.Length > 0)
-                input.SelectionStart = input.Text.Length;
+            string outstr = new(output.ToArray());
+            outstr = outstr.Insert(outstr.Length - 2, ",");
+
+            Text = Str.Currency(Convert.ToDouble(outstr));
+            CaretIndex = Text.Length;
         }
 
 

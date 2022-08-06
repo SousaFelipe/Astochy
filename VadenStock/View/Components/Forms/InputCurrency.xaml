@@ -9,5 +9,4 @@
          d:DesignWidth="160"
          d:DesignHeight="32"
          TextAlignment="Right"
-         KeyUp="OnTypeText"
-         SelectionChanged="OnChageSelection"/>
+         KeyUp="OnTypeText"/>
