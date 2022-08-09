@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+
 using VadenStock.Model.Types;
 using VadenStock.Tools;
 using VadenStock.View.Components.Containers;
@@ -316,13 +317,16 @@ namespace VadenStock.View.Dialogs
         {
             CompraType.CompraStatus status = (EditarOrcamento ?? NovoOrcamento).Status;
 
-            return status switch
-            {
-                CompraType.CompraStatus.Orcamento => row.AC("X", Row.ActionLevel.Danger, sender => RemoveItemFromTable(item.Id)),
-                CompraType.CompraStatus.Aprovada => row.AC(Icon.Small("open-in-new"), Row.ActionLevel.Info, sender => ReceberItemFromtable(item)),
-                CompraType.CompraStatus.Recebida => row.AC(Icon.Small("package-check"), Row.ActionLevel.Info, sender => ExibeItensFromTable(item.Compra)),
-                _ => row.AC(Icon.Small("timer"), Row.ActionLevel.None)
-            };
+            if (status == CompraType.CompraStatus.Orcamento)
+                return row.AC("X", Row.ActionLevel.Danger, sender => RemoveItemFromTable(item.Id));
+
+            else if (status == CompraType.CompraStatus.Aprovada && item.Status == ItemCompraType.ICStatus.Aberto)
+                return row.AC(Icon.Small("open-in-new"), Row.ActionLevel.Info, sender => ReceberItemFromtable(item));
+
+            else if (status == CompraType.CompraStatus.Recebida || item.Status == ItemCompraType.ICStatus.Baixado)
+                return row.AC(Icon.Small("package-check"), Row.ActionLevel.Info, sender => ExibeItensFromTable(item.Compra));
+
+            return row.AC(Icon.Small("timer"), Row.ActionLevel.None);
         }
 
 

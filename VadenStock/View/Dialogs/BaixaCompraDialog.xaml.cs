@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+
 using VadenStock.Model.Types;
 using VadenStock.Tools;
 using VadenStock.View.Components.Containers;
@@ -11,6 +12,8 @@ using VadenStock.View.Components.Forms;
 using VadenStock.View.Components.Widgets;
 using VadenStock.View.Models;
 using VadenStock.View.Structs;
+
+
 
 namespace VadenStock.View.Dialogs
 {
@@ -83,7 +86,10 @@ namespace VadenStock.View.Dialogs
                 Valor = Item.Produto.Valor,
             };
 
-            Itens = ItensViewModel.Read(new object[] { "compra", SalvarItem.Compra.Id });
+            Itens = ItensViewModel.Read(
+                new object[] { "compra", SalvarItem.Compra.Id },
+                new object[] { "produto", Item.Produto.Id }
+            );
         }
 
 
@@ -219,7 +225,11 @@ namespace VadenStock.View.Dialogs
 
                 if (checkCode == null)
                 {
-                    ItemType? checkMAC = ItensViewModel.Find(SalvarItem.Mac);
+                    ItemType? checkMAC = ItensViewModel.Find(
+                        string.IsNullOrEmpty(SalvarItem.Mac)
+                            ? "00:00:00:00:00:00"
+                            : SalvarItem.Mac
+                    );
 
                     if (checkMAC == null)
                     {
