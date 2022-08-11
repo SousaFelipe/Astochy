@@ -149,7 +149,7 @@
                         <forms:SelectBox Grid.Column="1"
                                          x:Name="_SelectProdutos"
                                          HorizontalAlignment="Left"
-                                         Width="150"
+                                         Width="180"
                                          Margin="20 24 0 0"
                                          Background="#FFFFFF"
                                          Text="Produto"

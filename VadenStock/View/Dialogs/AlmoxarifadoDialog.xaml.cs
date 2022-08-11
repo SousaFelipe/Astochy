@@ -131,16 +131,20 @@ namespace VadenStock.View.Dialogs
                 if (!Produtos.Contains(item.Produto))
                     Produtos.Add(item.Produto);
 
-            foreach (ProdutoType p in Produtos)
+            foreach (ProdutoType produto in Produtos)
             {
-                itens = ItensViewModel.ItensPorAlmoxarifado(Almox.Id, new object[] { "produto", p.Id });
-                Itens.Add(p.Name, itens.ToArray());
+                itens = ItensViewModel.ItensPorAlmoxarifado(Almox.Id, new object[] { "produto", produto.Id });
 
-                _SelectProdutos.Items.Add(new ComboBoxItem()
+                if (!Itens.ContainsKey(produto.Name))
                 {
-                    Tag = p.Name,
-                    Content = p.Name
-                });
+                    Itens.Add(produto.Name, itens.ToArray());
+
+                    _SelectProdutos.Items.Add(new ComboBoxItem()
+                    {
+                        Tag = produto.Name,
+                        Content = produto.Name
+                    });
+                }
             }
 
             if (Produtos.Count > 0)
