@@ -506,7 +506,7 @@ namespace VadenStock.View.Dialogs
 
                     if (produto != null)
                     {
-                        CurrentItem.Produto = produto.Value;
+                        CurrentItem.Produto = produto;
                         _InputQuantidade.IsEnabled = true;
                     }
                 }

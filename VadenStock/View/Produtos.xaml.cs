@@ -70,7 +70,7 @@ namespace VadenStock.View
             }
         }
 
-
+        
 
         public void LoadProdutos()
         {

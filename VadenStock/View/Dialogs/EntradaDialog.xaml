@@ -73,24 +73,24 @@
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"
                                      Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="ComboMarcas_Changed">
+                                     SelectionChanged="SelectMarcas_Changed">
 
                         <ComboBoxItem Tag="0" Content="Marca"/>
 
                     </forms:SelectBox>
 
                     <forms:SelectBox Grid.Column="1"
-                                     x:Name="_ComboProdutos"
+                                     x:Name="_SelectCategorias"
                                      HorizontalAlignment="Stretch"
                                      Margin="4 0 0 0"
                                      Background="#FFFFFF"
-                                     Text="Produto"
+                                     Text="Categoria"
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"
                                      Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="ComboProdutos_Changed">
+                                     SelectionChanged="SelectCategorias_Changed">
 
-                        <ComboBoxItem Tag="0" Content="Produto"/>
+                        <ComboBoxItem Tag="0" Content="Categoria"/>
 
                     </forms:SelectBox>
 
@@ -103,29 +103,36 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-
+                    
                     <forms:SelectBox Grid.Column="0"
-                                     x:Name="_ComboAlmoxarifados"
+                                     x:Name="_ComboProdutos"
+                                     HorizontalAlignment="Stretch"
                                      Margin="0 0 4 0"
+                                     Background="#FFFFFF"
+                                     Text="Produto"
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     Style="{StaticResource InputSelectTheme}"
+                                     SelectionChanged="SelectProdutos_Changed">
+
+                        <ComboBoxItem Tag="0" Content="Produto"/>
+
+                    </forms:SelectBox>
+
+                    <forms:SelectBox Grid.Column="1"
+                                     x:Name="_ComboAlmoxarifados"
+                                     Margin="4 0 0 0"
                                      HorizontalAlignment="Stretch"
                                      Background="#FFFFFF"
                                      Text="Almoxarifado"
                                      FontSize="14"
                                      Foreground="{StaticResource TextPrimaryColor}"
                                      Style="{StaticResource InputSelectTheme}"
-                                     SelectionChanged="ComboAlmoxarifados_Changed">
+                                     SelectionChanged="SelectAlmoxarifados_Changed">
 
                         <ComboBoxItem Tag="0" Content="Almoxarifado"/>
 
                     </forms:SelectBox>
-
-                    <forms:InputText Grid.Column="1"
-                                     x:Name="_InputMAC"
-                                     Margin="4 0 0 0"
-                                     Tag="MAC"
-                                     FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"
-                                     TextChanged="InputMAC_TextChanged"/>
 
                 </Grid>
 
@@ -134,16 +141,27 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
 
                     <forms:InputText Grid.Column="0"
                                      x:Name="_InputCodigo"
-                                     Tag="Código do equipamento..."
+                                     Margin="0 0 4 0"
+                                     Tag="Código..."
                                      FontSize="14"
-                                     Foreground="{StaticResource TextPrimaryColor}"/>
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputCodigo_TextChanged"/>
 
-                    <Button Grid.Column="1"
+                    <forms:InputText Grid.Column="1"
+                                     x:Name="_InputMAC"
+                                     Margin="4 0 0 0"
+                                     Tag="MAC..."
+                                     FontSize="14"
+                                     Foreground="{StaticResource TextPrimaryColor}"
+                                     TextChanged="InputMAC_TextChanged"/>
+
+                    <Button Grid.Column="2"
                             x:Name="_ButtonEntrada"
                             Margin="8 0 0 0"
                             Padding="16 0"

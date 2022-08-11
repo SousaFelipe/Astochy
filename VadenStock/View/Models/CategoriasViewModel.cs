@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
@@ -30,6 +31,18 @@ namespace VadenStock.View.Models
             };
 
             return Categoria.Model.Create(inserts);
+        }
+
+
+
+        public static List<CategoriaType> Read(params object[][] wheres)
+        {
+            Categoria model = Categoria.Model;
+
+            foreach (object[] where in wheres)
+                model.Where(Convert.ToString(where[0]), where[1]);
+
+            return model.Select();
         }
     }
 }

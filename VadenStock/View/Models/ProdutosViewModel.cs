@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using VadenStock.Model;
 using VadenStock.Model.Types;
@@ -49,6 +50,18 @@ namespace VadenStock.View.Models
 
 
 
+        public static List<ProdutoType> Read(params object[][] wheres)
+        {
+            Produto model = Produto.Model;
+
+            foreach (object[] where in wheres)
+                model.Where(Convert.ToString(where[0]), where[1]);
+
+            return model.Select();
+        }
+
+
+
         public static List<ProdutoType> ProdutosPorMarca(int marca)
         {
             return Produto.Model
@@ -87,22 +100,23 @@ namespace VadenStock.View.Models
 
         public static Dictionary<string, List<ProdutoType>> OrderByMarca(List<ProdutoType> produtos)
         {
-            List<ProdutoType> typeToOrder;
-            Dictionary<string, List<ProdutoType>> ordered = new();
+            Dictionary<string, List<ProdutoType>> output = new();
+
             List<MarcaType> marcas = MarcasViewModel.TodasAsMarcas;
+            List<ProdutoType> ordered;
 
-            foreach (MarcaType mar in marcas)
+            foreach (MarcaType marca in marcas)
             {
-                typeToOrder = new();
+                ordered = new();
 
-                foreach (ProdutoType pro in produtos)
-                    if (pro.Marca.Id == mar.Id)
-                        typeToOrder.Add(pro);
+                foreach (ProdutoType produto in produtos)
+                    if (produto.Marca.Id == marca.Id)
+                        ordered.Add(produto);
 
-                ordered.Add(mar.Name, typeToOrder);
+                output.Add(marca.Name, ordered);
             }
 
-            return ordered;
+            return output;
         }
 
 

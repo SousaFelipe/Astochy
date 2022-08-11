@@ -21,9 +21,22 @@ namespace VadenStock.View.Dialogs
         private readonly List<ItemType> Itens;
 
 
+        private readonly ProdutoType Filtro;
+
+
 
         public EntradaDialog()
         {
+            Filtro = new()
+            {
+                Id = 0,
+                Categoria = new() { Id = 0 },
+                Tipo = new() { Id = 0 },
+                Marca = new() { Id = 0 },
+                Name = string.Empty,
+                Description = string.Empty
+            };
+
             NovoItem = new();
             Itens = new();
 
@@ -33,6 +46,7 @@ namespace VadenStock.View.Dialogs
             {
                 InitTable();
                 LoadMarcas();
+                LoadCategorias();
                 LoadAlmoxarifados();
             };
         }
@@ -88,29 +102,53 @@ namespace VadenStock.View.Dialogs
         {
             _ComboMarcas.Clear(true);
 
-            foreach (MarcaType m in MarcasViewModel.TodasAsMarcas)
+            foreach (MarcaType marca in MarcasViewModel.TodasAsMarcas)
             {
                 _ComboMarcas.Items.Add(new ComboBoxItem()
                 {
-                    Tag = m.Id,
-                    Content = m.Name
+                    Tag = marca.Id,
+                    Content = marca.Name
                 });
             }
         }
 
 
 
-        private void LoadProdutos(int marca)
+        private void LoadCategorias()
+        {
+            _SelectCategorias.Clear(true);
+
+            foreach (CategoriaType categoria in CategoriasViewModel.TodasAsCategorias)
+            {
+                _SelectCategorias.Items.Add(new ComboBoxItem()
+                {
+                    Tag = categoria.Id,
+                    Content = categoria.Name
+                });
+            }
+        }
+
+
+
+        private void LoadProdutos()
         {
             _ComboProdutos.Clear(true);
 
-            foreach (ProdutoType p in ProdutosViewModel.ProdutosPorMarca(marca))
+            if (Filtro.Marca.Id > 0 && Filtro.Categoria.Id > 0)
             {
-                _ComboProdutos.Items.Add(new ComboBoxItem()
+                List<ProdutoType> produtos = ProdutosViewModel.Read(
+                    new object[] { "marca", Filtro.Marca.Id },
+                    new object[] { "categoria", Filtro.Categoria.Id }
+                );
+
+                foreach (ProdutoType produto in produtos)
                 {
-                    Tag = p.Id,
-                    Content = p.Name
-                });
+                    _ComboProdutos.Items.Add(new ComboBoxItem()
+                    {
+                        Tag = produto.Id,
+                        Content = produto.Name
+                    });
+                }
             }
         }
 
@@ -134,38 +172,6 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void AddNovoItem()
-        {
-            MainWindow window = (MainWindow)Application.Current.MainWindow;
-
-            foreach (ItemType i in Itens)
-            {
-                if (i.Codigo == NovoItem.Codigo || i.Mac == NovoItem.Mac)
-                {
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "Este item já foi adicionado à lista"));
-                    goto exit_function;
-                }
-            }
-
-            Itens.Add(NovoItem);
-            RefreshTable();
-
-            _ComboMarcas.SelectedIndex = 0;
-            _ComboAlmoxarifados.SelectedIndex = 0;
-
-            _ComboProdutos.Clear(true);
-            _InputMAC.Clear();
-            _InputCodigo.Clear();
-
-            NovoItem.Codigo = string.Empty;
-            NovoItem.Mac = string.Empty;
-
-        exit_function:
-            ;
-        }
-
-
-
         private bool RemoveItemFromEntrada(string codigo)
         {
             foreach (ItemType item in Itens)
@@ -183,7 +189,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void ComboMarcas_Changed(object sender, SelectionChangedEventArgs e)
+        private void SelectMarcas_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
@@ -195,15 +201,35 @@ namespace VadenStock.View.Dialogs
                 if (tag > 0)
                 {
                     MarcaType? marca = MarcasViewModel.Find(tag);
-                    if (marca != null)
-                        LoadProdutos(tag);
+                    Filtro.Marca = (marca != null) ? marca.Value : new() { Id = 0 };
+                    LoadProdutos();
                 }
             }
         }
 
 
 
-        private void ComboProdutos_Changed(object sender, SelectionChangedEventArgs e)
+        private void SelectCategorias_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            SelectBox select = (SelectBox)sender;
+            ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
+
+            if (item != null)
+            {
+                int tag = Convert.ToInt32(item.Tag);
+
+                if (tag > 0)
+                {
+                    List<CategoriaType> categorias = CategoriasViewModel.Read(new object[] { "id", tag });
+                    Filtro.Categoria = (categorias.Count > 0) ? categorias[0] : new CategoriaType() { Id = 0 };
+                    LoadProdutos();
+                }
+            }
+        }
+
+
+
+        private void SelectProdutos_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
@@ -215,6 +241,7 @@ namespace VadenStock.View.Dialogs
                 if (tag > 0)
                 {
                     ProdutoType? produto = ProdutosViewModel.Find(tag);
+
                     if (produto != null)
                         NovoItem.Produto = (ProdutoType)produto;
                 }
@@ -223,7 +250,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        private void ComboAlmoxarifados_Changed(object sender, SelectionChangedEventArgs e)
+        private void SelectAlmoxarifados_Changed(object sender, SelectionChangedEventArgs e)
         {
             SelectBox select = (SelectBox)sender;
             ComboBoxItem item = (ComboBoxItem)select.SelectedItem;
@@ -247,6 +274,29 @@ namespace VadenStock.View.Dialogs
 
 
 
+        private void InputCodigo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            InputText input = (InputText)sender;
+            string codigo = input.Text.Trim();
+
+            if (!string.IsNullOrEmpty(codigo))
+            {
+                ItemType? item = ItensViewModel.Find(codigo);
+
+                if (item == null)
+                    NovoItem.Codigo = codigo;
+
+                else
+                {
+                    NovoItem.Codigo = string.Empty;
+                    MainWindow window = (MainWindow)Application.Current.MainWindow;
+                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, $"Já existe um equipamento registrado com o código \"{ codigo }\""));
+                }
+            }
+        }
+
+
+
         private void InputMAC_TextChanged(object sender, TextChangedEventArgs e)
         {
             InputText input = (InputText)sender;
@@ -264,7 +314,7 @@ namespace VadenStock.View.Dialogs
                     else
                     {
                         MainWindow window = (MainWindow)Application.Current.MainWindow;
-                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Este equipamento já está registrado"));
+                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, $"Já existe um equipamento registrado com o MAC \"{ mac }\""));
                     }
                 }
             }
@@ -290,7 +340,7 @@ namespace VadenStock.View.Dialogs
             else if (_ComboAlmoxarifados.SelectedIndex <= 0)
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Por favor, selecione o Almoxarifado"));
 
-            else if (string.IsNullOrEmpty(_InputCodigo.Text))
+            else if (string.IsNullOrEmpty(NovoItem.Codigo))
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Por favor, insira o Código"));
 
             else if (!string.IsNullOrEmpty(NovoItem.Mac) && NovoItem.Mac.Length != 12)
@@ -298,17 +348,29 @@ namespace VadenStock.View.Dialogs
 
             else
             {
-                string codigo = _InputCodigo.Text;
-                ItemType? item = ItensViewModel.Find(codigo);
-
-                if (item == null)
+                foreach (ItemType i in Itens)
                 {
-                    NovoItem.Codigo = codigo;
-                    AddNovoItem();
+                    if (i.Codigo == NovoItem.Codigo || i.Mac == NovoItem.Mac)
+                    {
+                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "Este item já foi adicionado à lista"));
+                        goto exit_function;
+                    }
                 }
-                else
-                    window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Warning, "Este equipamento já está registrado"));
+
+                Itens.Add(NovoItem);
+                RefreshTable();
+
+                _InputMAC.Clear();
+                _InputCodigo.Clear();
+
+                NovoItem.Codigo = string.Empty;
+                NovoItem.Mac = string.Empty;
+
+                _InputCodigo.Focus();
             }
+
+        exit_function:
+            ;
         }
 
 

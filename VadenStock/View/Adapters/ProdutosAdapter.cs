@@ -70,7 +70,6 @@ namespace VadenStock.View.Adapters
 
             if (Container != null)
             {
-
                 Container.RowDefinitions.Add(new RowDefinition());
 
                 List<ProdutoType> currentDataset;
@@ -79,22 +78,22 @@ namespace VadenStock.View.Adapters
                 MidiaThumbCard currentCard;
 
                 int rounds = 0;
-                int crrRow = 0;
+                int row = 0;
 
                 foreach (string key in OrderedDataset.Keys)
                 {
                     if (OrderedDataset[key] != null && OrderedDataset[key].Count > 0)
                     {
                         currentDataset = OrderedDataset[key];
-                        currentLabel = CerateLabel(key);
+                        currentLabel = CreateLabel(key);
 
                         Container.Children.Add(currentLabel);
 
+                        Grid.SetRow(currentLabel, row);
                         Grid.SetColumn(currentLabel, 0);
                         Grid.SetColumnSpan(currentLabel, Columns);
-                        Grid.SetRow(currentLabel, crrRow);
 
-                        crrRow++;
+                        row++;
 
                         for (int i = 0; i < currentDataset.Count; i++)
                         {
@@ -104,20 +103,22 @@ namespace VadenStock.View.Adapters
                             Container.Children.Add(currentCard);
 
                             Grid.SetColumn(currentCard, rounds);
-                            Grid.SetRow(currentCard, crrRow);
+                            Grid.SetRow(currentCard, row);
 
-                            if (0 == (rounds - (Columns - 1)))
+                            if ((rounds - (Columns - 1)) == 0 || i == (currentDataset.Count - 1))
                             {
                                 Container.RowDefinitions.Add(new RowDefinition());
 
                                 rounds = 0;
-                                crrRow++;
+                                row++;
                             }
-                            else rounds++;
+                            else
+                                rounds++;
                         }
 
-                        crrRow++;
+                        row++;
                         rounds = 0;
+
                         Container.RowDefinitions.Add(new RowDefinition());
                     }
                 }
@@ -128,7 +129,7 @@ namespace VadenStock.View.Adapters
 
 
 
-        private static TextBlock CerateLabel(string label)
+        private static TextBlock CreateLabel(string label)
         {
             return new TextBlock()
             {
