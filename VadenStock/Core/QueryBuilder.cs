@@ -102,7 +102,7 @@ namespace VadenStock.Core
             object realO = value == null ? "=" : operOrValue;
             object realV = value ?? operOrValue;
 
-            Query += $" OR { column }{ realO }'{ realV }'";
+            Query += $" OR { column } { realO } '{ realV }'";
         }
 
 

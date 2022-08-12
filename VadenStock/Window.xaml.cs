@@ -191,7 +191,10 @@ namespace VadenStock
 					_StackClientesResult.Children.Add(new ClienteItem(cliente));
 			}
 
-			List<ItemType> itens = Item.Model.Where("codigo", "LIKE", search).Or("mac", "LIKE", search).Select();
+			List<ItemType> itens = Item.Model
+				.Where("codigo", search)
+				.Or("mac", "LIKE", search)
+				.Select();
 
 			if (itens != null && itens.Count > 0)
             {
