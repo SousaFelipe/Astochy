@@ -350,7 +350,7 @@ namespace VadenStock.View.Dialogs
             {
                 foreach (ItemType i in Itens)
                 {
-                    if (i.Codigo == NovoItem.Codigo || i.Mac == NovoItem.Mac)
+                    if ((!string.IsNullOrEmpty(NovoItem.Codigo) && i.Codigo.Equals(NovoItem.Codigo)) || (!string.IsNullOrEmpty(NovoItem.Mac) && i.Mac.Equals(NovoItem.Mac)))
                     {
                         window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "Este item já foi adicionado à lista"));
                         goto exit_function;
