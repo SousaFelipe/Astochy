@@ -15,7 +15,7 @@ namespace VadenStock.View.Components.Organisms
 {
     public partial class ClienteItem : Border
     {
-        private Cliente cliente;
+        private readonly Cliente cliente;
 
 
 

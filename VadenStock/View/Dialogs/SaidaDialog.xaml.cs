@@ -223,11 +223,13 @@ namespace VadenStock.View.Dialogs
                 });
 
                 _InputCliente.Clear();
-                _SelectAcoes.Clear(true);
                 _InputCodigo.Clear();
                 _TableItens.Clear();
                 _PaginationItens.Clear();
+
+                _SelectAcoes.SelectedIndex = 0;
                 _ButtonSave.IsEnabled = false;
+
                 Itens.Clear();
 
                 window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Saída registrada com sucesso"));

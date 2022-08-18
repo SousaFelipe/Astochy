@@ -118,6 +118,8 @@ namespace VadenStock.View
                 .Where(a => a.Listagem)
                 .ToArray();
 
+            _GridAlmoxarifados.Children.Clear();
+            _GridAlmoxarifados.RowDefinitions.Clear();
             _GridAlmoxarifados.RowDefinitions.Add(new RowDefinition());
 
             if (almoxarifados != null)

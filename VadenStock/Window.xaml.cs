@@ -178,7 +178,8 @@ namespace VadenStock
 
 		private async void SearchWhenItsNumber(string search)
         {
-			Response response = await Cliente.Conn.Where("cnpj_cpf", "L", search).Get();
+			string cpf = Convert.ToUInt64(search).ToString(@"000\.000\.000\-00");
+			Response response = await Cliente.Conn.Where("cnpj_cpf", "L", cpf).Get();
 			List<Cliente>? clientes = response.Registros.ToObject<List<Cliente>>();
 
 			if (clientes != null && clientes.Count > 0)
@@ -229,10 +230,11 @@ namespace VadenStock
 
 		private void SearchWhenNotNumberOrText(string search)
         {
-			string clean = search.Replace(":", "").Trim();
+			string macOrNs = search.Replace(":", "").Trim();
 
 			List<ItemType> itens = Item.Model
-				.Where("mac", "LIKE", clean)
+				.Where("mac", "LIKE", macOrNs)
+				.Or("codigo", "=", macOrNs)
 				.Select();
 
 			if (itens.Count > 0)
@@ -265,7 +267,11 @@ namespace VadenStock
 					SearchWhenNotNumberOrText(result);
 			}
 			else
+			{
+				_StackClientesResult.Children.Clear();
+				_StackProdutosResult.Children.Clear();
 				_BorderSeach.Visibility = Visibility.Collapsed;
+			}
 		}
 
 
@@ -273,6 +279,8 @@ namespace VadenStock
 		private void ImageClearSearch_Click(object sender, MouseButtonEventArgs e)
 		{
 			_InputMainSearch.Clear();
+			_StackClientesResult.Children.Clear();
+			_StackProdutosResult.Children.Clear();
 			_BorderSeach.Visibility = Visibility.Collapsed;
 			_GridLoadingSearch.Visibility = Visibility.Visible;
 		}

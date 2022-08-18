@@ -24,7 +24,11 @@
                x:Name="_TextCodigo"
                VerticalAlignment="Center"
                Margin="8 4 8 4"
-               Foreground="{StaticResource TextSecondaryColor}"/>
+               Foreground="{StaticResource TextSecondaryColor}"
+               Cursor="Hand"
+               MouseLeftButtonUp="TextCodigo_MouseLeftButtonUp"
+               MouseEnter="Text_MouseEnter"
+               MouseLeave="Text_MouseLeave"/>
 
     <TextBlock Grid.Column="1"
                x:Name="_TextProduto"

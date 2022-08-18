@@ -45,11 +45,11 @@ namespace VadenStock.View.Dialogs
         {
             List<AlmoxType> almoxarifados = AlmoxarifadosViewModel.TodosOsAlmoxarifados;
 
-            _ComboOrigem.Clear(true);
+            _SelectOrigens.Clear(true);
 
             foreach (AlmoxType a in almoxarifados)
             {
-                _ComboOrigem.Items.Add(new ComboBoxItem()
+                _SelectOrigens.Items.Add(new ComboBoxItem()
                 {
                     Tag = a.Id,
                     Content = a.Name
@@ -63,13 +63,13 @@ namespace VadenStock.View.Dialogs
         {
             List<AlmoxType> almoxarifados = AlmoxarifadosViewModel.TodosOsAlmoxarifados;
 
-            _ComboDestino.Clear(true);
+            _SelectDestinos.Clear(true);
 
             foreach (AlmoxType a in almoxarifados)
             {
                 if (Origem != null && a.Id != Origem.Value.Id)
                 {
-                    _ComboDestino.Items.Add(new ComboBoxItem()
+                    _SelectDestinos.Items.Add(new ComboBoxItem()
                     {
                         Tag = a.Id,
                         Content = a.Name
@@ -159,14 +159,14 @@ namespace VadenStock.View.Dialogs
                 if (tag > 0)
                 {
                     Origem = AlmoxarifadosViewModel.Find(new object[] { "id", tag });
-                    _ComboDestino.IsEnabled = true;
+                    _SelectDestinos.IsEnabled = true;
                     LoadAlmoxDestino();
                 }
                 else
                 {
                     Origem = null;
-                    _ComboDestino.Clear(true);
-                    _ComboDestino.IsEnabled = false;
+                    _SelectDestinos.SelectedIndex = 0;
+                    _SelectDestinos.IsEnabled = false;
                 }
             }
         }
@@ -223,11 +223,7 @@ namespace VadenStock.View.Dialogs
                         }
                     }
                     else
-                    {
-                        window.DisplayAlert(
-                            new AlertDialog(AlertDialog.AlertType.Info, "O item não se encontra no Almoxarifado de Origem")
-                            );
-                    }
+                        window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Info, "O item não se encontra no Almoxarifado de Origem"));
 
                     input.Text = string.Empty;
                 }
@@ -253,12 +249,15 @@ namespace VadenStock.View.Dialogs
             {
                 if (AlmoxarifadosViewModel.Transferir(Origem, Destino, Itens))
                 {
-                    _ComboOrigem.Clear(true);
-                    _ComboDestino.Clear(true);
+                    Itens.Clear();
+
+                    _SelectOrigens.SelectedIndex = 0;
+                    _SelectDestinos.SelectedIndex = 0;
+                    _ButtonSave.IsEnabled = false;
+
                     _TableItens.Clear();
                     _PaginationItens.Clear();
-                    _ButtonSave.IsEnabled = false;
-                    Itens.Clear();
+
                     window.DisplayAlert(new AlertDialog(AlertDialog.AlertType.Success, "Transferência realizada com sucesso"));
                 }
                 else

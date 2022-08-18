@@ -18,6 +18,7 @@ namespace VadenStock.View.Dialogs
     public partial class EntradaDialog : Border
     {
         private ItemType NovoItem;
+        private ItemType? InitItem;
         private readonly List<ItemType> Itens;
 
 
@@ -25,7 +26,7 @@ namespace VadenStock.View.Dialogs
 
 
 
-        public EntradaDialog()
+        public EntradaDialog(ItemType? item = null)
         {
             Filtro = new()
             {
@@ -38,6 +39,7 @@ namespace VadenStock.View.Dialogs
             };
 
             NovoItem = new();
+            InitItem = item;
             Itens = new();
 
             InitializeComponent();
@@ -48,6 +50,7 @@ namespace VadenStock.View.Dialogs
                 LoadMarcas();
                 LoadCategorias();
                 LoadAlmoxarifados();
+                ShouldBeInitItem();
             };
         }
 
@@ -168,6 +171,48 @@ namespace VadenStock.View.Dialogs
             }
 
             _ComboAlmoxarifados.SelectedIndex = 0;
+        }
+
+
+
+        private void ShouldBeInitItem()
+        {
+            if (InitItem != null)
+            {
+                if (InitItem.Value.Produto != null)
+                {
+                    ComboBoxItem? itemProduto = _ComboProdutos.Find(InitItem.Value.Produto.Id);
+                    ComboBoxItem? itemCategoria = _ComboProdutos.Find(InitItem.Value.Produto.Categoria.Id);
+                    ComboBoxItem? itemMarca = _ComboMarcas.Find(InitItem.Value.Produto.Marca.Id);
+
+                    if (itemProduto != null)
+                        _ComboProdutos.SelectedItem = itemProduto;
+
+                    if (itemCategoria != null)
+                        _SelectCategorias.SelectedItem = itemCategoria;
+
+                    if (itemMarca != null)
+                        _ComboMarcas.SelectedItem = itemMarca;
+                }
+
+                if (InitItem.Value.Almoxarifado.Id > 0)
+                {
+                    ComboBoxItem? almoxItem = _ComboAlmoxarifados.Find(InitItem.Value.Almoxarifado.Id);
+
+                    if (almoxItem != null)
+                        _ComboAlmoxarifados.SelectedItem = almoxItem;
+                }
+
+                if (string.IsNullOrEmpty(InitItem.Value.Mac))
+                    _InputMAC.Focus();
+                else
+                    _InputMAC.Text = InitItem.Value.Mac;
+
+                if (string.IsNullOrEmpty(InitItem.Value.Codigo))
+                    _InputCodigo.Focus();
+                else
+                    _InputCodigo.Text = InitItem.Value.Codigo;
+            }
         }
 
 

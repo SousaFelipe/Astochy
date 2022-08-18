@@ -114,7 +114,9 @@ namespace VadenStock.View.Components.Organisms
         {
             TextBlock block = (TextBlock)sender;
             MainWindow window = (MainWindow)Application.Current.MainWindow;
-            ItemType? item = ItensViewModel.Find(block.Text.Replace("MAC: ", "").Replace(":", "").Trim());
+
+            string mac = block.Text.Replace("MAC: ", "").Replace(":", "").Trim();
+            ItemType? item = ItensViewModel.Find(mac);
 
             if (item != null)
                 window.DisplayDialog(new HistoricoDialog(item.Value));
@@ -125,7 +127,7 @@ namespace VadenStock.View.Components.Organisms
 
                 window.DisplayDialog(
                         dialog.OnConfirm(sender => {
-                            window.DisplayDialog(new EntradaDialog());
+                            window.DisplayDialog(new EntradaDialog(new ItemType { Mac = mac }));
                             dialog.Close();
                         })
                 );
